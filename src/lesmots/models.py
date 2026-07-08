@@ -1,0 +1,67 @@
+"""Core data model: a Word (word / phrase / sentence) tracked in the word bank."""
+
+from __future__ import annotations
+
+from dataclasses import dataclass, field, asdict
+from datetime import date, datetime
+from typing import Optional
+
+FAMILIARITY_THRESHOLDS = [(60, 5), (21, 4), (7, 3), (3, 2), (1, 1)]  # (interval_days, level)
+
+
+def detect_kind(text: str) -> str:
+    """Classify input as word / phrase / sentence."""
+    tokens = text.strip().split()
+    if len(tokens) == 1:
+        return "word"
+    if len(tokens) <= 6 and not text.rstrip().endswith((".", "!", "?", "。", "！", "？")):
+        return "phrase"
+    return "sentence"
+
+
+@dataclass
+class Word:
+    """An entry in the word bank.
+
+    Tracks exposure count and SM-2 state; familiarity level (0-5)
+    is derived from the SM-2 interval.
+    """
+
+    text: str
+    explanation: str = ""
+    language: str = "Chinese"
+    kind: str = ""
+    added: str = field(default_factory=lambda: datetime.now().isoformat(timespec="seconds"))
+    exposure_count: int = 0
+    # SM-2 state
+    ease: float = 2.5
+    interval: int = 0
+    due: str = field(default_factory=lambda: date.today().isoformat())
+    reviews: int = 0
+    lapses: int = 0
+
+    def __post_init__(self) -> None:
+        if not self.kind:
+            self.kind = detect_kind(self.text)
+
+    @property
+    def familiarity(self) -> int:
+        """Familiarity level 0 (new) to 5 (mastered), derived from SM-2 interval."""
+        for threshold, level in FAMILIARITY_THRESHOLDS:
+            if self.interval >= threshold:
+                return level
+        return 0
+
+    def is_due(self, on: Optional[date] = None) -> bool:
+        on = on or date.today()
+        return date.fromisoformat(self.due) <= on
+
+    def to_dict(self) -> dict:
+        d = asdict(self)
+        d["familiarity"] = self.familiarity
+        return d
+
+    @classmethod
+    def from_dict(cls, data: dict) -> "Word":
+        data = {k: v for k, v in data.items() if k != "familiarity"}
+        return cls(**data)
