@@ -10,8 +10,10 @@ Endpoints:
 from __future__ import annotations
 
 import json
+import os
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from typing import Optional
 
 from lesmots import llm, daily
 from lesmots.memory import Memory
@@ -75,9 +77,11 @@ class Handler(BaseHTTPRequestHandler):
         pass  # quiet
 
 
-def serve(port: int = 8321) -> None:
-    server = ThreadingHTTPServer(("127.0.0.1", port), Handler)
-    print(f"LesMots UI: http://127.0.0.1:{port}  (Ctrl+C to stop)")
+def serve(port: Optional[int] = None, host: str = "0.0.0.0") -> None:
+    if port is None:
+        port = int(os.environ.get("PORT", "8321"))
+    server = ThreadingHTTPServer((host, port), Handler)
+    print(f"LesMots UI: http://{host}:{port}  (Ctrl+C to stop)")
     try:
         server.serve_forever()
     except KeyboardInterrupt:

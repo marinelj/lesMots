@@ -114,7 +114,8 @@ def build_parser() -> argparse.ArgumentParser:
     cfg.set_defaults(func=cmd_config)
 
     srv = sub.add_parser("serve", help="launch the HTML UI")
-    srv.add_argument("--port", type=int, default=8321)
+    srv.add_argument("--port", type=int, default=None,
+                     help="port to listen on (default: $PORT or 8321)")
     srv.set_defaults(func=cmd_serve)
 
     return p

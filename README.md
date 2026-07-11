@@ -81,6 +81,26 @@ Stored in `~/.lesmots/lesmots.json` (override directory with `LESMOTS_HOME`):
 
 Env vars: `ANTHROPIC_API_KEY` **or** `LESMOTS_API_KEY` + `LESMOTS_API_BASE`; `LESMOTS_MODEL` (default `claude-haiku-4-5` on Anthropic, required otherwise); `LESMOTS_HOME`.
 
+## Deploying to Cloud Run
+
+The included `Dockerfile` runs `lesmots serve`, which binds `0.0.0.0` and honors Cloud Run's `PORT` env var (default 8321):
+
+```bash
+gcloud run deploy lesmots --source . --region REGION --allow-unauthenticated \
+  --set-env-vars ANTHROPIC_API_KEY=sk-ant-...
+```
+
+**Persistence:** Cloud Run's filesystem is ephemeral — without extra setup, the word bank (`$LESMOTS_HOME/lesmots.json`) is lost whenever an instance is replaced. The image sets `LESMOTS_HOME=/data`; mount a GCS bucket there to persist it:
+
+```bash
+gcloud storage buckets create gs://YOUR_BUCKET --location REGION
+gcloud run services update lesmots --region REGION \
+  --add-volume name=data,type=cloud-storage,bucket=YOUR_BUCKET \
+  --add-volume-mount volume=data,mount-path=/data
+```
+
+GCS FUSE mounts don't support concurrent writers, so also cap scaling with `--max-instances 1`. If you skip the mount, the app still works — the word bank just resets on each new instance.
+
 ## Word picking & familiarity
 
 Scheduling is simplified SM-2 (see `src/lesmots/srs.py`). Each exposure counts as a "good" review: the word's interval grows by its ease factor, so well-known words appear less often. Familiarity is derived from the interval: 0 = new, 1 ≥ 1 day, 2 ≥ 3, 3 ≥ 7, 4 ≥ 21, 5 ≥ 60.
