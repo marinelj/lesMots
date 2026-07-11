@@ -9,7 +9,7 @@ LesMots keeps a long-term memory of the words, phrases, and sentences you're lea
 1. **Input** — add a word, phrase, or sentence; LesMots explains it in simple English plus your language (default: Chinese).
 2. **Memory** — every entry is tracked in a JSON word bank: added time, exposure count, familiarity level (0–5).
 3. **Daily job** — fetches a popular story for your interests and rewrites it (max 120 words) using bank words picked by the SM-2 rule (most-overdue first).
-4. **Show me** — click the button (HTML) or run `lesmots show-me` (chat); the prepared content is displayed and every bank word it used gets its exposure count and familiarity updated.
+4. **New Journey** — click the button (HTML) or run `lesmots show-me` (chat); the prepared content is displayed and every bank word it used gets its exposure count and familiarity updated. **Keep reading** extends the current story with one more paragraph of bank words; **I Love This** saves the current story permanently to your loved list.
 
 ## Install
 
@@ -42,7 +42,7 @@ More option-B examples: Qwen/DashScope (`https://dashscope.aliyuncs.com/compatib
 lesmots serve            # open http://127.0.0.1:8321
 ```
 
-The UI has: an **add & explain** input, a **Show me** button, a **Word bank** table (word/phrase/sentence, added time, exposure count, familiarity), a **demonstration area** for the rewritten content, and an **original content area** showing the unmodified source with a link.
+The UI has: an **add & explain** input, a **New Journey** button, a **Keep reading** button (extend the current story), an **I Love This** button (save the current story to your loved list), a **Word bank** table (word/phrase/sentence, added time, exposure count, familiarity), a **demonstration area** for the rewritten content, and an **original content area** showing the unmodified source with a link.
 
 ## Chat version
 
@@ -66,7 +66,7 @@ Cron example (every morning at 7):
 0 7 * * * lesmots daily
 ```
 
-If no prepared content exists when you hit **Show me**, LesMots generates it on the spot.
+If no prepared content exists when you hit **New Journey**, LesMots generates it on the spot.
 
 ## Configuration
 

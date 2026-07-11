@@ -129,6 +129,46 @@ def test_show_me_updates_exposure_and_consumes():
     assert w.exposure_count == 2
 
 
+def fake_extend(story_so_far, words, max_words):
+    return "The story goes on with " + " ".join(f"**{w}**" for w in words[:2])
+
+
+def test_keep_reading_extends_story_and_exposes():
+    m = Memory()
+    w = m.add(Word(text="model"))
+    daily.show_me(m, fetch_fn=fake_fetch, rewrite_fn=fake_rewrite)
+    before = w.exposure_count
+    prepared = daily.keep_reading(m, extend_fn=fake_extend)
+    assert "The story goes on" in prepared["rewritten"]
+    assert prepared["rewritten"].startswith("News about")  # original kept
+    assert w.exposure_count == before + 1
+    assert "model" in prepared["words_used"]
+
+
+def test_keep_reading_without_story_raises():
+    with pytest.raises(ValueError):
+        daily.keep_reading(Memory(), extend_fn=fake_extend)
+
+
+def test_love_current_persists_and_dedupes(tmp_path):
+    m = Memory()
+    m.add(Word(text="model"))
+    daily.show_me(m, fetch_fn=fake_fetch, rewrite_fn=fake_rewrite)
+    m.love_current()
+    m.love_current()  # same story twice -> one entry
+    assert len(m.loved) == 1
+    path = m.save()
+    loaded = Memory.load(path)
+    assert len(loaded.loved) == 1
+    assert loaded.loved[0]["rewritten"] == m.prepared["rewritten"]
+    assert loaded.loved[0]["loved_at"] == TODAY.isoformat()
+
+
+def test_love_current_without_story_raises():
+    with pytest.raises(ValueError):
+        Memory().love_current()
+
+
 def test_fallback_rewrite_respects_max_words():
     text = daily._fallback_rewrite("T", "S. " * 300, ["a", "b"], max_words=120)
     assert len(text.split()) <= 120
