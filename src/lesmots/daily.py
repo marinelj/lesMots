@@ -22,6 +22,13 @@ def _fallback_rewrite(title: str, summary: str, words: list[str], max_words: int
     return " ".join(tokens[:max_words])
 
 
+def _fallback_extend(story_so_far: str, words: list[str], max_words: int) -> str:
+    """No-LLM fallback continuation that still exposes the picked words."""
+    body = "The story continues. More practice items: " + ", ".join(f"**{w}**" for w in words) + "."
+    tokens = body.split()
+    return " ".join(tokens[:max_words])
+
+
 def words_used_in(text: str, candidates: list[str]) -> list[str]:
     """Which candidate words actually appear in the generated text."""
     used = []
@@ -69,3 +76,23 @@ def show_me(memory: Memory,
     memory.record_exposure(prepared.get("words_used", []))
     prepared["consumed"] = True
     return prepared
+
+
+def keep_reading(memory: Memory, extend_fn: Optional[Callable] = None) -> dict:
+    """Extend the current story with one more paragraph of bank words.
+    Updates exposure counts + familiarity for the newly used words."""
+    if not memory.prepared:
+        raise ValueError("No story to extend — start a New Journey first.")
+
+    picked = [w.text for w in memory.pick()]
+    max_words = memory.config["max_words"]
+
+    if extend_fn is None:
+        extend_fn = llm.extend if llm.is_configured() else _fallback_extend
+    continuation = extend_fn(memory.prepared["rewritten"], picked, max_words)
+
+    used = words_used_in(continuation, picked)
+    memory.prepared["rewritten"] += "\n\n" + continuation
+    memory.prepared["words_used"] = sorted(set(memory.prepared.get("words_used", [])) | set(used))
+    memory.record_exposure(used)
+    return memory.prepared

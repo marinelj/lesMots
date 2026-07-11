@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import json
 import os
+from datetime import date
 from pathlib import Path
 from typing import Optional
 
@@ -31,10 +32,11 @@ class Memory:
     """The persistent state of LesMots."""
 
     def __init__(self, config: Optional[dict] = None, words: Optional[list[Word]] = None,
-                 prepared: Optional[dict] = None):
+                 prepared: Optional[dict] = None, loved: Optional[list[dict]] = None):
         self.config = {**DEFAULT_CONFIG, **(config or {})}
         self.words: list[Word] = words or []
         self.prepared: Optional[dict] = prepared  # {"date","original","rewritten","words_used","consumed"}
+        self.loved: list[dict] = loved or []  # stories the user chose to keep
 
     # ---------- word bank ----------
 
@@ -74,6 +76,18 @@ class Memory:
                 updated.append(w)
         return updated
 
+    def love_current(self) -> dict:
+        """Persist the current story into the loved list (deduped on text)."""
+        if not self.prepared:
+            raise ValueError("No story to save — start a New Journey first.")
+        for story in self.loved:
+            if story.get("rewritten") == self.prepared.get("rewritten"):
+                return story
+        story = {k: v for k, v in self.prepared.items() if k != "consumed"}
+        story["loved_at"] = date.today().isoformat()
+        self.loved.append(story)
+        return story
+
     # ---------- persistence ----------
 
     def save(self, path: Optional[Path] = None) -> Path:
@@ -83,6 +97,7 @@ class Memory:
             "config": self.config,
             "words": [w.to_dict() for w in self.words],
             "prepared": self.prepared,
+            "loved": self.loved,
         }
         path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
         return path
@@ -97,4 +112,5 @@ class Memory:
             config=data.get("config"),
             words=[Word.from_dict(w) for w in data.get("words", [])],
             prepared=data.get("prepared"),
+            loved=data.get("loved"),
         )

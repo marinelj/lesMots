@@ -5,6 +5,8 @@ Endpoints:
     GET  /api/words   -> word bank table data
     POST /api/add     -> {"text": ...} add word + explanation
     POST /api/show-me -> prepared content; updates exposure counts
+    POST /api/keep-reading -> extend the current story; updates exposure counts
+    POST /api/love    -> persist the current story to the loved list
 """
 
 from __future__ import annotations
@@ -68,8 +70,20 @@ class Handler(BaseHTTPRequestHandler):
                 prepared = daily.show_me(memory)
                 memory.save()
                 self._json(prepared)
+            elif self.path == "/api/keep-reading":
+                memory = Memory.load()
+                prepared = daily.keep_reading(memory)
+                memory.save()
+                self._json(prepared)
+            elif self.path == "/api/love":
+                memory = Memory.load()
+                story = memory.love_current()
+                memory.save()
+                self._json(story)
             else:
                 self._json({"error": "not found"}, code=404)
+        except ValueError as e:  # user-fixable (e.g. no story yet)
+            self._json({"error": str(e)}, code=400)
         except Exception as e:  # surface errors to the UI
             self._json({"error": str(e)}, code=500)
 

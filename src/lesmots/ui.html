@@ -51,11 +51,13 @@
     <div class="row" style="justify-content:space-between;align-items:center">
       <h2 style="margin:0">Demonstration area</h2>
       <div class="row">
-        <button id="btn-show">Show me</button>
+        <button id="btn-show">New Journey</button>
+        <button id="btn-more" disabled>Keep reading</button>
+        <button id="btn-love" disabled>I Love This</button>
         <button id="btn-bank" class="secondary">Word bank</button>
       </div>
     </div>
-    <p id="demo" class="muted">Click “Show me” to get today’s rewritten content.</p>
+    <p id="demo" class="muted">Click “New Journey” to get today’s rewritten content.</p>
     <p id="status"></p>
   </div>
 
@@ -85,8 +87,12 @@ if (location.protocol === 'file:') {
 }
 
 function renderDemo(p) {
+  if (p.error) { $('status').textContent = p.error; return; }
   $('demo').classList.remove('muted');
-  $('demo').innerHTML = p.rewritten.replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
+  $('demo').innerHTML = p.rewritten.replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')
+                                   .replace(/\n/g, '<br>');
+  $('btn-more').disabled = false;
+  $('btn-love').disabled = false;
   const o = p.original;
   $('original-card').style.display = '';
   $('original').innerHTML =
@@ -103,6 +109,23 @@ $('btn-show').onclick = async () => {
   try { renderDemo(await api('/api/show-me', {method:'POST'})); loadBank(); }
   catch (e) { $('status').textContent = 'Error: ' + e; }
   $('btn-show').disabled = false;
+};
+
+$('btn-more').onclick = async () => {
+  $('btn-more').disabled = true;
+  $('status').textContent = 'Extending the story…';
+  try { renderDemo(await api('/api/keep-reading', {method:'POST'})); loadBank(); }
+  catch (e) { $('status').textContent = 'Error: ' + e; }
+  $('btn-more').disabled = false;
+};
+
+$('btn-love').onclick = async () => {
+  $('btn-love').disabled = true;
+  try {
+    const res = await api('/api/love', {method:'POST'});
+    $('status').textContent = res.error || 'Saved — this story is now in your loved list. ❤';
+  } catch (e) { $('status').textContent = 'Error: ' + e; }
+  $('btn-love').disabled = false;
 };
 
 async function loadBank() {

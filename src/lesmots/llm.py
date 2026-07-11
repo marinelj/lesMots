@@ -114,6 +114,19 @@ def explain(text: str, language: str = "Chinese") -> str:
     )
 
 
+def extend(story_so_far: str, words: list[str], max_words: int = 120) -> str:
+    """Continue an already-rewritten story with one more learner-friendly paragraph."""
+    return _call(
+        f"Continue the following short English story with ONE more simple paragraph "
+        f"(maximum {max_words} words). Naturally use as MANY of these vocabulary items "
+        f"as possible, and wrap each one you use in **double asterisks**:\n"
+        f"{', '.join(words)}\n\n"
+        f"Story so far:\n{story_so_far}",
+        system="You write simple, clear English for language learners.",
+        max_tokens=400,
+    )
+
+
 def rewrite(title: str, summary: str, words: list[str], max_words: int = 120) -> str:
     """Rewrite fetched content using as many of the given bank words as possible."""
     return _call(
