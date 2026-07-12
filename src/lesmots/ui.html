@@ -3,9 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>LesMots</title>
+<title>LesMots · 温故</title>
 <style>
-  :root { --accent:#4f46e5; --bg:#f8fafc; --card:#fff; --ink:#0f172a; --muted:#64748b; }
+  :root { --accent:#4f46e5; --bg:#f8fafc; --card:#fff; --ink:#0f172a; --muted:#64748b;
+          --fam1:#ef4444; --fam2:#f97316; --fam3:#eab308; --fam4:#84cc16; --fam5:#22c55e; }
   * { box-sizing:border-box; }
   body { font-family:system-ui,sans-serif; margin:0; background:var(--bg); color:var(--ink); }
   header { background:var(--accent); color:#fff; padding:14px 24px; display:flex; align-items:baseline; gap:12px; }
@@ -18,32 +19,61 @@
   button { background:var(--accent); color:#fff; border:none; border-radius:8px; padding:10px 18px;
            font-size:15px; cursor:pointer; }
   button.secondary { background:#e2e8f0; color:var(--ink); }
+  button.danger { background:#fee2e2; color:#b91c1c; }
   button:disabled { opacity:.5; cursor:wait; }
+  button.chip { padding:6px 12px; font-size:13px; border-radius:999px; }
   input[type=text] { flex:1; min-width:200px; padding:10px; border:1px solid #cbd5e1; border-radius:8px; font-size:15px; }
   #demo { font-size:17px; line-height:1.7; min-height:60px; }
-  #demo b { color:var(--accent); }
+  #demo b { border-radius:4px; padding:0 3px; color:var(--accent); }
+  #demo b.fam-1 { color:#fff; background:var(--fam1); }
+  #demo b.fam-2 { color:#fff; background:var(--fam2); }
+  #demo b.fam-3 { color:#422006; background:var(--fam3); }
+  #demo b.fam-4 { color:#1a2e05; background:var(--fam4); }
+  #demo b.fam-5 { color:#052e16; background:var(--fam5); }
+  #love-row { justify-content:flex-end; margin-top:8px; }
   #original { font-size:14px; color:var(--muted); line-height:1.6; }
   #original a { color:var(--accent); }
+  #diff { font-size:14px; line-height:1.8; border:1px solid #e2e8f0; border-radius:8px; padding:10px 12px;
+          margin-top:10px; overflow-x:auto; }
+  #diff del { background:#fee2e2; color:#b91c1c; text-decoration:line-through; padding:0 2px; border-radius:3px; }
+  #diff ins { background:#dcfce7; color:#15803d; text-decoration:none; padding:0 2px; border-radius:3px; }
   #explanation { white-space:pre-wrap; line-height:1.6; }
+  #suggest { margin-top:8px; }
   table { width:100%; border-collapse:collapse; font-size:14px; }
   th,td { text-align:left; padding:8px 10px; border-bottom:1px solid #e2e8f0; }
   th { color:var(--muted); font-weight:600; }
-  .lvl { display:inline-block; min-width:26px; text-align:center; border-radius:6px;
-         background:#eef2ff; color:var(--accent); font-weight:600; padding:2px 6px; }
+  .dots { white-space:nowrap; }
+  .dot { display:inline-block; width:14px; height:14px; margin-right:3px; border-radius:50%;
+         background:#e2e8f0; cursor:pointer; vertical-align:middle; }
+  .dot.on-1 { background:var(--fam1); } .dot.on-2 { background:var(--fam2); }
+  .dot.on-3 { background:var(--fam3); } .dot.on-4 { background:var(--fam4); }
+  .dot.on-5 { background:var(--fam5); }
+  .legend { font-size:12px; color:var(--muted); margin:6px 0 0; }
+  .legend i { display:inline-block; width:11px; height:11px; border-radius:3px; margin:0 3px 0 10px;
+              vertical-align:middle; font-style:normal; }
+  .topic { display:inline-block; padding:6px 14px; margin:4px 6px 4px 0; border-radius:999px;
+           background:#eef2ff; color:var(--accent); font-size:13px; cursor:pointer; user-select:none;
+           border:1px solid transparent; }
+  .topic.sel { background:var(--accent); color:#fff; }
+  #loved-list { list-style:none; margin:0; padding:0; }
+  #loved-list li { display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid #e2e8f0; }
+  #loved-list li:last-child { border-bottom:none; }
+  .loved-title { flex:1; }
   .muted { color:var(--muted); }
   #status { font-size:13px; color:var(--muted); }
 </style>
 </head>
 <body>
-<header><h1>LesMots</h1><span>learn words inside the news you care about</span></header>
+<header><h1>LesMots · 温故</h1><span>learn words inside the news you care about — 温故而知新</span></header>
 <main>
 
   <div class="card">
     <h2>Add a word / phrase / sentence</h2>
     <div class="row">
       <input id="new-word" type="text" placeholder="e.g. inference, state of the art, ...">
-      <button id="btn-add">Add &amp; Explain</button>
+      <button id="btn-add">Explain &amp; Add</button>
     </div>
+    <div id="suggest" class="row"></div>
     <p id="explanation" class="muted"></p>
   </div>
 
@@ -53,32 +83,65 @@
       <div class="row">
         <button id="btn-show">New Journey</button>
         <button id="btn-more" disabled>Keep reading</button>
-        <button id="btn-love" disabled>I Love This</button>
-        <button id="btn-bank" class="secondary">Word bank</button>
+        <button id="btn-orig" class="secondary" disabled>Original</button>
       </div>
     </div>
     <p id="demo" class="muted">Click “New Journey” to get today’s rewritten content.</p>
+    <div class="row" id="love-row" style="display:none">
+      <button id="btn-love">I Love This</button>
+    </div>
     <p id="status"></p>
   </div>
 
   <div class="card" id="original-card" style="display:none">
     <h2>Original content (no rewrite)</h2>
     <div id="original"></div>
+    <h2 style="margin-top:14px">Rewrite diff <span class="muted" style="text-transform:none">(original → rewritten)</span></h2>
+    <div id="diff"></div>
   </div>
 
-  <div class="card" id="bank-card" style="display:none">
+  <div class="card">
+    <h2>Loved stories</h2>
+    <ul id="loved-list"><li class="muted">Loading…</li></ul>
+  </div>
+
+  <div class="card">
+    <h2>Feed</h2>
+    <p class="muted" style="margin:0 0 6px;font-size:13px">Pick the topics “New Journey” draws stories from — saved instantly.</p>
+    <div id="topics"></div>
+  </div>
+
+  <div class="card">
     <h2>Word bank</h2>
     <table>
       <thead><tr><th>Word / Phrase / Sentence</th><th>Kind</th><th>Added</th>
-                 <th>Exposure count</th><th>Familiarity</th></tr></thead>
+                 <th>Exposure count</th><th>Familiarity (click to set)</th></tr></thead>
       <tbody id="bank-body"></tbody>
     </table>
+    <p class="legend">Familiarity:
+      <i style="background:var(--fam1)"></i>1 unfamiliar
+      <i style="background:var(--fam2)"></i>2
+      <i style="background:var(--fam3)"></i>3
+      <i style="background:var(--fam4)"></i>4
+      <i style="background:var(--fam5)"></i>5 very familiar
+    </p>
   </div>
 
 </main>
 <script>
 const $ = id => document.getElementById(id);
 const api = (path, opts) => fetch(path, opts).then(r => r.json());
+const post = body => ({method:'POST', headers:{'content-type':'application/json'},
+                       body: JSON.stringify(body || {})});
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+
+const FEED_TOPICS = ['AI','LLM','Programming','Robotics','Space','Science','Health','Climate',
+                     'Sports','Politics','History','Business','Finance','Education','Art',
+                     'Music','Movies','Gaming','Travel','Food'];
+
+let bankMap = {};      // lowercased text -> familiarity level
+let lastPrepared = null;
+let lovedMap = {};     // id -> story
 
 if (location.protocol === 'file:') {
   $('demo').innerHTML = '<b>This page must be served by LesMots, not opened as a file.</b><br>' +
@@ -86,27 +149,78 @@ if (location.protocol === 'file:') {
     '<a href="http://127.0.0.1:8321">http://127.0.0.1:8321</a>.';
 }
 
+// ---------- story rendering ----------
+
+function famClass(word) {
+  const lvl = bankMap[word.trim().toLowerCase()];
+  return lvl ? `fam-${lvl}` : '';
+}
+
+function storyHTML(text) {
+  return esc(text).replace(/\*\*(.+?)\*\*/g, (m, w) => `<b class="${famClass(w)}">${w}</b>`)
+                  .replace(/\n/g, '<br>');
+}
+
 function renderDemo(p) {
   if (p.error) { $('status').textContent = p.error; return; }
+  lastPrepared = p;
   $('demo').classList.remove('muted');
-  $('demo').innerHTML = p.rewritten.replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')
-                                   .replace(/\n/g, '<br>');
+  $('demo').innerHTML = storyHTML(p.rewritten);
   $('btn-more').disabled = false;
+  $('btn-orig').disabled = false;
   $('btn-love').disabled = false;
-  const o = p.original;
-  $('original-card').style.display = '';
-  $('original').innerHTML =
-    `<p><strong>${o.title}</strong> — ${o.source} (${o.points} points)</p>` +
-    `<p>${o.text || ''}</p><p><a href="${o.url}" target="_blank">${o.url}</a></p>`;
-  $('status').textContent = p.words_used.length
+  $('love-row').style.display = '';
+  renderOriginal(p);
+  $('status').textContent = p.words_used && p.words_used.length
     ? `Words exposed this time: ${p.words_used.join(', ')} — exposure counts updated.`
     : 'No bank words were used — add more words!';
 }
 
+function renderOriginal(p) {
+  const o = p.original || {};
+  $('original').innerHTML =
+    `<p><strong>${esc(o.title || '')}</strong> — ${esc(o.source || '')} (${o.points || 0} points)</p>` +
+    `<p>${esc(o.text || '')}</p><p><a href="${esc(o.url || '#')}" target="_blank">${esc(o.url || '')}</a></p>`;
+  const plainRewrite = (p.rewritten || '').replace(/\*\*/g, '');
+  $('diff').innerHTML = renderDiff(`${o.title || ''}. ${o.text || ''}`, plainRewrite);
+}
+
+// ---------- GitHub-style word diff ----------
+
+function wordDiff(a, b) {
+  const A = a.split(/\s+/).filter(Boolean), B = b.split(/\s+/).filter(Boolean);
+  const n = A.length, m = B.length;
+  const dp = Array.from({length: n + 1}, () => new Array(m + 1).fill(0));
+  for (let i = n - 1; i >= 0; i--)
+    for (let j = m - 1; j >= 0; j--)
+      dp[i][j] = A[i] === B[j] ? dp[i+1][j+1] + 1 : Math.max(dp[i+1][j], dp[i][j+1]);
+  const out = []; let i = 0, j = 0;
+  while (i < n && j < m) {
+    if (A[i] === B[j]) { out.push(['=', A[i]]); i++; j++; }
+    else if (dp[i+1][j] >= dp[i][j+1]) out.push(['-', A[i++]]);
+    else out.push(['+', B[j++]]);
+  }
+  while (i < n) out.push(['-', A[i++]]);
+  while (j < m) out.push(['+', B[j++]]);
+  return out;
+}
+
+function renderDiff(orig, rew) {
+  return wordDiff(orig, rew).map(([t, w]) =>
+    t === '=' ? esc(w) : t === '-' ? `<del>${esc(w)}</del>` : `<ins>${esc(w)}</ins>`).join(' ');
+}
+
+$('btn-orig').onclick = () => {
+  const card = $('original-card');
+  card.style.display = card.style.display === 'none' ? '' : 'none';
+};
+
+// ---------- journey buttons ----------
+
 $('btn-show').onclick = async () => {
   $('btn-show').disabled = true;
   $('status').textContent = 'Preparing content…';
-  try { renderDemo(await api('/api/show-me', {method:'POST'})); loadBank(); }
+  try { const p = await api('/api/show-me', post()); await loadBank(); renderDemo(p); }
   catch (e) { $('status').textContent = 'Error: ' + e; }
   $('btn-show').disabled = false;
 };
@@ -114,7 +228,7 @@ $('btn-show').onclick = async () => {
 $('btn-more').onclick = async () => {
   $('btn-more').disabled = true;
   $('status').textContent = 'Extending the story…';
-  try { renderDemo(await api('/api/keep-reading', {method:'POST'})); loadBank(); }
+  try { const p = await api('/api/keep-reading', post()); await loadBank(); renderDemo(p); }
   catch (e) { $('status').textContent = 'Error: ' + e; }
   $('btn-more').disabled = false;
 };
@@ -122,35 +236,34 @@ $('btn-more').onclick = async () => {
 $('btn-love').onclick = async () => {
   $('btn-love').disabled = true;
   try {
-    const res = await api('/api/love', {method:'POST'});
+    const res = await api('/api/love', post());
     $('status').textContent = res.error || 'Saved — this story is now in your loved list. ❤';
+    loadLoved();
   } catch (e) { $('status').textContent = 'Error: ' + e; }
   $('btn-love').disabled = false;
 };
 
-async function loadBank() {
-  const words = await api('/api/words');
-  $('bank-body').innerHTML = words.map(w =>
-    `<tr><td>${w.text}</td><td class="muted">${w.kind}</td>
-     <td class="muted">${w.added.slice(0,10)}</td><td>${w.exposure_count}</td>
-     <td><span class="lvl">${w.familiarity}</span></td></tr>`).join('')
-    || '<tr><td colspan="5" class="muted">Empty — add your first word above.</td></tr>';
-}
+// ---------- add & explain with spelling check ----------
 
-$('btn-bank').onclick = () => {
-  const card = $('bank-card');
-  card.style.display = card.style.display === 'none' ? '' : 'none';
-  if (card.style.display !== 'none') loadBank();
-};
-
-$('btn-add').onclick = async () => {
-  const text = $('new-word').value.trim();
+async function addWord(text, skipCheck) {
   if (!text) return;
   $('btn-add').disabled = true;
-  $('explanation').textContent = 'Explaining…';
+  $('suggest').innerHTML = '';
   try {
-    const res = await api('/api/add', {method:'POST', headers:{'content-type':'application/json'},
-                                       body: JSON.stringify({text})});
+    if (!skipCheck) {
+      $('explanation').textContent = 'Checking spelling…';
+      const chk = await api('/api/check-spelling', post({text}));
+      if (chk.suggestions && chk.suggestions.length) {
+        $('explanation').textContent = `“${text}” looks misspelled — click the word you meant:`;
+        $('suggest').innerHTML =
+          chk.suggestions.map(s => `<button class="chip" data-pick="${esc(s)}">${esc(s)}</button>`).join('') +
+          `<button class="chip secondary" data-pick="${esc(text)}">keep “${esc(text)}”</button>`;
+        $('btn-add').disabled = false;
+        return;
+      }
+    }
+    $('explanation').textContent = 'Explaining…';
+    const res = await api('/api/add', post({text}));
     $('explanation').textContent = res.explanation || res.error || 'Added.';
     $('new-word').value = '';
     loadBank();
@@ -158,7 +271,99 @@ $('btn-add').onclick = async () => {
     $('explanation').textContent = 'Error: ' + e + ' — is the server running? Start it with: lesmots serve';
   }
   $('btn-add').disabled = false;
+}
+
+$('btn-add').onclick = () => addWord($('new-word').value.trim(), false);
+$('suggest').onclick = e => {
+  const b = e.target.closest('[data-pick]');
+  if (b) { $('new-word').value = b.dataset.pick; addWord(b.dataset.pick, true); }
 };
+
+// ---------- word bank (permanent) ----------
+
+async function loadBank() {
+  const words = await api('/api/words');
+  bankMap = {};
+  words.forEach(w => { bankMap[w.text.trim().toLowerCase()] = w.familiarity; });
+  $('bank-body').innerHTML = words.map(w =>
+    `<tr><td>${esc(w.text)}</td><td class="muted">${esc(w.kind)}</td>
+     <td class="muted">${w.added.slice(0,10)}</td><td>${w.exposure_count}</td>
+     <td class="dots">${[1,2,3,4,5].map(l =>
+       `<span class="dot ${l <= w.familiarity ? 'on-' + w.familiarity : ''}"
+              data-text="${esc(w.text)}" data-level="${l}" title="set familiarity ${l}"></span>`).join('')}
+     </td></tr>`).join('')
+    || '<tr><td colspan="5" class="muted">Empty — add your first word above.</td></tr>';
+  if (lastPrepared) $('demo').innerHTML = storyHTML(lastPrepared.rewritten);
+}
+
+$('bank-body').onclick = async e => {
+  const dot = e.target.closest('.dot');
+  if (!dot) return;
+  const res = await api('/api/familiarity', post({text: dot.dataset.text, level: +dot.dataset.level}));
+  if (res.error) { $('status').textContent = res.error; return; }
+  loadBank();
+};
+
+// ---------- loved stories ----------
+
+async function loadLoved() {
+  const list = await api('/api/loved');
+  lovedMap = {};
+  list.forEach(s => { lovedMap[s.id] = s; });
+  $('loved-list').innerHTML = list.length ? list.map(s =>
+    `<li><span class="loved-title">${esc((s.original && s.original.title) || 'Story')}</span>
+      <span class="muted">${esc(s.loved_at || '')}</span>
+      <button class="chip secondary" data-show="${esc(s.id)}">read</button>
+      <button class="chip danger" data-rm="${esc(s.id)}">remove</button></li>`).join('')
+    : '<li class="muted">No loved stories yet — click “I Love This” under a story.</li>';
+}
+
+$('loved-list').onclick = async e => {
+  const show = e.target.closest('[data-show]');
+  if (show) {
+    const s = lovedMap[show.dataset.show];
+    if (!s) return;
+    $('demo').classList.remove('muted');
+    $('demo').innerHTML = storyHTML(s.rewritten);
+    $('status').textContent = `From your loved list (${s.loved_at}) — no exposure counted.`;
+    $('btn-more').disabled = true;   // Keep reading applies to the current journey only
+    $('btn-love').disabled = true;
+    window.scrollTo({top: 0, behavior: 'smooth'});
+    return;
+  }
+  const rm = e.target.closest('[data-rm]');
+  if (rm) {
+    await api('/api/unlove', post({id: rm.dataset.rm}));
+    loadLoved();
+  }
+};
+
+// ---------- feed topics ----------
+
+async function loadTopics() {
+  const cfg = await api('/api/config');
+  const selected = (cfg.interests || []).map(i => i.toLowerCase());
+  const extras = (cfg.interests || []).filter(i => !FEED_TOPICS.some(t => t.toLowerCase() === i.toLowerCase()));
+  $('topics').innerHTML = FEED_TOPICS.concat(extras).map(t =>
+    `<span class="topic ${selected.includes(t.toLowerCase()) ? 'sel' : ''}" data-topic="${esc(t)}">${esc(t)}</span>`
+  ).join('');
+}
+
+$('topics').onclick = async e => {
+  const chip = e.target.closest('.topic');
+  if (!chip) return;
+  chip.classList.toggle('sel');
+  const interests = [...document.querySelectorAll('.topic.sel')].map(el => el.dataset.topic);
+  const res = await api('/api/interests', post({interests}));
+  if (res.error) {  // e.g. nothing selected — revert
+    chip.classList.toggle('sel');
+    $('status').textContent = res.error;
+  }
+};
+
+// ---------- initial load ----------
+
+loadBank(); loadLoved(); loadTopics();
 </script>
 </body>
 </html>

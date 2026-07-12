@@ -3,10 +3,11 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field, asdict
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from typing import Optional
 
-FAMILIARITY_THRESHOLDS = [(60, 5), (21, 4), (7, 3), (3, 2), (1, 1)]  # (interval_days, level)
+FAMILIARITY_THRESHOLDS = [(60, 5), (21, 4), (7, 3), (1, 2)]  # (interval_days, level); below -> 1
+FAMILIARITY_INTERVALS = {1: 0, 2: 1, 3: 7, 4: 21, 5: 60}  # level -> SM-2 interval it snaps to
 
 
 def detect_kind(text: str) -> str:
@@ -23,7 +24,7 @@ def detect_kind(text: str) -> str:
 class Word:
     """An entry in the word bank.
 
-    Tracks exposure count and SM-2 state; familiarity level (0-5)
+    Tracks exposure count and SM-2 state; familiarity level (1-5)
     is derived from the SM-2 interval.
     """
 
@@ -46,11 +47,21 @@ class Word:
 
     @property
     def familiarity(self) -> int:
-        """Familiarity level 0 (new) to 5 (mastered), derived from SM-2 interval."""
+        """Familiarity level 1 (completely unfamiliar) to 5 (very familiar),
+        derived from the SM-2 interval."""
         for threshold, level in FAMILIARITY_THRESHOLDS:
             if self.interval >= threshold:
                 return level
-        return 0
+        return 1
+
+    def set_familiarity(self, level: int, on: Optional[date] = None) -> "Word":
+        """One-click manual override: snap the SM-2 interval/due to the level."""
+        if level not in FAMILIARITY_INTERVALS:
+            raise ValueError(f"familiarity must be 1-5, got {level}")
+        on = on or date.today()
+        self.interval = FAMILIARITY_INTERVALS[level]
+        self.due = (on + timedelta(days=self.interval)).isoformat()
+        return self
 
     def is_due(self, on: Optional[date] = None) -> bool:
         on = on or date.today()

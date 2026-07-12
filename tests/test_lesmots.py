@@ -40,11 +40,23 @@ def test_detect_kind():
 
 def test_familiarity_levels():
     w = Word(text="x")
-    assert w.familiarity == 0
+    assert w.familiarity == 1  # brand new = completely unfamiliar
+    w.interval = 1
+    assert w.familiarity == 2
     w.interval = 7
     assert w.familiarity == 3
     w.interval = 60
     assert w.familiarity == 5
+
+
+def test_set_familiarity_snaps_interval_and_due():
+    w = Word(text="x")
+    w.set_familiarity(4, on=TODAY)
+    assert w.familiarity == 4
+    assert w.interval == 21
+    assert w.due == (TODAY + timedelta(days=21)).isoformat()
+    with pytest.raises(ValueError):
+        w.set_familiarity(6)
 
 
 # ---------- SM-2 ----------
@@ -167,6 +179,53 @@ def test_love_current_persists_and_dedupes(tmp_path):
 def test_love_current_without_story_raises():
     with pytest.raises(ValueError):
         Memory().love_current()
+
+
+def test_unlove_removes_by_id():
+    m = Memory()
+    m.add(Word(text="model"))
+    daily.show_me(m, fetch_fn=fake_fetch, rewrite_fn=fake_rewrite)
+    story = m.love_current()
+    assert story["id"]
+    assert m.unlove("nonexistent") is False
+    assert m.unlove(story["id"]) is True
+    assert m.loved == []
+
+
+def test_loved_entries_without_id_get_backfilled():
+    m = Memory(loved=[{"rewritten": "old story", "loved_at": "2026-07-10"}])
+    assert m.loved[0]["id"]
+    assert m.unlove(m.loved[0]["id"]) is True
+
+
+def test_memory_set_familiarity():
+    m = Memory()
+    m.add(Word(text="benchmark"))
+    w = m.set_familiarity("Benchmark", 5)  # case-insensitive find
+    assert w is not None and w.familiarity == 5
+    assert m.set_familiarity("unknown", 3) is None
+
+
+# ---------- fetcher ----------
+
+def test_fetch_url_freshness_filter():
+    from lesmots import fetcher
+    fresh = fetcher._url("ai", since_days=7)
+    assert "numericFilters=" in fresh and "created_at_i" in fresh
+    assert "numericFilters" not in fetcher._url("ai")
+
+
+# ---------- llm helpers ----------
+
+def test_parse_json_list_variants():
+    from lesmots.llm import _parse_json_list
+    assert _parse_json_list('["inference", "interference"]') == ["inference", "interference"]
+    assert _parse_json_list('```json\n["a"]\n```') == ["a"]
+    assert _parse_json_list('Sure! Here it is: ["b"] hope that helps') == ["b"]
+    assert _parse_json_list("[]") == []
+    assert _parse_json_list("not json at all") == []
+    assert _parse_json_list('[1, {"x": 2}, "ok", "", "  "]') == ["ok"]
+    assert _parse_json_list('["a","b","c","d","e"]') == ["a", "b", "c"]  # capped at 3
 
 
 def test_fallback_rewrite_respects_max_words():

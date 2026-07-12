@@ -117,14 +117,43 @@ def explain(text: str, language: str = "Chinese") -> str:
 def extend(story_so_far: str, words: list[str], max_words: int = 120) -> str:
     """Continue an already-rewritten story with one more learner-friendly paragraph."""
     return _call(
-        f"Continue the following short English story with ONE more simple paragraph "
-        f"(maximum {max_words} words). Naturally use as MANY of these vocabulary items "
-        f"as possible, and wrap each one you use in **double asterisks**:\n"
-        f"{', '.join(words)}\n\n"
-        f"Story so far:\n{story_so_far}",
-        system="You write simple, clear English for language learners.",
+        f"Here is the story so far:\n---\n{story_so_far}\n---\n\n"
+        f"Write ONLY the next paragraph (maximum {max_words} words). It must pick up "
+        f"exactly where the last sentence stops and add NEW information or a next step: "
+        f"same topic, same facts, same tone. Do not restart the story, do not summarize, "
+        f"and do not repeat anything already written above.\n"
+        f"Where they fit naturally, use vocabulary items from this list and wrap each "
+        f"one you use in **double asterisks** (never force one in where it breaks the "
+        f"flow):\n{', '.join(words)}",
+        system="You write simple, clear English for language learners. "
+               "You continue stories seamlessly and coherently.",
         max_tokens=400,
     )
+
+
+def suggest_corrections(text: str) -> list[str]:
+    """Up to 3 likely intended spellings if `text` looks misspelled; [] if it's fine."""
+    raw = _call(
+        f'A learner typed this into an English vocabulary app: "{text}"\n'
+        f"If it contains a spelling mistake, reply with a JSON array of up to 3 likely "
+        f"intended corrections, best guess first. If it is spelled correctly (including "
+        f"proper nouns and acronyms), reply with []. Reply with the JSON array ONLY.",
+        system="You are a strict spell-checker. Output a JSON array of strings, nothing else.",
+        max_tokens=100,
+    )
+    return _parse_json_list(raw)
+
+
+def _parse_json_list(raw: str) -> list[str]:
+    """Extract a JSON array of strings from a model reply (tolerates fences/prose)."""
+    start, end = raw.find("["), raw.rfind("]")
+    if start == -1 or end <= start:
+        return []
+    try:
+        items = json.loads(raw[start:end + 1])
+    except json.JSONDecodeError:
+        return []
+    return [i.strip() for i in items if isinstance(i, str) and i.strip()][:3]
 
 
 def rewrite(title: str, summary: str, words: list[str], max_words: int = 120) -> str:

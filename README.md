@@ -1,14 +1,14 @@
-# LesMots
+# LesMots · 温故
 
-Learn vocabulary **inside content you actually want to read.**
+Learn vocabulary **inside content you actually want to read.** (中文名：温故 — 温故而知新)
 
 LesMots keeps a long-term memory of the words, phrases, and sentences you're learning. Every day it fetches popular internet content matching your interests (default: LLM, AI, state-of-the-art tech) and rewrites it in simple English — deliberately reusing the words you most need to see, picked by SM-2 spaced repetition. Reading the daily piece *is* the review.
 
 ## How it works
 
 1. **Input** — add a word, phrase, or sentence; LesMots explains it in simple English plus your language (default: Chinese).
-2. **Memory** — every entry is tracked in a JSON word bank: added time, exposure count, familiarity level (0–5).
-3. **Daily job** — fetches a popular story for your interests and rewrites it (max 120 words) using bank words picked by the SM-2 rule (most-overdue first).
+2. **Memory** — every entry is tracked in a JSON word bank: added time, exposure count, familiarity level (1–5, editable with one click).
+3. **Daily job** — fetches a popular story (preferring ones from the last 7 days) for your feed topics and rewrites it (max 120 words) using bank words picked by the SM-2 rule (most-overdue first).
 4. **New Journey** — click the button (HTML) or run `lesmots show-me` (chat); the prepared content is displayed and every bank word it used gets its exposure count and familiarity updated. **Keep reading** extends the current story with one more paragraph of bank words; **I Love This** saves the current story permanently to your loved list.
 
 ## Install
@@ -42,7 +42,7 @@ More option-B examples: Qwen/DashScope (`https://dashscope.aliyuncs.com/compatib
 lesmots serve            # open http://127.0.0.1:8321
 ```
 
-The UI has: an **add & explain** input, a **New Journey** button, a **Keep reading** button (extend the current story), an **I Love This** button (save the current story to your loved list), a **Word bank** table (word/phrase/sentence, added time, exposure count, familiarity), a **demonstration area** for the rewritten content, and an **original content area** showing the unmodified source with a link.
+The UI has: an **Explain & Add** input (with a spelling-correction suggestion flow), a **New Journey** button, a **Keep reading** button (coherently extend the current story), an **I Love This** button under the story (save it to the loved list), an **Original** toggle showing the unmodified source plus a GitHub-style **rewrite diff**, a **Loved stories** panel (read/remove saved stories), a **Feed** panel (pick the interest topics stories are drawn from), and a permanent **Word bank** table where story words are highlighted on a red→green familiarity gradient and familiarity is settable with one click.
 
 ## Chat version
 

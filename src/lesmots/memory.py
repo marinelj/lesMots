@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import json
 import os
+import uuid
 from datetime import date
 from pathlib import Path
 from typing import Optional
@@ -37,6 +38,8 @@ class Memory:
         self.words: list[Word] = words or []
         self.prepared: Optional[dict] = prepared  # {"date","original","rewritten","words_used","consumed"}
         self.loved: list[dict] = loved or []  # stories the user chose to keep
+        for story in self.loved:  # entries saved before ids existed
+            story.setdefault("id", uuid.uuid4().hex[:8])
 
     # ---------- word bank ----------
 
@@ -84,9 +87,25 @@ class Memory:
             if story.get("rewritten") == self.prepared.get("rewritten"):
                 return story
         story = {k: v for k, v in self.prepared.items() if k != "consumed"}
+        story["id"] = uuid.uuid4().hex[:8]
         story["loved_at"] = date.today().isoformat()
         self.loved.append(story)
         return story
+
+    def unlove(self, story_id: str) -> bool:
+        """Remove a story from the loved list by id."""
+        for story in self.loved:
+            if story.get("id") == story_id:
+                self.loved.remove(story)
+                return True
+        return False
+
+    def set_familiarity(self, text: str, level: int) -> Optional[Word]:
+        """Manually set a bank word's familiarity (1-5); returns None if unknown."""
+        w = self.find(text)
+        if w:
+            w.set_familiarity(level)
+        return w
 
     # ---------- persistence ----------
 
