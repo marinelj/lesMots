@@ -85,6 +85,18 @@ def test_easy_boosts():
     assert w.interval >= 3 and w.ease > 2.5
 
 
+def test_interval_capped_prevents_date_overflow():
+    from lesmots.srs import MAX_INTERVAL
+    w = Word(text="x")
+    for _ in range(60):  # uncapped, this overflows date arithmetic at ~review 17
+        review(w, GOOD, on=TODAY)
+    assert w.interval == MAX_INTERVAL
+    # words saved with a runaway interval before the cap existed still recover
+    w2 = Word(text="y", interval=3_000_000)
+    review(w2, GOOD, on=TODAY)
+    assert w2.interval == MAX_INTERVAL
+
+
 def test_pick_words_due_first_then_least_familiar():
     overdue = Word(text="a", due=(TODAY - timedelta(days=2)).isoformat())
     due = Word(text="b", due=TODAY.isoformat())

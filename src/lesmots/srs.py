@@ -17,6 +17,7 @@ from lesmots.models import Word
 AGAIN, HARD, GOOD, EASY = 0, 1, 2, 3
 
 MIN_EASE = 1.3
+MAX_INTERVAL = 365  # days; uncapped growth overflows date arithmetic (issue #12)
 
 
 def review(word: Word, grade: int, on: Optional[date] = None) -> Word:
@@ -42,6 +43,7 @@ def review(word: Word, grade: int, on: Optional[date] = None) -> Word:
         word.ease += 0.15
         word.interval = max(2, int(word.interval * word.ease * 1.3)) if word.interval else 3
 
+    word.interval = min(word.interval, MAX_INTERVAL)
     word.due = (on + timedelta(days=word.interval)).isoformat()
     return word
 
