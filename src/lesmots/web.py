@@ -12,6 +12,7 @@ Endpoints:
     POST /api/love    -> persist the current story to the loved list
     POST /api/unlove  -> {"id": ...} remove a loved story
     POST /api/familiarity -> {"text": ..., "level": 1-5} manual familiarity
+    POST /api/remove-word -> {"text": ...} delete a bank entry
     POST /api/interests   -> {"interests": [...]} update feed topics
 """
 
@@ -19,6 +20,7 @@ from __future__ import annotations
 
 import json
 import os
+import threading
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Optional
@@ -28,6 +30,11 @@ from lesmots.memory import Memory
 from lesmots.models import Word
 
 UI_PATH = Path(__file__).parent / "ui.html"
+
+# The server is threaded but every POST does load-modify-save on one JSON
+# file; without serialization, rapid clicks (e.g. familiarity dots) race
+# and lose updates (issue #15).
+_WRITE_LOCK = threading.Lock()
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -62,6 +69,13 @@ class Handler(BaseHTTPRequestHandler):
             self._json({"error": "not found"}, code=404)
 
     def do_POST(self) -> None:  # noqa: N802
+        if self.path == "/api/check-spelling":  # read-only, may hold an LLM call
+            self._do_post()
+            return
+        with _WRITE_LOCK:
+            self._do_post()
+
+    def _do_post(self) -> None:
         try:
             if self.path == "/api/add":
                 data = self._body()
@@ -109,6 +123,12 @@ class Handler(BaseHTTPRequestHandler):
                     return
                 memory.save()
                 self._json(word.to_dict())
+            elif self.path == "/api/remove-word":
+                text = (self._body().get("text") or "").strip()
+                memory = Memory.load()
+                removed = memory.remove(text)
+                memory.save()
+                self._json({"removed": removed})
             elif self.path == "/api/interests":
                 interests = [i.strip() for i in (self._body().get("interests") or [])
                              if isinstance(i, str) and i.strip()]

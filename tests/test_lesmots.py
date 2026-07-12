@@ -210,6 +210,14 @@ def test_loved_entries_without_id_get_backfilled():
     assert m.unlove(m.loved[0]["id"]) is True
 
 
+def test_memory_remove():
+    m = Memory()
+    m.add(Word(text="model"))
+    assert m.remove("MODEL") is True  # case-insensitive
+    assert m.words == []
+    assert m.remove("model") is False
+
+
 def test_memory_set_familiarity():
     m = Memory()
     m.add(Word(text="benchmark"))
