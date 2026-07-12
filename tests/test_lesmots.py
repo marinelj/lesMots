@@ -233,6 +233,49 @@ def test_fetch_url_freshness_filter():
     fresh = fetcher._url("ai", since_days=7)
     assert "numericFilters=" in fresh and "created_at_i" in fresh
     assert "numericFilters" not in fetcher._url("ai")
+    assert "when%3A7d" in fetcher._google_news_url("Sports")
+
+
+GOOGLE_RSS = b"""<?xml version="1.0"?>
+<rss version="2.0"><channel>
+  <item>
+    <title>Norway wins big at winter games - CNN</title>
+    <link>https://example.com/norway</link>
+    <pubDate>Sat, 11 Jul 2026 11:30:25 GMT</pubDate>
+    <source url="https://cnn.com">CNN</source>
+  </item>
+  <item><title></title></item>
+  <item>
+    <title>Plain headline without outlet suffix</title>
+    <link>https://example.com/plain</link>
+    <pubDate>not a date</pubDate>
+  </item>
+</channel></rss>"""
+
+
+def test_parse_google_rss():
+    from lesmots.fetcher import _parse_google_rss
+    stories = _parse_google_rss(GOOGLE_RSS)
+    assert len(stories) == 2  # empty-title item skipped
+    assert stories[0]["title"] == "Norway wins big at winter games"  # outlet stripped
+    assert stories[0]["source"] == "CNN"
+    assert stories[0]["published"] == "2026-07-11"
+    assert stories[0]["url"] == "https://example.com/norway"
+    assert stories[1]["published"] == ""  # bad pubDate tolerated
+
+
+def test_fetch_popular_falls_back_to_hn(monkeypatch):
+    from lesmots import fetcher
+    monkeypatch.setattr(fetcher, "_fetch_google_news",
+                        lambda topic: (_ for _ in ()).throw(RuntimeError("down")))
+    monkeypatch.setattr(fetcher, "_search",
+                        lambda q, d=None: [{"title": "HN story", "points": 5,
+                                            "created_at": "2026-07-10T00:00:00Z",
+                                            "objectID": "1"}])
+    story = fetcher.fetch_popular(["ai"])
+    assert story["title"] == "HN story"
+    assert story["source"] == "Hacker News"
+    assert story["published"] == "2026-07-10"
 
 
 # ---------- llm helpers ----------

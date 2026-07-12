@@ -179,7 +179,8 @@ function renderDemo(p) {
 function renderOriginal(p) {
   const o = p.original || {};
   $('original').innerHTML =
-    `<p><strong>${esc(o.title || '')}</strong> — ${esc(o.source || '')} (${o.points || 0} points)</p>` +
+    `<p><strong>${esc(o.title || '')}</strong> — ${esc(o.source || '')}` +
+    `${o.published ? ' · ' + esc(o.published) : ''}${o.points ? ` (${o.points} points)` : ''}</p>` +
     `<p>${esc(o.text || '')}</p><p><a href="${esc(o.url || '#')}" target="_blank">${esc(o.url || '')}</a></p>`;
   const plainRewrite = (p.rewritten || '').replace(/\*\*/g, '');
   $('diff').innerHTML = renderDiff(`${o.title || ''}. ${o.text || ''}`, plainRewrite);
