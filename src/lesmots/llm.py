@@ -124,7 +124,8 @@ def extend(story_so_far: str, words: list[str], max_words: int = 120) -> str:
         f"and do not repeat anything already written above.\n"
         f"Where they fit naturally, use vocabulary items from this list and wrap each "
         f"one you use in **double asterisks** (never force one in where it breaks the "
-        f"flow):\n{', '.join(words)}",
+        f"flow). If an item is not English, keep it EXACTLY as written in its original "
+        f"language — never translate it:\n{', '.join(words)}",
         system="You write simple, clear English for language learners. "
                "You continue stories seamlessly and coherently.",
         max_tokens=400,
@@ -159,10 +160,11 @@ def _parse_json_list(raw: str) -> list[str]:
 def rewrite(title: str, summary: str, words: list[str], max_words: int = 120) -> str:
     """Rewrite fetched content using as many of the given bank words as possible."""
     return _call(
-        f"Rewrite the following tech news into one short, simple English paragraph "
+        f"Rewrite the following news into one short, simple English paragraph "
         f"(maximum {max_words} words). Naturally use as MANY of these vocabulary items "
-        f"as possible, and wrap each one you use in **double asterisks**:\n"
-        f"{', '.join(words)}\n\n"
+        f"as possible, and wrap each one you use in **double asterisks**. If an item is "
+        f"not English, keep it EXACTLY as written in its original language — never "
+        f"translate it:\n{', '.join(words)}\n\n"
         f"Title: {title}\n"
         f"Content: {summary}",
         system="You write simple, clear English for language learners.",

@@ -54,6 +54,24 @@ lesmots words                         # word bank table
 lesmots config --interests "robotics,biotech" --lang Japanese
 ```
 
+## Google sign-in (optional, multi-user)
+
+By default LesMots is single-user with no login. To require Google sign-in and give
+every user an isolated word bank / stories / topics:
+
+1. In Google Cloud Console → *APIs & Services* → *Credentials*, create an
+   **OAuth client ID** (type: Web application) with your app's URL in
+   *Authorized JavaScript origins*.
+2. Set the environment variable:
+
+```bash
+export LESMOTS_GOOGLE_CLIENT_ID="1234-abc.apps.googleusercontent.com"
+```
+
+Each Google account then gets its own store under `$LESMOTS_HOME/users/`. Sessions are
+signed cookies (30 days); the signing secret is auto-generated at
+`$LESMOTS_HOME/session-secret` (override with `LESMOTS_SESSION_SECRET`).
+
 ## The daily job
 
 ```bash

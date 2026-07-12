@@ -18,6 +18,7 @@ def isolated_home(tmp_path, monkeypatch):
     monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
     monkeypatch.delenv("LESMOTS_API_KEY", raising=False)
     monkeypatch.delenv("LESMOTS_API_BASE", raising=False)
+    monkeypatch.delenv("LESMOTS_GOOGLE_CLIENT_ID", raising=False)
     return tmp_path
 
 
@@ -276,6 +277,34 @@ def test_fetch_popular_falls_back_to_hn(monkeypatch):
     assert story["title"] == "HN story"
     assert story["source"] == "Hacker News"
     assert story["published"] == "2026-07-10"
+
+
+# ---------- web auth (issue #18) ----------
+
+def test_session_round_trip_tamper_and_expiry(monkeypatch):
+    monkeypatch.setenv("LESMOTS_SESSION_SECRET", "test-secret")
+    from lesmots import web
+    token = web.make_session("12345", "a@b.c")
+    data = web.check_session(token)
+    assert data["uid"] == "12345" and data["email"] == "a@b.c"
+    tampered = token[:-1] + ("0" if token[-1] != "0" else "1")
+    assert web.check_session(tampered) is None
+    assert web.check_session("garbage") is None
+    import base64
+    import json as jsonlib
+    import time as timelib
+    payload = base64.urlsafe_b64encode(jsonlib.dumps(
+        {"uid": "1", "email": "", "exp": int(timelib.time()) - 10}
+    ).encode()).decode().rstrip("=")
+    assert web.check_session(payload + "." + web._sign(payload)) is None
+
+
+def test_data_path_per_user():
+    from lesmots.memory import data_path
+    assert data_path().name == "lesmots.json"
+    per_user = data_path("google-sub-1")
+    assert per_user.parent.name == "users"
+    assert per_user.name == "google-sub-1.json"
 
 
 # ---------- llm helpers ----------
