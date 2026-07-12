@@ -89,7 +89,11 @@ def keep_reading(memory: Memory, extend_fn: Optional[Callable] = None) -> dict:
 
     if extend_fn is None:
         extend_fn = llm.extend if llm.is_configured() else _fallback_extend
-    continuation = extend_fn(memory.prepared["rewritten"], picked, max_words)
+    story_ctx = memory.prepared["rewritten"]
+    title = (memory.prepared.get("original") or {}).get("title")
+    if title:  # anchor the continuation to the source topic
+        story_ctx = f"Topic: {title}\n\n{story_ctx}"
+    continuation = extend_fn(story_ctx, picked, max_words)
 
     used = words_used_in(continuation, picked)
     memory.prepared["rewritten"] += "\n\n" + continuation

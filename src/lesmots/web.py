@@ -3,10 +3,16 @@
 Endpoints:
     GET  /            -> HTML UI
     GET  /api/words   -> word bank table data
+    GET  /api/loved   -> loved stories list
+    GET  /api/config  -> {"language", "interests"}
     POST /api/add     -> {"text": ...} add word + explanation
+    POST /api/check-spelling -> {"text": ...} -> {"suggestions": [...]}
     POST /api/show-me -> prepared content; updates exposure counts
     POST /api/keep-reading -> extend the current story; updates exposure counts
     POST /api/love    -> persist the current story to the loved list
+    POST /api/unlove  -> {"id": ...} remove a loved story
+    POST /api/familiarity -> {"text": ..., "level": 1-5} manual familiarity
+    POST /api/interests   -> {"interests": [...]} update feed topics
 """
 
 from __future__ import annotations
@@ -45,6 +51,13 @@ class Handler(BaseHTTPRequestHandler):
         elif self.path == "/api/words":
             memory = Memory.load()
             self._json([w.to_dict() for w in memory.words])
+        elif self.path == "/api/loved":
+            memory = Memory.load()
+            self._json(memory.loved)
+        elif self.path == "/api/config":
+            memory = Memory.load()
+            self._json({"language": memory.config["language"],
+                        "interests": memory.config["interests"]})
         else:
             self._json({"error": "not found"}, code=404)
 
@@ -80,6 +93,42 @@ class Handler(BaseHTTPRequestHandler):
                 story = memory.love_current()
                 memory.save()
                 self._json(story)
+            elif self.path == "/api/unlove":
+                story_id = (self._body().get("id") or "").strip()
+                memory = Memory.load()
+                removed = memory.unlove(story_id)
+                memory.save()
+                self._json({"removed": removed, "loved": memory.loved})
+            elif self.path == "/api/familiarity":
+                data = self._body()
+                memory = Memory.load()
+                word = memory.set_familiarity((data.get("text") or "").strip(),
+                                              int(data.get("level") or 0))
+                if word is None:
+                    self._json({"error": "word not in bank"}, code=404)
+                    return
+                memory.save()
+                self._json(word.to_dict())
+            elif self.path == "/api/interests":
+                interests = [i.strip() for i in (self._body().get("interests") or [])
+                             if isinstance(i, str) and i.strip()]
+                if not interests:
+                    self._json({"error": "pick at least one interest"}, code=400)
+                    return
+                memory = Memory.load()
+                memory.config["interests"] = interests
+                memory.save()
+                self._json({"interests": interests})
+            elif self.path == "/api/check-spelling":
+                text = (self._body().get("text") or "").strip()
+                if not text:
+                    self._json({"error": "text required"}, code=400)
+                    return
+                try:
+                    suggestions = llm.suggest_corrections(text)
+                except llm.LLMNotConfigured:
+                    suggestions = []  # no LLM -> skip the check
+                self._json({"suggestions": suggestions})
             else:
                 self._json({"error": "not found"}, code=404)
         except ValueError as e:  # user-fixable (e.g. no story yet)
