@@ -23,9 +23,12 @@ DEFAULT_CONFIG = {
 }
 
 
-def data_path() -> Path:
+def data_path(user: Optional[str] = None) -> Path:
+    """Storage file; per-user when a user id is given (SSO mode), shared otherwise."""
     home = os.environ.get("LESMOTS_HOME")
     base = Path(home) if home else Path.home() / ".lesmots"
+    if user:
+        return base / "users" / f"{user}.json"
     return base / "lesmots.json"
 
 

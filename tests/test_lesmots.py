@@ -18,6 +18,7 @@ def isolated_home(tmp_path, monkeypatch):
     monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
     monkeypatch.delenv("LESMOTS_API_KEY", raising=False)
     monkeypatch.delenv("LESMOTS_API_BASE", raising=False)
+    monkeypatch.delenv("LESMOTS_GOOGLE_CLIENT_ID", raising=False)
     return tmp_path
 
 
@@ -83,6 +84,18 @@ def test_ease_floor():
 def test_easy_boosts():
     w = review(Word(text="x"), EASY, on=TODAY)
     assert w.interval >= 3 and w.ease > 2.5
+
+
+def test_interval_capped_prevents_date_overflow():
+    from lesmots.srs import MAX_INTERVAL
+    w = Word(text="x")
+    for _ in range(60):  # uncapped, this overflows date arithmetic at ~review 17
+        review(w, GOOD, on=TODAY)
+    assert w.interval == MAX_INTERVAL
+    # words saved with a runaway interval before the cap existed still recover
+    w2 = Word(text="y", interval=3_000_000)
+    review(w2, GOOD, on=TODAY)
+    assert w2.interval == MAX_INTERVAL
 
 
 def test_pick_words_due_first_then_least_familiar():
@@ -198,6 +211,14 @@ def test_loved_entries_without_id_get_backfilled():
     assert m.unlove(m.loved[0]["id"]) is True
 
 
+def test_memory_remove():
+    m = Memory()
+    m.add(Word(text="model"))
+    assert m.remove("MODEL") is True  # case-insensitive
+    assert m.words == []
+    assert m.remove("model") is False
+
+
 def test_memory_set_familiarity():
     m = Memory()
     m.add(Word(text="benchmark"))
@@ -213,6 +234,77 @@ def test_fetch_url_freshness_filter():
     fresh = fetcher._url("ai", since_days=7)
     assert "numericFilters=" in fresh and "created_at_i" in fresh
     assert "numericFilters" not in fetcher._url("ai")
+    assert "when%3A7d" in fetcher._google_news_url("Sports")
+
+
+GOOGLE_RSS = b"""<?xml version="1.0"?>
+<rss version="2.0"><channel>
+  <item>
+    <title>Norway wins big at winter games - CNN</title>
+    <link>https://example.com/norway</link>
+    <pubDate>Sat, 11 Jul 2026 11:30:25 GMT</pubDate>
+    <source url="https://cnn.com">CNN</source>
+  </item>
+  <item><title></title></item>
+  <item>
+    <title>Plain headline without outlet suffix</title>
+    <link>https://example.com/plain</link>
+    <pubDate>not a date</pubDate>
+  </item>
+</channel></rss>"""
+
+
+def test_parse_google_rss():
+    from lesmots.fetcher import _parse_google_rss
+    stories = _parse_google_rss(GOOGLE_RSS)
+    assert len(stories) == 2  # empty-title item skipped
+    assert stories[0]["title"] == "Norway wins big at winter games"  # outlet stripped
+    assert stories[0]["source"] == "CNN"
+    assert stories[0]["published"] == "2026-07-11"
+    assert stories[0]["url"] == "https://example.com/norway"
+    assert stories[1]["published"] == ""  # bad pubDate tolerated
+
+
+def test_fetch_popular_falls_back_to_hn(monkeypatch):
+    from lesmots import fetcher
+    monkeypatch.setattr(fetcher, "_fetch_google_news",
+                        lambda topic: (_ for _ in ()).throw(RuntimeError("down")))
+    monkeypatch.setattr(fetcher, "_search",
+                        lambda q, d=None: [{"title": "HN story", "points": 5,
+                                            "created_at": "2026-07-10T00:00:00Z",
+                                            "objectID": "1"}])
+    story = fetcher.fetch_popular(["ai"])
+    assert story["title"] == "HN story"
+    assert story["source"] == "Hacker News"
+    assert story["published"] == "2026-07-10"
+
+
+# ---------- web auth (issue #18) ----------
+
+def test_session_round_trip_tamper_and_expiry(monkeypatch):
+    monkeypatch.setenv("LESMOTS_SESSION_SECRET", "test-secret")
+    from lesmots import web
+    token = web.make_session("12345", "a@b.c")
+    data = web.check_session(token)
+    assert data["uid"] == "12345" and data["email"] == "a@b.c"
+    tampered = token[:-1] + ("0" if token[-1] != "0" else "1")
+    assert web.check_session(tampered) is None
+    assert web.check_session("garbage") is None
+    import base64
+    import json as jsonlib
+    import time as timelib
+    payload = base64.urlsafe_b64encode(jsonlib.dumps(
+        {"uid": "1", "email": "", "exp": int(timelib.time()) - 10}
+    ).encode()).decode().rstrip("=")
+    assert web.check_session(payload + "." + web._sign(payload)) is None
+
+
+def test_data_path_per_user():
+    from lesmots.memory import data_path
+    assert data_path().name == "lesmots.json"
+    per_user = data_path("google-sub-1")
+    assert per_user.parent.name == "users"
+    assert per_user.name == "google-sub-1.json"
 
 
 # ---------- llm helpers ----------

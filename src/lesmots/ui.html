@@ -4,43 +4,44 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LesMots · 温故</title>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
   :root { --accent:#4f46e5; --bg:#f8fafc; --card:#fff; --ink:#0f172a; --muted:#64748b;
           --fam1:#ef4444; --fam2:#f97316; --fam3:#eab308; --fam4:#84cc16; --fam5:#22c55e; }
   * { box-sizing:border-box; }
   body { font-family:system-ui,sans-serif; margin:0; background:var(--bg); color:var(--ink); }
-  header { background:var(--accent); color:#fff; padding:14px 24px; display:flex; align-items:baseline; gap:12px; }
-  header h1 { margin:0; font-size:22px; }
-  header span { opacity:.8; font-size:13px; }
-  main { max-width:900px; margin:24px auto; padding:0 16px; display:grid; gap:16px; }
-  .card { background:var(--card); border:1px solid #e2e8f0; border-radius:10px; padding:16px 20px; }
-  .card h2 { margin:0 0 10px; font-size:15px; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; }
-  .row { display:flex; gap:10px; flex-wrap:wrap; }
-  button { background:var(--accent); color:#fff; border:none; border-radius:8px; padding:10px 18px;
-           font-size:15px; cursor:pointer; }
+  header { background:var(--accent); color:#fff; padding:8px 16px; display:flex; align-items:baseline; gap:10px; }
+  header h1 { margin:0; font-size:18px; }
+  header span { opacity:.8; font-size:12px; }
+  main { max-width:900px; margin:12px auto; padding:0 12px; display:grid; gap:10px; }
+  .card { background:var(--card); border:1px solid #e2e8f0; border-radius:8px; padding:10px 14px; }
+  .card h2 { margin:0 0 6px; font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; }
+  .row { display:flex; gap:8px; flex-wrap:wrap; }
+  button { background:var(--accent); color:#fff; border:none; border-radius:7px; padding:7px 14px;
+           font-size:14px; cursor:pointer; }
   button.secondary { background:#e2e8f0; color:var(--ink); }
   button.danger { background:#fee2e2; color:#b91c1c; }
   button:disabled { opacity:.5; cursor:wait; }
-  button.chip { padding:6px 12px; font-size:13px; border-radius:999px; }
-  input[type=text] { flex:1; min-width:200px; padding:10px; border:1px solid #cbd5e1; border-radius:8px; font-size:15px; }
-  #demo { font-size:17px; line-height:1.7; min-height:60px; }
+  button.chip { padding:4px 10px; font-size:12px; border-radius:999px; }
+  input[type=text] { flex:1; min-width:200px; padding:7px; border:1px solid #cbd5e1; border-radius:7px; font-size:14px; }
+  #demo { font-size:16px; line-height:1.55; min-height:40px; }
   #demo b { border-radius:4px; padding:0 3px; color:var(--accent); }
   #demo b.fam-1 { color:#fff; background:var(--fam1); }
   #demo b.fam-2 { color:#fff; background:var(--fam2); }
   #demo b.fam-3 { color:#422006; background:var(--fam3); }
   #demo b.fam-4 { color:#1a2e05; background:var(--fam4); }
   #demo b.fam-5 { color:#052e16; background:var(--fam5); }
-  #love-row { justify-content:flex-end; margin-top:8px; }
-  #original { font-size:14px; color:var(--muted); line-height:1.6; }
+  #love-row { justify-content:flex-end; margin-top:4px; }
+  #original { font-size:13px; color:var(--muted); line-height:1.5; }
   #original a { color:var(--accent); }
-  #diff { font-size:14px; line-height:1.8; border:1px solid #e2e8f0; border-radius:8px; padding:10px 12px;
-          margin-top:10px; overflow-x:auto; }
+  #diff { font-size:13px; line-height:1.6; border:1px solid #e2e8f0; border-radius:7px; padding:6px 10px;
+          margin-top:6px; overflow-x:auto; }
   #diff del { background:#fee2e2; color:#b91c1c; text-decoration:line-through; padding:0 2px; border-radius:3px; }
   #diff ins { background:#dcfce7; color:#15803d; text-decoration:none; padding:0 2px; border-radius:3px; }
-  #explanation { white-space:pre-wrap; line-height:1.6; }
-  #suggest { margin-top:8px; }
-  table { width:100%; border-collapse:collapse; font-size:14px; }
-  th,td { text-align:left; padding:8px 10px; border-bottom:1px solid #e2e8f0; }
+  #explanation { white-space:pre-wrap; line-height:1.5; font-size:13px; margin:6px 0 0; }
+  #suggest { margin-top:6px; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th,td { text-align:left; padding:4px 8px; border-bottom:1px solid #e2e8f0; }
   th { color:var(--muted); font-weight:600; }
   .dots { white-space:nowrap; }
   .dot { display:inline-block; width:14px; height:14px; margin-right:3px; border-radius:50%;
@@ -48,23 +49,48 @@
   .dot.on-1 { background:var(--fam1); } .dot.on-2 { background:var(--fam2); }
   .dot.on-3 { background:var(--fam3); } .dot.on-4 { background:var(--fam4); }
   .dot.on-5 { background:var(--fam5); }
-  .legend { font-size:12px; color:var(--muted); margin:6px 0 0; }
+  .legend { font-size:11px; color:var(--muted); margin:4px 0 0; }
   .legend i { display:inline-block; width:11px; height:11px; border-radius:3px; margin:0 3px 0 10px;
               vertical-align:middle; font-style:normal; }
-  .topic { display:inline-block; padding:6px 14px; margin:4px 6px 4px 0; border-radius:999px;
-           background:#eef2ff; color:var(--accent); font-size:13px; cursor:pointer; user-select:none;
+  .topic { display:inline-block; padding:3px 10px; margin:2px 4px 2px 0; border-radius:999px;
+           background:#eef2ff; color:var(--accent); font-size:12px; cursor:pointer; user-select:none;
            border:1px solid transparent; }
   .topic.sel { background:var(--accent); color:#fff; }
-  #loved-list { list-style:none; margin:0; padding:0; }
-  #loved-list li { display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid #e2e8f0; }
+  #loved-list { list-style:none; margin:0; padding:0; font-size:13px; }
+  #loved-list li { display:flex; align-items:center; gap:8px; padding:4px 0; border-bottom:1px solid #e2e8f0; }
   #loved-list li:last-child { border-bottom:none; }
   .loved-title { flex:1; }
   .muted { color:var(--muted); }
   #status { font-size:13px; color:var(--muted); }
+  #user-box { margin-left:auto; font-size:12px; display:flex; align-items:center; gap:8px; }
+  .overlay { position:fixed; inset:0; background:rgba(15,23,42,.55); display:none;
+             align-items:center; justify-content:center; z-index:50; padding:16px; }
+  .overlay.open { display:flex; }
+  #modal-box { background:var(--card); border-radius:10px; width:min(1100px, 96vw);
+               max-height:90vh; overflow:auto; padding:14px 18px; }
+  #modal-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+  #modal-head h2 { margin:0; font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; }
+  #modal-cols { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media (max-width:720px) { #modal-cols { grid-template-columns:1fr; } }
+  #modal-cols h3 { margin:0 0 6px; font-size:12px; color:var(--muted); text-transform:uppercase; }
+  #modal-story-pane { font-size:15px; line-height:1.6; border-right:1px solid #e2e8f0; padding-right:16px; }
+  @media (max-width:720px) { #modal-story-pane { border-right:none; padding-right:0; } }
+  #modal-story b { border-radius:4px; padding:0 3px; color:var(--accent); }
+  #modal-story b.fam-1 { color:#fff; background:var(--fam1); }
+  #modal-story b.fam-2 { color:#fff; background:var(--fam2); }
+  #modal-story b.fam-3 { color:#422006; background:var(--fam3); }
+  #modal-story b.fam-4 { color:#1a2e05; background:var(--fam4); }
+  #modal-story b.fam-5 { color:#052e16; background:var(--fam5); }
+  #login-box { background:var(--card); border-radius:10px; padding:28px 32px; text-align:center; }
+  #login-box h2 { margin:0 0 4px; font-size:18px; }
+  #login-box p { margin:0 0 16px; color:var(--muted); font-size:13px; }
+  #g-signin { display:flex; justify-content:center; }
+  #login-msg { color:#b91c1c; font-size:13px; margin-top:10px; }
 </style>
 </head>
 <body>
-<header><h1>LesMots · 温故</h1><span>learn words inside the news you care about — 温故而知新</span></header>
+<header><h1>LesMots · 温故</h1><span>learn words inside the news you care about — 温故而知新</span>
+  <span id="user-box"></span></header>
 <main>
 
   <div class="card">
@@ -83,21 +109,44 @@
       <div class="row">
         <button id="btn-show">New Journey</button>
         <button id="btn-more" disabled>Keep reading</button>
-        <button id="btn-orig" class="secondary" disabled>Original</button>
       </div>
     </div>
     <p id="demo" class="muted">Click “New Journey” to get today’s rewritten content.</p>
     <div class="row" id="love-row" style="display:none">
+      <button id="btn-orig" class="secondary" disabled>Original</button>
       <button id="btn-love">I Love This</button>
     </div>
     <p id="status"></p>
   </div>
 
-  <div class="card" id="original-card" style="display:none">
-    <h2>Original content (no rewrite)</h2>
-    <div id="original"></div>
-    <h2 style="margin-top:14px">Rewrite diff <span class="muted" style="text-transform:none">(original → rewritten)</span></h2>
-    <div id="diff"></div>
+  <div class="overlay" id="modal">
+    <div id="modal-box">
+      <div id="modal-head">
+        <h2>Story vs. original</h2>
+        <button id="modal-close" class="chip secondary">✕ close</button>
+      </div>
+      <div id="modal-cols">
+        <div id="modal-story-pane">
+          <h3>Story (rewritten)</h3>
+          <div id="modal-story"></div>
+        </div>
+        <div>
+          <h3>Original content (no rewrite)</h3>
+          <div id="original"></div>
+          <h3 style="margin-top:12px">Rewrite diff</h3>
+          <div id="diff"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay" id="login-overlay">
+    <div id="login-box">
+      <h2>LesMots · 温故</h2>
+      <p>Sign in to keep your own word bank, stories, and topics.</p>
+      <div id="g-signin"></div>
+      <p id="login-msg"></p>
+    </div>
   </div>
 
   <div class="card">
@@ -107,7 +156,7 @@
 
   <div class="card">
     <h2>Feed</h2>
-    <p class="muted" style="margin:0 0 6px;font-size:13px">Pick the topics “New Journey” draws stories from — saved instantly.</p>
+    <p class="muted" style="margin:0 0 4px;font-size:12px">Pick the topics “New Journey” draws stories from — saved instantly.</p>
     <div id="topics"></div>
   </div>
 
@@ -115,7 +164,7 @@
     <h2>Word bank</h2>
     <table>
       <thead><tr><th>Word / Phrase / Sentence</th><th>Kind</th><th>Added</th>
-                 <th>Exposure count</th><th>Familiarity (click to set)</th></tr></thead>
+                 <th>Exposure count</th><th>Familiarity (click to set)</th><th></th></tr></thead>
       <tbody id="bank-body"></tbody>
     </table>
     <p class="legend">Familiarity:
@@ -179,7 +228,8 @@ function renderDemo(p) {
 function renderOriginal(p) {
   const o = p.original || {};
   $('original').innerHTML =
-    `<p><strong>${esc(o.title || '')}</strong> — ${esc(o.source || '')} (${o.points || 0} points)</p>` +
+    `<p><strong>${esc(o.title || '')}</strong> — ${esc(o.source || '')}` +
+    `${o.published ? ' · ' + esc(o.published) : ''}${o.points ? ` (${o.points} points)` : ''}</p>` +
     `<p>${esc(o.text || '')}</p><p><a href="${esc(o.url || '#')}" target="_blank">${esc(o.url || '')}</a></p>`;
   const plainRewrite = (p.rewritten || '').replace(/\*\*/g, '');
   $('diff').innerHTML = renderDiff(`${o.title || ''}. ${o.text || ''}`, plainRewrite);
@@ -211,9 +261,13 @@ function renderDiff(orig, rew) {
 }
 
 $('btn-orig').onclick = () => {
-  const card = $('original-card');
-  card.style.display = card.style.display === 'none' ? '' : 'none';
+  if (!lastPrepared) return;
+  $('modal-story').innerHTML = storyHTML(lastPrepared.rewritten);
+  $('modal').classList.add('open');
 };
+$('modal-close').onclick = () => $('modal').classList.remove('open');
+$('modal').onclick = e => { if (e.target === $('modal')) $('modal').classList.remove('open'); };
+document.addEventListener('keydown', e => { if (e.key === 'Escape') $('modal').classList.remove('open'); });
 
 // ---------- journey buttons ----------
 
@@ -291,17 +345,34 @@ async function loadBank() {
      <td class="dots">${[1,2,3,4,5].map(l =>
        `<span class="dot ${l <= w.familiarity ? 'on-' + w.familiarity : ''}"
               data-text="${esc(w.text)}" data-level="${l}" title="set familiarity ${l}"></span>`).join('')}
-     </td></tr>`).join('')
-    || '<tr><td colspan="5" class="muted">Empty — add your first word above.</td></tr>';
+     </td>
+     <td><button class="chip danger" data-del="${esc(w.text)}" title="remove from bank">✕</button></td>
+     </tr>`).join('')
+    || '<tr><td colspan="6" class="muted">Empty — add your first word above.</td></tr>';
   if (lastPrepared) $('demo').innerHTML = storyHTML(lastPrepared.rewritten);
 }
 
 $('bank-body').onclick = async e => {
+  const del = e.target.closest('[data-del]');
+  if (del) {
+    del.closest('tr').remove();  // instant; server confirms below
+    delete bankMap[del.dataset.del.trim().toLowerCase()];
+    const res = await api('/api/remove-word', post({text: del.dataset.del}));
+    if (res.error) { $('status').textContent = res.error; }
+    loadBank();
+    return;
+  }
   const dot = e.target.closest('.dot');
   if (!dot) return;
-  const res = await api('/api/familiarity', post({text: dot.dataset.text, level: +dot.dataset.level}));
-  if (res.error) { $('status').textContent = res.error; return; }
-  loadBank();
+  const level = +dot.dataset.level, text = dot.dataset.text;
+  // optimistic: recolor immediately, sync with the server in the background
+  [...dot.parentElement.querySelectorAll('.dot')].forEach(d => {
+    d.className = 'dot ' + (+d.dataset.level <= level ? 'on-' + level : '');
+  });
+  bankMap[text.trim().toLowerCase()] = level;
+  if (lastPrepared) $('demo').innerHTML = storyHTML(lastPrepared.rewritten);
+  const res = await api('/api/familiarity', post({text, level}));
+  if (res.error) { $('status').textContent = res.error; loadBank(); }
 };
 
 // ---------- loved stories ----------
@@ -361,9 +432,35 @@ $('topics').onclick = async e => {
   }
 };
 
-// ---------- initial load ----------
+// ---------- auth + initial load ----------
 
-loadBank(); loadLoved(); loadTopics();
+function boot() { loadBank(); loadLoved(); loadTopics(); }
+
+async function initAuth() {
+  let cfg = {};
+  try { cfg = await api('/api/auth-config'); } catch (e) { boot(); return; }
+  if (!cfg.client_id) { boot(); return; }  // SSO not configured: single-user mode
+  if (cfg.user) {
+    $('user-box').innerHTML =
+      `${esc(cfg.user)} <button class="chip secondary" id="btn-logout">sign out</button>`;
+    $('btn-logout').onclick = async () => { await api('/api/logout', post()); location.reload(); };
+    boot();
+    return;
+  }
+  $('login-overlay').classList.add('open');
+  const start = () => {
+    google.accounts.id.initialize({client_id: cfg.client_id, callback: async r => {
+      const res = await api('/api/login', post({credential: r.credential}));
+      if (res.error) { $('login-msg').textContent = res.error; } else { location.reload(); }
+    }});
+    google.accounts.id.renderButton($('g-signin'), {theme: 'outline', size: 'large'});
+  };
+  const wait = setInterval(() => {
+    if (window.google && google.accounts && google.accounts.id) { clearInterval(wait); start(); }
+  }, 100);
+}
+
+initAuth();
 </script>
 </body>
 </html>
