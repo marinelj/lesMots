@@ -32,7 +32,7 @@
   #demo b.fam-4 { color:#1a2e05; background:var(--fam4); }
   #demo b.fam-5 { color:#052e16; background:var(--fam5); }
   #love-row { justify-content:flex-end; margin-top:4px; }
-  #original { font-size:13px; color:var(--muted); line-height:1.5; }
+  #original { font-size:13px; color:var(--muted); line-height:1.5; overflow-wrap:anywhere; }
   #original a { color:var(--accent); }
   #diff { font-size:13px; margin-top:6px; display:grid; gap:8px; }
   .diff-side { border:1px solid #e2e8f0; border-radius:7px; padding:6px 10px; line-height:1.6; }
@@ -236,7 +236,8 @@ function renderOriginal(p) {
   $('original').innerHTML =
     `<p><strong>${esc(o.title || '')}</strong> — ${esc(o.source || '')}` +
     `${o.published ? ' · ' + esc(o.published) : ''}${o.points ? ` (${o.points} points)` : ''}</p>` +
-    `<p>${esc(o.text || '')}</p><p><a href="${esc(o.url || '#')}" target="_blank">${esc(o.url || '')}</a></p>`;
+    `<p>${esc(o.text || '')}</p>` +
+    (o.url ? `<p><a href="${esc(o.url)}" target="_blank">Read the full story at ${esc(o.source || 'the source')} ↗</a></p>` : '');
   const plainRewrite = (p.rewritten || '').replace(/\*\*/g, '');
   $('diff').innerHTML = renderDiff(`${o.title || ''}. ${o.text || ''}`, plainRewrite);
 }
