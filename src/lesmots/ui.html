@@ -34,10 +34,16 @@
   #love-row { justify-content:flex-end; margin-top:4px; }
   #original { font-size:13px; color:var(--muted); line-height:1.5; }
   #original a { color:var(--accent); }
-  #diff { font-size:13px; line-height:1.6; border:1px solid #e2e8f0; border-radius:7px; padding:6px 10px;
-          margin-top:6px; overflow-x:auto; }
-  #diff del { background:#fee2e2; color:#b91c1c; text-decoration:line-through; padding:0 2px; border-radius:3px; }
-  #diff ins { background:#dcfce7; color:#15803d; text-decoration:none; padding:0 2px; border-radius:3px; }
+  #diff { font-size:13px; margin-top:6px; display:grid; gap:8px; }
+  .diff-side { border:1px solid #e2e8f0; border-radius:7px; padding:6px 10px; line-height:1.6; }
+  .diff-side p { margin:4px 0 0; }
+  .del-side { background:#fffafa; border-color:#fecaca; }
+  .ins-side { background:#f7fdf9; border-color:#bbf7d0; }
+  .diff-tag { font-size:11px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; }
+  .del-side .diff-tag { color:#b91c1c; }
+  .ins-side .diff-tag { color:#15803d; }
+  #diff del { background:#fecaca; color:#7f1d1d; text-decoration:line-through; padding:0 3px; border-radius:3px; }
+  #diff ins { background:#bbf7d0; color:#14532d; text-decoration:none; padding:0 3px; border-radius:3px; }
   #explanation { white-space:pre-wrap; line-height:1.5; font-size:13px; margin:6px 0 0; }
   #suggest { margin-top:6px; }
   table { width:100%; border-collapse:collapse; font-size:13px; }
@@ -89,7 +95,7 @@
 </style>
 </head>
 <body>
-<header><h1>LesMots · 温故</h1><span>learn words inside the news you care about — 温故而知新</span>
+<header><h1>LesMots · 温故</h1><span>To learn the new by reviewing the old — 温故而知新</span>
   <span id="user-box"></span></header>
 <main>
 
@@ -255,9 +261,24 @@ function wordDiff(a, b) {
   return out;
 }
 
+function coalesce(ops) {  // merge adjacent same-type words into one chunk
+  const out = [];
+  for (const [t, w] of ops) {
+    const last = out[out.length - 1];
+    if (last && last[0] === t) last[1] += ' ' + w; else out.push([t, w]);
+  }
+  return out;
+}
+
 function renderDiff(orig, rew) {
-  return wordDiff(orig, rew).map(([t, w]) =>
-    t === '=' ? esc(w) : t === '-' ? `<del>${esc(w)}</del>` : `<ins>${esc(w)}</ins>`).join(' ');
+  // GitHub-style split view: original with deletions, rewritten with insertions
+  const ops = coalesce(wordDiff(orig, rew));
+  const left = ops.filter(([t]) => t !== '+')
+    .map(([t, w]) => t === '-' ? `<del>${esc(w)}</del>` : esc(w)).join(' ');
+  const right = ops.filter(([t]) => t !== '-')
+    .map(([t, w]) => t === '+' ? `<ins>${esc(w)}</ins>` : esc(w)).join(' ');
+  return `<div class="diff-side del-side"><span class="diff-tag">− original</span><p>${left}</p></div>` +
+         `<div class="diff-side ins-side"><span class="diff-tag">+ rewritten</span><p>${right}</p></div>`;
 }
 
 $('btn-orig').onclick = () => {

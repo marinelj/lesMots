@@ -47,10 +47,28 @@ class Word:
 
     @property
     def familiarity(self) -> int:
-        """Familiarity level 1 (completely unfamiliar) to 5 (very familiar),
-        derived from the SM-2 interval."""
+        """Familiarity level 1 (completely unfamiliar) to 5 (very familiar).
+
+        Derived from the SM-2 interval, discounted by memory decay: unlike
+        raw exposure counts, familiarity sinks back down when a word goes
+        unreviewed (issue #20)."""
+        return self._level_for(self.effective_interval())
+
+    def effective_interval(self, on: Optional[date] = None) -> float:
+        """SM-2 interval discounted by an Ebbinghaus-style forgetting curve:
+        it halves for every interval-length period the word stays overdue."""
+        if self.interval <= 0:
+            return 0.0
+        on = on or date.today()
+        overdue = (on - date.fromisoformat(self.due)).days
+        if overdue <= 0:
+            return float(self.interval)
+        return self.interval * 0.5 ** (overdue / self.interval)
+
+    @staticmethod
+    def _level_for(interval: float) -> int:
         for threshold, level in FAMILIARITY_THRESHOLDS:
-            if self.interval >= threshold:
+            if interval >= threshold:
                 return level
         return 1
 

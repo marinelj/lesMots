@@ -1,6 +1,6 @@
 # LesMots · 温故
 
-Learn vocabulary **inside content you actually want to read.** (中文名：温故 — 温故而知新)
+**To learn the new by reviewing the old.** (中文名：温故 — 温故而知新)
 
 LesMots keeps a long-term memory of the words, phrases, and sentences you're learning. Every day it fetches popular internet content matching your interests (default: LLM, AI, state-of-the-art tech) and rewrites it in simple English — deliberately reusing the words you most need to see, picked by SM-2 spaced repetition. Reading the daily piece *is* the review.
 
