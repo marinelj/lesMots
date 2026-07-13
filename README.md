@@ -2,6 +2,8 @@
 
 **To learn the new by reviewing the old.** (中文名：温故，取自「温故而知新」)
 
+**English** | [简体中文](README.zh-CN.md)
+
 [![CI](https://github.com/marinelj/lesMots/actions/workflows/ci.yml/badge.svg)](https://github.com/marinelj/lesMots/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
@@ -63,6 +65,20 @@ In the app that loop looks like:
 - **Word bank** — every entry with its exposure count and a 1–5 familiarity you can
   change with one click (it snaps the review schedule to match).
 - **Google sign-in** — every user gets a fully isolated bank, story library, and feed.
+
+## Blended-language stories
+
+The word bank is not English-only. Add words in **any language** — 日本語, français,
+中文, 한국어 — and stories keep them exactly as written, in their original script,
+woven into simple English prose:
+
+> Scientists reached a new **milestone** in fusion energy — a real **頑張った** moment
+> for the team, whose **état de l'art** reactor produced more power than it consumed.
+
+Each embedded word still carries its own familiarity color and review schedule, so one
+daily story can review your English, Japanese, and French vocabulary at the same time.
+That makes LesMots a single review loop for multilingual learners, instead of one app
+per language.
 
 ## The memory model
 
