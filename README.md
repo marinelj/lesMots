@@ -1,28 +1,88 @@
 # LesMots · 温故
 
-**To learn the new by reviewing the old.** (中文名：温故 — 温故而知新)
+**To learn the new by reviewing the old.** (中文名：温故，取自「温故而知新」)
 
-LesMots keeps a long-term memory of the words, phrases, and sentences you're learning. Every day it fetches popular internet content matching your interests (default: LLM, AI, state-of-the-art tech) and rewrites it in simple English — deliberately reusing the words you most need to see, picked by SM-2 spaced repetition. Reading the daily piece *is* the review.
+[![CI](https://github.com/marinelj/lesMots/actions/workflows/ci.yml/badge.svg)](https://github.com/marinelj/lesMots/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
+**Live app:** https://lesmots-936108631310.europe-west1.run.app
+
+---
+
+## The problem
+
+Vocabulary apps drill words as isolated flashcards. You "know" the word in the app and
+forget it everywhere else, because you never meet it in the wild — and the review itself
+is a chore you eventually skip. Meanwhile, reading real articles in a foreign language
+*would* teach you words in context, but real articles don't care which words you're
+struggling with, and they're usually too hard.
+
+## The idea
+
+LesMots flips the review around: **instead of bringing you to the words, it brings the
+words to you — inside today's news you actually want to read.**
+
+Every day it:
+
+1. looks at your word bank and asks *"which words is this learner about to forget?"* —
+   using SM-2 spaced repetition plus an Ebbinghaus-style memory-decay curve;
+2. fetches a fresh story (published within the last 7 days) matching topics you picked —
+   AI, sports, history, anything;
+3. has an LLM rewrite that story into short, simple English that deliberately weaves in
+   exactly those fading words.
+
+Reading the story **is** the review. Every embedded word you meet gets its exposure
+counted and its schedule pushed out; words you neglect decay back toward "unfamiliar"
+and start showing up in stories again. No flashcards, no drills — just a daily read
+that quietly keeps your vocabulary alive.
 
 ## How it works
 
-1. **Input** — add a word, phrase, or sentence; LesMots explains it in simple English plus your language (default: Chinese).
-2. **Memory** — every entry is tracked in a JSON word bank: added time, exposure count, familiarity level (1–5, editable with one click).
-3. **Daily job** — fetches a popular story (preferring ones from the last 7 days) for your feed topics and rewrites it (max 120 words) using bank words picked by the SM-2 rule (most-overdue first).
-4. **New Journey** — click the button (HTML) or run `lesmots show-me` (chat); the prepared content is displayed and every bank word it used gets its exposure count and familiarity updated. **Keep reading** extends the current story with one more paragraph of bank words; **I Love This** saves the current story permanently to your loved list.
+```mermaid
+flowchart LR
+    A[Word bank<br/>your words + SM-2 state] -->|pick fading words| B[Scheduler<br/>SM-2 + memory decay]
+    F[Feed topics<br/>you choose] -->|fresh news ≤7 days| C[Fetcher<br/>Google News / HN]
+    B --> D[LLM rewriter<br/>simple English, words embedded]
+    C --> D
+    D --> E[My story<br/>read = review]
+    E -->|exposures update schedule| A
+```
 
-## Install
+In the app that loop looks like:
+
+- **Explain & Add** — type a word, phrase, or sentence; get a one-line explanation in
+  simple English plus your native language. Misspell it and LesMots suggests what you
+  meant (pick to confirm).
+- **New Journey** — get today's story, with your bank words highlighted on a red→green
+  gradient that shows how well you know each one.
+- **Keep reading** — extend the story with one more coherent paragraph carrying more of
+  your words.
+- **I Love This** — keep a story forever in your loved-stories library.
+- **Original** — pop up the untouched source article side-by-side with your story, plus
+  a GitHub-style diff of what the rewrite changed.
+- **Word bank** — every entry with its exposure count and a 1–5 familiarity you can
+  change with one click (it snaps the review schedule to match).
+- **Google sign-in** — every user gets a fully isolated bank, story library, and feed.
+
+## The memory model
+
+Scheduling is simplified SM-2 (`src/lesmots/srs.py`): every exposure in a story counts
+as a "good" review, growing the word's interval by its ease factor — well-known words
+appear less often. Familiarity (1 = completely unfamiliar … 5 = very familiar) is
+derived from that interval, **discounted by a forgetting curve**: the effective interval
+halves for every interval-length period a word goes unseen past its due date. Neglected
+words visibly fade in the UI and get picked for stories again — exactly like memory.
+
+## Quick start
 
 ```bash
-git clone https://github.com/marine/lesmots && cd lesmots
+git clone https://github.com/marinelj/lesMots && cd lesMots
 pip install -e ".[dev]"
 ```
 
-Requires Python 3.9+. Zero runtime dependencies (stdlib only).
+Requires Python 3.9+. **Zero runtime dependencies** — stdlib only.
 
 ### Choose an LLM provider
-
-LesMots needs an LLM for explanations and rewriting. Either backend works:
 
 ```bash
 # Option A — Anthropic
@@ -34,57 +94,42 @@ export LESMOTS_API_BASE=https://api.deepseek.com
 export LESMOTS_MODEL=deepseek-chat
 ```
 
-More option-B examples: Qwen/DashScope (`https://dashscope.aliyuncs.com/compatible-mode/v1`, `qwen-plus`), local Ollama (`http://localhost:11434/v1`, any local model, key can be anything). Without any key, LesMots still runs with a simple non-LLM fallback rewriter.
+More option-B examples: Qwen/DashScope (`https://dashscope.aliyuncs.com/compatible-mode/v1`,
+`qwen-plus`), local Ollama (`http://localhost:11434/v1`, any local model, key can be
+anything). Without any key, LesMots still runs with a simple non-LLM fallback rewriter.
 
-## HTML version
+### Run it
 
 ```bash
-lesmots serve            # open http://127.0.0.1:8321
+lesmots serve            # web UI at http://127.0.0.1:8321
 ```
 
-The UI has: an **Explain & Add** input (with a spelling-correction suggestion flow), a **New Journey** button, a **Keep reading** button (coherently extend the current story), an **I Love This** button under the story (save it to the loved list), an **Original** toggle showing the unmodified source plus a GitHub-style **rewrite diff**, a **Loved stories** panel (read/remove saved stories), a **Feed** panel (pick the interest topics stories are drawn from), and a permanent **Word bank** table where story words are highlighted on a red→green familiarity gradient and familiarity is settable with one click.
-
-## Chat version
+Or live in the terminal:
 
 ```bash
 lesmots add "state of the art"        # add + explain (default language: Chinese)
 lesmots add "inference" --lang French
-lesmots show-me                       # show today's content, update exposures
+lesmots show-me                       # today's story, updates exposures
 lesmots words                         # word bank table
 lesmots config --interests "robotics,biotech" --lang Japanese
+lesmots daily                         # pre-generate content (cron-friendly)
 ```
 
-## Google sign-in (optional, multi-user)
+Cron example (every morning at 7): `0 7 * * * lesmots daily` — and if nothing is
+prepared when you hit **New Journey**, LesMots generates it on the spot.
+
+## Multi-user with Google sign-in (optional)
 
 By default LesMots is single-user with no login. To require Google sign-in and give
 every user an isolated word bank / stories / topics:
 
-1. In Google Cloud Console → *APIs & Services* → *Credentials*, create an
-   **OAuth client ID** (type: Web application) with your app's URL in
-   *Authorized JavaScript origins*.
-2. Set the environment variable:
-
-```bash
-export LESMOTS_GOOGLE_CLIENT_ID="1234-abc.apps.googleusercontent.com"
-```
+1. In Google Cloud Console → *APIs & Services* → *Credentials*, create an **OAuth
+   client ID** (Web application) with your app's URL in *Authorized JavaScript origins*.
+2. `export LESMOTS_GOOGLE_CLIENT_ID="1234-abc.apps.googleusercontent.com"`
 
 Each Google account then gets its own store under `$LESMOTS_HOME/users/`. Sessions are
 signed cookies (30 days); the signing secret is auto-generated at
 `$LESMOTS_HOME/session-secret` (override with `LESMOTS_SESSION_SECRET`).
-
-## The daily job
-
-```bash
-lesmots daily
-```
-
-Cron example (every morning at 7):
-
-```
-0 7 * * * lesmots daily
-```
-
-If no prepared content exists when you hit **New Journey**, LesMots generates it on the spot.
 
 ## Configuration
 
@@ -97,18 +142,36 @@ Stored in `~/.lesmots/lesmots.json` (override directory with `LESMOTS_HOME`):
 | `max_words` | `120` |
 | `pick_limit` | `10` |
 
-Env vars: `ANTHROPIC_API_KEY` **or** `LESMOTS_API_KEY` + `LESMOTS_API_BASE`; `LESMOTS_MODEL` (default `claude-haiku-4-5` on Anthropic, required otherwise); `LESMOTS_HOME`.
+Env vars: `ANTHROPIC_API_KEY` **or** `LESMOTS_API_KEY` + `LESMOTS_API_BASE`;
+`LESMOTS_MODEL` (default `claude-haiku-4-5` on Anthropic, required otherwise);
+`LESMOTS_HOME`; `LESMOTS_GOOGLE_CLIENT_ID` (optional SSO).
 
-## Deploying to Cloud Run
+## Architecture
 
-The included `Dockerfile` runs `lesmots serve`, which binds `0.0.0.0` and honors Cloud Run's `PORT` env var (default 8321):
+Deliberately boring: pure-stdlib Python, one JSON document per user, no framework.
+
+| Module | Role |
+|---|---|
+| `models.py` | `Word` dataclass — SM-2 state, familiarity + decay curve |
+| `srs.py` | simplified SM-2 review + word picking |
+| `memory.py` | persistent store (word bank, config, stories, loved list) |
+| `fetcher.py` | fresh news — Google News RSS, Hacker News fallback |
+| `llm.py` | explanations, rewriting, continuation, spell-check (Anthropic or any OpenAI-compatible API) |
+| `daily.py` | the daily generate/show/extend jobs |
+| `web.py` | stdlib HTTP server: JSON API + auth + sessions |
+| `cli.py` | the terminal version |
+
+### Deploying to Cloud Run
+
+The included `Dockerfile` runs `lesmots serve` (binds `0.0.0.0`, honors `PORT`):
 
 ```bash
 gcloud run deploy lesmots --source . --region REGION --allow-unauthenticated \
   --set-env-vars ANTHROPIC_API_KEY=sk-ant-...
 ```
 
-**Persistence:** Cloud Run's filesystem is ephemeral — without extra setup, the word bank (`$LESMOTS_HOME/lesmots.json`) is lost whenever an instance is replaced. The image sets `LESMOTS_HOME=/data`; mount a GCS bucket there to persist it:
+**Persistence:** Cloud Run's filesystem is ephemeral. The image sets
+`LESMOTS_HOME=/data`; mount a GCS bucket there to keep the word bank:
 
 ```bash
 gcloud storage buckets create gs://YOUR_BUCKET --location REGION
@@ -117,11 +180,15 @@ gcloud run services update lesmots --region REGION \
   --add-volume-mount volume=data,mount-path=/data
 ```
 
-GCS FUSE mounts don't support concurrent writers, so also cap scaling with `--max-instances 1`. If you skip the mount, the app still works — the word bank just resets on each new instance.
+GCS FUSE mounts don't support concurrent writers, so also cap scaling with
+`--max-instances 1`. Without the mount the app still works — data just resets when the
+instance is replaced.
 
-## Word picking & familiarity
+## Roadmap
 
-Scheduling is simplified SM-2 (see `src/lesmots/srs.py`). Each exposure counts as a "good" review: the word's interval grows by its ease factor, so well-known words appear less often. Familiarity is derived from the interval: 0 = new, 1 ≥ 1 day, 2 ≥ 3, 3 ≥ 7, 4 ≥ 21, 5 ≥ 60.
+- ✅ **[M1 — MVP: the core learning loop, live and multi-user](https://github.com/marinelj/lesMots/milestone/1)** — everything above, shipped.
+- 🔜 **M2 — China mainland edition** — WeChat Mini Program UI, WeChat login, Qwen,
+  domestic news sources, database-backed persistence, CloudBase hosting.
 
 ## Development
 
