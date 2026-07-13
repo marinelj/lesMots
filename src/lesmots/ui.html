@@ -111,7 +111,7 @@
 
   <div class="card">
     <div class="row" style="justify-content:space-between;align-items:center">
-      <h2 style="margin:0">Demonstration area</h2>
+      <h2 style="margin:0">My story</h2>
       <div class="row">
         <button id="btn-show">New Journey</button>
         <button id="btn-more" disabled>Keep reading</button>
@@ -170,7 +170,7 @@
     <h2>Word bank</h2>
     <table>
       <thead><tr><th>Word / Phrase / Sentence</th><th>Kind</th><th>Added</th>
-                 <th>Exposure count</th><th>Familiarity (click to set)</th><th></th></tr></thead>
+                 <th>Exposure count</th><th>Familiarity (click to change)</th><th></th></tr></thead>
       <tbody id="bank-body"></tbody>
     </table>
     <p class="legend">Familiarity:
@@ -366,7 +366,7 @@ async function loadBank() {
      <td class="muted">${w.added.slice(0,10)}</td><td>${w.exposure_count}</td>
      <td class="dots">${[1,2,3,4,5].map(l =>
        `<span class="dot ${l <= w.familiarity ? 'on-' + w.familiarity : ''}"
-              data-text="${esc(w.text)}" data-level="${l}" title="set familiarity ${l}"></span>`).join('')}
+              data-text="${esc(w.text)}" data-level="${l}" title="change familiarity to ${l}"></span>`).join('')}
      </td>
      <td><button class="chip danger" data-del="${esc(w.text)}" title="remove from bank">✕</button></td>
      </tr>`).join('')
