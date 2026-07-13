@@ -101,6 +101,7 @@
 
   <div class="card">
     <h2>Add a word / phrase / sentence</h2>
+    <p class="muted" style="margin:0 0 6px;font-size:12px">Every word you add is a deposit in your bank.</p>
     <div class="row">
       <input id="new-word" type="text" placeholder="e.g. inference, state of the art, ...">
       <button id="btn-add">Explain &amp; Add</button>
@@ -117,7 +118,7 @@
         <button id="btn-more" disabled>Keep reading</button>
       </div>
     </div>
-    <p id="demo" class="muted">Click “New Journey” to get today’s rewritten content.</p>
+    <p id="demo" class="muted">Click “New Journey” to collect today’s interest — a fresh story built from your word deposits.</p>
     <div class="row" id="love-row" style="display:none">
       <button id="btn-orig" class="secondary" disabled>Original</button>
       <button id="btn-love">I Love This</button>
@@ -168,6 +169,7 @@
 
   <div class="card">
     <h2>Word bank</h2>
+    <p class="muted" style="margin:0 0 6px;font-size:12px">Your deposits. Reading stories pays the interest that grows familiarity — neglect, and it decays.</p>
     <table>
       <thead><tr><th>Word / Phrase / Sentence</th><th>Kind</th><th>Added</th>
                  <th>Exposure count</th><th>Familiarity (click to change)</th><th></th></tr></thead>
@@ -370,7 +372,7 @@ async function loadBank() {
      </td>
      <td><button class="chip danger" data-del="${esc(w.text)}" title="remove from bank">✕</button></td>
      </tr>`).join('')
-    || '<tr><td colspan="6" class="muted">Empty — add your first word above.</td></tr>';
+    || '<tr><td colspan="6" class="muted">Empty — make your first deposit above.</td></tr>';
   if (lastPrepared) $('demo').innerHTML = storyHTML(lastPrepared.rewritten);
 }
 

@@ -38,6 +38,14 @@ counted and its schedule pushed out; words you neglect decay back toward "unfami
 and start showing up in stories again. No flashcards, no drills — just a daily read
 that quietly keeps your vocabulary alive.
 
+### The bank analogy
+
+> **LesMots is a bank. Words are money.** Every word you add is a deposit. Reading the
+> daily story is how your deposits earn **interest** — each exposure compounds a word's
+> familiarity a little further. And vocabulary has **inflation**: neglect a word and its
+> value quietly decays, until the bank pulls it back into a story so you can reinvest.
+> Come read your interest every day, and your savings never stop growing.
+
 ## How it works
 
 ```mermaid
