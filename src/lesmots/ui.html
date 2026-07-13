@@ -32,12 +32,18 @@
   #demo b.fam-4 { color:#1a2e05; background:var(--fam4); }
   #demo b.fam-5 { color:#052e16; background:var(--fam5); }
   #love-row { justify-content:flex-end; margin-top:4px; }
-  #original { font-size:13px; color:var(--muted); line-height:1.5; }
+  #original { font-size:13px; color:var(--muted); line-height:1.5; overflow-wrap:anywhere; }
   #original a { color:var(--accent); }
-  #diff { font-size:13px; line-height:1.6; border:1px solid #e2e8f0; border-radius:7px; padding:6px 10px;
-          margin-top:6px; overflow-x:auto; }
-  #diff del { background:#fee2e2; color:#b91c1c; text-decoration:line-through; padding:0 2px; border-radius:3px; }
-  #diff ins { background:#dcfce7; color:#15803d; text-decoration:none; padding:0 2px; border-radius:3px; }
+  #diff { font-size:13px; margin-top:6px; display:grid; gap:8px; }
+  .diff-side { border:1px solid #e2e8f0; border-radius:7px; padding:6px 10px; line-height:1.6; }
+  .diff-side p { margin:4px 0 0; }
+  .del-side { background:#fffafa; border-color:#fecaca; }
+  .ins-side { background:#f7fdf9; border-color:#bbf7d0; }
+  .diff-tag { font-size:11px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; }
+  .del-side .diff-tag { color:#b91c1c; }
+  .ins-side .diff-tag { color:#15803d; }
+  #diff del { background:#fecaca; color:#7f1d1d; text-decoration:line-through; padding:0 3px; border-radius:3px; }
+  #diff ins { background:#bbf7d0; color:#14532d; text-decoration:none; padding:0 3px; border-radius:3px; }
   #explanation { white-space:pre-wrap; line-height:1.5; font-size:13px; margin:6px 0 0; }
   #suggest { margin-top:6px; }
   table { width:100%; border-collapse:collapse; font-size:13px; }
@@ -89,7 +95,7 @@
 </style>
 </head>
 <body>
-<header><h1>LesMots · 温故</h1><span>learn words inside the news you care about — 温故而知新</span>
+<header><h1>LesMots · 温故</h1><span>To learn the new by reviewing the old — 温故而知新</span>
   <span id="user-box"></span></header>
 <main>
 
@@ -105,7 +111,7 @@
 
   <div class="card">
     <div class="row" style="justify-content:space-between;align-items:center">
-      <h2 style="margin:0">Demonstration area</h2>
+      <h2 style="margin:0">My story</h2>
       <div class="row">
         <button id="btn-show">New Journey</button>
         <button id="btn-more" disabled>Keep reading</button>
@@ -164,7 +170,7 @@
     <h2>Word bank</h2>
     <table>
       <thead><tr><th>Word / Phrase / Sentence</th><th>Kind</th><th>Added</th>
-                 <th>Exposure count</th><th>Familiarity (click to set)</th><th></th></tr></thead>
+                 <th>Exposure count</th><th>Familiarity (click to change)</th><th></th></tr></thead>
       <tbody id="bank-body"></tbody>
     </table>
     <p class="legend">Familiarity:
@@ -230,7 +236,8 @@ function renderOriginal(p) {
   $('original').innerHTML =
     `<p><strong>${esc(o.title || '')}</strong> — ${esc(o.source || '')}` +
     `${o.published ? ' · ' + esc(o.published) : ''}${o.points ? ` (${o.points} points)` : ''}</p>` +
-    `<p>${esc(o.text || '')}</p><p><a href="${esc(o.url || '#')}" target="_blank">${esc(o.url || '')}</a></p>`;
+    `<p>${esc(o.text || '')}</p>` +
+    (o.url ? `<p><a href="${esc(o.url)}" target="_blank">Read the full story at ${esc(o.source || 'the source')} ↗</a></p>` : '');
   const plainRewrite = (p.rewritten || '').replace(/\*\*/g, '');
   $('diff').innerHTML = renderDiff(`${o.title || ''}. ${o.text || ''}`, plainRewrite);
 }
@@ -255,9 +262,24 @@ function wordDiff(a, b) {
   return out;
 }
 
+function coalesce(ops) {  // merge adjacent same-type words into one chunk
+  const out = [];
+  for (const [t, w] of ops) {
+    const last = out[out.length - 1];
+    if (last && last[0] === t) last[1] += ' ' + w; else out.push([t, w]);
+  }
+  return out;
+}
+
 function renderDiff(orig, rew) {
-  return wordDiff(orig, rew).map(([t, w]) =>
-    t === '=' ? esc(w) : t === '-' ? `<del>${esc(w)}</del>` : `<ins>${esc(w)}</ins>`).join(' ');
+  // GitHub-style split view: original with deletions, rewritten with insertions
+  const ops = coalesce(wordDiff(orig, rew));
+  const left = ops.filter(([t]) => t !== '+')
+    .map(([t, w]) => t === '-' ? `<del>${esc(w)}</del>` : esc(w)).join(' ');
+  const right = ops.filter(([t]) => t !== '-')
+    .map(([t, w]) => t === '+' ? `<ins>${esc(w)}</ins>` : esc(w)).join(' ');
+  return `<div class="diff-side del-side"><span class="diff-tag">− original</span><p>${left}</p></div>` +
+         `<div class="diff-side ins-side"><span class="diff-tag">+ rewritten</span><p>${right}</p></div>`;
 }
 
 $('btn-orig').onclick = () => {
@@ -344,7 +366,7 @@ async function loadBank() {
      <td class="muted">${w.added.slice(0,10)}</td><td>${w.exposure_count}</td>
      <td class="dots">${[1,2,3,4,5].map(l =>
        `<span class="dot ${l <= w.familiarity ? 'on-' + w.familiarity : ''}"
-              data-text="${esc(w.text)}" data-level="${l}" title="set familiarity ${l}"></span>`).join('')}
+              data-text="${esc(w.text)}" data-level="${l}" title="change familiarity to ${l}"></span>`).join('')}
      </td>
      <td><button class="chip danger" data-del="${esc(w.text)}" title="remove from bank">✕</button></td>
      </tr>`).join('')

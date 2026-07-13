@@ -50,6 +50,29 @@ def test_familiarity_levels():
     assert w.familiarity == 5
 
 
+def test_familiarity_decays_when_overdue():
+    w = Word(text="x", interval=60, due=TODAY.isoformat())
+    assert w.familiarity == 5  # due today: no decay yet
+    w.due = (TODAY - timedelta(days=60)).isoformat()   # one interval overdue
+    assert w.effective_interval(on=TODAY) == pytest.approx(30.0)
+    assert w.familiarity == 4
+    w.due = (TODAY - timedelta(days=180)).isoformat()  # three intervals overdue
+    assert w.effective_interval(on=TODAY) == pytest.approx(7.5)
+    assert w.familiarity == 3
+    fresh = Word(text="y", interval=60, due=(TODAY + timedelta(days=10)).isoformat())
+    assert fresh.familiarity == 5  # not yet due: full strength
+    new = Word(text="z")
+    assert new.effective_interval(on=TODAY) == 0.0  # never reviewed: nothing to decay
+
+
+def test_decayed_words_rank_less_familiar_in_pickup():
+    decayed = Word(text="forgotten", interval=60,
+                   due=(TODAY - timedelta(days=400)).isoformat())
+    solid = Word(text="solid", interval=60, due=(TODAY + timedelta(days=30)).isoformat())
+    ranked = pick_words([solid, decayed], limit=2, on=TODAY)
+    assert ranked[0].text == "forgotten"  # overdue + decayed comes first
+
+
 def test_set_familiarity_snaps_interval_and_due():
     w = Word(text="x")
     w.set_familiarity(4, on=TODAY)
