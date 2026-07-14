@@ -19,6 +19,9 @@ def isolated_home(tmp_path, monkeypatch):
     monkeypatch.delenv("LESMOTS_API_KEY", raising=False)
     monkeypatch.delenv("LESMOTS_API_BASE", raising=False)
     monkeypatch.delenv("LESMOTS_GOOGLE_CLIENT_ID", raising=False)
+    monkeypatch.delenv("LESMOTS_WX_APPID", raising=False)
+    monkeypatch.delenv("LESMOTS_WX_SECRET", raising=False)
+    monkeypatch.delenv("LESMOTS_NEWS_SOURCE", raising=False)
     return tmp_path
 
 
@@ -328,6 +331,62 @@ def test_data_path_per_user():
     per_user = data_path("google-sub-1")
     assert per_user.parent.name == "users"
     assert per_user.name == "google-sub-1.json"
+
+
+# ---------- wechat (M2) ----------
+
+def test_wechat_unconfigured_defaults():
+    from lesmots import wechat
+    assert wechat.is_configured() is False
+    assert wechat.msg_sec_check("openid", "anything") is True  # never blocks
+
+
+def test_default_fetch_switches_on_news_source_env(monkeypatch):
+    from lesmots import fetcher, fetcher_cn
+    assert daily._default_fetch() is fetcher.fetch_popular
+    monkeypatch.setenv("LESMOTS_NEWS_SOURCE", "cn")
+    assert daily._default_fetch() is fetcher_cn.fetch_popular_cn
+
+
+BAIDU_FIXTURE = {"data": {"cards": [{"content": [
+    {"word": "人工智能新突破", "desc": "国产大模型发布", "url": "http://b/1", "hotScore": "9000000"},
+    {"word": "", "desc": "skipped"},
+    {"word": "体育赛事", "hotScore": 100},
+]}]}}
+
+WEIBO_FIXTURE = {"data": {"realtime": [
+    {"word": "热搜第一", "note": "详情", "num": 123456},
+    {"note": "no word, skipped"},
+]}}
+
+
+def test_fetcher_cn_parsers():
+    from lesmots.fetcher_cn import _parse_baidu, _parse_weibo
+    baidu = _parse_baidu(BAIDU_FIXTURE)
+    assert [s["title"] for s in baidu] == ["人工智能新突破", "体育赛事"]
+    assert baidu[0]["points"] == 9000000 and baidu[0]["source"] == "百度热搜"
+    assert baidu[0]["text"] == "国产大模型发布"
+    weibo = _parse_weibo(WEIBO_FIXTURE)
+    assert len(weibo) == 1 and weibo[0]["source"] == "微博热搜"
+    assert "s.weibo.com" in weibo[0]["url"]
+
+
+def test_fetch_popular_cn_prefers_interest_match(monkeypatch):
+    from lesmots import fetcher_cn
+    monkeypatch.setattr(fetcher_cn, "_get_json", lambda url: BAIDU_FIXTURE)
+    story = fetcher_cn.fetch_popular_cn(["体育"])
+    assert story["title"] == "体育赛事"
+
+
+def test_fetch_popular_cn_falls_back_to_weibo(monkeypatch):
+    from lesmots import fetcher_cn
+
+    def get_json(url):
+        if "baidu" in url:
+            raise RuntimeError("baidu down")
+        return WEIBO_FIXTURE
+    monkeypatch.setattr(fetcher_cn, "_get_json", get_json)
+    assert fetcher_cn.fetch_popular_cn(["无关"])["source"] == "微博热搜"
 
 
 # ---------- llm helpers ----------

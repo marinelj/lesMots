@@ -1,0 +1,23 @@
+{
+  "pages": [
+    "pages/story/story",
+    "pages/bank/bank",
+    "pages/feed/feed"
+  ],
+  "tabBar": {
+    "color": "#64748b",
+    "selectedColor": "#4f46e5",
+    "list": [
+      { "pagePath": "pages/story/story", "text": "故事" },
+      { "pagePath": "pages/bank/bank", "text": "词库" },
+      { "pagePath": "pages/feed/feed", "text": "兴趣" }
+    ]
+  },
+  "window": {
+    "navigationBarTitleText": "LesMots · 温故",
+    "navigationBarBackgroundColor": "#4f46e5",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f8fafc"
+  },
+  "sitemapLocation": "sitemap.json"
+}
