@@ -1,0 +1,17 @@
+{
+  "containerPort": 8321,
+  "dockerfilePath": "Dockerfile.cloudbase",
+  "buildDir": "",
+  "minNum": 0,
+  "maxNum": 1,
+  "cpu": 0.25,
+  "mem": 0.5,
+  "policyType": "cpu",
+  "policyThreshold": 80,
+  "envParams": {
+    "LESMOTS_HOME": "/data",
+    "LESMOTS_WX_APPID": "wxcf87d1a5c350e39d"
+  },
+  "customLogs": "stdout",
+  "initialDelaySeconds": 5
+}
