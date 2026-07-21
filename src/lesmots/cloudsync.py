@@ -150,6 +150,7 @@ def restore() -> None:
                 target.parent.mkdir(parents=True, exist_ok=True)
                 target.write_bytes(content)
             _manifest.update(names)
+            _restore_error = ""  # a failed earlier attempt is no longer news
             print(f"cloudsync: restored {len(names)} file(s) from env {_env()}")
             return
         except Exception as e:
