@@ -12,6 +12,8 @@ RUN pip install --no-cache-dir -i https://mirrors.cloud.tencent.com/pypi/simple 
 # the service config provides (see docs/deploy-cloudbase.md). Without a mount
 # the bank is lost on every restart.
 ENV LESMOTS_HOME=/data
+# stdout is a pipe in 云托管; without this Python buffers and logs never show
+ENV PYTHONUNBUFFERED=1
 
 EXPOSE 8321
 CMD ["lesmots", "serve"]

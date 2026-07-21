@@ -21,7 +21,7 @@ writer support (same constraint as the Cloud Run + GCS FUSE deployment).
 | Cloud Run setup | CloudBase setup |
 |---|---|
 | Gemini (OpenAI-compatible endpoint) | Any mainland OpenAI-compatible LLM. DeepSeek: `LESMOTS_API_BASE=https://api.deepseek.com`, `LESMOTS_MODEL=deepseek-chat`. Qwen: `LESMOTS_API_BASE=https://dashscope.aliyuncs.com/compatible-mode/v1`, `LESMOTS_MODEL=qwen-plus`. No code change — `llm.py` only needs the env vars. |
-| GCS FUSE bucket mounted at `/data` | ⚠️ Open item: in the 云托管 console, check 服务设置 for a storage/CFS mount and point it at `/data`. If mounting is not offered, the bank is lost on redeploy/restart until we add a COS-backed load/save to `memory.py`. |
+| GCS FUSE bucket mounted at `/data` | `cloudsync.py`: every save is mirrored into the environment's object storage via the tcb HTTP API, and pulled back into `/data` on server start. Enabled by `LESMOTS_TCB_ENV=<env id>` (needs `LESMOTS_WX_APPID`/`SECRET` for the access token). No volume mount exists in 云托管 service config, and `/data` is wiped on every scale-to-zero — do not disable this. |
 | Secret Manager | 云托管 env vars (console or `container.config.json` `envParams` — do NOT commit secrets there; set `LESMOTS_API_KEY` and `LESMOTS_WX_SECRET` in the console). |
 
 ## One-time setup (account owner, in a browser)

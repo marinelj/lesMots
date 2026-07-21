@@ -44,7 +44,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Optional
 
-from lesmots import llm, daily, wechat
+from lesmots import cloudsync, llm, daily, wechat
 from lesmots.memory import Memory, data_path
 from lesmots.models import Word
 
@@ -80,6 +80,7 @@ def _session_secret() -> bytes:
     if not p.exists():
         p.parent.mkdir(parents=True, exist_ok=True)
         p.write_text(os.urandom(32).hex())
+        cloudsync.push(p)  # or every session dies with the instance
     return p.read_text().strip().encode()
 
 
@@ -165,7 +166,7 @@ class Handler(BaseHTTPRequestHandler):
         return Memory.load(data_path(self._uid))
 
     def _msave(self, memory: Memory) -> None:
-        memory.save(data_path(self._uid))
+        cloudsync.push(memory.save(data_path(self._uid)))
 
     def _login_required(self) -> bool:
         """True (and responds 401) when auth is on and there is no session."""
@@ -184,8 +185,11 @@ class Handler(BaseHTTPRequestHandler):
             session = self._session()
             self._json({"client_id": _client_id(),
                         "wechat": wechat.is_configured(),
+                        "storage": cloudsync.status(),
                         "user": (session or {}).get("email") if _auth_enabled() else None,
                         "logged_in": bool(session) if _auth_enabled() else None})
+        elif self.path == "/api/storage-selftest" and os.environ.get("LESMOTS_DEBUG"):
+            self._json(cloudsync.selftest())
         elif self._login_required():
             return
         elif self.path == "/api/words":
@@ -329,6 +333,7 @@ class Handler(BaseHTTPRequestHandler):
 def serve(port: Optional[int] = None, host: str = "0.0.0.0") -> None:
     if port is None:
         port = int(os.environ.get("PORT", "8321"))
+    cloudsync.restore()  # must precede session-secret creation and first request
     if _auth_enabled():
         _session_secret()  # create once up front, not in racing request threads
     server = ThreadingHTTPServer((host, port), Handler)
