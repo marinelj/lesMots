@@ -19,6 +19,15 @@
 .story-src { font-size: 24rpx; color: #64748b; margin-bottom: 16rpx; }
 .story-text { font-size: 30rpx; color: #1e293b; line-height: 1.8; }
 
+/* bank-word highlights — same familiarity scale as the web UI (fam1-5) */
+.fam { border-radius: 6rpx; padding: 0 6rpx; font-weight: 600; }
+.fam-0 { background: #eef2ff; color: #4f46e5; }  /* not in bank map */
+.fam-1 { background: #ef4444; color: #ffffff; }
+.fam-2 { background: #f97316; color: #ffffff; }
+.fam-3 { background: #eab308; color: #422006; }
+.fam-4 { background: #84cc16; color: #1a2e05; }
+.fam-5 { background: #22c55e; color: #052e16; }
+
 .chips { margin-top: 24rpx; display: flex; flex-wrap: wrap; gap: 12rpx; }
 .chip {
   background: #eef2ff; color: #4f46e5; border-radius: 999rpx;
