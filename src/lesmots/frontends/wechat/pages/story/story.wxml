@@ -27,6 +27,7 @@
     <view class="actions">
       <button class="primary grow" bindtap="keepReading" loading="{{busy}}"
               disabled="{{busy}}">继续读</button>
+      <button class="ghost" bindtap="newJourney" disabled="{{busy}}">新旅程</button>
       <button class="ghost" bindtap="love" disabled="{{busy || loved}}">
         {{loved ? '已收藏' : '收藏'}}
       </button>

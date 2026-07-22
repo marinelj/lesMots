@@ -99,6 +99,20 @@ Page({
       .catch(() => this.setData({ busy: false, error: '故事生成失败，请重试' }));
   },
 
+  newJourney() {
+    if (this.data.busy) return;
+    if (this.data.story && !this.data.loved) {
+      wx.showModal({
+        title: '新旅程',
+        content: '当前故事还没收藏，开始新旅程后它将被替换。继续？',
+        confirmText: '开始',
+        success: res => { if (res.confirm) this.showMe(); },
+      });
+      return;
+    }
+    this.showMe();
+  },
+
   keepReading() {
     if (this.data.busy) return;
     this.setData({ busy: true, error: '' });
