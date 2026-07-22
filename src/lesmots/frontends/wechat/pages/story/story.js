@@ -48,6 +48,15 @@ Page({
     });
   },
 
+  onWordAdded() {
+    // a new deposit may appear in the current story — recolor it
+    this.loadFamMap().then(() => {
+      if (this.data.story) {
+        this.setData({ segments: parseStory(this.data.story.rewritten, this.famMap) });
+      }
+    });
+  },
+
   loadFamMap() {
     return api.get('/api/words')
       .then(words => {

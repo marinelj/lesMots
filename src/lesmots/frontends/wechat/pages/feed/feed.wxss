@@ -1,4 +1,5 @@
-.page { padding: 24rpx; }
+/* top padding clears the fixed quick-add bar */
+.page { padding: 132rpx 24rpx 24rpx; }
 
 .section-head { font-size: 32rpx; font-weight: 600; color: #0f172a; }
 .section-sub { margin: 8rpx 0 24rpx; font-size: 25rpx; color: #64748b; }

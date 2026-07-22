@@ -1,13 +1,11 @@
-// 词库: the word bank — list, add, remove. First usable page of M2 Phase 1.
+// 词库: the word bank — list, remove; adding lives in the global quick-add bar.
 const api = require('../../utils/api');
 
 Page({
   data: {
     words: [],
-    draft: '',
     expanded: '',
     loading: true,
-    adding: false,
     error: '',
   },
 
@@ -32,52 +30,9 @@ Page({
     this.refresh().then(() => wx.stopPullDownRefresh());
   },
 
-  onDraft(e) {
-    this.setData({ draft: e.detail.value });
-  },
-
-  // Offer LLM spelling corrections before the word enters the bank; the
-  // check failing (offline, no LLM) must never block the add itself.
-  spellCheck(text) {
-    return api.post('/api/check-spelling', { text })
-      .then(res => {
-        const suggestions = (res.suggestions || []).slice(0, 5);
-        if (!suggestions.length) return text;
-        return new Promise(resolve => {
-          wx.showActionSheet({
-            alertText: `「${text}」可能拼写有误`,
-            itemList: [...suggestions, `按原样存入「${text}」`],
-            success: r => resolve(r.tapIndex < suggestions.length
-              ? suggestions[r.tapIndex] : text),
-            fail: () => resolve(null), // user cancelled — don't save anything
-          });
-        });
-      })
-      .catch(() => text);
-  },
-
-  addWord() {
-    const text = this.data.draft.trim();
-    if (!text || this.data.adding) return;
-    this.setData({ adding: true, error: '' });
-    this.spellCheck(text)
-      .then(chosen => {
-        if (chosen === null) {
-          this.setData({ adding: false });
-          return null;
-        }
-        return api.post('/api/add', { text: chosen });
-      })
-      .then(word => {
-        if (!word) return;
-        if (word.error) {
-          this.setData({ error: word.error, adding: false });
-          return;
-        }
-        this.setData({ draft: '', adding: false, expanded: word.text });
-        return this.refresh();
-      })
-      .catch(() => this.setData({ adding: false, error: '存入失败，请重试' }));
+  onWordAdded(e) {
+    this.setData({ expanded: e.detail.text });
+    this.refresh();
   },
 
   toggleExpand(e) {

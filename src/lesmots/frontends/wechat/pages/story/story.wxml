@@ -1,3 +1,4 @@
+<quick-add bind:wordadded="onWordAdded" />
 <view class="page">
   <view wx:if="{{error}}" class="error">{{error}}</view>
 

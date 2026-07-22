@@ -13,6 +13,9 @@
       { "pagePath": "pages/feed/feed", "text": "兴趣" }
     ]
   },
+  "usingComponents": {
+    "quick-add": "/components/quick-add/quick-add"
+  },
   "networkTimeout": {
     "request": 60000
   },
