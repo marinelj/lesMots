@@ -1,1 +1,26 @@
-.placeholder { padding: 48rpx; color: #64748b; text-align: center; }
+.page { padding: 24rpx; }
+
+.add-row { display: flex; gap: 16rpx; align-items: center; margin-bottom: 24rpx; }
+.add-input {
+  flex: 1; background: #fff; border: 2rpx solid #e2e8f0; border-radius: 12rpx;
+  padding: 16rpx 20rpx; font-size: 30rpx;
+}
+.add-btn { background: #4f46e5; color: #fff; border-radius: 12rpx; }
+.add-btn[disabled] { background: #c7d2fe; color: #fff; }
+
+.word-card {
+  background: #fff; border-radius: 16rpx; padding: 22rpx 24rpx; margin-bottom: 16rpx;
+  box-shadow: 0 1rpx 4rpx rgba(15, 23, 42, 0.06);
+}
+.word-head { display: flex; justify-content: space-between; align-items: baseline; }
+.word-text { font-size: 34rpx; font-weight: 600; color: #0f172a; }
+.word-fam { font-size: 24rpx; color: #f59e0b; letter-spacing: 2rpx; }
+.word-meta { margin-top: 6rpx; font-size: 24rpx; color: #64748b; }
+.word-expl {
+  margin-top: 14rpx; padding-top: 14rpx; border-top: 2rpx solid #f1f5f9;
+  font-size: 28rpx; color: #334155; line-height: 1.6;
+}
+
+.hint { padding: 32rpx; color: #64748b; text-align: center; font-size: 26rpx; }
+.foot { padding: 16rpx; }
+.error { padding: 16rpx 24rpx; color: #dc2626; font-size: 26rpx; }

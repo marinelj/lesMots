@@ -1,1 +1,29 @@
-<view class="placeholder">LesMots · 温故 — bank 页面（Phase 2 开发中）</view>
+<view class="page">
+  <view class="add-row">
+    <input class="add-input" placeholder="添加生词，如 bonjour" value="{{draft}}"
+           bindinput="onDraft" bindconfirm="addWord" confirm-type="done"
+           disabled="{{adding}}" />
+    <button class="add-btn" size="mini" bindtap="addWord"
+            loading="{{adding}}" disabled="{{adding || !draft}}">存入</button>
+  </view>
+
+  <view wx:if="{{error}}" class="error">{{error}}</view>
+
+  <view wx:if="{{loading}}" class="hint">加载中…</view>
+  <view wx:elif="{{!words.length}}" class="hint">
+    词库还是空的 — 存入第一个词，利息从今天开始算。
+  </view>
+
+  <view wx:for="{{words}}" wx:key="text" class="word-card"
+        bindtap="toggleExpand" data-text="{{item.text}}"
+        bindlongpress="confirmRemove" data-index="{{index}}">
+    <view class="word-head">
+      <text class="word-text">{{item.text}}</text>
+      <text class="word-fam">{{item.stars}}</text>
+    </view>
+    <view class="word-meta">{{item.language}} · 复习 {{item.reviews}} 次</view>
+    <view wx:if="{{expanded === item.text}}" class="word-expl">{{item.explanation}}</view>
+  </view>
+
+  <view wx:if="{{words.length}}" class="hint foot">轻点看释义 · 长按删除</view>
+</view>
