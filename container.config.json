@@ -11,7 +11,8 @@
   "envParams": {
     "LESMOTS_HOME": "/data",
     "LESMOTS_WX_APPID": "wxcf87d1a5c350e39d",
-    "LESMOTS_TCB_ENV": "prod-d4gd4usjk0c9578c8"
+    "LESMOTS_TCB_ENV": "prod-d4gd4usjk0c9578c8",
+    "LESMOTS_NEWS_SOURCE": "cn"
   },
   "customLogs": "stdout",
   "initialDelaySeconds": 5

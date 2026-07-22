@@ -13,6 +13,9 @@
       { "pagePath": "pages/feed/feed", "text": "兴趣" }
     ]
   },
+  "networkTimeout": {
+    "request": 60000
+  },
   "window": {
     "navigationBarTitleText": "LesMots · 温故",
     "navigationBarBackgroundColor": "#4f46e5",

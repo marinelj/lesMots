@@ -1,1 +1,28 @@
-<view class="placeholder">LesMots · 温故 — feed 页面（Phase 2 开发中）</view>
+<view class="page">
+  <view class="section-head">兴趣话题</view>
+  <view class="section-sub">每日故事从这些话题里取材。</view>
+
+  <view wx:if="{{error}}" class="error">{{error}}</view>
+
+  <view class="chips">
+    <view wx:for="{{interests}}" wx:key="*this" class="chip removable"
+          bindtap="removeInterest" data-index="{{index}}">
+      {{item}} <text class="chip-x">×</text>
+    </view>
+    <view wx:if="{{!interests.length}}" class="hint">还没有话题 — 加一个吧。</view>
+  </view>
+
+  <view class="add-row">
+    <input class="add-input" placeholder="添加话题，如 人工智能" value="{{draft}}"
+           bindinput="onDraft" bindconfirm="addInterest" confirm-type="done" />
+    <button class="add-btn" size="mini" bindtap="addInterest"
+            disabled="{{!draft}}">添加</button>
+  </view>
+
+  <button class="save {{dirty ? '' : 'save-idle'}}" bindtap="save"
+          loading="{{saving}}" disabled="{{saving || !dirty}}">
+    {{dirty ? '保存修改' : '已保存'}}
+  </button>
+
+  <view class="lang">学习语言：{{language}}</view>
+</view>
