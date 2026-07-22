@@ -36,12 +36,40 @@ Page({
     this.setData({ draft: e.detail.value });
   },
 
+  // Offer LLM spelling corrections before the word enters the bank; the
+  // check failing (offline, no LLM) must never block the add itself.
+  spellCheck(text) {
+    return api.post('/api/check-spelling', { text })
+      .then(res => {
+        const suggestions = (res.suggestions || []).slice(0, 5);
+        if (!suggestions.length) return text;
+        return new Promise(resolve => {
+          wx.showActionSheet({
+            alertText: `「${text}」可能拼写有误`,
+            itemList: [...suggestions, `按原样存入「${text}」`],
+            success: r => resolve(r.tapIndex < suggestions.length
+              ? suggestions[r.tapIndex] : text),
+            fail: () => resolve(null), // user cancelled — don't save anything
+          });
+        });
+      })
+      .catch(() => text);
+  },
+
   addWord() {
     const text = this.data.draft.trim();
     if (!text || this.data.adding) return;
     this.setData({ adding: true, error: '' });
-    api.post('/api/add', { text })
+    this.spellCheck(text)
+      .then(chosen => {
+        if (chosen === null) {
+          this.setData({ adding: false });
+          return null;
+        }
+        return api.post('/api/add', { text: chosen });
+      })
       .then(word => {
+        if (!word) return;
         if (word.error) {
           this.setData({ error: word.error, adding: false });
           return;
