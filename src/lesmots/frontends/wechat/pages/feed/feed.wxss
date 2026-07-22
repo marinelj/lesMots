@@ -19,6 +19,11 @@
 .add-btn { background: #4f46e5; color: #fff; border-radius: 12rpx; }
 .add-btn[disabled] { background: #c7d2fe; color: #fff; }
 
+.suggest { margin-bottom: 28rpx; }
+.suggest-head { font-size: 27rpx; font-weight: 600; color: #334155; margin-bottom: 14rpx; }
+.chip-add { background: #fff; color: #334155; border: 2rpx solid #e2e8f0; }
+.chip-plus { color: #4f46e5; font-weight: 600; }
+
 .save { background: #4f46e5; color: #fff; border-radius: 12rpx; font-size: 30rpx; }
 .save-idle, .save[disabled] { background: #e2e8f0; color: #64748b; }
 

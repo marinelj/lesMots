@@ -20,6 +20,16 @@
             disabled="{{!draft}}">添加</button>
   </view>
 
+  <view wx:if="{{suggested.length}}" class="suggest">
+    <view class="suggest-head">推荐话题</view>
+    <view class="chips">
+      <view wx:for="{{suggested}}" wx:key="*this" class="chip chip-add"
+            bindtap="addSuggested" data-topic="{{item}}">
+        <text class="chip-plus">＋</text> {{item}}
+      </view>
+    </view>
+  </view>
+
   <button class="save {{dirty ? '' : 'save-idle'}}" bindtap="save"
           loading="{{saving}}" disabled="{{saving || !dirty}}">
     {{dirty ? '保存修改' : '已保存'}}
