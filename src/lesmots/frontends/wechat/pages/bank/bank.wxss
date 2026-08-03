@@ -1,0 +1,19 @@
+/* top padding clears the fixed quick-add bar */
+.page { padding: 132rpx 24rpx 24rpx; }
+
+.word-card {
+  background: #fff; border-radius: 16rpx; padding: 22rpx 24rpx; margin-bottom: 16rpx;
+  box-shadow: 0 1rpx 4rpx rgba(15, 23, 42, 0.06);
+}
+.word-head { display: flex; justify-content: space-between; align-items: baseline; }
+.word-text { font-size: 34rpx; font-weight: 600; color: #0f172a; }
+.word-fam { font-size: 24rpx; color: #f59e0b; letter-spacing: 2rpx; }
+.word-meta { margin-top: 6rpx; font-size: 24rpx; color: #64748b; }
+.word-expl {
+  margin-top: 14rpx; padding-top: 14rpx; border-top: 2rpx solid #f1f5f9;
+  font-size: 28rpx; color: #334155; line-height: 1.6;
+}
+
+.hint { padding: 32rpx; color: #64748b; text-align: center; font-size: 26rpx; }
+.foot { padding: 16rpx; }
+.error { padding: 16rpx 24rpx; color: #dc2626; font-size: 26rpx; }

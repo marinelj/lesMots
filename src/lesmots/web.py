@@ -21,6 +21,11 @@ Endpoints:
 Auth (issue #18): set LESMOTS_GOOGLE_CLIENT_ID to require Google sign-in;
 every user then gets an isolated store under $LESMOTS_HOME/users/. With
 the variable unset the app stays single-user with no login.
+
+WeChat (M2): set LESMOTS_WX_APPID + LESMOTS_WX_SECRET to accept Mini
+Program logins ({"wx_code"} on /api/login, uid "wx-<openid>"). Sessions
+work as Bearer tokens (Authorization header) for cookie-less clients;
+the login response includes the token in its body.
 """
 
 from __future__ import annotations
@@ -39,11 +44,11 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Optional
 
-from lesmots import llm, daily
+from lesmots import cloudsync, llm, daily, wechat
 from lesmots.memory import Memory, data_path
 from lesmots.models import Word
 
-UI_PATH = Path(__file__).parent / "ui.html"
+UI_PATH = Path(__file__).parent / "frontends" / "web" / "ui.html"
 GOOGLE_TOKENINFO = "https://oauth2.googleapis.com/tokeninfo?id_token="
 SESSION_COOKIE = "lesmots_session"
 SESSION_DAYS = 30
@@ -64,7 +69,7 @@ def _client_id() -> str:
 
 
 def _auth_enabled() -> bool:
-    return bool(_client_id())
+    return bool(_client_id()) or wechat.is_configured()
 
 
 def _session_secret() -> bytes:
@@ -75,6 +80,7 @@ def _session_secret() -> bytes:
     if not p.exists():
         p.parent.mkdir(parents=True, exist_ok=True)
         p.write_text(os.urandom(32).hex())
+        cloudsync.push(p)  # or every session dies with the instance
     return p.read_text().strip().encode()
 
 
@@ -136,6 +142,12 @@ class Handler(BaseHTTPRequestHandler):
     # ---------- session / per-user storage ----------
 
     def _session(self) -> Optional[dict]:
+        # Bearer token first: cookie-less clients (WeChat Mini Program)
+        auth = self.headers.get("Authorization") or ""
+        if auth.startswith("Bearer "):
+            session = check_session(auth[len("Bearer "):].strip())
+            if session:
+                return session
         for part in (self.headers.get("Cookie") or "").split(";"):
             key, _, value = part.strip().partition("=")
             if key == SESSION_COOKIE:
@@ -154,7 +166,7 @@ class Handler(BaseHTTPRequestHandler):
         return Memory.load(data_path(self._uid))
 
     def _msave(self, memory: Memory) -> None:
-        memory.save(data_path(self._uid))
+        cloudsync.push(memory.save(data_path(self._uid)))
 
     def _login_required(self) -> bool:
         """True (and responds 401) when auth is on and there is no session."""
@@ -172,7 +184,12 @@ class Handler(BaseHTTPRequestHandler):
         elif self.path == "/api/auth-config":
             session = self._session()
             self._json({"client_id": _client_id(),
-                        "user": (session or {}).get("email") if _auth_enabled() else None})
+                        "wechat": wechat.is_configured(),
+                        "storage": cloudsync.status(),
+                        "user": (session or {}).get("email") if _auth_enabled() else None,
+                        "logged_in": bool(session) if _auth_enabled() else None})
+        elif self.path == "/api/storage-selftest" and os.environ.get("LESMOTS_DEBUG"):
+            self._json(cloudsync.selftest())
         elif self._login_required():
             return
         elif self.path == "/api/words":
@@ -201,15 +218,27 @@ class Handler(BaseHTTPRequestHandler):
     def _do_post(self) -> None:
         try:
             if self.path == "/api/login":
-                credential = (self._body().get("credential") or "").strip()
-                info = verify_google_token(credential) if credential else None
-                if not info:
-                    self._json({"error": "Google sign-in failed"}, code=401)
+                data = self._body()
+                credential = (data.get("credential") or "").strip()
+                wx_code = (data.get("wx_code") or "").strip()
+                uid = email = None
+                if credential:
+                    info = verify_google_token(credential)
+                    if info:
+                        uid, email = info["sub"], info.get("email", "")
+                elif wx_code and wechat.is_configured():
+                    info = wechat.code2session(wx_code)
+                    if info:
+                        uid, email = "wx-" + info["openid"], ""
+                if not uid:
+                    self._json({"error": "sign-in failed"}, code=401)
                     return
-                token = make_session(info["sub"], info.get("email", ""))
+                token = make_session(uid, email)
                 cookie = (f"{SESSION_COOKIE}={token}; Path=/; Max-Age={SESSION_DAYS * 86400}; "
                           f"HttpOnly; SameSite=Lax; Secure")
-                self._json({"email": info.get("email", "")}, headers=[("Set-Cookie", cookie)])
+                # token also in the body: cookie-less clients send it as a Bearer header
+                self._json({"email": email, "token": token},
+                           headers=[("Set-Cookie", cookie)])
             elif self.path == "/api/logout":
                 cookie = f"{SESSION_COOKIE}=; Path=/; Max-Age=0; HttpOnly; SameSite=Lax; Secure"
                 self._json({"ok": True}, headers=[("Set-Cookie", cookie)])
@@ -218,6 +247,11 @@ class Handler(BaseHTTPRequestHandler):
                 text = (data.get("text") or "").strip()
                 if not text:
                     self._json({"error": "text required"}, code=400)
+                    return
+                # WeChat requires moderating user-generated content
+                if self._uid and self._uid.startswith("wx-") and \
+                        not wechat.msg_sec_check(self._uid[3:], text):
+                    self._json({"error": "content rejected by moderation"}, code=400)
                     return
                 memory = self._mem()
                 lang = data.get("language") or memory.config["language"]
@@ -299,6 +333,7 @@ class Handler(BaseHTTPRequestHandler):
 def serve(port: Optional[int] = None, host: str = "0.0.0.0") -> None:
     if port is None:
         port = int(os.environ.get("PORT", "8321"))
+    cloudsync.restore()  # must precede session-secret creation and first request
     if _auth_enabled():
         _session_secret()  # create once up front, not in racing request threads
     server = ThreadingHTTPServer((host, port), Handler)

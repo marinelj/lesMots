@@ -19,6 +19,9 @@ def isolated_home(tmp_path, monkeypatch):
     monkeypatch.delenv("LESMOTS_API_KEY", raising=False)
     monkeypatch.delenv("LESMOTS_API_BASE", raising=False)
     monkeypatch.delenv("LESMOTS_GOOGLE_CLIENT_ID", raising=False)
+    monkeypatch.delenv("LESMOTS_WX_APPID", raising=False)
+    monkeypatch.delenv("LESMOTS_WX_SECRET", raising=False)
+    monkeypatch.delenv("LESMOTS_NEWS_SOURCE", raising=False)
     return tmp_path
 
 
@@ -330,6 +333,62 @@ def test_data_path_per_user():
     assert per_user.name == "google-sub-1.json"
 
 
+# ---------- wechat (M2) ----------
+
+def test_wechat_unconfigured_defaults():
+    from lesmots import wechat
+    assert wechat.is_configured() is False
+    assert wechat.msg_sec_check("openid", "anything") is True  # never blocks
+
+
+def test_default_fetch_switches_on_news_source_env(monkeypatch):
+    from lesmots import fetcher, fetcher_cn
+    assert daily._default_fetch() is fetcher.fetch_popular
+    monkeypatch.setenv("LESMOTS_NEWS_SOURCE", "cn")
+    assert daily._default_fetch() is fetcher_cn.fetch_popular_cn
+
+
+BAIDU_FIXTURE = {"data": {"cards": [{"content": [
+    {"word": "人工智能新突破", "desc": "国产大模型发布", "url": "http://b/1", "hotScore": "9000000"},
+    {"word": "", "desc": "skipped"},
+    {"word": "体育赛事", "hotScore": 100},
+]}]}}
+
+WEIBO_FIXTURE = {"data": {"realtime": [
+    {"word": "热搜第一", "note": "详情", "num": 123456},
+    {"note": "no word, skipped"},
+]}}
+
+
+def test_fetcher_cn_parsers():
+    from lesmots.fetcher_cn import _parse_baidu, _parse_weibo
+    baidu = _parse_baidu(BAIDU_FIXTURE)
+    assert [s["title"] for s in baidu] == ["人工智能新突破", "体育赛事"]
+    assert baidu[0]["points"] == 9000000 and baidu[0]["source"] == "百度热搜"
+    assert baidu[0]["text"] == "国产大模型发布"
+    weibo = _parse_weibo(WEIBO_FIXTURE)
+    assert len(weibo) == 1 and weibo[0]["source"] == "微博热搜"
+    assert "s.weibo.com" in weibo[0]["url"]
+
+
+def test_fetch_popular_cn_prefers_interest_match(monkeypatch):
+    from lesmots import fetcher_cn
+    monkeypatch.setattr(fetcher_cn, "_get_json", lambda url: BAIDU_FIXTURE)
+    story = fetcher_cn.fetch_popular_cn(["体育"])
+    assert story["title"] == "体育赛事"
+
+
+def test_fetch_popular_cn_falls_back_to_weibo(monkeypatch):
+    from lesmots import fetcher_cn
+
+    def get_json(url):
+        if "baidu" in url:
+            raise RuntimeError("baidu down")
+        return WEIBO_FIXTURE
+    monkeypatch.setattr(fetcher_cn, "_get_json", get_json)
+    assert fetcher_cn.fetch_popular_cn(["无关"])["source"] == "微博热搜"
+
+
 # ---------- llm helpers ----------
 
 def test_parse_json_list_variants():
@@ -373,3 +432,71 @@ def test_cli_show_me_offline(capsys, monkeypatch):
     assert cli.main(["show-me"]) == 0
     out = capsys.readouterr().out
     assert "Demonstration" in out and "Original" in out and "model" in out
+
+
+# ---------- cloudsync (微信云托管 object storage) ----------
+
+@pytest.fixture()
+def fake_cloud(monkeypatch):
+    """dict-backed stand-in for the environment's object storage."""
+    from lesmots import cloudsync
+    store = {}
+    monkeypatch.setenv("LESMOTS_TCB_ENV", "prod-test")
+    monkeypatch.setattr(cloudsync, "_upload", store.__setitem__)
+    monkeypatch.setattr(cloudsync, "_download", store.get)
+    monkeypatch.setattr(cloudsync, "_manifest", set())
+    monkeypatch.setattr(cloudsync, "_restore_failed", False)
+    return store
+
+
+def test_cloudsync_push_and_restore_round_trip(fake_cloud, tmp_path):
+    import json
+    from lesmots import cloudsync
+    f = tmp_path / "users" / "wx-abc.json"
+    f.parent.mkdir(parents=True)
+    f.write_bytes(b'{"words": []}')
+    cloudsync.push(f)
+    assert fake_cloud["lesmots/users/wx-abc.json"] == b'{"words": []}'
+    assert json.loads(fake_cloud["lesmots/manifest.json"]) == ["users/wx-abc.json"]
+    # scale-to-zero wipes the disk; the next cold start restores it
+    f.unlink()
+    cloudsync._manifest.clear()
+    cloudsync.restore()
+    assert f.read_bytes() == b'{"words": []}'
+    assert "users/wx-abc.json" in cloudsync._manifest
+
+
+def test_cloudsync_disabled_without_env(fake_cloud, tmp_path, monkeypatch):
+    from lesmots import cloudsync
+    monkeypatch.delenv("LESMOTS_TCB_ENV")
+    f = tmp_path / "lesmots.json"
+    f.write_bytes(b"{}")
+    cloudsync.push(f)
+    cloudsync.restore()
+    assert fake_cloud == {}
+
+
+def test_cloudsync_failed_restore_blocks_pushes(fake_cloud, tmp_path, monkeypatch):
+    from lesmots import cloudsync
+
+    def boom(_path):
+        raise RuntimeError("storage down")
+
+    monkeypatch.setattr(cloudsync, "_download", boom)
+    monkeypatch.setattr(cloudsync, "RESTORE_ATTEMPTS", 1)
+    cloudsync.restore()  # must not raise, but must poison pushes
+    f = tmp_path / "lesmots.json"
+    f.write_bytes(b"{}")
+    cloudsync.push(f)
+    assert fake_cloud == {}  # an unread cloud copy is never overwritten
+
+
+def test_cloudsync_restore_ignores_hostile_manifest_paths(fake_cloud, tmp_path):
+    import json
+    from lesmots import cloudsync
+    fake_cloud["lesmots/manifest.json"] = json.dumps(
+        ["../escape.json", "/abs.json", "ok.json"]).encode()
+    fake_cloud["lesmots/ok.json"] = b"fine"
+    cloudsync.restore()
+    assert (tmp_path / "ok.json").read_bytes() == b"fine"
+    assert not (tmp_path.parent / "escape.json").exists()

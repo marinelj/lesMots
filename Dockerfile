@@ -10,6 +10,7 @@ RUN pip install --no-cache-dir .
 # mounted volume. See "Deploying to Cloud Run" in README.md for mounting a
 # GCS bucket with --add-volume/--add-volume-mount.
 ENV LESMOTS_HOME=/data
+ENV PYTHONUNBUFFERED=1
 
 EXPOSE 8321
 CMD ["lesmots", "serve"]

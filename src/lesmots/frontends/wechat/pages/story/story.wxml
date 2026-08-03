@@ -1,0 +1,53 @@
+<quick-add bind:wordadded="onWordAdded" />
+<view class="page">
+  <view wx:if="{{error}}" class="error">{{error}}</view>
+
+  <block wx:if="{{!story}}">
+    <view class="hero">
+      <view class="hero-title">每天一篇，把存进去的词读出来</view>
+      <view class="hero-sub">用你的词库改写今日新闻 — 读一遍，就是一次复利。</view>
+      <button class="primary" bindtap="showMe" loading="{{busy}}"
+              disabled="{{busy}}">今日故事</button>
+    </view>
+  </block>
+
+  <block wx:else>
+    <view class="story-card">
+      <view wx:if="{{story.original.title}}" class="story-src">
+        源自 · {{story.original.title}}
+      </view>
+      <text class="story-text" user-select>
+        <text wx:for="{{segments}}" wx:key="index"
+              class="{{item.hl ? 'fam fam-' + item.fam : ''}}">{{item.t}}</text>
+      </text>
+      <view wx:if="{{story.words_used.length}}" class="chips">
+        <text wx:for="{{story.words_used}}" wx:key="*this" class="chip">{{item}}</text>
+      </view>
+    </view>
+    <view class="actions">
+      <button class="primary grow" bindtap="keepReading" loading="{{busy}}"
+              disabled="{{busy}}">继续读</button>
+      <button class="ghost" bindtap="newJourney" disabled="{{busy}}">新旅程</button>
+      <button class="ghost" bindtap="love" disabled="{{busy || loved}}">
+        {{loved ? '已收藏' : '收藏'}}
+      </button>
+    </view>
+  </block>
+
+  <view wx:if="{{lovedList.length}}" class="loved">
+    <view class="loved-head">收藏的故事</view>
+    <view wx:for="{{lovedList}}" wx:key="id" class="loved-card"
+          bindtap="toggleLoved" data-id="{{item.id}}"
+          bindlongpress="confirmUnlove" data-index="{{index}}">
+      <view class="loved-title">{{item.preview}}</view>
+      <view class="loved-meta">{{item.loved_at}}</view>
+      <view wx:if="{{expandedLoved === item.id}}" class="loved-body">
+        <text user-select>
+          <text wx:for="{{item.segments}}" wx:for-item="seg" wx:key="index"
+                class="{{seg.hl ? 'fam fam-' + seg.fam : ''}}">{{seg.t}}</text>
+        </text>
+      </view>
+    </view>
+    <view class="hint foot">轻点展开 · 长按取消收藏</view>
+  </view>
+</view>

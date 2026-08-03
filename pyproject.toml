@@ -32,6 +32,9 @@ Homepage = "https://github.com/marine/lesmots"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/lesmots"]
+# The WeChat Mini Program frontend is uploaded via WeChat DevTools, never
+# served by the Python package — keep it out of the wheel.
+exclude = ["src/lesmots/frontends/wechat"]
 
 [tool.ruff]
 line-length = 100

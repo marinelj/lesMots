@@ -1,0 +1,19 @@
+# Dockerfile for 微信云托管 (WeChat CloudBase Run). Identical to ./Dockerfile
+# except pip uses the Tencent mirror — the cloud build farm runs in mainland
+# China where pypi.org is slow/unreliable.
+FROM python:3.12-slim
+
+WORKDIR /app
+COPY pyproject.toml README.md LICENSE ./
+COPY src ./src
+RUN pip install --no-cache-dir -i https://mirrors.cloud.tencent.com/pypi/simple .
+
+# Word bank lives under LESMOTS_HOME — point it at whatever persistent mount
+# the service config provides (see docs/deploy-cloudbase.md). Without a mount
+# the bank is lost on every restart.
+ENV LESMOTS_HOME=/data
+# stdout is a pipe in 云托管; without this Python buffers and logs never show
+ENV PYTHONUNBUFFERED=1
+
+EXPOSE 8321
+CMD ["lesmots", "serve"]

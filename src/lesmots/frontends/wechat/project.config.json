@@ -1,0 +1,12 @@
+{
+  "appid": "wxcf87d1a5c350e39d",
+  "compileType": "miniprogram",
+  "projectname": "lesmots-wengu",
+  "libVersion": "latest",
+  "setting": {
+    "es6": true,
+    "enhance": true,
+    "minified": true,
+    "urlCheck": true
+  }
+}

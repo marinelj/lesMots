@@ -6,12 +6,20 @@ fetch_fn / rewrite_fn are injectable for testing and offline fallback.
 
 from __future__ import annotations
 
+import os
 import re
 from datetime import date
 from typing import Callable, Optional
 
 from lesmots import llm, fetcher
 from lesmots.memory import Memory
+
+
+def _default_fetch() -> Callable:
+    if os.environ.get("LESMOTS_NEWS_SOURCE") == "cn":  # China edition (M2)
+        from lesmots import fetcher_cn
+        return fetcher_cn.fetch_popular_cn
+    return fetcher.fetch_popular
 
 
 def _fallback_rewrite(title: str, summary: str, words: list[str], max_words: int) -> str:
@@ -42,7 +50,7 @@ def generate(memory: Memory,
              fetch_fn: Optional[Callable] = None,
              rewrite_fn: Optional[Callable] = None) -> dict:
     """Produce prepared content and store it (unconsumed) in memory."""
-    fetch_fn = fetch_fn or fetcher.fetch_popular
+    fetch_fn = fetch_fn or _default_fetch()
     story = fetch_fn(memory.config["interests"])
 
     picked = [w.text for w in memory.pick()]
