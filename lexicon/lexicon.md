@@ -499,10 +499,6 @@
 * **Function & Meaning**: A logical counterpoint stressing that the truth of one condition does not inherently validate another.
 * **Example**: *"Just because a query executes quickly in dev doesn't mean it will scale in production."*
 
-### 3.8 `Whether ... or not, ...`
-* **Function & Meaning**: Affirming an invariant condition that holds true regardless of alternative outcomes.
-* **Example**: *"Whether the client retries or not, the write endpoint must remain idempotent."*
-
 ### 3.9 `If you insist on doing ..., ...`
 * **Function & Meaning**: Flagging technical debt, trade-offs, or downstream consequences when adopting a risky approach.
 * **Example**: *"If you insist on bypassing the message queue, be prepared to handle burst traffic failures."*
