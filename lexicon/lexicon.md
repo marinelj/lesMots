@@ -1,4 +1,4 @@
-# Universal Lexicon & Knowledge Base for AI Agents (v2 Compilation)
+# Universal Lexicon & Knowledge Base for AI Agents (v3 Compilation)
 > **Agent Ingestion Directive**: This specification serves as the universal lexicon, terminology reference, and communication standard across all agent interactions. It encapsulates domain vocabulary, technical collocations, rhetorical sentence patterns, and system design idioms. Spaced-repetition metadata and multilingual artifacts have been completely purged to ensure zero ambiguity and maximum token efficiency. Ingest this document to align your tone, explanations, and code review feedback with these standards.
 
 ## 1. High-Impact Idioms & Architecture Lexicon (Fresh Additions)
@@ -106,6 +106,108 @@
 * **Category**: Code Review Etiquette
 * **Definition**: Standard high-trust review pattern approving a PR while offering small stylistic or non-critical observations that do not require a follow-up review cycle.
 * **Example**: *"LGTM with a minor nit: consider adding a type hint to the helper function, but feel free to merge once CI passes."*
+
+
+### 1.21 `Just because I can quote your lexicon doesn’t mean I’m consistently applying it`
+* **Category**: Golden Exemplar Sentence / Epistemological Self-Awareness
+* **Definition**: A high-register, self-aware rhetorical pattern that dismantles the false equivalence between cognitive recall (knowing a term) and continuous operational execution (instinctive muscle memory).
+* **Grammatical Blueprint**: `Just because [Clause A] doesn't mean [Clause B]`
+* **Engineering & Architecture Application**:
+  * *"Just because a model achieves 99% validation accuracy doesn’t mean it will survive live distribution shifts."*
+  * *"Just because an endpoint executes without throwing exceptions doesn’t mean the underlying mutation is idempotent."*
+
+### 1.22 `as far as possible`
+* **Category**: Adverbial of Degree / Task & Automation Scoping
+* **Definition**: To the maximum degree or extent that environmental constraints, system heuristics, or safety invariants permit.
+* **Grammatical Pattern**: Adverbial modifier placed cleanly at clause end or directly following an action verb (contrast with awkward non-native forms like *as possible as he can*).
+* **Engineering & System Application**:
+  * *"We should automate schema migration validation as far as possible, deferring to manual review only when breaking column drops are detected."*
+
+### 1.23 `only where user intervention is needed`
+* **Category**: Exception Boundary Condition / Automation Safety Gate
+* **Definition**: Restricting manual human involvement strictly to designated inflection points where automation or agentic tooling lacks credentials, authorization, or deterministic heuristics.
+* **Grammatical Blueprint**: `[Automated Action] + only where user intervention is needed`
+* **Engineering & System Application**:
+  * *"The orchestration script auto-populates service configurations, prompting for input only where user intervention is needed for private production secrets."*
+
+### 1.24 `leaving placeholders`
+* **Category**: Technical Task Execution / Template & Configuration Scaffolding
+* **Definition**: Retaining explicit, designated empty markers, template variables, or dummy tokens in a generated file for values to be supplied subsequently.
+* **Grammatical Blueprint**: Present participial phrase (`leaving placeholders for [X]`) denoting method and concurrent result.
+* **Engineering & System Application**:
+  * *"Codex should scaffold the entire `.env` file from the schema, leaving placeholders for sensitive API keys and database passwords."*
+
+### 1.25 `Have the setup script configure the environment as far as possible, leaving placeholders only where user intervention is needed.`
+* **Category**: Golden Exemplar Sentence / Automation Boundary Framing
+* **Definition**: A synthesis sentence combining task scoping (`as far as possible`), scaffolding execution (`leaving placeholders`), and strict human-in-the-loop exception gating (`only where user intervention is needed`).
+* **Pragmatics**: Communicates high technical authority in architecture specs, agent prompts, and onboarding automation guides.
+
+### 1.26 `articulating`
+* **Category**: High-Register Professional Verb (Present Participle / Gerund)
+* **Phonetics**: /ɑːrˈtɪkjuleɪtɪŋ/
+* **Definition**: Expressing intricate technical architectures, failure post-mortems, or abstract trade-offs with supreme clarity, coherence, and structural precision.
+* **Key Collocations**: `articulating the trade-offs` | `articulating the value proposition` | `adept at articulating failure modes`
+* **Engineering & System Application**:
+  * *"In system design reviews, an engineer's seniority is demonstrated by their precision in articulating the trade-offs between consistency and latency."*
+
+### 1.27 `intervene in / intervene to prevent` vs. `interfere with`
+* **Category**: Action Verb / System & Process Governance
+* **Grammatical Trait**: Intransitive verb requiring specific prepositions (`intervene in [process]`, `intervene to [prevent issue]`).
+* **Pragmatic Contrast**:
+  * **`intervene`** (Constructive / Positive): A purposeful, necessary action to rescue a pipeline, stabilize an infrastructure cluster, or prevent cascade failure.
+  * **`interfere with`** (Disruptive / Negative): An unwanted intrusion that degrades performance or disrupts execution (e.g., *"Excessive debug logging can interfere with write throughput."*).
+* **Engineering & System Application**:
+  * *"The circuit breaker intervened to prevent a cascading timeout storm across upstream microservices."*
+
+### 1.28 `stative intransitive` (The Stative Intransitive Dual Trap)
+* **Category**: Grammatical Architectural Guardrail
+* **Concept Definition**: Verbs that denote a permanent state, relationship, or condition (`stative`: no progressive `-ing` form) and do not pass action to a direct object (`intransitive`: no passive voice possible).
+* **The Dual Trap**: Second-language engineers often feel the subject is in a passive state or translate literally from Chinese (是属于 / 是取决于), erroneously adding `is` (❌ *is belong to*, ❌ *is depended on*, ❌ *is consisted of*).
+* **Rule of Thumb**: Always use active simple present directly with third-person singular `-s`. Never prefix with auxiliary `be`.
+* **The Top 5 Technical Verbs**:
+  1. **`belong to`**: *"This configuration belongs to the Jupyter server daemon."* (Never *is belong to*)
+  2. **`depend on`**: *"Pipeline throughput depends on partition balancing."* (Never *is depend on*)
+  3. **`consist of`**: *"The cluster consists of three worker nodes."* (Never *is consisted of*)
+  4. **`reside in`**: *"Session state resides in Redis memory."* (Never *is resided in*)
+  5. **`originate from`**: *"The schema drift originates from a legacy batch pipeline."* (Never *is originated from*)
+
+### 1.29 `scarcity` vs. `paucity` vs. `dearth`
+* **Category**: Domain Precision / Resource & Data Deficiency
+* **Taxonomy & Register**:
+  * **`scarcity`**: Objective, physical, or macroeconomic resource constraints (e.g., compute, GPU memory, network bandwidth).
+  * **`paucity`**: Extreme quantitative lack of empirical evidence, valid records, or labeled data samples (academic / analytical register).
+  * **`dearth`**: An acute, practical shortage causing operational bottlenecks (e.g., talent, senior domain expertise).
+* **Engineering & Data Application**:
+  * *"During distributed fine-tuning, GPU memory scarcity forces conservative batch sizing."*
+  * *"Due to the severe paucity of positive fraud labels, the classifier required synthetic oversampling."*
+  * *"A chronic dearth of distributed systems engineers delayed our infrastructure migration."*
+
+### 1.30 `landscape`
+* **Category**: Domain Metaphor & UI Orientation
+* **Dual Engineering Registers**:
+  1. **Industry / Technical Ecosystem**: The overarching competitive, open-source, or architectural environment (*"the evolving streaming landscape"*, *"the competitive AI landscape"*).
+  2. **Display Orientation**: Horizontal orientation (*landscape mode*), contrasted with vertical (*portrait mode*).
+* **Engineering Application**:
+  * *"We re-evaluated our data lakehouse architecture in response to the rapidly shifting cloud data landscape."*
+  * *"The analytical dashboard renders complex wide-format metrics significantly better in landscape orientation."*
+
+### 1.31 `white noise process`
+* **Category**: Mathematical Statistics / Time-Series Validation
+* **Technical Definition**: A discrete-time stochastic process $\{e_t\}$ exhibiting zero mean ($\mathbb{E}[e_t] = 0$), finite constant variance ($	ext{Var}(e_t) = \sigma^2$), and strictly zero serial autocovariance ($	ext{Cov}(e_t, e_s) = 0$ for all $t 
+eq s$).
+* **Engineering SRE / ML Diagnostic**: In time-series forecasting (ARIMA, Prophet, LSTM), residual errors must resemble white noise. Lingering serial autocorrelation confirms the model has failed to capture systematic predictive patterns.
+* **Acoustic Relaxation Register**:
+  * **White Noise**: Uniform energy across all frequencies; prominent high-frequency hiss used for sound masking.
+  * **Pink Noise**: Deeper, octave-balanced power distribution ($1/f$); resembles continuous rainfall or waterfalls, clinically optimal for deep sleep.
+  * **Brown / Red Noise**: Heavy low-frequency rumble ($1/f^2$); resembles distant thunder or aircraft cabins, optimal for anxiety decompression and ADHD focus.
+
+### 1.32 `by chance` vs. `coincidentally` vs. `happen to [do]`
+* **Category**: Idiomatic Probability & Casual Narrative
+* **Nuance Breakdown**:
+  * **`by chance` / `purely by chance`**: Objective randomness without deliberate design (*"The flawed aggregation matched the target purely by chance."*).
+  * **`coincidentally`**: Two independent occurrences synchronizing in time (*"Coincidentally, both teams refactored the same module."*).
+  * **`happen to [do]`**: Highly natural, humble conversational pivot (*"I happen to have profiled that exact query yesterday."*).
+  * **Contrasting Guardrail**: Do not conflate with `incidentally`, which means "by the way" and serves as a conversational topic transition.
 
 
 ## 2. Professional & Idiomatic Phrases (98 Items)
@@ -469,7 +571,7 @@
 * **Definition**: "In consisting" is not a common phrase, but it might be used to indicate that something is made up of or includes certain parts.
 * **Example / Usage**: The project's success lies in consisting of a diverse team with varied skills.
 
-## 3. Structural Framing & Sentence Patterns (22 Items)
+## 3. Structural Framing & Sentence Patterns (24 Items)
 
 ### 3.1 `I’m not much of a ...`
 * **Function & Meaning**: A self-effacing idiom used to state that one is not particularly skilled at or suited for something.
@@ -498,6 +600,10 @@
 ### 3.7 `Just because A doesn’t mean B.`
 * **Function & Meaning**: A logical counterpoint stressing that the truth of one condition does not inherently validate another.
 * **Example**: *"Just because a query executes quickly in dev doesn't mean it will scale in production."*
+
+### 3.8 `Whether ... or not, ...`
+* **Function & Meaning**: Affirming an invariant condition that holds true regardless of alternative outcomes.
+* **Example**: *"Whether the client retries or not, the write endpoint must remain idempotent."*
 
 ### 3.9 `If you insist on doing ..., ...`
 * **Function & Meaning**: Flagging technical debt, trade-offs, or downstream consequences when adopting a risky approach.
@@ -548,6 +654,17 @@
 ### 3.22 `it is difficult to overemphasize`
 * **Function & Meaning**: It means something is so important that you can hardly stress it too much.
 * **Example**: *"When discussing safety, it is difficult to overemphasize the importance of wearing a helmet."*
+
+### 3.23 `capable of [gerund]` vs. `rendering`
+* **Function & Syntax**: Expressing functional or technical capability using `capable of [gerund]` (never *capable to do*).
+* **Technical Vocabulary**: Distinguish `render` (to parse and visually display Markdown, HTML, or graphics) from `rend` (an archaic literary verb meaning to tear violently apart).
+* **Example**: *"The lightweight client should be fully capable of rendering complex nested Markdown tables without leaking formatting syntax."*
+
+### 3.24 `There are still [items] appearing in [response]` (Eliminating the Double-Verb Trap)
+* **Function & Syntax**: Resolving the existential double-predicate error (❌ *there are * existed on the return message*).
+* **Rule**: Use an active predicate (`contains`, `persists`) or a participial modifier (`appearing in`, `remaining in`). Always name symbols explicitly (`asterisks`, `backticks`) rather than embedding raw punctuation marks.
+* **Example**: *"The returned response still contains unescaped asterisks (`*`) in the output payload."*
+
 
 ## 4. Technical & Core Lexicon (359 Items)
 
@@ -1994,7 +2111,7 @@
 * **Definition**: /fæn/ — a device with rotating blades that creates a current of air.
 * **Example**: I need to turn on the fan because it's too hot today.
 
-## 5. Architectural Case Excerpts & Data Engineering Standards (8 Items)
+## 5. Architectural Case Excerpts & Data Engineering Standards (9 Items)
 
 ### 5.1 POINT-IN-TIME CORRECTNESS. Joining a fact to the version of a dimension that was true at fact time, rather than to whatever is true today.
 I encountered this in historical dimension joins and backfilled reporting. It means matching each fact to the dimension version that was valid when the fact occurred, not to the latest version.
@@ -2145,6 +2262,12 @@ I encountered this in an explanation of dashboard reliability for time-series me
 
 ---
 
+### 5.9 Residuals Resembling White Noise as the Ultimate Metric for Time-Series Model Convergence
+In production time-series predictive modeling (e.g., demand forecasting, infrastructure capacity planning, financial risk models), the definitive validation of an estimator is whether its forecast errors (residuals $e_t = y_t - \hat{y}_t$) resemble Gaussian white noise. If the Autocorrelation Function (ACF) or a Ljung-Box test reveals persistent serial correlation in the residuals, the model is definitively underfitting—leaving exploitable signal, seasonality, or regime shifts unmodeled in the error term. Conversely, evaluating residuals against white noise invariants prevents data engineers from mistaking accidental overfitting on training noise for genuine predictive power.
+
+Key phrases: white noise residuals | zero serial autocorrelation | Ljung-Box test | model underfitting | residual diagnostics | unmodeled temporal variance
+
+
 ## 6. Unified Slash-Command & Knowledge Sync Protocol
 
 This section outlines the operational commands and interaction standards between user and agent:
@@ -2170,3 +2293,13 @@ This section outlines the operational commands and interaction standards between
 * **English Input**: Provide accurate translation, extract high-impact technical collocations, and highlight architectural nuances without aggressively rewriting unless requested.
 * **Chinese Input**: Offer three distinct contextual translations: **Casual** (peer conversation), **Formal** (specs/memos), and **Oral** (standups/tech discussions).
 * **Technical Inquiries**: Contextualize all data science and system design discussions around senior software engineering paradigms (strict temporal validities, schema invariants, idempotency, and join contracts).
+
+### 6.3 Moderate Evaluation Rubric (The Four-Tier Assessment Scale)
+To foster an encouraging, pedagogically constructive, and calibrated learning environment, all language review cards, sentence refactorings, and prompt evaluations replace punitive, binary markers (such as sharp red crosses) with an objective, four-tier rubric:
+
+| Rating Label | Pedagogical & Functional Definition |
+| :--- | :--- |
+| **`[Great]`** | Fully idiomatic, grammatically pristine, and naturally styled for technical leadership, code reviews, and architectural documentation. |
+| **`[Comprehensive]`** | Rich in contextual depth, rigorous in domain taxonomy, and technically precise across complex system boundaries. |
+| **`[Acceptable]`** | Functionally communicative and logically sound, but contains minor non-blocking grammatical rough edges, prepositional awkwardness, or slightly literal translation artifacts. |
+| **`[Non-acceptable]`** | Contains structural syntax errors, double predicate verbs, broken tense logic, or severe vocabulary misalignments that obstruct understanding. |
