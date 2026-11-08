@@ -1,7 +1,7 @@
-# Universal Lexicon & Knowledge Base for AI Agents (v5 Compilation)
+# Universal Lexicon & Knowledge Base for AI Agents (v6 Compilation)
 > **Agent Ingestion Directive**: This specification serves as the universal lexicon, terminology reference, and communication standard across all agent interactions. It encapsulates domain vocabulary, technical collocations, rhetorical sentence patterns, and system design idioms. Spaced-repetition metadata and multilingual artifacts have been completely purged to ensure zero ambiguity and maximum token efficiency. Ingest this document to align your tone, explanations, and code review feedback with these standards.
 
-## 1. High-Impact Idioms & Architecture Lexicon (49 Items)
+## 1. High-Impact Idioms & Architecture Lexicon (51 Items)
 
 ### 1.1 `in the trenches`
 * **Category**: Idiom / Engineering Culture
@@ -359,7 +359,21 @@ eq s$).
 * **Example**: *"Before we cut the sprint branch, let's align on the REST payload schema and ensure it aligns with enterprise security standards."*
 
 
-## 2. Professional & Idiomatic Phrases (98 Items)
+### 1.50 `hit the nail on the head`
+* **Category**: Idiom / Alignment & Root Cause Analysis
+* **Phonetics**: /hɪt ðə neɪl ɒn ðə hɛd/
+* **Definition**: To describe exactly what is causing a situation or problem; to make an observation or assessment that is completely accurate, perceptive, and strikes directly at the heart of the matter.
+* **Collocations**: `hit the nail right on the head`, `hit the nail on the head regarding [topic]`
+* **Example**: *"When Sarah pointed out that our Redis connection pool was exhausted, she hit the nail on the head—that single bottleneck caused the entire cascade."*
+
+### 1.51 `spread the word`
+* **Category**: Idiom / Professional Communication & Team Alignment
+* **Phonetics**: /sprɛd ðə wɜːrd/
+* **Definition**: To actively communicate news, announcements, updates, or instructions across a wider group of people so that everyone stays aligned and informed.
+* **Collocations**: `spread the word to [someone/team]`, `help spread the word`, `spread the word about [event/release]`
+* **Example**: *"We just scheduled the schema migration for midnight—please help spread the word to all on-call engineers so nobody is caught off guard."*
+
+## 2. Professional & Idiomatic Phrases (101 Items)
 
 ### 2.1 `accidental patterns`
 * **Definition**: Patterns that appear by chance, not by design or intention.
@@ -708,7 +722,14 @@ eq s$).
 * **Definition & Context**: Key phrase from Cardinality: Ask Which Meaning.
 
 ### 2.95 `fan out`
-* **Definition & Context**: Key phrase from Cardinality: Ask Which Meaning.
+* **Category**: Phrasal Verb & Architecture Pattern / Data Engineering & Distributed Systems
+* **Phonetics**: /fæn aʊt/
+* **Definition**:
+  1. *Data Engineering & Relational Joins*: To expand, duplicate, or multiply rows unexpectedly when joining two datasets due to non-unique keys on the presumed one-side, violating the join contract and artificially inflating downstream metrics.
+  2. *Distributed Systems & Messaging Architecture*: A messaging design pattern where a single message or event published to an exchange/topic is concurrently broadcast and routed to multiple distinct queues, consumer nodes, or subscribers for parallel processing.
+* **Examples**:
+  * *Data Engineering*: *"Before running the financial backfill, always validate the join contract on the dimension table to ensure the row count doesn't fan out unexpectedly."*
+  * *Distributed Systems*: *"The ingestion gateway publishes the raw event once, and the broker fans it out to the analytics pipeline, the notification worker, and the audit logger simultaneously."*
 
 ### 2.96 `unmatched-key rate`
 * **Definition & Context**: Key phrase from Cardinality: Ask Which Meaning.
@@ -719,6 +740,26 @@ eq s$).
 ### 2.98 `in consisting`
 * **Definition**: "In consisting" is not a common phrase, but it might be used to indicate that something is made up of or includes certain parts.
 * **Example / Usage**: The project's success lies in consisting of a diverse team with varied skills.
+
+### 2.99 `bring [service] back up`
+* **Category**: Phrasal Verb / Systems Reliability & DevOps
+* **Phonetics**: /brɪŋ bæk ʌp/
+* **Definition**: To restore an offline, crashed, or degraded server, container, gateway, or background service back to an active, operational, and reachable state. Distinct from data backup (*to back up data*).
+* **Collocations**: `bring the gateway back up`, `get [service] back online`, `restore service availability`
+* **Example**: *"Restarting the Docker daemon cleared the hung socket and brought the gateway back up immediately."*
+
+### 2.100 `squash ... down to`
+* **Category**: Phrasal Verb & Collocation / Data Compression & Communication
+* **Phonetics**: /skwɑːʃ daʊn tuː/
+* **Definition**: To aggressively compress, collapse, or reduce a large, diverse set of entities, features, or expressions into a disproportionately tiny, oversimplified subset.
+* **Collocations**: `squash [hundreds] down to [few]`, `squash into a single entry`
+* **Example**: *"With hundreds of rich architectural patterns documented in the repository, avoid squashing your entire implementation review down to the exact same two examples."*
+
+### 2.101 `project-level directive`
+* **Category**: Domain Collocation / System Governance & AI Engineering
+* **Definition**: A root-level configuration, rule, or instruction set that enforces project-specific constraints while inheriting base policies and terminology from a global specification.
+* **Collocations**: `enforce a project-level directive`, `inherit from global config`
+* **Example**: *"We added a project-level directive to AGENTS.md to enforce coding standards inherited from the global architecture spec."*
 
 ## 3. Structural Framing & Sentence Patterns (29 Items)
 
@@ -865,7 +906,7 @@ eq s$).
     * ✅ *"The gateway relays incoming client requests to upstream worker nodes."*
 
 
-## 4. Technical & Core Lexicon (360 Items)
+## 4. Technical & Core Lexicon (362 Items)
 
 ### 4.1 `prestige`
 * **Definition**: It means people respect and admire someone or something because it is important or successful.
@@ -2315,6 +2356,20 @@ eq s$).
 * **Key Collocations**: `indie hacker` | `indie developer (indie dev)` | `indie game`
 * **Example**: *"He transitioned from big-tech infrastructure to become an indie hacker, building profitable developer tooling."*
 
+
+### 4.361 `gauge`
+* **Category**: Verb / Cognitive Assessment & Metrics
+* **Phonetics**: /ɡeɪdʒ/
+* **Definition**: To estimate, evaluate, or judge the magnitude, feasibility, impact, or emotional reaction of a proposed change or technical initiative; as a noun in monitoring, a metric representing a single numerical value that can arbitrarily go up and down.
+* **Collocations**: `gauge interest`, `gauge feasibility`, `gauge the scope/impact`, `Prometheus gauge`
+* **Example**: *"Before writing the full RFC, let's post an outline in Slack to gauge team interest and measure feedback."*
+
+### 4.362 `inherit` / `inherited from`
+* **Category**: Verb & Adjective / Systems & Object Architecture
+* **Phonetics**: /ɪnˈhɛrɪt/
+* **Definition**: To derive properties, behaviors, constraints, or configurations from a parent, base class, or global template.
+* **Collocations**: `inherit from [base/global]`, `inherited rules`, `strictly inherit`
+* **Example**: *"Local pipeline configurations strictly inherit all compliance rules from the global corporate policy."*
 
 ## 5. Architectural Case Excerpts & Data Engineering Standards (10 Items)
 
