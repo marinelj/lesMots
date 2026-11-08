@@ -1,7 +1,7 @@
-# Universal Lexicon & Knowledge Base for AI Agents (v4 Compilation)
+# Universal Lexicon & Knowledge Base for AI Agents (v5 Compilation)
 > **Agent Ingestion Directive**: This specification serves as the universal lexicon, terminology reference, and communication standard across all agent interactions. It encapsulates domain vocabulary, technical collocations, rhetorical sentence patterns, and system design idioms. Spaced-repetition metadata and multilingual artifacts have been completely purged to ensure zero ambiguity and maximum token efficiency. Ingest this document to align your tone, explanations, and code review feedback with these standards.
 
-## 1. High-Impact Idioms & Architecture Lexicon (40 Items)
+## 1. High-Impact Idioms & Architecture Lexicon (49 Items)
 
 ### 1.1 `in the trenches`
 * **Category**: Idiom / Engineering Culture
@@ -272,6 +272,91 @@ eq s$).
 * **Definition**: Investigating the upstream source, ingestion point, or schema origin of anomalous data, unexplained metrics, or unexpected error logs.
 * **High-Register Alternatives**: `What is the upstream source of this metric?` | `Where does this figure originate?`
 * **Example**: *"Where is this latency spike originating from? Is it the API gateway or downstream database connection contention?"*
+
+
+### 1.41 `fall flat`
+* **Category**: Idiomatic Phrasal Verb / Rhetorical & Presentation Critique
+* **Definition**: To fail completely to achieve the intended effect, resonance, or reception; to be uninspiring or ineffective (often applied to technical pitches, speeches, or project documentation).
+* **Chinese Translation**: 效果平平 / 毫无反响 / 索然无味 / 未能奏效
+* **Grammatical Patterns**:
+  * `fall flat` (absolute): *"The initial architecture pitch fell completely flat with the venture committee."*
+  * `fall flat with / on [audience]`: *"Technical humor often falls flat on non-engineering stakeholders."*
+* **Example**: *"The current README falls flat because it reads like a standard library manual rather than highlighting how it cuts API costs."*
+
+### 1.42 `promotional post`
+* **Category**: Professional Collocation / Developer Advocacy & Marketing
+* **Definition**: A targeted, public social media update or article (typically on LinkedIn, X/Twitter, or Reddit) designed to market a project, tool, feature release, or open-source initiative.
+* **Chinese Translation**: 宣传动态 / 推广帖 / 发布公告
+* **Collocations & Register Distinction**:
+  * `draft a promotional post` | `publish an announcement post`
+  * ❌ *promoting message* (sounds like spam direct message) vs. ✅ *promotional post* (public technical network update).
+* **Example**: *"We drafted a concise promotional post on LinkedIn highlighting that the gateway serves as an alternative to buying standalone API credits."*
+
+### 1.43 `revamp the README`
+* **Category**: Technical Collocation / Project Maintenance & Documentation
+* **Definition**: To thoroughly overhaul, redesign, and rewrite a project's README file to improve clarity, visual structure, value proposition, and onboarding.
+* **Chinese Translation**: 重构 / 改版 / 全面翻新 README
+* **Nuance Contrast**:
+  * `update / edit`: Fixing typos or bumping version tags.
+  * `revamp / overhaul`: Restructuring the narrative arc—shifting the focus from dry mechanics to value proposition, adding architecture diagrams, and polishing quick-start instructions.
+* **Example**: *"The current documentation falls flat; let's revamp the README before our public launch on LinkedIn."*
+
+### 1.44 `play it by ear`
+* **Category**: Idiom / Tactical Adaptability & Dynamic Scheduling
+* **Phonetics**: /ˈpleɪ ɪt baɪ ɪər/
+* **Definition**: To proceed pragmatically without a rigid, predetermined plan; deciding what action to take step-by-step as events, metrics, or circumstances unfold.
+* **Chinese Translation**: 见机行事 / 随机应变 / 到时候看情况再定
+* **Triad Comparison**:
+  * `play it by ear` (Dynamic & Improvisational): Taking action adaptively as new facts emerge.
+  * `see how it plays out` (Observational & Patient): Waiting to observe the natural consequences of a system rollout.
+  * `fingers crossed` (Outcome Anticipation): Wishing for a favorable result after an irreversible deployment.
+* **Example**: *"We aren't certain yet whether the background indexing will finish before the maintenance window closes, so let's play it by ear before cutting production traffic over."*
+
+### 1.45 `to be fair`
+* **Category**: Discourse Marker / Pragmatic Transition & Balanced Evaluation
+* **Phonetics**: /tuː bi feər/
+* **Definition**: A conversational discourse marker used to introduce an objective fact, mitigating circumstance, or alternative viewpoint to moderate criticism, defend someone, or offer a balanced assessment.
+* **Chinese Translation**: 平心而论 / 说句公道话 / 从公平的角度说 / 客观来说
+* **Syntactic Patterns**:
+  * Sentence-Initial: *"The deployment ran over schedule, but to be fair, the database volume was twice what we benchmarked in staging."*
+  * With Personal Object: *"To be fair to the on-call engineer, the upstream service broke contract without giving any heads-up."*
+* **Spectrum**: `To be fair` (conversational/standups) vs. `In all fairness` (deliberate post-mortems) vs. `In the interest of fairness` (formal benchmarks).
+* **Example**: *"The migration failed the deadline, but to be fair, the upstream API changed its schema out of band."*
+
+### 1.46 `From a Western point of view, young Steve Jobs—specifically in his 20s and 30s—was widely considered genuinely handsome and conventionally attractive, purely based on his physical features and completely separate from his tech legacy.`
+* **Category**: Golden Exemplar Sentence / Cultural Observation & Aesthetic Evaluation
+* **Definition**: A high-register analytical model illustrating how to establish a cultural baseline, evaluate conventional aesthetics objectively, and decouple intrinsic traits from external halo effects.
+* **Key Collocations**:
+  * `From a Western point of view` (Cultural framing baseline)
+  * `conventionally attractive` (Conforming to traditional, widely accepted standards of physical aesthetics)
+  * `purely based on [X]` (Analytical constraint, eliminating confounding variables)
+  * `completely separate from [Y]` (Decoupling intrinsic properties from external prestige)
+* **Example**: *"Used as an exemplar for rigorous multi-dimensional evaluation and decoupled cultural framing."*
+
+### 1.47 `grace period`
+* **Category**: Domain Collocation / Financial Engineering & Systems SLA
+* **Definition**: A designated window after a due date or payment deadline during which obligations can be met without incurring penalties, late fees, or service termination.
+* **Chinese Translation**: 宽限期 / 缓冲期 / 免息期
+* **Key Contexts**:
+  * `interest-free grace period`: The standard 21–25 day billing cycle window before interest accrues.
+  * `courtesy / late-payment grace period`: A short buffer window (1–3 days) after the due date before late fees are assessed.
+* **Example**: *"The subscription billing engine provides a three-day grace period for failed webhook retries before suspending API token access."*
+
+### 1.48 `bleed into other frames` vs. `permeate across frames`
+* **Category**: Generative Media & Visual Computing Collocation
+* **Definition**: Technical verbs describing the propagation or artifact leakage of visual, conceptual, or temporal information across sequential frames.
+* **Nuance Contrast**:
+  * `bleed into adjacent frames` (Defect / Leakage): Unintended color, noise, or artifact spillover across frame boundaries, causing flickering or smearing.
+  * `permeate across frames` (Constructive Continuity): The smooth, intentional transmission of stylistic or semantic conditioning across a temporal sequence.
+* **Example**: *"High-saturation edges tend to bleed into adjacent frames, requiring temporal smoothing passes."*
+
+### 1.49 `align on [topic]` vs. `align with [standard]`
+* **Category**: Agile Collaboration & Technical Governance
+* **Definition**: Precision prepositions governing team consensus versus compliance with established architectural invariants.
+* **Nuance Contrast**:
+  * `align on [priorities / schema / deliverables]`: Multiple parties achieving mutual consensus on a shared goal or decision.
+  * `align with [standards / policies / architecture]`: Ensuring a component or implementation conforms to external rules or constraints.
+* **Example**: *"Before we cut the sprint branch, let's align on the REST payload schema and ensure it aligns with enterprise security standards."*
 
 
 ## 2. Professional & Idiomatic Phrases (98 Items)
@@ -780,7 +865,7 @@ eq s$).
     * ✅ *"The gateway relays incoming client requests to upstream worker nodes."*
 
 
-## 4. Technical & Core Lexicon (359 Items)
+## 4. Technical & Core Lexicon (360 Items)
 
 ### 4.1 `prestige`
 * **Definition**: It means people respect and admire someone or something because it is important or successful.
@@ -2224,6 +2309,12 @@ eq s$).
 ### 4.359 `fan`
 * **Definition**: /fæn/ — a device with rotating blades that creates a current of air.
 * **Example**: I need to turn on the fan because it's too hot today.
+
+### 4.360 `indie`
+* **Definition**: /ˈɪn.di/ — Short for 'independent'; describing software developers, artists, or studios operating without major corporate funding or publisher backing, retaining complete creative and operational autonomy.
+* **Key Collocations**: `indie hacker` | `indie developer (indie dev)` | `indie game`
+* **Example**: *"He transitioned from big-tech infrastructure to become an indie hacker, building profitable developer tooling."*
+
 
 ## 5. Architectural Case Excerpts & Data Engineering Standards (10 Items)
 
