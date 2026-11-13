@@ -148,6 +148,8 @@ class Match:
     start: int
     end: int
     text: str
+    kind: str = "phrase"  # "phrase": the entry itself; "synonym": one of its synonyms
+    via: str = ""  # for a synonym match, the synonym as stored
 
 
 class Matcher:
@@ -155,17 +157,22 @@ class Matcher:
 
     MAX_WORDS = 8  # longer headings (case excerpts, whole sentences) are not matched
 
-    def __init__(self, phrases: Iterable[tuple[str, Sequence[str]]]):
-        """``phrases`` = (entry_id, [phrase, alias, ...]) pairs."""
-        self._patterns: list[tuple[str, re.Pattern, int]] = []
-        for entry_id, aliases in phrases:
-            for alias in aliases:
-                built = self._compile(alias)
-                if built is not None:
-                    pattern, weight = built
-                    self._patterns.append((entry_id, pattern, weight))
-        # longest phrase first, so "fall back to" wins over "fall"
-        self._patterns.sort(key=lambda p: -p[2])
+    def __init__(self, phrases: Iterable[tuple[str, Sequence[str]]],
+                 synonyms: Iterable[tuple[str, Sequence[str]]] = ()):
+        """``phrases`` = (entry_id, [phrase, alias, ...]) pairs; ``synonyms`` =
+        (entry_id, [synonym, ...]) pairs. A synonym match means the entry's own phrase
+        could replace those words, if it fits the context."""
+        self._patterns: list[tuple[str, re.Pattern, int, str, str]] = []
+        for kind, pairs in (("phrase", phrases), ("synonym", synonyms)):
+            for entry_id, words in pairs:
+                for word in words:
+                    built = self._compile(word)
+                    if built is not None:
+                        pattern, weight = built
+                        self._patterns.append((entry_id, pattern, weight, kind, word))
+        # longest first, so "fall back to" wins over "fall"; on a tie the entry's own
+        # phrase wins over another entry's synonym
+        self._patterns.sort(key=lambda p: (-p[2], p[3] != "phrase"))
 
     @classmethod
     def _compile(cls, phrase: str) -> tuple[re.Pattern, int] | None:
@@ -195,20 +202,23 @@ class Matcher:
         haystack = normalize(text)
         taken: list[tuple[int, int]] = []
         found: list[Match] = []
-        for entry_id, pattern, _ in self._patterns:
+        for entry_id, pattern, _, kind, word in self._patterns:
             for m in pattern.finditer(haystack):
                 s, e = m.span()
                 if any(s < te and ts < e for ts, te in taken):
                     continue
                 taken.append((s, e))
-                found.append(Match(entry_id, s, e, text[s:e]))
+                found.append(Match(entry_id, s, e, text[s:e], kind,
+                                   word if kind == "synonym" else ""))
         found.sort(key=lambda m: m.start)
         return found
 
     def resolve(self, phrase: str) -> str | None:
         """The entry whose phrase, in any form, is exactly ``phrase``."""
         candidate = normalize(phrase).strip()
-        for entry_id, pattern, _ in self._patterns:
+        for entry_id, pattern, _, kind, _ in self._patterns:
+            if kind != "phrase":
+                continue
             m = pattern.search(candidate)
             if m and m.start() == 0 and m.end() == len(candidate):
                 return entry_id
