@@ -29,6 +29,8 @@ CREATE TABLE IF NOT EXISTS accounts (
     token_hash  TEXT NOT NULL UNIQUE,
     link_base   TEXT NOT NULL DEFAULT '',
     render_mode TEXT NOT NULL DEFAULT 'local',
+    app_uid     TEXT,
+    plan        TEXT NOT NULL DEFAULT 'free',
     version     INTEGER NOT NULL DEFAULT 0,
     created_at  TEXT NOT NULL
 );
@@ -65,12 +67,18 @@ CREATE INDEX IF NOT EXISTS exposures_by_entry ON exposures(account_id, entry_id,
 
 MODES = ("local_rewrite", "full")
 RENDER_MODES = ("local", "remote")  # /local: the agent renders; /remote: the server renders
+# free: local render + lexicon bank. paid: adds MCP render (remote) and the dashboard.
+PLANS = ("free", "paid")
 
 # Columns added after the first release: (table, column, definition). Applied on open.
 MIGRATIONS = (
     ("accounts", "render_mode", "TEXT NOT NULL DEFAULT 'local'"),
     ("exposures", "via", "TEXT NOT NULL DEFAULT ''"),
+    ("accounts", "app_uid", "TEXT"),
+    ("accounts", "plan", "TEXT NOT NULL DEFAULT 'free'"),
 )
+APP_UID_INDEX = ("CREATE UNIQUE INDEX IF NOT EXISTS accounts_app_uid ON accounts(app_uid) "
+                 "WHERE app_uid IS NOT NULL")
 _SYNONYM_LINE = re.compile(r"^\s*[*-]\s+\*\*Synonyms\*\*\s*:.*$", re.MULTILINE)
 MAX_FIELD = 200  # surface / label length cap
 
@@ -129,6 +137,7 @@ class Store:
             cols = {r["name"] for r in self._conn.execute(f"PRAGMA table_info({table})")}
             if column not in cols:
                 self._conn.execute(f"ALTER TABLE {table} ADD COLUMN {column} {definition}")
+        self._conn.execute(APP_UID_INDEX)
         self._conn.commit()
         self._lock = threading.Lock()
         self._matchers: dict[str, tuple[int, Matcher]] = {}
@@ -145,24 +154,54 @@ class Store:
 
     # ---------- accounts ----------
 
-    def create_account(self, name: str, link_base: str = "") -> tuple[str, str]:
-        """Create an account. Returns (account id, API token). The token is shown once."""
-        account_id = "acct_" + secrets.token_hex(8)
-        token = "lr_" + secrets.token_urlsafe(32)
-        with self._tx() as c:
-            c.execute("INSERT INTO accounts (id, name, token_hash, link_base, created_at) "
-                      "VALUES (?, ?, ?, ?, ?)",
-                      (account_id, name, hash_token(token), link_base, _now()))
-        return account_id, token
+    def create_account(self, name: str, link_base: str = "",
+                       app_uid: str | None = None) -> str:
+        """Create an account and return its internal id.
 
-    def account_for_token(self, token: str) -> str | None:
-        row = self._conn.execute("SELECT id FROM accounts WHERE token_hash = ?",
-                                 (hash_token(token),)).fetchone()
-        return row["id"] if row else None
+        ``app_uid`` is the LesMots app user_id (a Google ``sub`` or ``wx-<openid>``) that
+        signs in to this account. The internal id only keys the rows; it is never a login."""
+        account_id = "acct_" + secrets.token_hex(8)
+        with self._tx() as c:
+            # token_hash is a legacy column: filled with an unusable value, never checked
+            c.execute("INSERT INTO accounts (id, name, token_hash, link_base, app_uid, "
+                      "created_at) VALUES (?, ?, ?, ?, ?, ?)",
+                      (account_id, name, hash_token(secrets.token_hex(32)), link_base,
+                       app_uid, _now()))
+        return account_id
+
+    def account_for_app_user(self, app_uid: str, create: bool = True) -> str | None:
+        """The account that this LesMots user_id signs in to. With ``create``, the first
+        sign-in creates an empty account."""
+        if not app_uid:
+            return None
+        row = self._conn.execute("SELECT id FROM accounts WHERE app_uid = ?",
+                                 (app_uid,)).fetchone()
+        if row:
+            return row["id"]
+        if not create:
+            return None
+        try:
+            return self.create_account(app_uid, app_uid=app_uid)
+        except sqlite3.IntegrityError:  # a concurrent first sign-in won the race
+            return self.account_for_app_user(app_uid, create=False)
 
     def set_link_base(self, account_id: str, link_base: str) -> None:
         with self._tx() as c:
             c.execute("UPDATE accounts SET link_base = ? WHERE id = ?", (link_base, account_id))
+
+    def plan(self, account_id: str) -> str:
+        return self._account(account_id)["plan"]
+
+    def is_paid(self, account_id: str) -> bool:
+        return self.plan(account_id) == "paid"
+
+    def set_plan(self, account_id: str, plan: str) -> str:
+        if plan not in PLANS:
+            raise LexiconError(f"plan must be one of {', '.join(PLANS)}")
+        self._account(account_id)
+        with self._tx() as c:
+            c.execute("UPDATE accounts SET plan = ? WHERE id = ?", (plan, account_id))
+        return plan
 
     def render_mode(self, account_id: str) -> str:
         return self._account(account_id)["render_mode"]

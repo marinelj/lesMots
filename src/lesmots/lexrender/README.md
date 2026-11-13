@@ -52,12 +52,25 @@ Synonyms match in any word form, the same way phrases do.
 | `set_render_mode(mode)` | Sets the mode to `local` or `remote`. |
 | `render(text, surface, label="")` | Remote mode: renders the answer, links the phrases and logs the exposures. |
 
+## Sign in
+
+Your lexicon account is your LesMots app user_id, the same one the app gives you when you
+sign in with Google or WeChat. You prove it by signing in to the app; nothing else logs in.
+
+1. Sign in to the LesMots app.
+2. Open `/api/lexicon-token` on the app. It returns a fresh sign-in token, valid for 30 days.
+3. Give that token to the CLI or your MCP client. The first sign-in creates an empty account.
+
+The app and the Lexicon Render server must share `LESMOTS_SESSION_SECRET` (or run on the
+same LesMots data directory), since the server checks the app's signature on the token.
+
 ## Run it
 
 ```bash
 pip install -e ".[mcp]"
-lexrender init marine --link-base https://github.com/marinelj/lesMots/blob/main/lexicon/lexicon.md
-export LEXRENDER_TOKEN=lr_...    # printed once by init
+export LEXRENDER_SESSION=<token from /api/lexicon-token>
+lexrender whoami                 # your user_id and account
+lexrender set-link-base https://github.com/marinelj/lesMots/blob/main/lexicon/lexicon.md
 lexrender import lexicon/lexicon.md
 lexrender stats
 ```
@@ -70,14 +83,14 @@ lexrender stats
     "lexicon": {
       "command": "lexrender",
       "args": ["serve"],
-      "env": { "LEXRENDER_TOKEN": "lr_..." }
+      "env": { "LEXRENDER_SESSION": "<token>" }
     }
   }
 }
 ```
 
-**Hosted (HTTP).** Each request must carry `Authorization: Bearer <token>`, and it only
-sees that token's account:
+**Hosted (HTTP).** Each request must carry `Authorization: Bearer <token>`, a LesMots
+sign-in token, and it only sees that user's account:
 
 ```bash
 lexrender serve --http --host 0.0.0.0 --port 8765 --public-url https://lexicon.example.com
@@ -86,6 +99,25 @@ lexrender serve --http --host 0.0.0.0 --port 8765 --public-url https://lexicon.e
 The database is SQLite, stored at `$LEXRENDER_DB` (default `~/.lexrender/lexicon.db`).
 Run `lexrender export` to get the lexicon back as Markdown in the same format, ready to
 import again.
+
+## Plans and the dashboard
+
+Accounts are on the `free` plan (local render and the lexicon bank) or the `paid` plan,
+which adds remote render and the dashboard. On the free plan, `/remote` and `render` say
+remote render is paid and the agent keeps rendering locally. The operator sets a plan with
+`lexrender set-plan <LesMots user_id> paid`; billing comes later.
+
+The hosted server also serves the dashboard. `GET /dashboard` is the page, and the data
+comes from these endpoints, each needing `Authorization: Bearer <token>` and a paid account
+(401 when signed out, 402 on the free plan):
+
+| Endpoint | Returns |
+|---|---|
+| `/api/dashboard/summary` | entries, version, total exposures, entries exposed, coverage by section |
+| `/api/dashboard/entries?sort=exposures\|recent\|phrase` | per entry: exposures, last seen, synonym hits |
+| `/api/dashboard/timeline?days=30` | exposures per UTC day, zero-filled |
+| `/api/dashboard/surfaces` | exposures per place, such as Claude Code or Notion |
+| `/api/dashboard/entry/<id>` | the entry and its exposure history (when, where, label, synonym replaced) |
 
 ## Word-form matching
 
@@ -97,7 +129,8 @@ excerpts, are not matched.
 
 ## Not in this version
 
-- **OAuth sign-in.** Clients use a bearer token for now.
+- **OAuth sign-in.** Clients paste a 30-day token from the app; an OAuth flow that fetches
+  it for them comes later.
 - **Postgres and encryption at rest.** The database is plain SQLite.
 - **Private entry pages.** Entry links point to `--link-base`.
 - **The dashboard.** This is step 3. `lexrender stats` gives totals.
