@@ -1,7 +1,11 @@
-"""``lexrender`` command: create an account, load a lexicon and run the MCP server.
+"""``lexrender`` command: sign in, load a lexicon and run the MCP server.
 
-    lexrender init "marine" --link-base https://github.com/<owner>/<repo>/blob/main/lexicon/lexicon.md
-    export LEXRENDER_USER_ID=u_...                    # printed once by init
+Your account is your LesMots app user_id. Sign in to the app and open /api/lexicon-token to
+get a sign-in token (valid 30 days); the first sign-in creates the account.
+
+    export LEXRENDER_SESSION=<token from /api/lexicon-token>
+    lexrender whoami
+    lexrender set-link-base https://github.com/<owner>/<repo>/blob/main/lexicon/lexicon.md
     lexrender import lexicon/lexicon.md
     lexrender serve                                   # stdio, for a local MCP client
     lexrender serve --http --public-url https://lexicon.example.com
@@ -17,6 +21,7 @@ import os
 import sys
 from pathlib import Path
 
+from .signin import verify_sign_in
 from .store import LexiconError, Store
 
 
@@ -24,16 +29,15 @@ def default_db() -> Path:
     return Path(os.environ.get("LEXRENDER_DB", Path.home() / ".lexrender" / "lexicon.db"))
 
 
-def _account(store: Store, user_id: str | None) -> str:
-    # LEXRENDER_TOKEN is the older name of the same credential
-    user_id = (user_id or os.environ.get("LEXRENDER_USER_ID")
-               or os.environ.get("LEXRENDER_TOKEN", ""))
-    if not user_id:
-        raise SystemExit("set LEXRENDER_USER_ID or pass --user-id")
-    account_id = store.account_for_user_id(user_id)
-    if account_id is None:
-        raise SystemExit("unknown user_id")
-    return account_id
+def _account(store: Store, session: str | None) -> str:
+    token = session or os.environ.get("LEXRENDER_SESSION", "")
+    if not token:
+        raise SystemExit("sign in to the LesMots app, then set LEXRENDER_SESSION to the token "
+                         "from /api/lexicon-token (or pass --session)")
+    app_uid = verify_sign_in(token)
+    if app_uid is None:
+        raise SystemExit("sign-in token is invalid or expired: get a new one from the app")
+    return store.account_for_app_user(app_uid)  # type: ignore[return-value]
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -41,13 +45,11 @@ def main(argv: list[str] | None = None) -> int:
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--db", type=Path, default=None,
                         help="SQLite file (default: $LEXRENDER_DB)")
-    parser.add_argument("--user-id", dest="user_id",
-                        help="your user_id, the only login (default: $LEXRENDER_USER_ID)")
+    parser.add_argument("--session",
+                        help="LesMots sign-in token (default: $LEXRENDER_SESSION)")
     sub = parser.add_subparsers(dest="cmd", required=True)
 
-    p = sub.add_parser("init", help="create an account and print its user_id")
-    p.add_argument("name")
-    p.add_argument("--link-base", default="", help="URL that entry anchors are appended to")
+    sub.add_parser("whoami", help="your LesMots user_id and lexicon account")
 
     p = sub.add_parser("import", help="load a lexicon Markdown file (replaces the lexicon)")
     p.add_argument("path", type=Path)
@@ -68,26 +70,26 @@ def main(argv: list[str] | None = None) -> int:
     store = Store(args.db or default_db())
 
     try:
-        if args.cmd == "init":
-            _, user_id = store.create_account(args.name, args.link_base)
-            print(f"user_id: {user_id}\n"
-                  "This user_id is your only login. Keep it private: anyone who has it can "
-                  "read and change your lexicon. It is shown only once.")
+        if args.cmd == "whoami":
+            acct = _account(store, args.session)
+            row = store._account(acct)
+            print(json.dumps({"user_id": row["app_uid"], "account": acct,
+                              "entries": len(store.entries(acct))}))
         elif args.cmd == "import":
-            result = store.import_markdown(_account(store, args.user_id),
+            result = store.import_markdown(_account(store, args.session),
                                            args.path.read_text(encoding="utf-8"))
             print(json.dumps(result))
         elif args.cmd == "export":
-            sys.stdout.write(store.export_markdown(_account(store, args.user_id)))
+            sys.stdout.write(store.export_markdown(_account(store, args.session)))
         elif args.cmd == "stats":
-            acct = _account(store, args.user_id)
+            acct = _account(store, args.session)
             counts = store.exposure_counts(acct)
             print(json.dumps({"version": store.version(acct),
                               "entries": len(store.entries(acct)),
                               "exposures": sum(counts.values()),
                               "entries_exposed": len(counts)}))
         elif args.cmd == "set-link-base":
-            store.set_link_base(_account(store, args.user_id), args.url)
+            store.set_link_base(_account(store, args.session), args.url)
         elif args.cmd == "serve":
             try:
                 from .server import build_server
@@ -98,7 +100,7 @@ def main(argv: list[str] | None = None) -> int:
                 build_server(store, public_url=public).run(
                     "streamable-http", host=args.host, port=args.port)
             else:
-                build_server(store, account_id=_account(store, args.user_id)).run()
+                build_server(store, account_id=_account(store, args.session)).run()
     except LexiconError as exc:
         raise SystemExit(str(exc))
     return 0

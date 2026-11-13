@@ -52,12 +52,25 @@ Synonyms match in any word form, the same way phrases do.
 | `set_render_mode(mode)` | Sets the mode to `local` or `remote`. |
 | `render(text, surface, label="")` | Remote mode: renders the answer, links the phrases and logs the exposures. |
 
+## Sign in
+
+Your lexicon account is your LesMots app user_id, the same one the app gives you when you
+sign in with Google or WeChat. You prove it by signing in to the app; nothing else logs in.
+
+1. Sign in to the LesMots app.
+2. Open `/api/lexicon-token` on the app. It returns a fresh sign-in token, valid for 30 days.
+3. Give that token to the CLI or your MCP client. The first sign-in creates an empty account.
+
+The app and the Lexicon Render server must share `LESMOTS_SESSION_SECRET` (or run on the
+same LesMots data directory), since the server checks the app's signature on the token.
+
 ## Run it
 
 ```bash
 pip install -e ".[mcp]"
-lexrender init marine --link-base https://github.com/marinelj/lesMots/blob/main/lexicon/lexicon.md
-export LEXRENDER_USER_ID=u_...   # printed once by init: your only login, keep it private
+export LEXRENDER_SESSION=<token from /api/lexicon-token>
+lexrender whoami                 # your user_id and account
+lexrender set-link-base https://github.com/marinelj/lesMots/blob/main/lexicon/lexicon.md
 lexrender import lexicon/lexicon.md
 lexrender stats
 ```
@@ -70,14 +83,14 @@ lexrender stats
     "lexicon": {
       "command": "lexrender",
       "args": ["serve"],
-      "env": { "LEXRENDER_USER_ID": "u_..." }
+      "env": { "LEXRENDER_SESSION": "<token>" }
     }
   }
 }
 ```
 
-**Hosted (HTTP).** Each request must carry `Authorization: Bearer <user_id>`, and it only
-sees that user's account:
+**Hosted (HTTP).** Each request must carry `Authorization: Bearer <token>`, a LesMots
+sign-in token, and it only sees that user's account:
 
 ```bash
 lexrender serve --http --host 0.0.0.0 --port 8765 --public-url https://lexicon.example.com
@@ -97,7 +110,8 @@ excerpts, are not matched.
 
 ## Not in this version
 
-- **OAuth sign-in.** The user_id is the only credential for now.
+- **OAuth sign-in.** Clients paste a 30-day token from the app; an OAuth flow that fetches
+  it for them comes later.
 - **Postgres and encryption at rest.** The database is plain SQLite.
 - **Private entry pages.** Entry links point to `--link-base`.
 - **The dashboard.** This is step 3. `lexrender stats` gives totals.

@@ -17,9 +17,10 @@ Two transports:
 * stdio, for a local client: the account comes from the ``LEXRENDER_USER_ID`` environment
   variable, checked once at start-up.
 * streamable HTTP, for a hosted service: every request carries ``Authorization: Bearer
-  <user_id>`` and is served for that user's account only.
+  <token>``, a sign-in token from the LesMots app, and is served for that user's account.
 
-The user_id is the only login credential: long, random and stored only as a hash.
+Accounts are keyed by the LesMots app user_id (Google or WeChat). Signing in to the app is
+the only way to prove it; the first sign-in creates an empty account (see ``signin``).
 
 Needs the optional ``mcp`` dependency (``pip install 'lesmots[mcp]'``).
 """
@@ -36,6 +37,7 @@ from mcp.server.mcpserver.exceptions import ToolError
 
 from .render import Complete
 from .render import render as server_render
+from .signin import VerifySignIn, verify_sign_in
 from .store import LexiconError, Store
 
 LOCAL_RULES = """\
@@ -72,13 +74,16 @@ lexicon), local and remote (switch the render mode)."""
 
 
 class TokenVerifier:
-    """Maps a bearer user_id to its account. The account id travels as the client_id."""
+    """Maps a LesMots sign-in token to the user's account (created on first sign-in). The
+    account id travels as the client_id."""
 
-    def __init__(self, store: Store):
+    def __init__(self, store: Store, verify: VerifySignIn = verify_sign_in):
         self.store = store
+        self.verify = verify
 
     async def verify_token(self, token: str) -> AccessToken | None:
-        account_id = self.store.account_for_user_id(token)
+        app_uid = self.verify(token)
+        account_id = self.store.account_for_app_user(app_uid) if app_uid else None
         if account_id is None:
             return None
         return AccessToken(token=token, client_id=account_id, scopes=["lexicon"])
@@ -86,10 +91,11 @@ class TokenVerifier:
 
 def build_server(store: Store, account_id: str | None = None,
                  public_url: str | None = None,
-                 complete: Complete | None = None) -> MCPServer:
+                 complete: Complete | None = None,
+                 verify: VerifySignIn = verify_sign_in) -> MCPServer:
     """``account_id`` set = a single-account (stdio) server. Otherwise ``public_url`` is
-    required and each HTTP request is authenticated by its bearer token. ``complete``
-    overrides the model used by ``render`` (tests)."""
+    required and each HTTP request is authenticated by its LesMots sign-in token.
+    ``complete`` and ``verify`` override the model and the sign-in check (tests)."""
     if account_id is None and not public_url:
         raise ValueError("either account_id (stdio) or public_url (HTTP) is required")
 
@@ -97,9 +103,9 @@ def build_server(store: Store, account_id: str | None = None,
     if account_id is None:
         base = public_url.rstrip("/")  # type: ignore[union-attr]
         kwargs = {
-            "token_verifier": TokenVerifier(store),
-            # Tokens are opaque and issued by this server for this server only, so the
-            # verifier itself is the audience check.
+            "token_verifier": TokenVerifier(store, verify),
+            # Tokens are LesMots sessions, checked by their signature, so the verifier
+            # itself is the audience check.
             "auth": AuthSettings(issuer_url=base, resource_server_url=f"{base}/mcp",
                                  required_scopes=["lexicon"], validate_token_resource=False),
         }

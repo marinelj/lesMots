@@ -41,7 +41,7 @@ def store():
 
 @pytest.fixture
 def account(store):
-    account_id, _ = store.create_account("t", link_base="https://x/lexicon.md")
+    account_id = store.create_account("t", link_base="https://x/lexicon.md")
     store.import_markdown(account_id, SAMPLE)
     return account_id
 
@@ -132,15 +132,31 @@ def test_lookup_by_id_and_word_form(store, account):
 
 
 def test_accounts_are_isolated(store, account):
-    other, user_id = store.create_account("other")
-    assert user_id.startswith("u_") and len(user_id) >= 32
-    assert store.account_for_user_id(user_id) == other
-    assert store.account_for_user_id(other) is None  # the internal id is not a login
+    other = store.create_account("other")
     assert store.entries(other) == []
     assert store.lookup(other, "fall back to") is None
-    assert store.account_for_user_id("u_wrong") is None
-    stored = [r["token_hash"] for r in store._conn.execute("SELECT token_hash FROM accounts")]
-    assert user_id not in stored  # only a hash is kept
+
+
+def test_app_user_id_signs_in_to_one_account(store):
+    first = store.account_for_app_user("1234567890")
+    assert first.startswith("acct_")
+    assert store.account_for_app_user("1234567890") == first  # same user, same account
+    assert store.account_for_app_user("wx-openid") != first
+    assert store.account_for_app_user("nobody", create=False) is None
+    assert store.account_for_app_user("") is None
+
+
+def test_sign_in_needs_a_token_signed_by_the_app(monkeypatch):
+    monkeypatch.setenv("LESMOTS_SESSION_SECRET", "test-secret")
+    from lesmots import web
+    from lesmots.lexrender.signin import verify_sign_in
+
+    assert verify_sign_in(web.make_session("wx-abc", "")) == "wx-abc"
+    assert verify_sign_in("1234567890") is None  # a bare user_id is not a login
+    forged = web.make_session("victim", "")
+    monkeypatch.setenv("LESMOTS_SESSION_SECRET", "another-secret")
+    assert verify_sign_in(forged) is None
+    assert verify_sign_in("") is None
 
 
 def test_add_entry_refuses_duplicates_in_any_form(store, account):
@@ -176,16 +192,16 @@ def test_log_exposures_validates(store, account, kwargs):
 
 def test_export_round_trips(store, account):
     exported = store.export_markdown(account)
-    other, _ = store.create_account("copy")
+    other = store.create_account("copy")
     store.import_markdown(other, exported)
     assert [(e.id, e.aliases) for e in store.entries(other)] == \
            [(e.id, e.aliases) for e in store.entries(account)]
 
 
 def test_real_lexicon_round_trips(store):
-    acct, _ = store.create_account("real")
+    acct = store.create_account("real")
     store.import_markdown(acct, LEXICON.read_text(encoding="utf-8"))
-    copy, _ = store.create_account("copy")
+    copy = store.create_account("copy")
     store.import_markdown(copy, store.export_markdown(acct))
     assert [e.id for e in store.entries(copy)] == [e.id for e in store.entries(acct)]
 
@@ -225,9 +241,10 @@ def test_http_server_requires_public_url(store):
 
     with pytest.raises(ValueError):
         build_server(store)
-    account_id, token = store.create_account("h")
-    verifier = TokenVerifier(store)
-    assert asyncio.run(verifier.verify_token(token)).client_id == account_id
+    verifier = TokenVerifier(store, verify={"good": "g-123"}.get)
+    first = asyncio.run(verifier.verify_token("good"))
+    assert first.client_id == store.account_for_app_user("g-123", create=False)
+    assert asyncio.run(verifier.verify_token("good")).client_id == first.client_id
     assert asyncio.run(verifier.verify_token("bad")) is None
     assert build_server(store, public_url="https://lexicon.example.com") is not None
 
@@ -259,7 +276,7 @@ def test_matcher_finds_synonyms_and_prefers_the_entry_phrase():
 
 
 def test_synonyms_in_store(store):
-    acct, _ = store.create_account("s", link_base="https://x/l.md")
+    acct = store.create_account("s", link_base="https://x/l.md")
     store.import_markdown(acct, SYN_SAMPLE)
     entry = store.get(acct, "sophisticated")
     assert entry.synonyms == ["refined", "elaborate", "polished"]
@@ -278,7 +295,7 @@ def test_synonyms_in_store(store):
     # a synonym is not the entry: adding it as its own entry is allowed
     assert store.add_entry(acct, "exploit", "Make full use of.").id == "exploit"
     exported = store.export_markdown(acct)
-    copy, _ = store.create_account("c")
+    copy = store.create_account("c")
     store.import_markdown(copy, exported)
     assert store.get(copy, "leverage").synonyms == ["use", "exploit"]
 
@@ -321,7 +338,7 @@ def test_log_exposures_records_synonym(store, account):
 
 @pytest.fixture
 def syn_account(store):
-    acct, _ = store.create_account("r", link_base="https://x/l.md")
+    acct = store.create_account("r", link_base="https://x/l.md")
     store.import_markdown(acct, SYN_SAMPLE)
     return acct
 
@@ -389,20 +406,24 @@ def test_mcp_commands(store, syn_account):
     assert syn["synonyms"] == ["fancy"]
 
 
-def test_cli_logs_in_with_user_id_only(tmp_path, monkeypatch, capsys):
+def test_cli_signs_in_with_the_app_session(tmp_path, monkeypatch, capsys):
+    from lesmots import web
     from lesmots.lexrender.cli import main
 
+    monkeypatch.setenv("LESMOTS_SESSION_SECRET", "test-secret")
+    monkeypatch.delenv("LEXRENDER_SESSION", raising=False)
     db = tmp_path / "l.db"
-    monkeypatch.delenv("LEXRENDER_USER_ID", raising=False)
-    monkeypatch.delenv("LEXRENDER_TOKEN", raising=False)
-    main(["--db", str(db), "init", "marine"])
-    user_id = capsys.readouterr().out.split()[1]
-    assert user_id.startswith("u_")
+    token = web.make_session("g-marine", "")
     sample = tmp_path / "lexicon.md"
     sample.write_text(SAMPLE, encoding="utf-8")
-    main(["--db", str(db), "--user-id", user_id, "import", str(sample)])
-    monkeypatch.setenv("LEXRENDER_USER_ID", user_id)
-    main(["--db", str(db), "stats"])
-    assert '"entries": 3' in capsys.readouterr().out
-    with pytest.raises(SystemExit, match="unknown user_id"):
-        main(["--db", str(db), "--user-id", "u_nope", "stats"])
+    main(["--db", str(db), "--session", token, "import", str(sample)])
+    capsys.readouterr()
+    monkeypatch.setenv("LEXRENDER_SESSION", token)
+    main(["--db", str(db), "whoami"])
+    out = capsys.readouterr().out
+    assert '"user_id": "g-marine"' in out and '"entries": 3' in out
+    with pytest.raises(SystemExit, match="invalid or expired"):
+        main(["--db", str(db), "--session", "g-marine", "stats"])
+    monkeypatch.delenv("LEXRENDER_SESSION")
+    with pytest.raises(SystemExit, match="sign in"):
+        main(["--db", str(db), "stats"])

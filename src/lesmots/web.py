@@ -191,6 +191,15 @@ class Handler(BaseHTTPRequestHandler):
             self._json(cloudsync.selftest())
         elif self._login_required():
             return
+        elif self.path == "/api/lexicon-token":
+            # a fresh session token to paste into an MCP client (Lexicon Render signs in
+            # with it); only a signed-in user gets one, and only for their own user_id
+            session = self._session() or {}
+            if not session.get("uid"):
+                self._json({"error": "sign in first"}, code=401)
+                return
+            self._json({"user_id": self._uid, "token": make_session(session["uid"],
+                        session.get("email", "")), "expires_in_days": SESSION_DAYS})
         elif self.path == "/api/words":
             self._json([w.to_dict() for w in self._mem().words])
         elif self.path == "/api/loved":
