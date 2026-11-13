@@ -13,7 +13,7 @@ python3 -m http.server 8767 --bind 127.0.0.1
 ```
 
 Open <http://127.0.0.1:8767/src/lesmots/lexrender/static/dashboard.html?demo=1>.
-The demo loads `/tests/fixtures/dashboard/*.json` from that server, including a separate
+The demo loads `demo/*.json` next to the page (`src/lesmots/lexrender/static/demo/`), including a separate
 exposure history for each of its 12 entries. It does not read or send a saved sign-in
 token. Its fixed 30-day period ends on November 14, 2026, so the sample remains useful
 over time. The 168 exposures reconcile across entries, timeline, surfaces, and histories.

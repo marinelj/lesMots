@@ -6,7 +6,7 @@ from pathlib import Path
 
 
 def test_dashboard_fixtures_reconcile():
-    root = Path(__file__).parent / "fixtures" / "dashboard"
+    root = Path(__file__).parent.parent / "src" / "lesmots" / "lexrender" / "static" / "demo"
 
     def load(name):
         return json.loads((root / f"{name}.json").read_text())

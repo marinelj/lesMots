@@ -259,7 +259,8 @@
     "use strict";
     const $ = (id) => document.getElementById(id);
     const demo = new URLSearchParams(location.search).get("demo") === "1";
-    const fixtureRoot = "/tests/fixtures/dashboard/";
+    // served at /dashboard by lexrender, or as a static file next to its demo/ folder
+    const fixtureRoot = location.pathname.endsWith(".html") ? "demo/" : "/dashboard/demo/";
     const number = new Intl.NumberFormat();
     const shortDate = new Intl.DateTimeFormat(undefined, { month: "short", day: "numeric", timeZone: "UTC" });
     const fullDate = new Intl.DateTimeFormat(undefined, { dateStyle: "medium", timeStyle: "short" });
@@ -332,6 +333,9 @@
       if (response.status === 401 && !demo) {
         showAuth("Your token has expired or is invalid. Paste a sign-in token to continue.", true);
         throw new DOMException("Sign-in required", "AbortError");
+      }
+      if (response.status === 402 && !demo) {
+        throw new Error("The dashboard is part of the paid plan. Your lexicon and local render keep working on the free plan.");
       }
       if (!response.ok) throw new Error("Request failed (" + response.status + "). Please try again.");
       return response.json();

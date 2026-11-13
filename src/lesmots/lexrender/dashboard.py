@@ -13,6 +13,7 @@ user's account. 401 = not signed in, 402 = the account is on the free plan.
 
 from __future__ import annotations
 
+import re
 from collections.abc import Callable
 from pathlib import Path
 
@@ -24,6 +25,8 @@ from .signin import VerifySignIn
 from .store import LexiconError, Store
 
 PAGE = Path(__file__).parent / "static" / "dashboard.html"
+DEMO = Path(__file__).parent / "static" / "demo"
+DEMO_NAME = re.compile(r"^[a-z0-9-]+\.json$")
 PLACEHOLDER = ("<!doctype html><meta charset=utf-8><title>Lexicon dashboard</title>"
                "<p>The dashboard page is not installed yet. The API is under /api/dashboard/.")
 
@@ -72,5 +75,14 @@ def add_routes(server, store: Store, verify: VerifySignIn) -> None:
         # the page itself is public; it holds no data until it calls the API with a token
         return FileResponse(PAGE) if PAGE.exists() else HTMLResponse(PLACEHOLDER)
 
+    async def demo_file(request: Request) -> Response:
+        # canned sample data for /dashboard?demo=1; public, holds nobody's lexicon
+        name = request.path_params["name"]
+        path = DEMO / name
+        if not DEMO_NAME.match(name) or not path.is_file():
+            return _error("not found", 404)
+        return FileResponse(path, media_type="application/json")
+
     server.custom_route("/dashboard", methods=["GET"])(page)
+    server.custom_route("/dashboard/demo/{name}", methods=["GET"])(demo_file)
 
