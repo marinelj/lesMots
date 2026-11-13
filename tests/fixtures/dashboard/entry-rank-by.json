@@ -1,0 +1,111 @@
+{
+  "entry": {
+    "id": "rank-by",
+    "phrase": "rank something by…",
+    "section": "Professional phrases",
+    "link": "https://github.com/marinelj/lesMots/blob/main/lexicon/lexicon.md#233-rank-something-by-",
+    "exposures": 14,
+    "last_seen": "2026-11-14T12:07:00Z",
+    "via_synonyms": 5
+  },
+  "exposures": [
+    {
+      "at": "2026-11-14T12:07:00Z",
+      "surface": "Claude Code",
+      "label": "lesMots · dashboard",
+      "mode": "local_rewrite",
+      "via": "order by"
+    },
+    {
+      "at": "2026-11-13T10:21:00Z",
+      "surface": "ChatGPT",
+      "label": "lesMots · dashboard",
+      "mode": "remote",
+      "via": ""
+    },
+    {
+      "at": "2026-11-12T08:22:00Z",
+      "surface": "Claude Code",
+      "label": "API reliability review",
+      "mode": "local_rewrite",
+      "via": ""
+    },
+    {
+      "at": "2026-11-08T10:46:00Z",
+      "surface": "Claude Code",
+      "label": "Architecture notes",
+      "mode": "local_rewrite",
+      "via": "order by"
+    },
+    {
+      "at": "2026-10-28T08:24:00Z",
+      "surface": "Claude Code",
+      "label": "Architecture notes",
+      "mode": "local_rewrite",
+      "via": ""
+    },
+    {
+      "at": "2026-10-27T09:43:00Z",
+      "surface": "Claude Desktop",
+      "label": "lexicon-render",
+      "mode": "local_rewrite",
+      "via": ""
+    },
+    {
+      "at": "2026-10-27T08:30:00Z",
+      "surface": "Claude Code",
+      "label": "Architecture notes",
+      "mode": "local_rewrite",
+      "via": ""
+    },
+    {
+      "at": "2026-10-26T09:36:00Z",
+      "surface": "Claude Code",
+      "label": "API reliability review",
+      "mode": "local_rewrite",
+      "via": ""
+    },
+    {
+      "at": "2026-10-26T08:10:00Z",
+      "surface": "Claude Code",
+      "label": "lesMots · dashboard",
+      "mode": "local_rewrite",
+      "via": ""
+    },
+    {
+      "at": "2026-10-25T08:03:00Z",
+      "surface": "Claude Code",
+      "label": "API reliability review",
+      "mode": "remote",
+      "via": ""
+    },
+    {
+      "at": "2026-10-20T10:20:00Z",
+      "surface": "Codex",
+      "label": "lexicon-render",
+      "mode": "local_rewrite",
+      "via": ""
+    },
+    {
+      "at": "2026-10-20T09:54:00Z",
+      "surface": "Claude Code",
+      "label": "lexicon-render",
+      "mode": "local_rewrite",
+      "via": "order by"
+    },
+    {
+      "at": "2026-10-17T08:07:00Z",
+      "surface": "Codex",
+      "label": "API reliability review",
+      "mode": "local_rewrite",
+      "via": "order by"
+    },
+    {
+      "at": "2026-10-16T08:00:00Z",
+      "surface": "Claude Desktop",
+      "label": "lexicon-render",
+      "mode": "remote",
+      "via": "order by"
+    }
+  ]
+}

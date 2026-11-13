@@ -100,4 +100,11 @@ excerpts, are not matched.
 - **OAuth sign-in.** Clients use a bearer token for now.
 - **Postgres and encryption at rest.** The database is plain SQLite.
 - **Private entry pages.** Entry links point to `--link-base`.
-- **The dashboard.** This is step 3. `lexrender stats` gives totals.
+
+## Dashboard page
+
+The [static dashboard](static/dashboard.html) shows totals, a 30-day exposure chart,
+sortable entries, exposure histories, and surface and section breakdowns. It connects
+to the same-host `/api/dashboard/*` endpoints with the user's bearer token. See the
+[dashboard guide](../../../docs/dashboard.md) for its API contract, fixture demo,
+and browser checks.
