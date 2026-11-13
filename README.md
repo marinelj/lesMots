@@ -104,7 +104,7 @@ git clone https://github.com/marinelj/lesMots && cd lesMots
 pip install -e ".[dev]"
 ```
 
-Requires Python 3.9+. **Zero runtime dependencies** — stdlib only.
+Requires Python 3.10+. **Zero runtime dependencies** — stdlib only.
 
 ### Choose an LLM provider
 

@@ -26,7 +26,6 @@ import urllib.error
 import urllib.request
 import uuid
 from pathlib import Path
-from typing import Optional
 
 from lesmots import wechat
 from lesmots.memory import data_path
@@ -108,7 +107,7 @@ def _upload(cloud_path: str, content: bytes) -> None:
         resp.read()
 
 
-def _download(cloud_path: str) -> Optional[bytes]:
+def _download(cloud_path: str) -> bytes | None:
     """Fetch one object; None when it does not exist (a fresh environment)."""
     # The uploadfile metadata call is the only way to learn a path's file_id;
     # it does not modify anything unless the returned URL is actually POSTed.

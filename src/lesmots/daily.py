@@ -8,10 +8,10 @@ from __future__ import annotations
 
 import os
 import re
+from collections.abc import Callable
 from datetime import date
-from typing import Callable, Optional
 
-from lesmots import llm, fetcher
+from lesmots import fetcher, llm
 from lesmots.memory import Memory
 
 
@@ -47,8 +47,8 @@ def words_used_in(text: str, candidates: list[str]) -> list[str]:
 
 
 def generate(memory: Memory,
-             fetch_fn: Optional[Callable] = None,
-             rewrite_fn: Optional[Callable] = None) -> dict:
+             fetch_fn: Callable | None = None,
+             rewrite_fn: Callable | None = None) -> dict:
     """Produce prepared content and store it (unconsumed) in memory."""
     fetch_fn = fetch_fn or _default_fetch()
     story = fetch_fn(memory.config["interests"])
@@ -74,8 +74,8 @@ def generate(memory: Memory,
 
 
 def show_me(memory: Memory,
-            fetch_fn: Optional[Callable] = None,
-            rewrite_fn: Optional[Callable] = None) -> dict:
+            fetch_fn: Callable | None = None,
+            rewrite_fn: Callable | None = None) -> dict:
     """Return prepared content; generate fresh if none/consumed.
     Updates exposure counts + familiarity for the words used, marks consumed."""
     if not memory.prepared or memory.prepared.get("consumed"):
@@ -86,7 +86,7 @@ def show_me(memory: Memory,
     return prepared
 
 
-def keep_reading(memory: Memory, extend_fn: Optional[Callable] = None) -> dict:
+def keep_reading(memory: Memory, extend_fn: Callable | None = None) -> dict:
     """Extend the current story with one more paragraph of bank words.
     Updates exposure counts + familiarity for the newly used words."""
     if not memory.prepared:
