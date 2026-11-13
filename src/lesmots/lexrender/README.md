@@ -22,7 +22,8 @@ any OpenAI-compatible provider.
 ## Commands
 
 The commands are MCP prompts. Claude Code shows them as `/mcp__lexicon__<name>`, where
-`lexicon` is the server's name in your MCP config.
+`lexicon` is the server's name in your MCP config. With the [Claude Code plugin](../../../plugins/lexicon-render/)
+they are short: `/add`, `/load`, `/local` and `/remote`.
 
 | Command | What it does |
 | --- | --- |
@@ -94,8 +95,13 @@ lexrender stats
 sign-in token, and it only sees that user's account:
 
 ```bash
-lexrender serve --http --host 0.0.0.0 --port 8765 --public-url https://lexicon.example.com
+lexrender serve --http --port 8765 --public-url https://marine-api.tunnel.tungo.cn/lesmots
 ```
+
+The public URL may have a path prefix (`/lesmots` here): the MCP endpoint is then
+`<public-url>/mcp`, the dashboard `<public-url>/dashboard` and the health check
+`<public-url>/healthz`. Only the public host passes the MCP Host check. The Mac Studio
+setup is in [deploy/macstudio](../../../deploy/macstudio/README.md).
 
 The database is SQLite, stored at `$LEXRENDER_DB` (default `~/.lexrender/lexicon.db`).
 Run `lexrender export` to get the lexicon back as Markdown in the same format, ready to

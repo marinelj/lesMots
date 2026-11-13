@@ -20,7 +20,9 @@ _SECTION_RE = re.compile(r"^##\s+(\d+)\.\s+(.*?)\s*(?:\(\d+\s+items?\))?\s*$", r
 _ENTRY_RE = re.compile(r"^###\s+(\d+\.\d+)\s+(.*\S)\s*$")
 _ANY_HEADING_RE = re.compile(r"^(#{1,6})\s+(.*\S)\s*$")
 _DEFINITION_RE = re.compile(r"\*\*Definition\*\*\s*:\s*(.+)")
-SYNONYMS_RE = re.compile(r"^\s*[*-]\s+\*\*Synonyms\*\*\s*:\s*(.+)$", re.MULTILINE)
+# "* **Synonyms**: a, b" or a labelled form such as "* **Common synonyms (Synonyms)**: `a`, `b`"
+SYNONYMS_LABEL = r"\*\*(?:[^*\n]*\()?Synonyms\)?\*\*"
+SYNONYMS_RE = re.compile(r"^\s*[*-]\s+" + SYNONYMS_LABEL + r"\s*:\s*(.+)$", re.MULTILINE)
 
 
 @dataclass

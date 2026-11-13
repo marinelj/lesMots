@@ -83,6 +83,10 @@ def add_routes(server, store: Store, verify: VerifySignIn) -> None:
             return _error("not found", 404)
         return FileResponse(path, media_type="application/json")
 
+    async def healthz(request: Request) -> Response:
+        return JSONResponse({"ok": True, "service": "lexicon-render"})
+
+    server.custom_route("/healthz", methods=["GET"])(healthz)
     server.custom_route("/dashboard", methods=["GET"])(page)
     server.custom_route("/dashboard/demo/{name}", methods=["GET"])(demo_file)
 

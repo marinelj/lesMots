@@ -9,7 +9,10 @@ import { resolve, extname } from "node:path";
 const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || "playwright");
 const root = fileURLToPath(new URL("../", import.meta.url));
 const fixtures = resolve(root, "src/lesmots/lexrender/static/demo");
-const pagePath = "/src/lesmots/lexrender/static/dashboard.html";
+// served the way lexrender hosts it behind a prefix: /lesmots/dashboard (+ /dashboard/demo/*)
+const prefix = "/lesmots";
+const pagePath = prefix + "/dashboard";
+const staticDir = "src/lesmots/lexrender/static/";
 const fixture = async (name) => JSON.parse(await readFile(resolve(fixtures, name + ".json"), "utf8"));
 const summary = await fixture("summary");
 const entries = await fixture("entries");
@@ -17,7 +20,10 @@ let browser, server, origin;
 
 before(async () => {
   server = createServer(async (req, res) => {
-    const path = resolve(root, "." + new URL(req.url, "http://localhost").pathname);
+    let urlPath = new URL(req.url, "http://localhost").pathname;
+    if (urlPath === pagePath) urlPath = "/" + staticDir + "dashboard.html";
+    else if (urlPath.startsWith(pagePath + "/demo/")) urlPath = "/" + staticDir + "demo/" + urlPath.slice((pagePath + "/demo/").length);
+    const path = resolve(root, "." + urlPath);
     if (!path.startsWith(root)) { res.writeHead(403).end(); return; }
     try {
       const data = await readFile(path);
@@ -54,8 +60,9 @@ async function api(page, overrides = {}) {
   await page.route("**/api/dashboard/**", async (route) => {
     const request = route.request();
     const url = new URL(request.url());
-    const path = url.pathname.replace("/api/dashboard/", "");
-    seen.push(url.pathname + url.search);
+    assert.ok(url.pathname.startsWith(prefix + "/api/dashboard/"), url.pathname);
+    const path = url.pathname.slice((prefix + "/api/dashboard/").length);
+    seen.push(url.pathname.slice(prefix.length) + url.search);
     assert.equal(request.headers().authorization, "Bearer test-token");
     if (overrides[path]) { await overrides[path](route, url); return; }
     const name = path.startsWith("entry/") ? "entry-" + decodeURIComponent(path.slice(6)) : path;

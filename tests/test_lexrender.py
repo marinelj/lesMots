@@ -511,3 +511,87 @@ def test_dashboard_routes(store):
     assert get("/dashboard/demo/summary.json").json()["entries"] > 0
     assert get("/dashboard/demo/..%2Fdashboard.html").status_code == 404
     assert get("/dashboard/demo/nope.json").status_code == 404
+
+
+# ---------- Claude plugin ----------
+
+def test_claude_plugin_matches_the_server():
+    import json
+    import re
+    from pathlib import Path
+
+    pytest.importorskip("mcp")
+    from lesmots.lexrender.server import build_server
+
+    root = Path(__file__).parent.parent
+    plugin = root / "plugins" / "lexicon-render"
+    market = json.loads((root / ".claude-plugin" / "marketplace.json").read_text())
+    manifest = json.loads((plugin / ".claude-plugin" / "plugin.json").read_text())
+    assert market["plugins"][0]["name"] == manifest["name"] == "lexicon-render"
+    assert (root / market["plugins"][0]["source"]).resolve() == plugin.resolve()
+    mcp = json.loads((plugin / ".mcp.json").read_text())["mcpServers"]["lexicon"]
+    assert mcp["command"] == "lexrender" and mcp["args"] == ["serve"]
+
+    store = Store(":memory:")
+    server = build_server(store, account_id=store.create_account("p"))
+    tools = {t.name for t in asyncio.run(server.list_tools())}
+    commands = {p.stem: p.read_text() for p in (plugin / "commands").glob("*.md")}
+    assert set(commands) == {"add", "load", "local", "remote"}
+    for name, text in commands.items():
+        assert text.startswith("---\ndescription: "), name
+        for tool in re.findall(r"`([a-z_]+)` tool|call `([a-z_]+)`", text):
+            used = tool[0] or tool[1]
+            assert used in tools, (name, used)
+
+
+def test_labelled_synonym_lines_from_the_lexicon_file():
+    md = SAMPLE.replace(
+        "### 1.3 `I wouldn't put it past someone`",
+        "### 1.4 `leverage`\n* **Definition**: Use to advantage.\n"
+        "* **Common synonyms (Synonyms)**: `utilize`, `exploit`, `harness`\n"
+        "* **Example**: She leveraged her skills.\n\n"
+        "### 1.3 `I wouldn't put it past someone`")
+    entry = next(e for e in parse_lexicon(md) if e.phrase == "leverage")
+    assert entry.synonyms == ["utilize", "exploit", "harness"]
+
+    store = Store(":memory:")
+    acct = store.create_account("v13")
+    store.import_markdown(acct, md)
+    assert store.matcher(acct).find("We harness the cache.")[0].entry_id == "leverage"
+    updated = store.set_synonyms(acct, "leverage", ["utilize", "tap"])
+    assert "* **Common synonyms (Synonyms)**: utilize, tap\n* **Example**" in updated.body
+    assert store.set_synonyms(acct, "leverage", []).synonyms == []
+
+
+def test_hosted_under_a_path_prefix(store):
+    pytest.importorskip("mcp")
+    from starlette.testclient import TestClient
+
+    from lesmots.lexrender.hosting import http_app, prefix_of
+    from lesmots.lexrender.server import build_server
+
+    public = "https://marine-api.tunnel.tungo.cn/lesmots"
+    assert prefix_of(public) == "/lesmots" and prefix_of("https://x.example") == ""
+    server = build_server(store, public_url=public, verify={"tok": "g-1"}.get)
+    app = http_app(server, public)
+    init = {"jsonrpc": "2.0", "id": 1, "method": "initialize",
+            "params": {"protocolVersion": "2025-06-18", "capabilities": {},
+                       "clientInfo": {"name": "t", "version": "0"}}}
+    accept = {"Accept": "application/json, text/event-stream"}
+    signed_in = {**accept, "Authorization": "Bearer tok"}
+    with TestClient(app, base_url="https://marine-api.tunnel.tungo.cn") as client:
+        # the gateway may forward the prefix or strip it
+        assert client.get("/lesmots/healthz").json() == {"ok": True,
+                                                         "service": "lexicon-render"}
+        assert client.get("/healthz").status_code == 200
+        assert client.get("/lesmots/dashboard").status_code == 200
+        assert client.get("/lesmots/dashboard/demo/summary.json").status_code == 200
+        assert client.get("/lesmots/api/dashboard/summary").status_code == 401
+        assert client.get("/lesmots/api/dashboard/summary",
+                          headers={"Authorization": "Bearer tok"}).status_code == 402
+        assert client.post("/lesmots/mcp", json=init, headers=accept).status_code == 401
+        ok = client.post("/lesmots/mcp", json=init, headers=signed_in)
+        assert ok.status_code == 200, ok.text
+        evil = client.post("/lesmots/mcp", json=init,
+                           headers={**signed_in, "Host": "evil.example"})
+        assert evil.status_code in (400, 421)
