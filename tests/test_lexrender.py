@@ -132,11 +132,15 @@ def test_lookup_by_id_and_word_form(store, account):
 
 
 def test_accounts_are_isolated(store, account):
-    other, token = store.create_account("other")
-    assert store.account_for_token(token) == other
+    other, user_id = store.create_account("other")
+    assert user_id.startswith("u_") and len(user_id) >= 32
+    assert store.account_for_user_id(user_id) == other
+    assert store.account_for_user_id(other) is None  # the internal id is not a login
     assert store.entries(other) == []
     assert store.lookup(other, "fall back to") is None
-    assert store.account_for_token("lr_wrong") is None
+    assert store.account_for_user_id("u_wrong") is None
+    stored = [r["token_hash"] for r in store._conn.execute("SELECT token_hash FROM accounts")]
+    assert user_id not in stored  # only a hash is kept
 
 
 def test_add_entry_refuses_duplicates_in_any_form(store, account):
@@ -383,3 +387,22 @@ def test_mcp_commands(store, syn_account):
     assert out["used"] == ["sophisticated"] and out["via"] == {"sophisticated": "refined"}
     syn = _call(server, "set_synonyms", {"id_or_phrase": "sophisticated", "synonyms": ["fancy"]})
     assert syn["synonyms"] == ["fancy"]
+
+
+def test_cli_logs_in_with_user_id_only(tmp_path, monkeypatch, capsys):
+    from lesmots.lexrender.cli import main
+
+    db = tmp_path / "l.db"
+    monkeypatch.delenv("LEXRENDER_USER_ID", raising=False)
+    monkeypatch.delenv("LEXRENDER_TOKEN", raising=False)
+    main(["--db", str(db), "init", "marine"])
+    user_id = capsys.readouterr().out.split()[1]
+    assert user_id.startswith("u_")
+    sample = tmp_path / "lexicon.md"
+    sample.write_text(SAMPLE, encoding="utf-8")
+    main(["--db", str(db), "--user-id", user_id, "import", str(sample)])
+    monkeypatch.setenv("LEXRENDER_USER_ID", user_id)
+    main(["--db", str(db), "stats"])
+    assert '"entries": 3' in capsys.readouterr().out
+    with pytest.raises(SystemExit, match="unknown user_id"):
+        main(["--db", str(db), "--user-id", "u_nope", "stats"])

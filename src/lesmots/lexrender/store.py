@@ -146,14 +146,22 @@ class Store:
     # ---------- accounts ----------
 
     def create_account(self, name: str, link_base: str = "") -> tuple[str, str]:
-        """Create an account. Returns (account id, API token). The token is shown once."""
+        """Create an account. Returns (internal account id, user_id).
+
+        The user_id is the user's only login credential: a long random value that can't be
+        guessed, shown once and stored only as a hash. The internal account id keys the rows
+        and is never accepted as a login."""
         account_id = "acct_" + secrets.token_hex(8)
-        token = "lr_" + secrets.token_urlsafe(32)
+        token = "u_" + secrets.token_urlsafe(24)
         with self._tx() as c:
             c.execute("INSERT INTO accounts (id, name, token_hash, link_base, created_at) "
                       "VALUES (?, ?, ?, ?, ?)",
                       (account_id, name, hash_token(token), link_base, _now()))
         return account_id, token
+
+    def account_for_user_id(self, user_id: str) -> str | None:
+        """The account this user_id logs in to, or None."""
+        return self.account_for_token(user_id)
 
     def account_for_token(self, token: str) -> str | None:
         row = self._conn.execute("SELECT id FROM accounts WHERE token_hash = ?",

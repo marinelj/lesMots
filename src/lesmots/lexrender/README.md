@@ -57,7 +57,7 @@ Synonyms match in any word form, the same way phrases do.
 ```bash
 pip install -e ".[mcp]"
 lexrender init marine --link-base https://github.com/marinelj/lesMots/blob/main/lexicon/lexicon.md
-export LEXRENDER_TOKEN=lr_...    # printed once by init
+export LEXRENDER_USER_ID=u_...   # printed once by init: your only login, keep it private
 lexrender import lexicon/lexicon.md
 lexrender stats
 ```
@@ -70,14 +70,14 @@ lexrender stats
     "lexicon": {
       "command": "lexrender",
       "args": ["serve"],
-      "env": { "LEXRENDER_TOKEN": "lr_..." }
+      "env": { "LEXRENDER_USER_ID": "u_..." }
     }
   }
 }
 ```
 
-**Hosted (HTTP).** Each request must carry `Authorization: Bearer <token>`, and it only
-sees that token's account:
+**Hosted (HTTP).** Each request must carry `Authorization: Bearer <user_id>`, and it only
+sees that user's account:
 
 ```bash
 lexrender serve --http --host 0.0.0.0 --port 8765 --public-url https://lexicon.example.com
@@ -97,7 +97,7 @@ excerpts, are not matched.
 
 ## Not in this version
 
-- **OAuth sign-in.** Clients use a bearer token for now.
+- **OAuth sign-in.** The user_id is the only credential for now.
 - **Postgres and encryption at rest.** The database is plain SQLite.
 - **Private entry pages.** Entry links point to `--link-base`.
 - **The dashboard.** This is step 3. `lexrender stats` gives totals.

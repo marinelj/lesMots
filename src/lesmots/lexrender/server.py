@@ -14,10 +14,12 @@ commands, e.g. ``/mcp__lexicon__add`` in Claude Code.
 
 Two transports:
 
-* stdio, for a local client: the account comes from the ``LEXRENDER_TOKEN`` environment
+* stdio, for a local client: the account comes from the ``LEXRENDER_USER_ID`` environment
   variable, checked once at start-up.
 * streamable HTTP, for a hosted service: every request carries ``Authorization: Bearer
-  <token>`` and is served for that token's account only.
+  <user_id>`` and is served for that user's account only.
+
+The user_id is the only login credential: long, random and stored only as a hash.
 
 Needs the optional ``mcp`` dependency (``pip install 'lesmots[mcp]'``).
 """
@@ -70,13 +72,13 @@ lexicon), local and remote (switch the render mode)."""
 
 
 class TokenVerifier:
-    """Maps a bearer token to its account. The account id travels as the token's client_id."""
+    """Maps a bearer user_id to its account. The account id travels as the client_id."""
 
     def __init__(self, store: Store):
         self.store = store
 
     async def verify_token(self, token: str) -> AccessToken | None:
-        account_id = self.store.account_for_token(token)
+        account_id = self.store.account_for_user_id(token)
         if account_id is None:
             return None
         return AccessToken(token=token, client_id=account_id, scopes=["lexicon"])
