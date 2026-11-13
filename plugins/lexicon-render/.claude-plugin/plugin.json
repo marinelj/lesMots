@@ -1,0 +1,9 @@
+{
+  "name": "lexicon-render",
+  "version": "0.1.0",
+  "description": "Write with your own lexicon: agents use your phrases, link each one to your lexicon bank, and count every use.",
+  "author": { "name": "marinelj" },
+  "homepage": "https://github.com/marinelj/lesMots/tree/main/plugins/lexicon-render",
+  "repository": "https://github.com/marinelj/lesMots",
+  "keywords": ["lexicon", "vocabulary", "writing", "mcp"]
+}

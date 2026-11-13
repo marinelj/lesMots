@@ -511,3 +511,34 @@ def test_dashboard_routes(store):
     assert get("/dashboard/demo/summary.json").json()["entries"] > 0
     assert get("/dashboard/demo/..%2Fdashboard.html").status_code == 404
     assert get("/dashboard/demo/nope.json").status_code == 404
+
+
+# ---------- Claude plugin ----------
+
+def test_claude_plugin_matches_the_server():
+    import json
+    import re
+    from pathlib import Path
+
+    pytest.importorskip("mcp")
+    from lesmots.lexrender.server import build_server
+
+    root = Path(__file__).parent.parent
+    plugin = root / "plugins" / "lexicon-render"
+    market = json.loads((root / ".claude-plugin" / "marketplace.json").read_text())
+    manifest = json.loads((plugin / ".claude-plugin" / "plugin.json").read_text())
+    assert market["plugins"][0]["name"] == manifest["name"] == "lexicon-render"
+    assert (root / market["plugins"][0]["source"]).resolve() == plugin.resolve()
+    mcp = json.loads((plugin / ".mcp.json").read_text())["mcpServers"]["lexicon"]
+    assert mcp["command"] == "lexrender" and mcp["args"] == ["serve"]
+
+    store = Store(":memory:")
+    server = build_server(store, account_id=store.create_account("p"))
+    tools = {t.name for t in asyncio.run(server.list_tools())}
+    commands = {p.stem: p.read_text() for p in (plugin / "commands").glob("*.md")}
+    assert set(commands) == {"add", "load", "local", "remote"}
+    for name, text in commands.items():
+        assert text.startswith("---\ndescription: "), name
+        for tool in re.findall(r"`([a-z_]+)` tool|call `([a-z_]+)`", text):
+            used = tool[0] or tool[1]
+            assert used in tools, (name, used)

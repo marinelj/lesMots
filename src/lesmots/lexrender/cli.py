@@ -26,7 +26,7 @@ from .store import LexiconError, Store
 
 
 def default_db() -> Path:
-    return Path(os.environ.get("LEXRENDER_DB", Path.home() / ".lexrender" / "lexicon.db"))
+    return Path(os.environ.get("LEXRENDER_DB") or Path.home() / ".lexrender" / "lexicon.db")
 
 
 def _account(store: Store, session: str | None) -> str:

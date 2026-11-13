@@ -22,7 +22,8 @@ any OpenAI-compatible provider.
 ## Commands
 
 The commands are MCP prompts. Claude Code shows them as `/mcp__lexicon__<name>`, where
-`lexicon` is the server's name in your MCP config.
+`lexicon` is the server's name in your MCP config. With the [Claude Code plugin](../../../plugins/lexicon-render/)
+they are short: `/add`, `/load`, `/local` and `/remote`.
 
 | Command | What it does |
 | --- | --- |
