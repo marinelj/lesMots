@@ -14,8 +14,8 @@ commands, e.g. ``/mcp__lexicon__add`` in Claude Code.
 
 Two transports:
 
-* stdio, for a local client: the account comes from the ``LEXRENDER_USER_ID`` environment
-  variable, checked once at start-up.
+* stdio, for a local client: the account comes from the ``LEXRENDER_SESSION`` sign-in token,
+  checked once at start-up.
 * streamable HTTP, for a hosted service: every request carries ``Authorization: Bearer
   <token>``, a sign-in token from the LesMots app, and is served for that user's account.
 
