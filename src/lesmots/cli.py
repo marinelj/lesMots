@@ -14,7 +14,7 @@ from __future__ import annotations
 import argparse
 import sys
 
-from lesmots import __version__, llm, daily
+from lesmots import __version__, daily, llm
 from lesmots.memory import Memory
 from lesmots.models import Word
 

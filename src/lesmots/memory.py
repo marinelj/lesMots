@@ -10,10 +10,9 @@ import os
 import uuid
 from datetime import date
 from pathlib import Path
-from typing import Optional
 
-from lesmots.models import Word
 from lesmots import srs
+from lesmots.models import Word
 
 DEFAULT_CONFIG = {
     "language": "Chinese",
@@ -23,7 +22,7 @@ DEFAULT_CONFIG = {
 }
 
 
-def data_path(user: Optional[str] = None) -> Path:
+def data_path(user: str | None = None) -> Path:
     """Storage file; per-user when a user id is given (SSO mode), shared otherwise."""
     home = os.environ.get("LESMOTS_HOME")
     base = Path(home) if home else Path.home() / ".lesmots"
@@ -35,18 +34,18 @@ def data_path(user: Optional[str] = None) -> Path:
 class Memory:
     """The persistent state of LesMots."""
 
-    def __init__(self, config: Optional[dict] = None, words: Optional[list[Word]] = None,
-                 prepared: Optional[dict] = None, loved: Optional[list[dict]] = None):
+    def __init__(self, config: dict | None = None, words: list[Word] | None = None,
+                 prepared: dict | None = None, loved: list[dict] | None = None):
         self.config = {**DEFAULT_CONFIG, **(config or {})}
         self.words: list[Word] = words or []
-        self.prepared: Optional[dict] = prepared  # {"date","original","rewritten","words_used","consumed"}
+        self.prepared: dict | None = prepared  # {"date","original","rewritten","words_used","consumed"}
         self.loved: list[dict] = loved or []  # stories the user chose to keep
         for story in self.loved:  # entries saved before ids existed
             story.setdefault("id", uuid.uuid4().hex[:8])
 
     # ---------- word bank ----------
 
-    def find(self, text: str) -> Optional[Word]:
+    def find(self, text: str) -> Word | None:
         key = text.strip().lower()
         for w in self.words:
             if w.text.strip().lower() == key:
@@ -67,7 +66,7 @@ class Memory:
             return True
         return False
 
-    def pick(self, limit: Optional[int] = None) -> list[Word]:
+    def pick(self, limit: int | None = None) -> list[Word]:
         return srs.pick_words(self.words, limit or self.config["pick_limit"])
 
     def record_exposure(self, texts: list[str]) -> list[Word]:
@@ -103,7 +102,7 @@ class Memory:
                 return True
         return False
 
-    def set_familiarity(self, text: str, level: int) -> Optional[Word]:
+    def set_familiarity(self, text: str, level: int) -> Word | None:
         """Manually set a bank word's familiarity (1-5); returns None if unknown."""
         w = self.find(text)
         if w:
@@ -112,7 +111,7 @@ class Memory:
 
     # ---------- persistence ----------
 
-    def save(self, path: Optional[Path] = None) -> Path:
+    def save(self, path: Path | None = None) -> Path:
         path = path or data_path()
         path.parent.mkdir(parents=True, exist_ok=True)
         data = {
@@ -125,7 +124,7 @@ class Memory:
         return path
 
     @classmethod
-    def load(cls, path: Optional[Path] = None) -> "Memory":
+    def load(cls, path: Path | None = None) -> Memory:
         path = path or data_path()
         if not path.exists():
             return cls()

@@ -42,9 +42,8 @@ import urllib.parse
 import urllib.request
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from typing import Optional
 
-from lesmots import cloudsync, llm, daily, wechat
+from lesmots import cloudsync, daily, llm, wechat
 from lesmots.memory import Memory, data_path
 from lesmots.models import Word
 
@@ -94,7 +93,7 @@ def make_session(uid: str, email: str) -> str:
     return payload + "." + _sign(payload)
 
 
-def check_session(token: str) -> Optional[dict]:
+def check_session(token: str) -> dict | None:
     try:
         payload, sig = token.rsplit(".", 1)
         if not hmac.compare_digest(sig, _sign(payload)):
@@ -107,7 +106,7 @@ def check_session(token: str) -> Optional[dict]:
         return None
 
 
-def verify_google_token(credential: str) -> Optional[dict]:
+def verify_google_token(credential: str) -> dict | None:
     """Have Google validate the ID token (signature + expiry checked server-side)."""
     try:
         url = GOOGLE_TOKENINFO + urllib.parse.quote(credential)
@@ -122,7 +121,7 @@ def verify_google_token(credential: str) -> Optional[dict]:
 
 class Handler(BaseHTTPRequestHandler):
     def _send(self, body: bytes, ctype: str = "application/json", code: int = 200,
-              headers: Optional[list] = None) -> None:
+              headers: list | None = None) -> None:
         self.send_response(code)
         self.send_header("Content-Type", ctype + "; charset=utf-8")
         self.send_header("Content-Length", str(len(body)))
@@ -132,7 +131,7 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
-    def _json(self, obj, code: int = 200, headers: Optional[list] = None) -> None:
+    def _json(self, obj, code: int = 200, headers: list | None = None) -> None:
         self._send(json.dumps(obj, ensure_ascii=False).encode(), code=code, headers=headers)
 
     def _body(self) -> dict:
@@ -141,7 +140,7 @@ class Handler(BaseHTTPRequestHandler):
 
     # ---------- session / per-user storage ----------
 
-    def _session(self) -> Optional[dict]:
+    def _session(self) -> dict | None:
         # Bearer token first: cookie-less clients (WeChat Mini Program)
         auth = self.headers.get("Authorization") or ""
         if auth.startswith("Bearer "):
@@ -154,7 +153,7 @@ class Handler(BaseHTTPRequestHandler):
                 return check_session(value)
         return None
 
-    def _resolve_user(self) -> Optional[str]:
+    def _resolve_user(self) -> str | None:
         if not _auth_enabled():
             return None  # single-user mode
         session = self._session()
@@ -177,7 +176,7 @@ class Handler(BaseHTTPRequestHandler):
 
     # ---------- GET ----------
 
-    def do_GET(self) -> None:  # noqa: N802
+    def do_GET(self) -> None:
         self._uid = self._resolve_user()
         if self.path in ("/", "/index.html"):
             self._send(UI_PATH.read_bytes(), ctype="text/html")
@@ -205,7 +204,7 @@ class Handler(BaseHTTPRequestHandler):
 
     # ---------- POST ----------
 
-    def do_POST(self) -> None:  # noqa: N802
+    def do_POST(self) -> None:
         self._uid = self._resolve_user()
         if self.path != "/api/login" and self._login_required():
             return
@@ -330,7 +329,7 @@ class Handler(BaseHTTPRequestHandler):
         pass  # quiet
 
 
-def serve(port: Optional[int] = None, host: str = "0.0.0.0") -> None:
+def serve(port: int | None = None, host: str = "0.0.0.0") -> None:
     if port is None:
         port = int(os.environ.get("PORT", "8321"))
     cloudsync.restore()  # must precede session-secret creation and first request
