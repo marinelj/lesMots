@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="referrer" content="no-referrer">
+  <title>Your lexicon · Lexicon Render</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f6f7f4; --card: #fff; --ink: #233631; --muted: #66766f;
+      --line: #dfe6e0; --accent: #176b55; --soft: #eaf3ed; --hover: #f4f8f4;
+      --track: #edf1ec; --error: #a5372d; --shadow: 0 12px 60px #172d2420;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 14px;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--ink); }
+    button, input, select { font: inherit; color: inherit; }
+    button, select, a { -webkit-tap-highlight-color: transparent; }
+    button, select { cursor: pointer; }
+    button, input, select { border: 1px solid var(--line); border-radius: 7px; }
+    button { background: var(--card); padding: 9px 13px; }
+    button:hover { background: var(--hover); }
+    button:disabled { cursor: wait; opacity: .6; }
+    a { color: var(--accent); text-underline-offset: 3px; }
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+    [hidden] { display: none !important; }
+    .shell { max-width: 1184px; margin: auto; padding: 0 32px; }
+    .topbar { border-bottom: 1px solid var(--line); background: var(--card); }
+    .topbar .shell { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .monogram { background: var(--accent); color: var(--card); width: 32px; height: 36px; border-radius: 7px 7px 14px 7px; display: grid; place-items: center; font: italic 26px Georgia, serif; }
+    .wordmark { font: 27px Georgia, serif; letter-spacing: -1px; }
+    .product { border-left: 1px solid var(--line); padding-left: 18px; margin-left: 6px; color: var(--muted); font-size: 12px; }
+    .actions { display: flex; align-items: center; gap: 12px; }
+    .badge { color: var(--accent); background: var(--soft); border-radius: 5px; padding: 6px 9px; font-size: 10px; font-weight: 700; letter-spacing: 1px; white-space: nowrap; }
+    .text-button { border: 0; background: transparent; padding: 8px 0; color: var(--muted); font-size: 12px; }
+    main { padding-top: 39px !important; padding-bottom: 28px !important; }
+    .intro { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 28px; }
+    .eyebrow { color: var(--accent); font-size: 10px; font-weight: 700; letter-spacing: 1.7px; text-transform: uppercase; margin: 0 0 10px; }
+    h1 { font: 40px/1.15 Georgia, serif; letter-spacing: -1.4px; margin: 0 0 10px; }
+    .subtitle { margin: 0; color: var(--muted); line-height: 1.6; }
+    .version { color: var(--muted); font-size: 11px; margin-bottom: 5px; white-space: nowrap; }
+    .version span { color: var(--ink); }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; }
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 22px; }
+    .stat { padding: 20px 22px 18px; }
+    .stat-label { color: var(--muted); font-size: 12px; margin: 0 0 13px; }
+    .stat-value { display: block; font-size: 32px; font-weight: 500; letter-spacing: -1.2px; font-variant-numeric: tabular-nums; }
+    .stat-note { color: var(--muted); font-size: 10px; margin: 8px 0 0; }
+    .stat:last-child { background: var(--soft); border-color: var(--soft); }
+    .stat:last-child .stat-value { color: var(--accent); }
+    .coverage-track { background: var(--line); height: 3px; border-radius: 3px; margin-top: 13px; }
+    .coverage-fill { background: var(--accent); height: 100%; border-radius: inherit; width: 0; }
+    .workspace { display: grid; grid-template-columns: minmax(0, 1fr) 278px; gap: 22px; align-items: start; }
+    .primary { min-width: 0; display: grid; gap: 22px; }
+    .card-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 21px 22px 0; }
+    h2 { margin: 0; font-size: 14px; font-weight: 600; letter-spacing: -.2px; }
+    .hint { margin: 6px 0 0; color: var(--muted); font-size: 11px; line-height: 1.6; }
+    .period { color: var(--muted); border: 1px solid var(--line); border-radius: 5px; padding: 6px 9px; font-size: 10px; white-space: nowrap; }
+    .chart-summary { padding: 18px 22px 0; display: flex; align-items: baseline; gap: 8px; }
+    .chart-total { font-size: 25px; font-weight: 500; letter-spacing: -.7px; }
+    .chart-summary span:last-child { font-size: 11px; color: var(--muted); }
+    .chart-wrap { padding: 5px 18px 12px 13px; }
+    #timeline { width: 100%; height: auto; display: block; overflow: visible; }
+    .chart-grid { stroke: var(--line); stroke-dasharray: 3 5; }
+    .chart-label { fill: var(--muted); font-size: 10px; }
+    .chart-line { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    .chart-dot { fill: var(--card); stroke: var(--accent); stroke-width: 1.7; }
+    .chart-point { fill: transparent; cursor: crosshair; }
+    .chart-point:focus { fill: var(--accent); outline: none; }
+    #chart-readout { text-align: right; color: var(--muted); font-size: 10px; min-height: 18px; margin: 0 6px; }
+    .side-stack { display: grid; gap: 22px; }
+    .side-card { padding: 22px; }
+    .side-card h2 { margin-bottom: 5px; }
+    .side-card .hint { margin-bottom: 23px; }
+    .surface-list, .section-list { list-style: none; margin: 0; padding: 0; }
+    .surface-list li { margin-top: 20px; }
+    .bar-label { display: flex; justify-content: space-between; gap: 12px; font-size: 11px; margin-bottom: 9px; }
+    .bar-label span:first-child { overflow-wrap: anywhere; }
+    .bar-count { color: var(--muted); font-variant-numeric: tabular-nums; }
+    .bar-track { height: 6px; border-radius: 3px; background: var(--track); }
+    .bar { height: 100%; border-radius: inherit; background: var(--accent); }
+    .surface-list li:nth-child(2) .bar { opacity: .7; }
+    .surface-list li:nth-child(3) .bar { opacity: .5; }
+    .surface-list li:nth-child(n+4) .bar { opacity: .35; }
+    .section-list li { display: flex; justify-content: space-between; gap: 12px; font-size: 11px; line-height: 1.6; padding: 10px 0; border-bottom: 1px solid var(--line); }
+    .section-list li:last-child { border-bottom: 0; padding-bottom: 0; }
+    .section-list span:first-child { overflow-wrap: anywhere; }
+    .section-count { color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .table-top { padding-bottom: 19px; }
+    .sort { display: flex; align-items: center; gap: 8px; font-size: 10px; color: var(--muted); }
+    select { background: var(--card); padding: 7px; font-size: 11px; max-width: 140px; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+    caption { text-align: left; }
+    th { font-size: 9px; font-weight: 500; letter-spacing: .5px; text-transform: uppercase; color: var(--muted); background: var(--bg); white-space: nowrap; }
+    th, td { padding: 13px 12px; border-top: 1px solid var(--line); }
+    th:first-child, td:first-child { padding-left: 22px; }
+    th:last-child, td:last-child { padding-right: 22px; }
+    td { font-size: 11px; }
+    tbody tr { cursor: pointer; }
+    tbody tr:hover, tbody tr:focus-within { background: var(--hover); }
+    .phrase { min-width: 130px; max-width: 270px; }
+    .phrase a { color: var(--ink); text-decoration: none; line-height: 1.6; overflow-wrap: anywhere; }
+    .phrase a:hover { color: var(--accent); text-decoration: underline; }
+    .section-name { color: var(--muted); font-size: 10px; display: block; margin-top: 3px; }
+    .numeric { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .seen { color: var(--muted); white-space: nowrap; }
+    .history-button { padding: 5px 8px; color: var(--muted); font-size: 15px; border: 0; background: transparent; }
+    .table-foot { display: flex; justify-content: space-between; gap: 12px; padding: 14px 22px; border-top: 1px solid var(--line); color: var(--muted); font-size: 10px; }
+    .empty { color: var(--muted); padding: 25px 22px; line-height: 1.7; font-size: 12px; }
+    .footer { display: flex; justify-content: space-between; gap: 16px; margin-top: 24px; color: var(--muted); font-size: 10px; }
+    .footer .dot { color: var(--accent); }
+    .notice { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 13px 16px; margin-bottom: 20px; border: 1px solid var(--line); border-radius: 8px; background: var(--card); color: var(--error); font-size: 12px; }
+    .login { max-width: 440px; padding: 32px; margin: 65px auto 100px; }
+    .login h1 { font-size: 31px; }
+    .login p { color: var(--muted); line-height: 1.7; font-size: 12px; }
+    label[for="token"] { display: block; margin: 25px 0 8px; font-size: 12px; }
+    input { width: 100%; background: var(--bg); padding: 12px; }
+    .submit { width: 100%; background: var(--accent); color: var(--card); border-color: var(--accent); margin-top: 12px; padding: 12px; }
+    .submit:hover { background: var(--accent); filter: brightness(1.1); }
+    .login .error { color: var(--error); }
+    #loading { padding: 70px 0; text-align: center; color: var(--muted); }
+    dialog { position: fixed; inset: 0 0 0 auto; margin: 0; height: 100dvh; max-height: 100dvh; width: min(470px, 100%); max-width: 100%; padding: 0; border: 0; border-left: 1px solid var(--line); color: var(--ink); background: var(--card); box-shadow: var(--shadow); }
+    dialog::backdrop { background: #15282060; }
+    .panel-head { padding: 24px 26px; border-bottom: 1px solid var(--line); display: flex; align-items: start; gap: 16px; justify-content: space-between; }
+    .panel-head h2 { font: 27px/1.25 Georgia, serif; margin: 10px 0; overflow-wrap: anywhere; }
+    .close { font-size: 20px; line-height: 1; padding: 7px 10px; }
+    #entry-detail { padding: 24px 26px; }
+    .entry-meta { color: var(--muted); font-size: 11px; margin: 0 0 24px; }
+    .history { list-style: none; margin: 0; padding: 0; }
+    .history li { position: relative; border-left: 1px solid var(--line); padding: 0 0 27px 20px; margin-left: 4px; }
+    .history li::before { content: ""; position: absolute; left: -4px; top: 4px; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+    .history time { color: var(--muted); font-size: 10px; }
+    .history h3 { margin: 7px 0 5px; font-size: 13px; font-weight: 600; overflow-wrap: anywhere; }
+    .history p { margin: 0 0 8px; font-size: 12px; color: var(--muted); line-height: 1.6; overflow-wrap: anywhere; }
+    .replacement { display: inline-block; background: var(--soft); color: var(--accent); border-radius: 4px; padding: 5px 8px; font-size: 11px; overflow-wrap: anywhere; max-width: 100%; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #141c19; --card: #1c2621; --ink: #e2eae3; --muted: #a2b2a7; --line: #35473c; --accent: #91d1af; --soft: #263d30; --hover: #26352c; --track: #2b3b31; --error: #ffada0; }
+    }
+    @media (max-width: 900px) {
+      .workspace { grid-template-columns: minmax(0, 1fr); }
+      .side-stack { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 540px) {
+      .shell { padding-left: 18px; padding-right: 18px; }
+      .topbar .shell { min-height: 67px; gap: 8px; }
+      .product { display: none; }
+      .actions { gap: 10px; }
+      .wordmark { font-size: 24px; }
+      .monogram { width: 27px; height: 31px; font-size: 23px; }
+      .brand { gap: 8px; }
+      .badge { font-size: 8px; padding: 6px; letter-spacing: .6px; }
+      main { padding-top: 28px !important; }
+      h1 { font-size: 34px; }
+      .intro { display: block; margin-bottom: 20px; }
+      .version { margin-top: 14px; }
+      .subtitle { font-size: 12px; }
+      .stats { grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 16px; }
+      .stat { padding: 17px; }
+      .stat-value { font-size: 29px; }
+      .stat-label { margin-bottom: 10px; font-size: 11px; }
+      .workspace, .primary, .side-stack { gap: 16px; }
+      .side-stack { grid-template-columns: 1fr; }
+      .card-head { padding: 18px 16px 0; }
+      .chart-summary { padding-left: 16px; }
+      .table-top { display: block; padding-bottom: 15px; }
+      .sort { margin-top: 14px; justify-content: space-between; }
+      select { max-width: none; }
+      .synonyms-col { display: none; }
+      th, td { padding: 12px 7px; }
+      th:first-child, td:first-child { padding-left: 16px; }
+      th:last-child, td:last-child { padding-right: 10px; }
+      .phrase { min-width: 100px; }
+      .history-button { padding: 5px; }
+      .table-foot { padding: 13px 16px; }
+      .table-foot span:last-child { display: none; }
+      .footer { font-size: 9px; }
+      .login { padding: 24px; margin-top: 30px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell">
+      <div class="brand"><span class="monogram" aria-hidden="true">l</span><span class="wordmark">les mots</span><span class="product">Lexicon Render</span></div>
+      <div class="actions">
+        <span id="demo-badge" class="badge" hidden>● DEMO DATA</span>
+        <a id="live-link" class="text-button" href="?" hidden>Go to live</a>
+        <button id="sign-out" class="text-button" type="button" hidden>Sign out</button>
+      </div>
+    </div>
+  </header>
+  <main class="shell">
+    <section id="auth" class="login card" aria-labelledby="auth-title" hidden>
+      <p class="eyebrow">Your personal lexicon</p>
+      <h1 id="auth-title">Welcome back.</h1>
+      <p>Paste your Lexicon Render sign-in token to see where your words are showing up.</p>
+      <form id="sign-in">
+        <label for="token">Sign-in token</label>
+        <input id="token" type="password" placeholder="Paste your token" autocomplete="off" autocapitalize="off" spellcheck="false" required aria-describedby="auth-message">
+        <button class="submit" type="submit">Open my dashboard <span aria-hidden="true">↗</span></button>
+        <p id="auth-message" role="status">Your token is saved in this browser.</p>
+      </form>
+      <p>Just looking around? <a href="?demo=1">Explore the demo</a></p>
+    </section>
+    <p id="loading" role="status" hidden>Loading your lexicon…</p>
+    <div id="error" class="notice" role="alert" hidden><span id="error-text"></span><button id="retry" type="button">Try again</button></div>
+    <div id="dashboard" hidden>
+      <div class="intro">
+        <div><p class="eyebrow">The lexicon, in practice</p><h1>Your words, in the wild.</h1><p class="subtitle">See how your lexicon becomes part of your everyday language.</p></div>
+        <div class="version">Lexicon <span id="version">—</span> &nbsp;·&nbsp; <button id="refresh" type="button" class="text-button">Refresh <span aria-hidden="true">↻</span></button></div>
+      </div>
+      <section class="stats" aria-label="Lexicon overview">
+        <article class="card stat"><h2 class="stat-label">Entries</h2><span id="entries-total" class="stat-value">—</span><p class="stat-note">Words &amp; phrases in your lexicon</p></article>
+        <article class="card stat"><h2 class="stat-label">Total exposures</h2><span id="exposures-total" class="stat-value">—</span><p class="stat-note">Every time a phrase finds its place</p></article>
+        <article class="card stat"><h2 class="stat-label">Entries exposed</h2><span id="entries-exposed" class="stat-value">—</span><p class="stat-note">Unique entries used at least once</p></article>
+        <article class="card stat"><h2 class="stat-label">Coverage</h2><span id="coverage" class="stat-value">—</span><div class="coverage-track" aria-hidden="true"><div id="coverage-fill" class="coverage-fill"></div></div></article>
+      </section>
+      <div class="workspace">
+        <div class="primary">
+          <section class="card" aria-labelledby="activity-title">
+            <div class="card-head"><div><h2 id="activity-title">A little repetition, every day.</h2><p class="hint">Your exposure activity over the last 30 days</p></div><span class="period">Last 30 days</span></div>
+            <div class="chart-summary"><strong id="timeline-total" class="chart-total">—</strong><span>exposures in this period</span></div>
+            <div class="chart-wrap">
+              <svg id="timeline" viewBox="0 0 720 198" role="img" aria-labelledby="chart-title chart-description"></svg>
+              <p id="chart-readout" aria-live="polite">Hover or focus a point to explore</p>
+            </div>
+            <div class="sr-only"><table id="timeline-data"><caption>Daily exposure counts</caption><thead><tr><th scope="col">Date</th><th scope="col">Exposures</th></tr></thead><tbody></tbody></table></div>
+          </section>
+          <section class="card" aria-labelledby="entries-title">
+            <div class="card-head table-top"><div><h2 id="entries-title">Your lexicon</h2><p class="hint">A closer look at the words you use.</p></div><label class="sort" for="sort">Sort by <select id="sort"><option value="exposures">Most exposed</option><option value="recent">Recently seen</option><option value="phrase">Phrase A–Z</option></select></label></div>
+            <div id="entries-error" class="notice" role="alert" hidden></div>
+            <div class="table-wrap">
+              <table id="entries-table"><caption class="sr-only">Lexicon entries. Select a row or its history button to view exposures.</caption><thead><tr><th scope="col">Phrase / section</th><th scope="col" class="numeric">Exposures</th><th scope="col" class="numeric synonyms-col">Via synonyms</th><th scope="col">Last seen</th><th scope="col"><span class="sr-only">History</span></th></tr></thead><tbody id="entries-body"></tbody></table>
+            </div>
+            <p id="entries-empty" class="empty" hidden>No entries yet. Your lexicon will appear here once entries are added.</p>
+            <div class="table-foot"><span id="entry-count"></span><span>Select a row to see its story <span aria-hidden="true">↗</span></span></div>
+          </section>
+        </div>
+        <aside class="side-stack" aria-label="Exposure breakdowns">
+          <section class="card side-card"><p class="eyebrow">Where they show up</p><h2>Across your surfaces</h2><p class="hint">Every conversation is a chance to practice.</p><ul id="surfaces" class="surface-list"></ul></section>
+          <section class="card side-card"><p class="eyebrow">A broader vocabulary</p><h2>Coverage by section</h2><p class="hint">Entries exposed / total entries</p><ul id="sections" class="section-list"></ul></section>
+        </aside>
+      </div>
+      <footer class="footer"><span>Made of words. Shaped by repetition.</span><span><span class="dot" aria-hidden="true">●</span> <span id="data-status">Your lexicon, in practice</span></span></footer>
+    </div>
+  </main>
+  <dialog id="entry-panel" aria-labelledby="entry-title">
+    <div class="panel-head"><div><p class="eyebrow">Exposure history</p><h2 id="entry-title"></h2><a id="entry-link" target="_blank" rel="noopener noreferrer" hidden>Read lexicon entry ↗</a></div><button id="close-panel" class="close" type="button" aria-label="Close exposure history">×</button></div>
+    <div id="entry-detail" aria-live="polite"></div>
+  </dialog>
+  <noscript><p class="shell">Please enable JavaScript to view your lexicon dashboard.</p></noscript>
+  <script>
+    "use strict";
+    const $ = (id) => document.getElementById(id);
+    const demo = new URLSearchParams(location.search).get("demo") === "1";
+    const fixtureRoot = "/tests/fixtures/dashboard/";
+    const number = new Intl.NumberFormat();
+    const shortDate = new Intl.DateTimeFormat(undefined, { month: "short", day: "numeric", timeZone: "UTC" });
+    const fullDate = new Intl.DateTimeFormat(undefined, { dateStyle: "medium", timeStyle: "short" });
+    let token = "";
+    let generation = 0;
+    let entriesRequest = 0;
+    let detailRequest = 0;
+    let controller = new AbortController();
+    let returnFocus = null;
+    let timelineData = [];
+    const compactChart = matchMedia("(max-width: 540px)");
+
+    const node = (tag, className, value) => {
+      const element = document.createElement(tag);
+      if (className) element.className = className;
+      if (value !== undefined) element.textContent = value;
+      return element;
+    };
+    const count = (value) => Math.max(0, Number(value) || 0);
+    function dateValue(value) {
+      if (!value) return null;
+      const date = new Date(value);
+      return Number.isNaN(date.getTime()) ? null : date;
+    }
+    function setLink(element, value) {
+      element.removeAttribute("href");
+      if (!value) return false;
+      try {
+        const url = new URL(value, location.origin);
+        if (!["https:", "http:"].includes(url.protocol)) return false;
+        element.href = url.href;
+        return true;
+      } catch { return false; }
+    }
+    function saveToken(value) {
+      try {
+        if (value) localStorage.setItem("lexrender_token", value);
+        else localStorage.removeItem("lexrender_token");
+      } catch { /* Fall back to this tab when browser storage is unavailable. */ }
+    }
+    function cancelRequests() {
+      generation++;
+      entriesRequest++;
+      detailRequest++;
+      controller.abort();
+      controller = new AbortController();
+    }
+    function showAuth(message = "Your token is saved in this browser.", isError = false) {
+      cancelRequests();
+      token = "";
+      saveToken("");
+      if ($("entry-panel").open) $("entry-panel").close();
+      $("dashboard").hidden = true;
+      $("loading").hidden = true;
+      $("error").hidden = true;
+      $("sign-out").hidden = true;
+      $("auth").hidden = false;
+      $("token").value = "";
+      $("auth-message").textContent = message;
+      $("auth-message").className = isError ? "error" : "";
+      $("token").focus();
+    }
+    async function request(path, fixture) {
+      const response = await fetch(demo ? fixtureRoot + fixture : "/api/dashboard/" + path, {
+        headers: demo ? { Accept: "application/json" } : { Accept: "application/json", Authorization: "Bearer " + token },
+        signal: controller.signal,
+        cache: "no-store",
+        redirect: "error"
+      });
+      if (response.status === 401 && !demo) {
+        showAuth("Your token has expired or is invalid. Paste a sign-in token to continue.", true);
+        throw new DOMException("Sign-in required", "AbortError");
+      }
+      if (!response.ok) throw new Error("Request failed (" + response.status + "). Please try again.");
+      return response.json();
+    }
+    function renderSummary(data) {
+      const total = count(data.entries);
+      const exposed = count(data.entries_exposed);
+      const coverage = total ? exposed / total * 100 : 0;
+      $("entries-total").textContent = number.format(total);
+      $("exposures-total").textContent = number.format(count(data.exposures_total));
+      $("entries-exposed").textContent = number.format(exposed);
+      $("coverage").textContent = number.format(Math.round(coverage * 10) / 10) + "%";
+      $("coverage-fill").style.width = Math.min(100, coverage) + "%";
+      $("version").textContent = "v" + data.version;
+      $("sections").replaceChildren();
+      for (const section of data.by_section || []) {
+        const item = node("li");
+        item.append(node("span", "", section.section), node("span", "section-count", number.format(count(section.exposed)) + " / " + number.format(count(section.entries))));
+        $("sections").append(item);
+      }
+      if (!$("sections").children.length) $("sections").append(node("li", "hint", "No sections yet."));
+    }
+    function renderSurfaces(data) {
+      const surfaces = [...data].sort((a, b) => count(b.count) - count(a.count));
+      const max = Math.max(1, ...surfaces.map((item) => count(item.count)));
+      $("surfaces").replaceChildren();
+      for (const surface of surfaces) {
+        const item = node("li");
+        const label = node("div", "bar-label");
+        label.append(node("span", "", surface.surface || "Unknown surface"), node("span", "bar-count", number.format(count(surface.count))));
+        const track = node("div", "bar-track");
+        track.setAttribute("aria-hidden", "true");
+        const bar = node("div", "bar");
+        bar.style.width = (count(surface.count) / max * 100) + "%";
+        track.append(bar);
+        item.append(label, track);
+        $("surfaces").append(item);
+      }
+      if (!surfaces.length) $("surfaces").append(node("li", "hint", "No exposures recorded yet. Your surfaces will appear here."));
+    }
+    function renderTimeline(data) {
+      timelineData = data;
+      // Keep all 30 calendar days visible, including days with no recorded exposures.
+      const dates = data.map((item) => item.date).filter((value) => /^\d{4}-\d{2}-\d{2}$/.test(value)).sort();
+      const end = demo && dates.length ? new Date(dates.at(-1) + "T00:00:00Z") : new Date();
+      end.setUTCHours(0, 0, 0, 0);
+      const counts = new Map(data.map((item) => [item.date, count(item.count)]));
+      const days = Array.from({ length: 30 }, (_, i) => {
+        const date = new Date(end);
+        date.setUTCDate(end.getUTCDate() - 29 + i);
+        const key = date.toISOString().slice(0, 10);
+        return { date, key, count: counts.get(key) || 0 };
+      });
+      const total = days.reduce((sum, day) => sum + day.count, 0);
+      $("timeline-total").textContent = number.format(total);
+      const svg = $("timeline");
+      const width = compactChart.matches ? 340 : 720;
+      const right = width - 18;
+      svg.setAttribute("viewBox", "0 0 " + width + " 198");
+      const svgNode = (tag, attrs, value) => {
+        const element = document.createElementNS("http://www.w3.org/2000/svg", tag);
+        for (const [key, val] of Object.entries(attrs)) element.setAttribute(key, val);
+        if (value !== undefined) element.textContent = value;
+        return element;
+      };
+      svg.replaceChildren(svgNode("title", { id: "chart-title" }, "Daily exposures over 30 days"), svgNode("desc", { id: "chart-description" }, number.format(total) + " exposures from " + shortDate.format(days[0].date) + " to " + shortDate.format(end) + ". " + (total ? "Daily counts are available below the chart." : "No exposures recorded in this period.")));
+      const ceiling = Math.max(4, Math.ceil(Math.max(...days.map((day) => day.count)) / 4) * 4);
+      const x = (i) => 40 + i / 29 * (right - 40);
+      const y = (value) => 161 - value / ceiling * 136;
+      for (let i = 0; i <= 4; i++) {
+        const value = ceiling * i / 4;
+        svg.append(svgNode("line", { x1: 40, x2: right, y1: y(value), y2: y(value), class: "chart-grid" }), svgNode("text", { x: 27, y: y(value) + 3, "text-anchor": "end", class: "chart-label" }, number.format(value)));
+      }
+      const points = days.map((day, i) => x(i) + "," + y(day.count));
+      const defs = svgNode("defs", {});
+      const gradient = svgNode("linearGradient", { id: "area-fill", x1: 0, y1: 0, x2: 0, y2: 1 });
+      gradient.append(svgNode("stop", { offset: "0%", "stop-color": "var(--accent)", "stop-opacity": ".15" }), svgNode("stop", { offset: "100%", "stop-color": "var(--accent)", "stop-opacity": "0" }));
+      defs.append(gradient);
+      svg.append(defs, svgNode("path", { d: "M" + points.join(" L") + " L" + right + ",161 L40,161 Z", fill: "url(#area-fill)" }), svgNode("polyline", { points: points.join(" "), class: "chart-line" }));
+      (compactChart.matches ? [0, 14, 29] : [0, 7, 14, 21, 29]).forEach((i) => svg.append(svgNode("text", { x: x(i), y: 187, "text-anchor": i === 0 ? "start" : i === 29 ? "end" : "middle", class: "chart-label" }, shortDate.format(days[i].date))));
+      days.forEach((day, i) => {
+        const label = shortDate.format(day.date) + ": " + number.format(day.count) + " exposures";
+        const point = svgNode("circle", { cx: x(i), cy: y(day.count), r: 7, tabindex: 0, class: "chart-point", "aria-label": label });
+        point.append(svgNode("title", {}, label));
+        point.addEventListener("mouseenter", () => { $("chart-readout").textContent = label; });
+        point.addEventListener("focus", () => { $("chart-readout").textContent = label; });
+        svg.append(point);
+      });
+      svg.append(svgNode("circle", { cx: x(29), cy: y(days[29].count), r: 3.5, class: "chart-dot", "pointer-events": "none" }));
+      $("chart-readout").textContent = total ? "Hover or focus a point to explore" : "No exposures recorded in this period";
+      const tbody = $("timeline-data").querySelector("tbody");
+      tbody.replaceChildren(...days.map((day) => {
+        const row = node("tr");
+        row.append(node("td", "", day.key), node("td", "", day.count));
+        return row;
+      }));
+    }
+    function renderEntries(data) {
+      const body = $("entries-body");
+      body.replaceChildren();
+      $("entries-empty").hidden = data.length > 0;
+      $("entry-count").textContent = number.format(data.length) + (data.length === 1 ? " entry" : " entries");
+      for (const entry of data) {
+        const row = node("tr");
+        const phrase = node("td", "phrase");
+        const link = node("a", "", entry.phrase);
+        setLink(link, entry.link);
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        phrase.append(link, node("span", "section-name", entry.section));
+        const seen = dateValue(entry.last_seen);
+        const seenCell = node("td", "seen", seen ? shortDate.format(seen) : "Never");
+        if (seen) seenCell.title = fullDate.format(seen);
+        const action = node("td");
+        const button = node("button", "history-button", "↗");
+        button.type = "button";
+        button.setAttribute("aria-label", "View exposure history for " + entry.phrase);
+        button.addEventListener("click", () => openEntry(entry, button));
+        action.append(button);
+        row.append(phrase, node("td", "numeric", number.format(count(entry.exposures))), node("td", "numeric synonyms-col", number.format(count(entry.via_synonyms))), seenCell, action);
+        row.addEventListener("click", (event) => {
+          if (!event.target.closest("a, button")) openEntry(entry, button);
+        });
+        body.append(row);
+      }
+    }
+    async function loadEntries() {
+      const id = ++entriesRequest;
+      const currentGeneration = generation;
+      const sort = $("sort").value;
+      $("entries-error").hidden = true;
+      $("entries-table").setAttribute("aria-busy", "true");
+      try {
+        let data = await request("entries?sort=" + sort, "entries.json");
+        if (id !== entriesRequest || currentGeneration !== generation) return;
+        if (demo) data = [...data].sort((a, b) => sort === "phrase" ? a.phrase.localeCompare(b.phrase) : sort === "recent" ? (dateValue(b.last_seen)?.getTime() || 0) - (dateValue(a.last_seen)?.getTime() || 0) || a.phrase.localeCompare(b.phrase) : count(b.exposures) - count(a.exposures) || a.phrase.localeCompare(b.phrase));
+        renderEntries(data);
+      } catch (error) {
+        if (error.name !== "AbortError" && id === entriesRequest) {
+          $("entries-error").textContent = "Couldn't load entries. " + error.message;
+          $("entries-error").hidden = false;
+        }
+      } finally {
+        if (id === entriesRequest) $("entries-table").setAttribute("aria-busy", "false");
+      }
+    }
+    async function openEntry(entry, trigger) {
+      const id = ++detailRequest;
+      returnFocus = trigger;
+      $("entry-title").textContent = entry.phrase;
+      $("entry-link").hidden = !setLink($("entry-link"), entry.link);
+      $("entry-detail").replaceChildren(node("p", "hint", "Loading exposure history…"));
+      if (!$("entry-panel").open) $("entry-panel").showModal();
+      try {
+        const data = await request("entry/" + encodeURIComponent(entry.id), "entry-" + encodeURIComponent(entry.id) + ".json");
+        if (id !== detailRequest || !$("entry-panel").open) return;
+        const detail = $("entry-detail");
+        detail.replaceChildren(node("p", "entry-meta", data.exposures.length + (data.exposures.length === 1 ? " recorded exposure" : " recorded exposures")));
+        const list = node("ol", "history");
+        for (const exposure of [...data.exposures].sort((a, b) => (dateValue(b.at)?.getTime() || 0) - (dateValue(a.at)?.getTime() || 0))) {
+          const item = node("li");
+          const at = dateValue(exposure.at);
+          const time = node("time", "", at ? fullDate.format(at) : "Time unavailable");
+          if (at) time.dateTime = at.toISOString();
+          item.append(time, node("h3", "", exposure.surface || "Unknown surface"), node("p", "", exposure.label || "No label"));
+          if (exposure.via) item.append(node("span", "replacement", "Replaced “" + exposure.via + "”"));
+          else item.append(node("p", "", "Used directly"));
+          list.append(item);
+        }
+        detail.append(list);
+        if (!data.exposures.length) detail.append(node("p", "hint", "This phrase is waiting for its first appearance."));
+      } catch (error) {
+        if (error.name !== "AbortError" && id === detailRequest && $("entry-panel").open) {
+          const retry = node("button", "", "Try again");
+          retry.addEventListener("click", () => openEntry(entry, trigger));
+          $("entry-detail").replaceChildren(node("p", "empty", "Couldn't load exposure history. " + error.message), retry);
+        }
+      }
+    }
+    async function loadDashboard() {
+      cancelRequests();
+      const id = generation;
+      $("auth").hidden = true;
+      $("error").hidden = true;
+      $("loading").hidden = !$("dashboard").hidden;
+      $("refresh").disabled = true;
+      $("sign-out").hidden = demo;
+      try {
+        const [summary, timeline, surfaces] = await Promise.all([
+          request("summary", "summary.json"), request("timeline?days=30", "timeline.json"), request("surfaces", "surfaces.json")
+        ]);
+        if (id !== generation) return;
+        renderSummary(summary);
+        renderTimeline(timeline);
+        renderSurfaces(surfaces);
+        $("dashboard").hidden = false;
+        $("data-status").textContent = demo ? "Demo · sample lexicon" : "Updated just now";
+        await loadEntries();
+      } catch (error) {
+        if (error.name !== "AbortError" && id === generation) {
+          $("error-text").textContent = "Couldn't load your dashboard. " + error.message;
+          $("error").hidden = false;
+        }
+      } finally {
+        if (id === generation) {
+          $("loading").hidden = true;
+          $("refresh").disabled = false;
+        }
+      }
+    }
+    $("sign-in").addEventListener("submit", (event) => {
+      event.preventDefault();
+      token = $("token").value.trim();
+      if (!token) { $("token").focus(); return; }
+      saveToken(token);
+      $("token").value = "";
+      loadDashboard();
+    });
+    $("sign-out").addEventListener("click", () => showAuth());
+    $("refresh").addEventListener("click", loadDashboard);
+    $("retry").addEventListener("click", loadDashboard);
+    $("sort").addEventListener("change", loadEntries);
+    compactChart.addEventListener("change", () => {
+      if (!$("dashboard").hidden) renderTimeline(timelineData);
+    });
+    $("close-panel").addEventListener("click", () => $("entry-panel").close());
+    $("entry-panel").addEventListener("click", (event) => {
+      if (event.target === $("entry-panel") && event.clientX < $("entry-panel").getBoundingClientRect().left) $("entry-panel").close();
+    });
+    $("entry-panel").addEventListener("close", () => { detailRequest++; returnFocus?.focus(); });
+    $("demo-badge").hidden = !demo;
+    $("live-link").hidden = !demo;
+    if (!demo) {
+      try { token = (localStorage.getItem("lexrender_token") || "").trim(); } catch { /* Sign-in also works without localStorage. */ }
+    }
+    if (demo || token) loadDashboard();
+    else showAuth();
+  </script>
+</body>
+</html>
