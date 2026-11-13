@@ -20,7 +20,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from .forms import Matcher
-from .parse import SYNONYMS_RE, ParsedEntry, parse_lexicon, parse_synonyms, slugify
+from .parse import SYNONYMS_LABEL, SYNONYMS_RE, ParsedEntry, parse_lexicon, parse_synonyms, slugify
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS accounts (
@@ -79,7 +79,8 @@ MIGRATIONS = (
 )
 APP_UID_INDEX = ("CREATE UNIQUE INDEX IF NOT EXISTS accounts_app_uid ON accounts(app_uid) "
                  "WHERE app_uid IS NOT NULL")
-_SYNONYM_LINE = re.compile(r"^\s*[*-]\s+\*\*Synonyms\*\*\s*:.*$", re.MULTILINE)
+# group 1 keeps the line's own label ("* **Common synonyms (Synonyms)**:") when it is rewritten
+_SYNONYM_LINE = re.compile(r"^(\s*[*-]\s+" + SYNONYMS_LABEL + r"\s*:).*$", re.MULTILINE)
 MAX_FIELD = 200  # surface / label length cap
 
 
@@ -315,9 +316,15 @@ class Store:
             raise LexiconError(f"no entry matches '{id_or_phrase}'")
         clean = [w for w in parse_synonyms(", ".join(synonyms))
                  if w.lower() != entry.phrase.lower()]
-        body = _SYNONYM_LINE.sub("", entry.body).rstrip()
-        if clean:
-            body = (body + "\n" if body else "") + f"* **Synonyms**: {', '.join(clean)}"
+        listed = ", ".join(clean)
+        if not clean:
+            body = re.sub(r"\n{3,}", "\n\n", _SYNONYM_LINE.sub("", entry.body)).strip()
+        elif _SYNONYM_LINE.search(entry.body):
+            # rewrite in place, keeping the line's own label and position
+            body = _SYNONYM_LINE.sub(lambda m: f"{m.group(1)} {listed}", entry.body, count=1)
+        else:
+            body = (entry.body.rstrip() + "\n" if entry.body.strip() else "") + \
+                f"* **Synonyms**: {listed}"
         updated = ParsedEntry(id=entry.id, number=entry.number, section=entry.section,
                               phrase=entry.phrase, aliases=entry.aliases, body=body,
                               anchor=entry.anchor, definition=entry.definition)

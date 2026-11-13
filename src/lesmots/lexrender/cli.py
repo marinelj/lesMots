@@ -105,8 +105,9 @@ def main(argv: list[str] | None = None) -> int:
                 raise SystemExit("the MCP server needs: pip install 'lesmots[mcp]'")
             if args.http:
                 public = args.public_url or f"http://{args.host}:{args.port}"
-                build_server(store, public_url=public).run(
-                    "streamable-http", host=args.host, port=args.port)
+                from .hosting import serve
+
+                serve(build_server(store, public_url=public), public, args.host, args.port)
             else:
                 build_server(store, account_id=_account(store, args.session)).run()
     except LexiconError as exc:

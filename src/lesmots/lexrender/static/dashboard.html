@@ -260,7 +260,9 @@
     const $ = (id) => document.getElementById(id);
     const demo = new URLSearchParams(location.search).get("demo") === "1";
     // served at /dashboard by lexrender, or as a static file next to its demo/ folder
-    const fixtureRoot = location.pathname.endsWith(".html") ? "demo/" : "/dashboard/demo/";
+    // relative URLs, so the page also works under a path prefix such as /lesmots/dashboard
+    const fixtureRoot = location.pathname.endsWith(".html") ? "demo/" : "dashboard/demo/";
+    const apiRoot = "api/dashboard/";
     const number = new Intl.NumberFormat();
     const shortDate = new Intl.DateTimeFormat(undefined, { month: "short", day: "numeric", timeZone: "UTC" });
     const fullDate = new Intl.DateTimeFormat(undefined, { dateStyle: "medium", timeStyle: "short" });
@@ -324,7 +326,7 @@
       $("token").focus();
     }
     async function request(path, fixture) {
-      const response = await fetch(demo ? fixtureRoot + fixture : "/api/dashboard/" + path, {
+      const response = await fetch(demo ? fixtureRoot + fixture : apiRoot + path, {
         headers: demo ? { Accept: "application/json" } : { Accept: "application/json", Authorization: "Bearer " + token },
         signal: controller.signal,
         cache: "no-store",
