@@ -8,7 +8,7 @@ import { resolve, extname } from "node:path";
 
 const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || "playwright");
 const root = fileURLToPath(new URL("../", import.meta.url));
-const fixtures = resolve(root, "tests/fixtures/dashboard");
+const fixtures = resolve(root, "src/lesmots/lexrender/static/demo");
 const pagePath = "/src/lesmots/lexrender/static/dashboard.html";
 const fixture = async (name) => JSON.parse(await readFile(resolve(fixtures, name + ".json"), "utf8"));
 const summary = await fixture("summary");

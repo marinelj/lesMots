@@ -508,3 +508,6 @@ def test_dashboard_routes(store):
     assert get("/api/dashboard/entry/well-worn", "tok-paid").json()["entry"]["id"] == "well-worn"
     assert get("/api/dashboard/entry/nope", "tok-paid").status_code == 404
     assert get("/dashboard").status_code == 200
+    assert get("/dashboard/demo/summary.json").json()["entries"] > 0
+    assert get("/dashboard/demo/..%2Fdashboard.html").status_code == 404
+    assert get("/dashboard/demo/nope.json").status_code == 404
