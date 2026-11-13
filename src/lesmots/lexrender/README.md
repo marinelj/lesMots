@@ -4,21 +4,53 @@ Lexicon Render makes an AI agent write in your private lexicon. The agent links 
 phrase it used to that phrase's entry, then reports which entries it used so you can
 track exposure.
 
-This is the first version of the MCP server, step 2 of the product plan. It runs in
-**Local rewrite** mode: the agent downloads the lexicon index and rewrites its own answer.
-Only entry ids, a time and a place come back to the server. The answer text never does.
+## Render modes
+
+| Mode | Command | Who renders | What reaches the server | Tier |
+| --- | --- | --- | --- | --- |
+| local (default) | `/local` | The agent, from the lexicon index | Entry ids, a time and a place | Free |
+| remote | `/remote` | The server's model, through `render` | The draft answer, processed in memory and never stored | Paid |
+
+If remote rendering can't run (no model configured, a network error, an odd reply),
+`render` returns the text unchanged with `fallback: "local"`, and the agent renders
+it itself. The answer is never blocked.
+
+The server's model comes from the same settings as the rest of the app: set
+`ANTHROPIC_API_KEY`, or `LESMOTS_API_KEY` + `LESMOTS_API_BASE` + `LESMOTS_MODEL` for
+any OpenAI-compatible provider.
+
+## Commands
+
+The commands are MCP prompts. Claude Code shows them as `/mcp__lexicon__<name>`, where
+`lexicon` is the server's name in your MCP config.
+
+| Command | What it does |
+| --- | --- |
+| `add <phrase>` | The agent drafts a definition, an example and synonyms, shows them to you, and saves the entry once you approve. |
+| `load` | Loads the latest lexicon (version, entries and synonyms) into the conversation. |
+| `local` | Switches the account to local render mode. |
+| `remote` | Switches the account to remote render mode. |
+
+## Synonyms
+
+An entry can list synonyms, either as a line in `lexicon.md`
+(`* **Synonyms**: refined, elaborate, polished`), through `add_entry`, or through
+`set_synonyms`. When an answer contains a synonym, the renderer decides from the context
+whether the entry's own phrase fits. If it does, it swaps the synonym for the phrase,
+links it to the entry, and records the synonym it replaced in the exposure log (`via`).
+Synonyms match in any word form, the same way phrases do.
 
 ## Tools
 
 | Tool | What it does |
 | --- | --- |
-| `get_lexicon(since_version=0)` | The index: one `[id, phrase, anchor]` row per entry, plus `version` and `link_base`. Pass `since_version` to get only the changes. |
+| `get_lexicon(since_version=0)` | The index: one `[id, phrase, anchor, synonyms]` row per entry, plus `version`, `link_base` and `render_mode`. |
 | `get_entry(id_or_phrase)` | One full entry. Accepts an id or the phrase in any word form: "fell back to" finds `fall back to`. |
-| `log_exposure(event_id, entry_ids, surface, label="", occurred_at=None, mode="local_rewrite")` | Records which entries appeared in one answer. Retrying with the same `event_id` does not count twice. |
-| `add_entry(phrase, definition, example="", section="Added")` | Adds an entry. Refused if the phrase is already there in any word form. |
-
-The server's instructions tell the agent how to render an answer: use the phrases that
-fit, link them, then log the exposure.
+| `log_exposure(event_id, entry_ids, surface, label="", occurred_at=None, mode="local_rewrite", via=None)` | Records which entries appeared in one answer. Retrying with the same `event_id` does not count twice. |
+| `add_entry(phrase, definition, example="", section="Added", synonyms=None)` | Adds an entry. Refused if the phrase is already there in any word form. |
+| `set_synonyms(id_or_phrase, synonyms)` | Replaces an entry's synonyms. |
+| `set_render_mode(mode)` | Sets the mode to `local` or `remote`. |
+| `render(text, surface, label="")` | Remote mode: renders the answer, links the phrases and logs the exposures. |
 
 ## Run it
 
@@ -65,7 +97,6 @@ excerpts, are not matched.
 
 ## Not in this version
 
-- **Full mode.** The server does not rewrite text. This comes later.
 - **OAuth sign-in.** Clients use a bearer token for now.
 - **Postgres and encryption at rest.** The database is plain SQLite.
 - **Private entry pages.** Entry links point to `--link-base`.

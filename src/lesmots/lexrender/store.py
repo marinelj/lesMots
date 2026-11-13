@@ -9,17 +9,18 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 import secrets
 import sqlite3
 import threading
 from collections.abc import Iterable, Iterator, Sequence
 from contextlib import contextmanager
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
 
 from .forms import Matcher
-from .parse import ParsedEntry, parse_lexicon, slugify
+from .parse import SYNONYMS_RE, ParsedEntry, parse_lexicon, parse_synonyms, slugify
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS accounts (
@@ -27,6 +28,7 @@ CREATE TABLE IF NOT EXISTS accounts (
     name        TEXT NOT NULL,
     token_hash  TEXT NOT NULL UNIQUE,
     link_base   TEXT NOT NULL DEFAULT '',
+    render_mode TEXT NOT NULL DEFAULT 'local',
     version     INTEGER NOT NULL DEFAULT 0,
     created_at  TEXT NOT NULL
 );
@@ -54,6 +56,7 @@ CREATE TABLE IF NOT EXISTS exposures (
     surface      TEXT NOT NULL,
     label        TEXT NOT NULL DEFAULT '',
     mode         TEXT NOT NULL,
+    via          TEXT NOT NULL DEFAULT '',
     received_at  TEXT NOT NULL,
     PRIMARY KEY (account_id, event_id, entry_id)
 );
@@ -61,6 +64,14 @@ CREATE INDEX IF NOT EXISTS exposures_by_entry ON exposures(account_id, entry_id,
 """
 
 MODES = ("local_rewrite", "full")
+RENDER_MODES = ("local", "remote")  # /local: the agent renders; /remote: the server renders
+
+# Columns added after the first release: (table, column, definition). Applied on open.
+MIGRATIONS = (
+    ("accounts", "render_mode", "TEXT NOT NULL DEFAULT 'local'"),
+    ("exposures", "via", "TEXT NOT NULL DEFAULT ''"),
+)
+_SYNONYM_LINE = re.compile(r"^\s*[*-]\s+\*\*Synonyms\*\*\s*:.*$", re.MULTILINE)
 MAX_FIELD = 200  # surface / label length cap
 
 
@@ -91,6 +102,7 @@ class Entry:
     updated_at: str
     updated_version: int
     link: str = ""
+    synonyms: list[str] = field(default_factory=list)
 
     def index_row(self) -> dict[str, object]:
         return {"id": self.id, "phrase": self.phrase, "section": self.section,
@@ -98,7 +110,8 @@ class Entry:
 
     def full(self) -> dict[str, object]:
         row = self.index_row()
-        row.update(number=self.number, aliases=self.aliases, definition=self.definition,
+        row.update(number=self.number, aliases=self.aliases, synonyms=self.synonyms,
+                   synonyms_link=self.link, definition=self.definition,
                    body=self.body, created_at=self.created_at, updated_at=self.updated_at)
         return row
 
@@ -112,6 +125,11 @@ class Store:
         self._conn.row_factory = sqlite3.Row
         self._conn.execute("PRAGMA foreign_keys = ON")
         self._conn.executescript(SCHEMA)
+        for table, column, definition in MIGRATIONS:
+            cols = {r["name"] for r in self._conn.execute(f"PRAGMA table_info({table})")}
+            if column not in cols:
+                self._conn.execute(f"ALTER TABLE {table} ADD COLUMN {column} {definition}")
+        self._conn.commit()
         self._lock = threading.Lock()
         self._matchers: dict[str, tuple[int, Matcher]] = {}
 
@@ -146,6 +164,17 @@ class Store:
         with self._tx() as c:
             c.execute("UPDATE accounts SET link_base = ? WHERE id = ?", (link_base, account_id))
 
+    def render_mode(self, account_id: str) -> str:
+        return self._account(account_id)["render_mode"]
+
+    def set_render_mode(self, account_id: str, mode: str) -> str:
+        if mode not in RENDER_MODES:
+            raise LexiconError(f"render mode must be one of {', '.join(RENDER_MODES)}")
+        self._account(account_id)
+        with self._tx() as c:
+            c.execute("UPDATE accounts SET render_mode = ? WHERE id = ?", (mode, account_id))
+        return mode
+
     def _account(self, account_id: str) -> sqlite3.Row:
         row = self._conn.execute("SELECT * FROM accounts WHERE id = ?", (account_id,)).fetchone()
         if row is None:
@@ -164,6 +193,8 @@ class Store:
             anchor=row["anchor"], status=row["status"], created_at=row["created_at"],
             updated_at=row["updated_at"], updated_version=row["updated_version"],
         )
+        syn = SYNONYMS_RE.search(entry.body)
+        entry.synonyms = parse_synonyms(syn.group(1)) if syn else []
         if link_base:
             entry.link = f"{link_base}#{entry.anchor}" if entry.anchor else link_base
         return entry
@@ -188,7 +219,9 @@ class Store:
         cached = self._matchers.get(account_id)
         if cached and cached[0] == version:
             return cached[1]
-        matcher = Matcher((e.id, e.aliases) for e in self.entries(account_id))
+        entries = self.entries(account_id)
+        matcher = Matcher([(e.id, e.aliases) for e in entries],
+                          [(e.id, e.synonyms) for e in entries if e.synonyms])
         self._matchers[account_id] = (version, matcher)
         return matcher
 
@@ -209,7 +242,7 @@ class Store:
         return self._apply(account_id, parsed, archive_missing=True)
 
     def add_entry(self, account_id: str, phrase: str, definition: str, example: str = "",
-                  section: str = "Added") -> Entry:
+                  section: str = "Added", synonyms: Sequence[str] = ()) -> Entry:
         phrase = phrase.strip()
         definition = definition.strip()
         if not phrase or not definition:
@@ -220,6 +253,9 @@ class Store:
         body = f"* **Definition**: {definition}"
         if example.strip():
             body += f"\n* **Example**: {example.strip()}"
+        clean = parse_synonyms(", ".join(synonyms))
+        if clean:
+            body += f"\n* **Synonyms**: {', '.join(clean)}"
         entry_id = slugify(phrase)
         taken = {e.id for e in self.entries(account_id, include_archived=True)}
         n = 1
@@ -230,6 +266,24 @@ class Store:
                           aliases=[phrase], body=body, anchor="", definition=definition)
         self._apply(account_id, [new], archive_missing=False)
         return self.get(account_id, entry_id)  # type: ignore[return-value]
+
+    def set_synonyms(self, account_id: str, id_or_phrase: str,
+                     synonyms: Sequence[str]) -> Entry:
+        """Replace an entry's synonyms. A synonym found in an answer can be swapped for the
+        entry's own phrase when it fits the context, and is linked to this entry."""
+        entry = self.lookup(account_id, id_or_phrase)
+        if entry is None:
+            raise LexiconError(f"no entry matches '{id_or_phrase}'")
+        clean = [w for w in parse_synonyms(", ".join(synonyms))
+                 if w.lower() != entry.phrase.lower()]
+        body = _SYNONYM_LINE.sub("", entry.body).rstrip()
+        if clean:
+            body = (body + "\n" if body else "") + f"* **Synonyms**: {', '.join(clean)}"
+        updated = ParsedEntry(id=entry.id, number=entry.number, section=entry.section,
+                              phrase=entry.phrase, aliases=entry.aliases, body=body,
+                              anchor=entry.anchor, definition=entry.definition)
+        self._apply(account_id, [updated], archive_missing=False)
+        return self.get(account_id, entry.id)  # type: ignore[return-value]
 
     def _apply(self, account_id: str, parsed: Sequence[ParsedEntry],
                archive_missing: bool) -> dict[str, int]:
@@ -293,9 +347,12 @@ class Store:
 
     def log_exposures(self, account_id: str, event_id: str, entry_ids: Iterable[str],
                       surface: str, label: str = "", occurred_at: str | None = None,
-                      mode: str = "local_rewrite") -> dict[str, object]:
+                      mode: str = "local_rewrite",
+                      via: dict[str, str] | None = None) -> dict[str, object]:
         """Record that entries appeared in one rendered answer. Idempotent per
-        (event_id, entry_id): a retried call cannot count twice."""
+        (event_id, entry_id): a retried call cannot count twice. ``via`` maps an entry id to
+        the synonym it replaced, when the entry got into the answer through a synonym."""
+        via = via or {}
         self._account(account_id)
         event_id = (event_id or "").strip()
         surface = (surface or "").strip()[:MAX_FIELD]
@@ -316,10 +373,10 @@ class Store:
                     unknown.append(entry_id)
                     continue
                 cur = c.execute("INSERT OR IGNORE INTO exposures (account_id, event_id, entry_id, "
-                                "occurred_at, surface, label, mode, received_at) "
-                                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                                "occurred_at, surface, label, mode, via, received_at) "
+                                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
                                 (account_id, event_id, entry_id, occurred, surface, label, mode,
-                                 received))
+                                 str(via.get(entry_id, ""))[:MAX_FIELD], received))
                 if cur.rowcount:
                     accepted += 1
                 else:

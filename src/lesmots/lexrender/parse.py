@@ -20,6 +20,7 @@ _SECTION_RE = re.compile(r"^##\s+(\d+)\.\s+(.*?)\s*(?:\(\d+\s+items?\))?\s*$", r
 _ENTRY_RE = re.compile(r"^###\s+(\d+\.\d+)\s+(.*\S)\s*$")
 _ANY_HEADING_RE = re.compile(r"^(#{1,6})\s+(.*\S)\s*$")
 _DEFINITION_RE = re.compile(r"\*\*Definition\*\*\s*:\s*(.+)")
+SYNONYMS_RE = re.compile(r"^\s*[*-]\s+\*\*Synonyms\*\*\s*:\s*(.+)$", re.MULTILINE)
 
 
 @dataclass
@@ -32,7 +33,18 @@ class ParsedEntry:
     body: str
     anchor: str
     definition: str = ""
+    synonyms: list[str] = field(default_factory=list)
     extra: dict[str, str] = field(default_factory=dict)
+
+
+def parse_synonyms(text: str) -> list[str]:
+    """'refined, elaborate; `polished`' -> ['refined', 'elaborate', 'polished']"""
+    out: list[str] = []
+    for part in re.split(r"[,;|]", text):
+        word = part.strip().strip("`*_").strip()
+        if word and word.lower() not in (w.lower() for w in out):
+            out.append(word)
+    return out
 
 
 def github_anchor(heading_text: str) -> str:
@@ -80,6 +92,9 @@ def parse_lexicon(markdown: str) -> list[ParsedEntry]:
             body = "\n".join(body_lines).strip()
             body = re.sub(r"\n-{3,}\s*$", "", body).strip()
             current.body = body
+            syn = SYNONYMS_RE.search(body)
+            if syn:
+                current.synonyms = parse_synonyms(syn.group(1))
             m = _DEFINITION_RE.search(body)
             if m:
                 current.definition = m.group(1).strip()
