@@ -88,7 +88,7 @@ def main(argv: list[str] | None = None) -> int:
             try:
                 from .server import build_server
             except ImportError:
-                raise SystemExit("the MCP server needs: pip install 'lesmots[mcp]' (Python 3.10+)")
+                raise SystemExit("the MCP server needs: pip install 'lesmots[mcp]'")
             if args.http:
                 public = args.public_url or f"http://{args.host}:{args.port}"
                 build_server(store, public_url=public).run(

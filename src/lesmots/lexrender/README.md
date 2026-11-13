@@ -23,7 +23,7 @@ fit, link them, then log the exposure.
 ## Run it
 
 ```bash
-pip install -e ".[mcp]"          # the MCP SDK needs Python 3.10+
+pip install -e ".[mcp]"
 lexrender init marine --link-base https://github.com/marinelj/lesMots/blob/main/lexicon/lexicon.md
 export LEXRENDER_TOKEN=lr_...    # printed once by init
 lexrender import lexicon/lexicon.md

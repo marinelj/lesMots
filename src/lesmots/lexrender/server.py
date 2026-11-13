@@ -12,7 +12,7 @@ Two transports:
 * streamable HTTP, for a hosted service: every request carries ``Authorization: Bearer
   <token>`` and is served for that token's account only.
 
-Needs the optional ``mcp`` dependency (``pip install 'lesmots[mcp]'``, Python 3.10+).
+Needs the optional ``mcp`` dependency (``pip install 'lesmots[mcp]'``).
 """
 
 from __future__ import annotations
