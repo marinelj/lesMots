@@ -58,7 +58,8 @@ Your lexicon account is your LesMots app user_id, the same one the app gives you
 sign in with Google or WeChat. You prove it by signing in to the app; nothing else logs in.
 
 1. Sign in to the LesMots app.
-2. Open `/api/lexicon-token` on the app. It returns a fresh sign-in token, valid for 30 days.
+2. In the app's **Lexicon Render** section, click **Copy sign-in token**. The token is
+   valid for 30 days; the export command below the button is ready to paste into a terminal.
 3. Give that token to the CLI or your MCP client. The first sign-in creates an empty account.
 
 The app and the Lexicon Render server must share `LESMOTS_SESSION_SECRET` (or run on the

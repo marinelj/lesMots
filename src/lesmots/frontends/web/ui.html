@@ -92,6 +92,10 @@
   #login-box p { margin:0 0 16px; color:var(--muted); font-size:13px; }
   #g-signin { display:flex; justify-content:center; }
   #login-msg { color:#b91c1c; font-size:13px; margin-top:10px; }
+  #lexicon-render { min-width:0; }
+  #lexicon-token-command { display:block; overflow-x:auto; white-space:nowrap;
+                           font-size:12px; margin-top:8px; line-height:1.6; }
+  #lexicon-token-status { font-size:12px; }
 </style>
 </head>
 <body>
@@ -183,6 +187,15 @@
       <i style="background:var(--fam5)"></i>5 very familiar
     </p>
   </div>
+
+  <section class="card" id="lexicon-render" aria-labelledby="lexicon-render-title" hidden>
+    <h2 id="lexicon-render-title">Lexicon Render</h2>
+    <div class="row" style="align-items:center">
+      <button id="btn-lexicon-token" class="secondary" type="button">Copy sign-in token</button>
+      <span id="lexicon-token-status" class="muted" role="status"></span>
+    </div>
+    <code id="lexicon-token-command" class="muted">export LEXRENDER_SESSION=&lt;token&gt;</code>
+  </section>
 
 </main>
 <script>
@@ -460,17 +473,68 @@ $('topics').onclick = async e => {
 
 function boot() { loadBank(); loadLoved(); loadTopics(); }
 
+async function copyToken(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch (e) {
+    // Fall back to a selection copy when the Clipboard API is unavailable.
+    const field = document.createElement('textarea');
+    field.value = text;
+    field.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
+    document.body.append(field);
+    field.select();
+    try {
+      if (!document.execCommand('copy')) throw new Error('Clipboard unavailable');
+    } finally {
+      field.remove();
+    }
+  }
+}
+
+$('btn-lexicon-token').onclick = async () => {
+  const button = $('btn-lexicon-token');
+  button.disabled = true;
+  $('lexicon-token-status').textContent = 'Getting token…';
+  $('lexicon-token-command').textContent = 'export LEXRENDER_SESSION=<token>';
+  try {
+    const response = await fetch('/api/lexicon-token', {credentials:'same-origin', cache:'no-store'});
+    if (response.status === 401) { await initAuth(); return; }
+    if (!response.ok) throw new Error('Could not get sign-in token. Try again.');
+    const data = await response.json();
+    if (typeof data.token !== 'string' || !data.token) {
+      throw new Error('Could not get sign-in token. Try again.');
+    }
+    $('lexicon-token-command').textContent = 'export LEXRENDER_SESSION=' + data.token;
+    try {
+      await copyToken(data.token);
+      $('lexicon-token-status').textContent = `Copied. Valid for ${data.expires_in_days} days.`;
+    } catch (e) {
+      $('lexicon-token-status').textContent = 'Could not copy automatically. Copy the token from the command below.';
+    }
+  } catch (e) {
+    $('lexicon-token-status').textContent = 'Could not get sign-in token. Try again.';
+  } finally {
+    button.disabled = false;
+    button.focus();
+  }
+};
+
 async function initAuth() {
+  $('lexicon-render').hidden = true;
+  $('lexicon-token-status').textContent = '';
+  $('lexicon-token-command').textContent = 'export LEXRENDER_SESSION=<token>';
+  $('user-box').textContent = '';
   let cfg = {};
   try { cfg = await api('/api/auth-config'); } catch (e) { boot(); return; }
-  if (!cfg.client_id) { boot(); return; }  // SSO not configured: single-user mode
-  if (cfg.user) {
+  if (cfg.logged_in) {
+    $('lexicon-render').hidden = false;
     $('user-box').innerHTML =
-      `${esc(cfg.user)} <button class="chip secondary" id="btn-logout">sign out</button>`;
+      `${esc(cfg.user || 'Signed in')} <button class="chip secondary" id="btn-logout">sign out</button>`;
     $('btn-logout').onclick = async () => { await api('/api/logout', post()); location.reload(); };
     boot();
     return;
   }
+  if (!cfg.client_id) { boot(); return; }  // SSO not configured: single-user mode
   $('login-overlay').classList.add('open');
   const start = () => {
     google.accounts.id.initialize({client_id: cfg.client_id, callback: async r => {
