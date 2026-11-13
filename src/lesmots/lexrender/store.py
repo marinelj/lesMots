@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS accounts (
     link_base   TEXT NOT NULL DEFAULT '',
     render_mode TEXT NOT NULL DEFAULT 'local',
     app_uid     TEXT,
+    plan        TEXT NOT NULL DEFAULT 'free',
     version     INTEGER NOT NULL DEFAULT 0,
     created_at  TEXT NOT NULL
 );
@@ -66,12 +67,15 @@ CREATE INDEX IF NOT EXISTS exposures_by_entry ON exposures(account_id, entry_id,
 
 MODES = ("local_rewrite", "full")
 RENDER_MODES = ("local", "remote")  # /local: the agent renders; /remote: the server renders
+# free: local render + lexicon bank. paid: adds MCP render (remote) and the dashboard.
+PLANS = ("free", "paid")
 
 # Columns added after the first release: (table, column, definition). Applied on open.
 MIGRATIONS = (
     ("accounts", "render_mode", "TEXT NOT NULL DEFAULT 'local'"),
     ("exposures", "via", "TEXT NOT NULL DEFAULT ''"),
     ("accounts", "app_uid", "TEXT"),
+    ("accounts", "plan", "TEXT NOT NULL DEFAULT 'free'"),
 )
 APP_UID_INDEX = ("CREATE UNIQUE INDEX IF NOT EXISTS accounts_app_uid ON accounts(app_uid) "
                  "WHERE app_uid IS NOT NULL")
@@ -184,6 +188,20 @@ class Store:
     def set_link_base(self, account_id: str, link_base: str) -> None:
         with self._tx() as c:
             c.execute("UPDATE accounts SET link_base = ? WHERE id = ?", (link_base, account_id))
+
+    def plan(self, account_id: str) -> str:
+        return self._account(account_id)["plan"]
+
+    def is_paid(self, account_id: str) -> bool:
+        return self.plan(account_id) == "paid"
+
+    def set_plan(self, account_id: str, plan: str) -> str:
+        if plan not in PLANS:
+            raise LexiconError(f"plan must be one of {', '.join(PLANS)}")
+        self._account(account_id)
+        with self._tx() as c:
+            c.execute("UPDATE accounts SET plan = ? WHERE id = ?", (plan, account_id))
+        return plan
 
     def render_mode(self, account_id: str) -> str:
         return self._account(account_id)["render_mode"]

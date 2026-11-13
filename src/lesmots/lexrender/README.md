@@ -100,6 +100,25 @@ The database is SQLite, stored at `$LEXRENDER_DB` (default `~/.lexrender/lexicon
 Run `lexrender export` to get the lexicon back as Markdown in the same format, ready to
 import again.
 
+## Plans and the dashboard
+
+Accounts are on the `free` plan (local render and the lexicon bank) or the `paid` plan,
+which adds remote render and the dashboard. On the free plan, `/remote` and `render` say
+remote render is paid and the agent keeps rendering locally. The operator sets a plan with
+`lexrender set-plan <LesMots user_id> paid`; billing comes later.
+
+The hosted server also serves the dashboard. `GET /dashboard` is the page, and the data
+comes from these endpoints, each needing `Authorization: Bearer <token>` and a paid account
+(401 when signed out, 402 on the free plan):
+
+| Endpoint | Returns |
+|---|---|
+| `/api/dashboard/summary` | entries, version, total exposures, entries exposed, coverage by section |
+| `/api/dashboard/entries?sort=exposures\|recent\|phrase` | per entry: exposures, last seen, synonym hits |
+| `/api/dashboard/timeline?days=30` | exposures per UTC day, zero-filled |
+| `/api/dashboard/surfaces` | exposures per place, such as Claude Code or Notion |
+| `/api/dashboard/entry/<id>` | the entry and its exposure history (when, where, label, synonym replaced) |
+
 ## Word-form matching
 
 An entry stores its phrase in base form. The first word also matches in its -s, -ed and

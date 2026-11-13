@@ -391,6 +391,11 @@ def test_mcp_commands(store, syn_account):
         result = asyncio.run(server.get_prompt(name, args or {}))
         return result.messages[0].content.text
 
+    assert "paid plan" in prompt_text("remote")  # free plan: stays local
+    assert store.render_mode(syn_account) == "local"
+    free = _call(server, "render", {"text": "A refined plan.", "surface": "test"})
+    assert free["fallback"] == "local" and "paid plan" in free["reason"]
+    store.set_plan(syn_account, "paid")
     assert "remote render mode" in prompt_text("remote")
     assert store.render_mode(syn_account) == "remote"
     loaded = prompt_text("load")
@@ -427,3 +432,79 @@ def test_cli_signs_in_with_the_app_session(tmp_path, monkeypatch, capsys):
     monkeypatch.delenv("LEXRENDER_SESSION")
     with pytest.raises(SystemExit, match="sign in"):
         main(["--db", str(db), "stats"])
+
+
+# ---------- plans and dashboard ----------
+
+def test_plans(store, account):
+    assert store.plan(account) == "free" and not store.is_paid(account)
+    store.set_plan(account, "paid")
+    assert store.is_paid(account)
+    with pytest.raises(LexiconError):
+        store.set_plan(account, "gold")
+
+
+def _seed_exposures(store, account):
+    store.log_exposures(account, "e1", ["fall-back-to", "well-worn"], "Claude Code",
+                        occurred_at="2026-11-10T09:00:00Z")
+    store.log_exposures(account, "e2", ["fall-back-to"], "Notion", label="spec",
+                        occurred_at="2026-11-12T18:30:00Z", via={"fall-back-to": "revert to"})
+
+
+def test_analytics(store, account):
+    from datetime import datetime, timezone
+
+    from lesmots.lexrender import analytics
+
+    _seed_exposures(store, account)
+    s = analytics.summary(store, account)
+    assert (s["entries"], s["exposures_total"], s["entries_exposed"]) == (3, 3, 2)
+    rows = analytics.entries(store, account)
+    assert rows[0]["id"] == "fall-back-to" and rows[0]["exposures"] == 2
+    assert rows[0]["via_synonyms"] == 1 and rows[0]["last_seen"].startswith("2026-11-12")
+    assert rows[-1]["exposures"] == 0 and rows[-1]["last_seen"] is None
+    assert analytics.entries(store, account, sort="recent")[0]["id"] == "fall-back-to"
+    with pytest.raises(LexiconError):
+        analytics.entries(store, account, sort="nope")
+    days = analytics.timeline(store, account, days=7,
+                              today=datetime(2026, 11, 13, tzinfo=timezone.utc))
+    assert len(days) == 7 and days[-1]["date"] == "2026-11-13"
+    assert {d["date"]: d["count"] for d in days}["2026-11-10"] == 2
+    assert analytics.surfaces(store, account) == [{"surface": "Claude Code", "count": 2},
+                                                  {"surface": "Notion", "count": 1}]
+    detail = analytics.entry_detail(store, account, "fall-back-to")
+    assert detail["exposures"][0] == {"at": "2026-11-12T18:30:00+00:00", "surface": "Notion",
+                                      "label": "spec", "mode": "local_rewrite",
+                                      "via": "revert to"}
+    assert analytics.entry_detail(store, account, "missing") is None
+
+
+def test_dashboard_routes(store):
+    pytest.importorskip("mcp")
+    from starlette.testclient import TestClient
+
+    from lesmots.lexrender.server import build_server
+
+    server = build_server(store, public_url="https://lexicon.example.com",
+                          verify={"tok-paid": "g-paid", "tok-free": "g-free"}.get)
+    paid = store.account_for_app_user("g-paid")
+    store.import_markdown(paid, SAMPLE)
+    store.set_plan(paid, "paid")
+    _seed_exposures(store, paid)
+    client = TestClient(server.streamable_http_app())
+
+    def get(path, token=None):
+        headers = {"Authorization": f"Bearer {token}"} if token else {}
+        return client.get(path, headers=headers)
+
+    assert get("/api/dashboard/summary").status_code == 401
+    assert get("/api/dashboard/summary", "forged").status_code == 401
+    assert get("/api/dashboard/summary", "tok-free").status_code == 402
+    assert get("/api/dashboard/summary", "tok-paid").json()["exposures_total"] == 3
+    assert get("/api/dashboard/entries?sort=recent", "tok-paid").json()[0]["id"] == "fall-back-to"
+    assert get("/api/dashboard/entries?sort=bad", "tok-paid").status_code == 400
+    assert len(get("/api/dashboard/timeline?days=5", "tok-paid").json()) == 5
+    assert get("/api/dashboard/surfaces", "tok-paid").json()[0]["surface"] == "Claude Code"
+    assert get("/api/dashboard/entry/well-worn", "tok-paid").json()["entry"]["id"] == "well-worn"
+    assert get("/api/dashboard/entry/nope", "tok-paid").status_code == 404
+    assert get("/dashboard").status_code == 200

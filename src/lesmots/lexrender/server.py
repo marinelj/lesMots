@@ -61,6 +61,8 @@ The server links the phrases and logs the exposures, so do not call log_exposure
 If the result has fallback "local", render the answer yourself with the local rules:
 call get_lexicon, use the phrases that fit, link them, then call log_exposure."""
 
+PAID_ONLY = "Remote render (MCP render) is part of the paid plan."
+
 INSTRUCTIONS = f"""\
 This server holds the user's private lexicon: words, phrases and sentence frames they want
 to see used in your writing. get_lexicon tells you the account's render_mode.
@@ -110,6 +112,10 @@ def build_server(store: Store, account_id: str | None = None,
                                  required_scopes=["lexicon"], validate_token_resource=False),
         }
     server = MCPServer(name="lexicon-render", instructions=INSTRUCTIONS, **kwargs)
+    if account_id is None:
+        from .dashboard import add_routes
+
+        add_routes(server, store, verify)
 
     def current_account() -> str:
         if account_id is not None:
@@ -191,6 +197,8 @@ def build_server(store: Store, account_id: str | None = None,
         """Switch the account's render mode: 'local' (you render) or 'remote' (the server
         renders through the render tool)."""
         acct = current_account()
+        if mode == "remote" and not store.is_paid(acct):
+            raise ToolError(PAID_ONLY)
         return {"render_mode": guarded(lambda: store.set_render_mode(acct, mode))}
 
     @server.tool()
@@ -199,6 +207,9 @@ def build_server(store: Store, account_id: str | None = None,
         and log the exposures. Returns `rendered`, the entry ids `used` and `via` (synonyms
         replaced). If `fallback` is "local", show nothing from it and render locally."""
         acct = current_account()
+        if not store.is_paid(acct):
+            return {"rendered": text, "used": [], "via": {}, "fallback": "local",
+                    "reason": PAID_ONLY}
         return guarded(lambda: server_render(store, acct, text, surface, label, complete))
 
     # ---------- commands (prompts) ----------
@@ -243,6 +254,9 @@ def build_server(store: Store, account_id: str | None = None,
     @server.prompt(name="remote", description="Switch to remote render mode (the server renders)")
     def remote_command() -> str:
         acct = current_account()
+        if not store.is_paid(acct):
+            return (f"Tell the user in one line: {PAID_ONLY} The lexicon stays in local "
+                    f"render mode; keep following these rules:\n\n{LOCAL_RULES}")
         guarded(lambda: store.set_render_mode(acct, "remote"))
         return ("The lexicon is now in remote render mode. Tell the user in one line, then "
                 f"follow these rules for every answer from now on:\n\n{REMOTE_RULES}")

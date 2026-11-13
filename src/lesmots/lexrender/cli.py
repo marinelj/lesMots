@@ -60,6 +60,10 @@ def main(argv: list[str] | None = None) -> int:
     p = sub.add_parser("set-link-base", help="change the URL entry links point to")
     p.add_argument("url")
 
+    p = sub.add_parser("set-plan", help="operator: put a LesMots user_id on a plan")
+    p.add_argument("app_user_id")
+    p.add_argument("plan", choices=["free", "paid"])
+
     p = sub.add_parser("serve", help="run the MCP server")
     p.add_argument("--http", action="store_true", help="streamable HTTP instead of stdio")
     p.add_argument("--host", default="127.0.0.1")
@@ -90,6 +94,10 @@ def main(argv: list[str] | None = None) -> int:
                               "entries_exposed": len(counts)}))
         elif args.cmd == "set-link-base":
             store.set_link_base(_account(store, args.session), args.url)
+        elif args.cmd == "set-plan":
+            acct = store.account_for_app_user(args.app_user_id)
+            print(json.dumps({"user_id": args.app_user_id,
+                              "plan": store.set_plan(acct, args.plan)}))  # type: ignore[arg-type]
         elif args.cmd == "serve":
             try:
                 from .server import build_server
