@@ -365,6 +365,33 @@ def test_render_links_phrases_and_replaces_synonyms(store, syn_account):
     assert modes == {"full"}
 
 
+def test_render_drops_markers_around_the_wrong_words(store, syn_account):
+    # a real Codex reply: it tagged the original wording instead of rewriting it
+    text = "If the cache is down, we use the database instead."
+    out = render(store, syn_account, text, surface="x",
+                 complete=lambda p, s, m: "If the cache is down, we "
+                                          "{{fall-back-to|use the database instead}}.")
+    assert out["rendered"] == text
+    assert out["used"] == [] and store.exposure_counts(syn_account) == {}
+    # a marker that does hold the phrase (in any form, with extra words) still links
+    ok = render(store, syn_account, text, surface="x",
+                complete=lambda p, s, m: "If the cache is down, we "
+                                         "{{fall-back-to|fall back to the}} database.")
+    assert ok["used"] == ["fall-back-to"]
+    assert "[fall back to the](https://x/l.md#11-fall-back-to)" in ok["rendered"]
+
+
+def test_render_prompt_says_to_rewrite_not_tag(store, syn_account):
+    seen = {}
+
+    def fake(prompt, system, max_tokens):
+        seen["prompt"] = prompt
+        return "Some answer text."
+
+    render(store, syn_account, "Some answer text.", surface="x", complete=fake)
+    assert "Never put the marker around your own or the original words" in seen["prompt"]
+
+
 def test_render_falls_back_to_local(store, syn_account):
     def broken(prompt, system, max_tokens):
         raise RuntimeError("no key")
