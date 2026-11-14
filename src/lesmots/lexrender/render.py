@@ -15,7 +15,7 @@ import re
 import secrets
 from collections.abc import Callable
 
-from .forms import Match
+from .forms import Match, Matcher
 from .store import Entry, Store
 
 # (prompt, system, max_tokens) -> reply text. Defaults to lesmots.llm, which reads
@@ -56,6 +56,10 @@ def _prompt(text: str, entries: list[Entry], synonym_hits: list[Match]) -> str:
     lines += [
         ("Mark every lexicon phrase you used, including replaced synonyms, as "
         "{{entry-id|the words as they appear}}, for example {{fall-back-to|fell back to}}. "
+        "The marked words must be the lexicon phrase itself, inflected to fit: to use a "
+        "phrase, rewrite the sentence around it (\"we use the database instead\" becomes "
+        "\"we {{fall-back-to|fall back to}} the database\"). Never put the marker around "
+        "your own or the original words. "
         "Do not change anything inside code blocks or inline code. Output only the "
         "rewritten answer, with no preamble."),
         "",
@@ -77,7 +81,8 @@ def render(store: Store, account_id: str, text: str, surface: str, label: str = 
 
     entries = store.entries(account_id)
     by_id = {e.id: e for e in entries}
-    hits = store.matcher(account_id).find(text)
+    matcher = store.matcher(account_id)
+    hits = matcher.find(text)
     synonym_hits = [h for h in hits if h.kind == "synonym"]
     already_there = {h.entry_id for h in hits if h.kind == "phrase"}
 
@@ -98,7 +103,9 @@ def render(store: Store, account_id: str, text: str, surface: str, label: str = 
     def link(m: re.Match) -> str:
         entry = by_id.get(m.group(1))
         words = m.group(2)
-        if entry is None:
+        if entry is None or not _is_phrase(matcher, entry.id, words):
+            # an unknown id, or a marker around words that aren't the entry's phrase
+            # (a model that tagged the original wording instead of rewriting it)
             return words
         if entry.id not in used:
             used.append(entry.id)
@@ -113,6 +120,11 @@ def render(store: Store, account_id: str, text: str, surface: str, label: str = 
                             mode="full", via=via)
     return {"rendered": rendered, "used": used, "via": via, "event_id": event_id,
             "fallback": None}
+
+
+def _is_phrase(matcher: Matcher, entry_id: str, words: str) -> bool:
+    """True when ``words`` contain the entry's own phrase in some form."""
+    return any(m.entry_id == entry_id and m.kind == "phrase" for m in matcher.find(words))
 
 
 def _fallback(text: str, reason: str) -> dict[str, object]:
