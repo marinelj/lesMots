@@ -193,6 +193,10 @@ class Store:
     def plan(self, account_id: str) -> str:
         return self._account(account_id)["plan"]
 
+    def app_uid(self, account_id: str) -> str | None:
+        """The LesMots app user_id that signs in to this account, if any."""
+        return self._account(account_id)["app_uid"]
+
     def is_paid(self, account_id: str) -> bool:
         return self.plan(account_id) == "paid"
 
