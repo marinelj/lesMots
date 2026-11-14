@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- The LesMots web app (sign-in and word bank) on the Mac Studio. It shares ~/.lexrender/env,
+     and with it LESMOTS_SESSION_SECRET, with Lexicon Render. Install: see deploy/macstudio/README.md -->
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.lesmots.web</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/zsh</string>
+    <string>-c</string>
+    <string>set -a; source "$HOME/.lexrender/env"; set +a; exec "$HOME/.lexrender/venv/bin/lesmots" serve --host 127.0.0.1 --port 8321</string>
+  </array>
+  <key>RunAtLoad</key><true/>
+  <key>KeepAlive</key><true/>
+  <key>StandardOutPath</key><string>/tmp/lesmots-web.out.log</string>
+  <key>StandardErrorPath</key><string>/tmp/lesmots-web.err.log</string>
+</dict>
+</plist>

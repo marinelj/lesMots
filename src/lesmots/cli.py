@@ -84,7 +84,7 @@ def cmd_config(args: argparse.Namespace) -> int:
 
 def cmd_serve(args: argparse.Namespace) -> int:
     from lesmots.web import serve
-    serve(port=args.port)
+    serve(port=args.port, host=args.host)
     return 0
 
 
@@ -116,6 +116,8 @@ def build_parser() -> argparse.ArgumentParser:
     srv = sub.add_parser("serve", help="launch the HTML UI")
     srv.add_argument("--port", type=int, default=None,
                      help="port to listen on (default: $PORT or 8321)")
+    srv.add_argument("--host", default="0.0.0.0",
+                     help="address to bind (default 0.0.0.0; use 127.0.0.1 behind a gateway)")
     srv.set_defaults(func=cmd_serve)
 
     return p

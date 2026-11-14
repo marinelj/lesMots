@@ -26,6 +26,11 @@ WeChat (M2): set LESMOTS_WX_APPID + LESMOTS_WX_SECRET to accept Mini
 Program logins ({"wx_code"} on /api/login, uid "wx-<openid>"). Sessions
 work as Bearer tokens (Authorization header) for cookie-less clients;
 the login response includes the token in its body.
+
+Path prefix: set LESMOTS_BASE_PATH (e.g. /lesmots-app) to serve the app under
+that prefix behind a gateway. Requests arrive with or without the prefix (the
+gateway may strip it); the bare prefix redirects to prefix + "/" so the UI's
+relative api/ calls resolve under it.
 """
 
 from __future__ import annotations
@@ -119,7 +124,29 @@ def verify_google_token(credential: str) -> dict | None:
     return info
 
 
+def _base_path() -> str:
+    """LESMOTS_BASE_PATH normalised to "/prefix" (no trailing slash), or ""."""
+    base = os.environ.get("LESMOTS_BASE_PATH", "").strip().strip("/")
+    return "/" + base if base else ""
+
+
 class Handler(BaseHTTPRequestHandler):
+    def _strip_base(self) -> bool:
+        """Drop the base path from self.path; True when a redirect was sent instead."""
+        base = _base_path()
+        if not base:
+            return False
+        path, sep, query = self.path.partition("?")
+        if path == base:
+            self.send_response(308)
+            self.send_header("Location", base + "/" + sep + query)
+            self.send_header("Content-Length", "0")
+            self.end_headers()
+            return True
+        if path.startswith(base + "/"):
+            self.path = path[len(base):] + sep + query
+        return False
+
     def _send(self, body: bytes, ctype: str = "application/json", code: int = 200,
               headers: list | None = None) -> None:
         self.send_response(code)
@@ -177,6 +204,8 @@ class Handler(BaseHTTPRequestHandler):
     # ---------- GET ----------
 
     def do_GET(self) -> None:
+        if self._strip_base():
+            return
         self._uid = self._resolve_user()
         if self.path in ("/", "/index.html"):
             self._send(UI_PATH.read_bytes(), ctype="text/html")
@@ -214,6 +243,8 @@ class Handler(BaseHTTPRequestHandler):
     # ---------- POST ----------
 
     def do_POST(self) -> None:
+        if self._strip_base():
+            return
         self._uid = self._resolve_user()
         if self.path != "/api/login" and self._login_required():
             return
