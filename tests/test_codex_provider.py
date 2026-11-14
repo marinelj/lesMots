@@ -66,10 +66,24 @@ def test_submits_then_polls_until_completed():
     method, url, body = fake.calls[0]
     assert (method, url) == ("POST", "https://gw/codex/v1/runs")
     assert body["model"] == "gpt-6-luna" and body["reasoning_effort"] == "low"
-    assert "project_id" not in body  # never inside a repo checkout
+    assert "project_id" not in body  # no project set: the gateway's default conversation
     assert body["prompt"].startswith(GUARD)
     assert body["prompt"] == f"{GUARD}\n\nSYSTEM\n\n=== TASK ===\nPROMPT"
     assert [c[:2] for c in fake.calls[1:]] == [("GET", "https://gw/codex/v1/runs/run_1")] * 3
+
+
+def test_project_is_sent_when_set():
+    fake = FakeCodex(["completed"])
+    make(fake, config(project="marinelj/lesMots"))("p", "s", 600)
+    assert fake.calls[0][2]["project_id"] == "marinelj/lesMots"
+
+
+def test_busy_project_raises_so_render_falls_back():
+    def http(method, url, body):
+        raise OSError("HTTP Error 409: project_busy")
+    with pytest.raises(OSError, match="409"):
+        codex_complete(config(project="marinelj/lesMots"), http=http,
+                       sleep=lambda s: None, clock=lambda: 0)("p", "s", 1)
 
 
 @pytest.mark.parametrize("status", ["failed", "interrupted", "cancelled", "timed_out"])
@@ -108,6 +122,9 @@ def test_config_from_env(monkeypatch):
     assert cfg.base_url == "https://gw/codex"
     assert cfg.users == {"g-owner", "wx-abc"}
     assert cfg.timeout == 60 and cfg.model == "gpt-6-luna" and cfg.effort == "low"
+    assert cfg.project == ""
+    monkeypatch.setenv("LEXRENDER_CODEX_PROJECT", " marinelj/lesMots ")
+    assert CodexConfig.from_env().project == "marinelj/lesMots"
 
 
 def test_allowlist():

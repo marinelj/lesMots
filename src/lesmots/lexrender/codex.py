@@ -24,6 +24,10 @@ Settings (environment):
   ``LEXRENDER_CODEX_EFFORT`` (default ``low``).
 * ``LEXRENDER_CODEX_TIMEOUT`` seconds (default 180). On timeout or any failure the
   render falls back to local, as with every other model error.
+* ``LEXRENDER_CODEX_PROJECT``: a gateway project (``owner/repo``) to run in. Without it,
+  runs join the gateway's shared "free talk" conversation. With it, they join that
+  project's conversation instead, and the gateway allows one active run per project:
+  a render that arrives while another run is active gets 409 and falls back to local.
 """
 
 from __future__ import annotations
@@ -65,6 +69,7 @@ class CodexConfig:
     effort: str = DEFAULT_EFFORT
     timeout: float = DEFAULT_TIMEOUT
     poll: float = DEFAULT_POLL
+    project: str = ""
 
     @classmethod
     def from_env(cls) -> CodexConfig | None:
@@ -80,6 +85,7 @@ class CodexConfig:
             model=os.environ.get("LEXRENDER_CODEX_MODEL") or DEFAULT_MODEL,
             effort=os.environ.get("LEXRENDER_CODEX_EFFORT") or DEFAULT_EFFORT,
             timeout=float(os.environ.get("LEXRENDER_CODEX_TIMEOUT") or DEFAULT_TIMEOUT),
+            project=(os.environ.get("LEXRENDER_CODEX_PROJECT") or "").strip(),
         )
 
     def allows(self, app_uid: str | None) -> bool:
@@ -105,11 +111,14 @@ def codex_complete(config: CodexConfig, http: Http = _http,
     """A ``Complete`` that sends the prompt to Codex and waits for its final output."""
 
     def complete(prompt: str, system: str, max_tokens: int) -> str:
-        run = http("POST", f"{config.base_url}/v1/runs", {
+        body = {
             "prompt": f"{GUARD}\n\n{system}\n\n=== TASK ===\n{prompt}",
             "model": config.model,
             "reasoning_effort": config.effort,
-        })
+        }
+        if config.project:
+            body["project_id"] = config.project
+        run = http("POST", f"{config.base_url}/v1/runs", body)
         run_id = run.get("run_id")
         if not run_id:
             raise CodexError(f"no run_id in the submit response: {run}")
