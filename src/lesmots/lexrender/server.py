@@ -35,6 +35,7 @@ from mcp.server.auth.settings import AuthSettings
 from mcp.server.mcpserver import MCPServer
 from mcp.server.mcpserver.exceptions import ToolError
 
+from .codex import CodexConfig, codex_complete
 from .render import Complete
 from .render import render as server_render
 from .signin import VerifySignIn, verify_sign_in
@@ -116,6 +117,14 @@ def build_server(store: Store, account_id: str | None = None,
         from .dashboard import add_routes
 
         add_routes(server, store, verify)
+
+    codex = CodexConfig.from_env() if complete is None else None
+
+    def model_for(acct: str) -> Complete | None:
+        """Codex for the accounts its allowlist names, else the default model."""
+        if codex is not None and codex.allows(store.app_uid(acct)):
+            return codex_complete(codex)
+        return None
 
     def current_account() -> str:
         if account_id is not None:
@@ -210,7 +219,8 @@ def build_server(store: Store, account_id: str | None = None,
         if not store.is_paid(acct):
             return {"rendered": text, "used": [], "via": {}, "fallback": "local",
                     "reason": PAID_ONLY}
-        return guarded(lambda: server_render(store, acct, text, surface, label, complete))
+        return guarded(lambda: server_render(store, acct, text, surface, label,
+                                             complete or model_for(acct)))
 
     # ---------- commands (prompts) ----------
 
