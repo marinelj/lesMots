@@ -1,0 +1,153 @@
+{
+  "entry": {
+    "id": "idempotent",
+    "phrase": "idempotent",
+    "section": "Technical vocabulary",
+    "link": "https://github.com/marinelj/lesMots/blob/main/lexicon/lexicon.md#4133-idempotent",
+    "exposures": 20,
+    "last_seen": "2026-11-14T16:51:00Z",
+    "via_synonyms": 7
+  },
+  "exposures": [
+    {
+      "at": "2026-11-14T16:51:00Z",
+      "surface": "Claude Desktop",
+      "label": "Architecture notes",
+      "mode": "local_rewrite",
+      "via": ""
+    },
+    {
+      "at": "2026-11-14T11:54:00Z",
+      "surface": "Codex",
+      "label": "Architecture notes",
+      "mode": "remote",
+      "via": "safe to retry"
+    },
+    {
+      "at": "2026-11-12T10:14:00Z",
+      "surface": "ChatGPT",
+      "label": "lesMots · dashboard",
+      "mode": "local_rewrite",
+      "via": "safe to retry"
+    },
+    {
+      "at": "2026-11-12T10:01:00Z",
+      "surface": "Codex",
+      "label": "lesMots · dashboard",
+      "mode": "local_rewrite",
+      "via": "safe to retry"
+    },
+    {
+      "at": "2026-11-12T08:09:00Z",
+      "surface": "Codex",
+      "label": "Architecture notes",
+      "mode": "local_rewrite",
+      "via": "safe to retry"
+    },
+    {
+      "at": "2026-11-11T09:28:00Z",
+      "surface": "Codex",
+      "label": "API reliability review",
+      "mode": "local_rewrite",
+      "via": ""
+    },
+    {
+      "at": "2026-11-11T08:02:00Z",
+      "surface": "Claude Code",
+      "label": "lexicon-render",
+      "mode": "local_rewrite",
+      "via": ""
+    },
+    {
+      "at": "2026-11-10T12:39:00Z",
+      "surface": "ChatGPT",
+      "label": "lesMots · dashboard",
+      "mode": "local_rewrite",
+      "via": ""
+    },
+    {
+      "at": "2026-11-10T11:13:00Z",
+      "surface": "Codex",
+      "label": "lexicon-render",
+      "mode": "local_rewrite",
+      "via": "safe to retry"
+    },
+    {
+      "at": "2026-11-06T09:53:00Z",
+      "surface": "Codex",
+      "label": "lesMots · dashboard",
+      "mode": "remote",
+      "via": ""
+    },
+    {
+      "at": "2026-11-05T08:33:00Z",
+      "surface": "Claude Code",
+      "label": "lexicon-render",
+      "mode": "local_rewrite",
+      "via": ""
+    },
+    {
+      "at": "2026-11-04T08:26:00Z",
+      "surface": "Codex",
+      "label": "Architecture notes",
+      "mode": "local_rewrite",
+      "via": ""
+    },
+    {
+      "at": "2026-11-03T09:45:00Z",
+      "surface": "Claude Code",
+      "label": "API reliability review",
+      "mode": "local_rewrite",
+      "via": "safe to retry"
+    },
+    {
+      "at": "2026-10-27T11:35:00Z",
+      "surface": "Claude Code",
+      "label": "API reliability review",
+      "mode": "local_rewrite",
+      "via": ""
+    },
+    {
+      "at": "2026-10-27T10:09:00Z",
+      "surface": "Codex",
+      "label": "lesMots · dashboard",
+      "mode": "local_rewrite",
+      "via": ""
+    },
+    {
+      "at": "2026-10-25T08:16:00Z",
+      "surface": "Claude Code",
+      "label": "API reliability review",
+      "mode": "remote",
+      "via": ""
+    },
+    {
+      "at": "2026-10-24T10:01:00Z",
+      "surface": "Codex",
+      "label": "API reliability review",
+      "mode": "local_rewrite",
+      "via": ""
+    },
+    {
+      "at": "2026-10-22T10:47:00Z",
+      "surface": "Claude Desktop",
+      "label": "Architecture notes",
+      "mode": "local_rewrite",
+      "via": ""
+    },
+    {
+      "at": "2026-10-22T10:34:00Z",
+      "surface": "Claude Code",
+      "label": "lexicon-render",
+      "mode": "remote",
+      "via": "safe to retry"
+    },
+    {
+      "at": "2026-10-20T08:28:00Z",
+      "surface": "Claude Code",
+      "label": "lexicon-render",
+      "mode": "local_rewrite",
+      "via": ""
+    }
+  ]
+}

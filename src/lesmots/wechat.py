@@ -16,7 +16,6 @@ import os
 import time
 import urllib.parse
 import urllib.request
-from typing import Optional
 
 CODE2SESSION_URL = "https://api.weixin.qq.com/sns/jscode2session"
 ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token"
@@ -37,7 +36,7 @@ def is_configured() -> bool:
     return bool(_appid() and _secret())
 
 
-def _get_json(url: str, body: Optional[dict] = None) -> dict:
+def _get_json(url: str, body: dict | None = None) -> dict:
     data = None
     headers = {}
     if body is not None:
@@ -48,7 +47,7 @@ def _get_json(url: str, body: Optional[dict] = None) -> dict:
         return json.loads(resp.read())
 
 
-def code2session(code: str) -> Optional[dict]:
+def code2session(code: str) -> dict | None:
     """Exchange a wx.login() code for {"openid", ...}; None on any failure."""
     query = urllib.parse.urlencode({
         "appid": _appid(), "secret": _secret(),

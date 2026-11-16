@@ -8,7 +8,7 @@ version = "0.2.0"
 description = "LesMots — learn vocabulary inside daily internet content, scheduled by spaced repetition."
 readme = "README.md"
 license = { file = "LICENSE" }
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 authors = [{ name = "marine" }]
 keywords = ["language-learning", "flashcards", "spaced-repetition", "french", "vocabulary"]
 classifiers = [
@@ -23,9 +23,12 @@ dependencies = []
 
 [project.optional-dependencies]
 dev = ["pytest>=7.0", "ruff>=0.4"]
+# The Lexicon Render MCP server (lexrender serve).
+mcp = ["mcp>=2.0"]
 
 [project.scripts]
 lesmots = "lesmots.cli:main"
+lexrender = "lesmots.lexrender.cli:main"
 
 [project.urls]
 Homepage = "https://github.com/marine/lesmots"
@@ -38,6 +41,12 @@ exclude = ["src/lesmots/frontends/wechat"]
 
 [tool.ruff]
 line-length = 100
+
+[tool.ruff.lint]
+# The broad `except Exception` blocks are deliberate fallbacks around network and
+# cloud calls (fetchers, cloud sync, WeChat, web handlers): a failed call must not
+# take the app down. Dates are local calendar days on purpose.
+extend-ignore = ["BLE001", "S110", "S112", "DTZ005", "DTZ011"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

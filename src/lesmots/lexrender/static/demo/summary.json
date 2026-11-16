@@ -1,0 +1,28 @@
+{
+  "entries": 12,
+  "version": 10,
+  "exposures_total": 168,
+  "entries_exposed": 9,
+  "by_section": [
+    {
+      "section": "Professional phrases",
+      "entries": 3,
+      "exposed": 2
+    },
+    {
+      "section": "Idioms & architecture",
+      "entries": 3,
+      "exposed": 3
+    },
+    {
+      "section": "Sentence patterns",
+      "entries": 3,
+      "exposed": 2
+    },
+    {
+      "section": "Technical vocabulary",
+      "entries": 3,
+      "exposed": 2
+    }
+  ]
+}

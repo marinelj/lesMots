@@ -2,9 +2,8 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field, asdict
+from dataclasses import asdict, dataclass, field
 from datetime import date, datetime, timedelta
-from typing import Optional
 
 FAMILIARITY_THRESHOLDS = [(60, 5), (21, 4), (7, 3), (1, 2)]  # (interval_days, level); below -> 1
 FAMILIARITY_INTERVALS = {1: 0, 2: 1, 3: 7, 4: 21, 5: 60}  # level -> SM-2 interval it snaps to
@@ -54,7 +53,7 @@ class Word:
         unreviewed (issue #20)."""
         return self._level_for(self.effective_interval())
 
-    def effective_interval(self, on: Optional[date] = None) -> float:
+    def effective_interval(self, on: date | None = None) -> float:
         """SM-2 interval discounted by an Ebbinghaus-style forgetting curve:
         it halves for every interval-length period the word stays overdue."""
         if self.interval <= 0:
@@ -72,7 +71,7 @@ class Word:
                 return level
         return 1
 
-    def set_familiarity(self, level: int, on: Optional[date] = None) -> "Word":
+    def set_familiarity(self, level: int, on: date | None = None) -> Word:
         """One-click manual override: snap the SM-2 interval/due to the level."""
         if level not in FAMILIARITY_INTERVALS:
             raise ValueError(f"familiarity must be 1-5, got {level}")
@@ -81,7 +80,7 @@ class Word:
         self.due = (on + timedelta(days=self.interval)).isoformat()
         return self
 
-    def is_due(self, on: Optional[date] = None) -> bool:
+    def is_due(self, on: date | None = None) -> bool:
         on = on or date.today()
         return date.fromisoformat(self.due) <= on
 
@@ -91,6 +90,6 @@ class Word:
         return d
 
     @classmethod
-    def from_dict(cls, data: dict) -> "Word":
+    def from_dict(cls, data: dict) -> Word:
         data = {k: v for k, v in data.items() if k != "familiarity"}
         return cls(**data)

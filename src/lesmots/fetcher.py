@@ -15,7 +15,6 @@ import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
 from email.utils import parsedate_to_datetime
-from typing import Optional
 
 GOOGLE_NEWS_RSS = "https://news.google.com/rss/search?q={q}&hl=en-US&gl=US&ceid=US:en"
 HN_SEARCH = "https://hn.algolia.com/api/v1/search?query={q}&tags=story&hitsPerPage=10"
@@ -56,7 +55,7 @@ def _parse_google_rss(xml_bytes: bytes) -> list[dict]:
     return stories
 
 
-def _fetch_google_news(topic: str) -> Optional[dict]:
+def _fetch_google_news(topic: str) -> dict | None:
     req = urllib.request.Request(_google_news_url(topic), headers=_HEADERS)
     with urllib.request.urlopen(req, timeout=30) as resp:
         stories = _parse_google_rss(resp.read())
@@ -65,7 +64,7 @@ def _fetch_google_news(topic: str) -> Optional[dict]:
 
 # ---------- Hacker News (fallback) ----------
 
-def _url(query: str, since_days: Optional[int] = None) -> str:
+def _url(query: str, since_days: int | None = None) -> str:
     url = HN_SEARCH.format(q=urllib.parse.quote(query))
     if since_days:
         cutoff = int(time.time()) - since_days * 86400
@@ -73,7 +72,7 @@ def _url(query: str, since_days: Optional[int] = None) -> str:
     return url
 
 
-def _search(query: str, since_days: Optional[int] = None) -> list[dict]:
+def _search(query: str, since_days: int | None = None) -> list[dict]:
     with urllib.request.urlopen(_url(query, since_days), timeout=30) as resp:
         data = json.loads(resp.read())
     return [h for h in data.get("hits", []) if h.get("title")]

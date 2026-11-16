@@ -92,6 +92,10 @@
   #login-box p { margin:0 0 16px; color:var(--muted); font-size:13px; }
   #g-signin { display:flex; justify-content:center; }
   #login-msg { color:#b91c1c; font-size:13px; margin-top:10px; }
+  #lexicon-render { min-width:0; }
+  #lexicon-token-command { display:block; overflow-x:auto; white-space:nowrap;
+                           font-size:12px; margin-top:8px; line-height:1.6; }
+  #lexicon-token-status { font-size:12px; }
 </style>
 </head>
 <body>
@@ -183,6 +187,15 @@
       <i style="background:var(--fam5)"></i>5 very familiar
     </p>
   </div>
+
+  <section class="card" id="lexicon-render" aria-labelledby="lexicon-render-title" hidden>
+    <h2 id="lexicon-render-title">Lexicon Render</h2>
+    <div class="row" style="align-items:center">
+      <button id="btn-lexicon-token" class="secondary" type="button">Copy sign-in token</button>
+      <span id="lexicon-token-status" class="muted" role="status"></span>
+    </div>
+    <code id="lexicon-token-command" class="muted">export LEXRENDER_SESSION=&lt;token&gt;</code>
+  </section>
 
 </main>
 <script>
@@ -298,7 +311,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') $('modal').c
 $('btn-show').onclick = async () => {
   $('btn-show').disabled = true;
   $('status').textContent = 'Preparing content…';
-  try { const p = await api('/api/show-me', post()); await loadBank(); renderDemo(p); }
+  try { const p = await api('api/show-me', post()); await loadBank(); renderDemo(p); }
   catch (e) { $('status').textContent = 'Error: ' + e; }
   $('btn-show').disabled = false;
 };
@@ -306,7 +319,7 @@ $('btn-show').onclick = async () => {
 $('btn-more').onclick = async () => {
   $('btn-more').disabled = true;
   $('status').textContent = 'Extending the story…';
-  try { const p = await api('/api/keep-reading', post()); await loadBank(); renderDemo(p); }
+  try { const p = await api('api/keep-reading', post()); await loadBank(); renderDemo(p); }
   catch (e) { $('status').textContent = 'Error: ' + e; }
   $('btn-more').disabled = false;
 };
@@ -314,7 +327,7 @@ $('btn-more').onclick = async () => {
 $('btn-love').onclick = async () => {
   $('btn-love').disabled = true;
   try {
-    const res = await api('/api/love', post());
+    const res = await api('api/love', post());
     $('status').textContent = res.error || 'Saved — this story is now in your loved list. ❤';
     loadLoved();
   } catch (e) { $('status').textContent = 'Error: ' + e; }
@@ -330,7 +343,7 @@ async function addWord(text, skipCheck) {
   try {
     if (!skipCheck) {
       $('explanation').textContent = 'Checking spelling…';
-      const chk = await api('/api/check-spelling', post({text}));
+      const chk = await api('api/check-spelling', post({text}));
       if (chk.suggestions && chk.suggestions.length) {
         $('explanation').textContent = `“${text}” looks misspelled — click the word you meant:`;
         $('suggest').innerHTML =
@@ -341,7 +354,7 @@ async function addWord(text, skipCheck) {
       }
     }
     $('explanation').textContent = 'Explaining…';
-    const res = await api('/api/add', post({text}));
+    const res = await api('api/add', post({text}));
     $('explanation').textContent = res.explanation || res.error || 'Added.';
     $('new-word').value = '';
     loadBank();
@@ -360,7 +373,7 @@ $('suggest').onclick = e => {
 // ---------- word bank (permanent) ----------
 
 async function loadBank() {
-  const words = await api('/api/words');
+  const words = await api('api/words');
   bankMap = {};
   words.forEach(w => { bankMap[w.text.trim().toLowerCase()] = w.familiarity; });
   $('bank-body').innerHTML = words.map(w =>
@@ -381,7 +394,7 @@ $('bank-body').onclick = async e => {
   if (del) {
     del.closest('tr').remove();  // instant; server confirms below
     delete bankMap[del.dataset.del.trim().toLowerCase()];
-    const res = await api('/api/remove-word', post({text: del.dataset.del}));
+    const res = await api('api/remove-word', post({text: del.dataset.del}));
     if (res.error) { $('status').textContent = res.error; }
     loadBank();
     return;
@@ -395,14 +408,14 @@ $('bank-body').onclick = async e => {
   });
   bankMap[text.trim().toLowerCase()] = level;
   if (lastPrepared) $('demo').innerHTML = storyHTML(lastPrepared.rewritten);
-  const res = await api('/api/familiarity', post({text, level}));
+  const res = await api('api/familiarity', post({text, level}));
   if (res.error) { $('status').textContent = res.error; loadBank(); }
 };
 
 // ---------- loved stories ----------
 
 async function loadLoved() {
-  const list = await api('/api/loved');
+  const list = await api('api/loved');
   lovedMap = {};
   list.forEach(s => { lovedMap[s.id] = s; });
   $('loved-list').innerHTML = list.length ? list.map(s =>
@@ -428,7 +441,7 @@ $('loved-list').onclick = async e => {
   }
   const rm = e.target.closest('[data-rm]');
   if (rm) {
-    await api('/api/unlove', post({id: rm.dataset.rm}));
+    await api('api/unlove', post({id: rm.dataset.rm}));
     loadLoved();
   }
 };
@@ -436,7 +449,7 @@ $('loved-list').onclick = async e => {
 // ---------- feed topics ----------
 
 async function loadTopics() {
-  const cfg = await api('/api/config');
+  const cfg = await api('api/config');
   const selected = (cfg.interests || []).map(i => i.toLowerCase());
   const extras = (cfg.interests || []).filter(i => !FEED_TOPICS.some(t => t.toLowerCase() === i.toLowerCase()));
   $('topics').innerHTML = FEED_TOPICS.concat(extras).map(t =>
@@ -449,7 +462,7 @@ $('topics').onclick = async e => {
   if (!chip) return;
   chip.classList.toggle('sel');
   const interests = [...document.querySelectorAll('.topic.sel')].map(el => el.dataset.topic);
-  const res = await api('/api/interests', post({interests}));
+  const res = await api('api/interests', post({interests}));
   if (res.error) {  // e.g. nothing selected — revert
     chip.classList.toggle('sel');
     $('status').textContent = res.error;
@@ -460,21 +473,72 @@ $('topics').onclick = async e => {
 
 function boot() { loadBank(); loadLoved(); loadTopics(); }
 
+async function copyToken(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch (e) {
+    // Fall back to a selection copy when the Clipboard API is unavailable.
+    const field = document.createElement('textarea');
+    field.value = text;
+    field.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
+    document.body.append(field);
+    field.select();
+    try {
+      if (!document.execCommand('copy')) throw new Error('Clipboard unavailable');
+    } finally {
+      field.remove();
+    }
+  }
+}
+
+$('btn-lexicon-token').onclick = async () => {
+  const button = $('btn-lexicon-token');
+  button.disabled = true;
+  $('lexicon-token-status').textContent = 'Getting token…';
+  $('lexicon-token-command').textContent = 'export LEXRENDER_SESSION=<token>';
+  try {
+    const response = await fetch('api/lexicon-token', {credentials:'same-origin', cache:'no-store'});
+    if (response.status === 401) { await initAuth(); return; }
+    if (!response.ok) throw new Error('Could not get sign-in token. Try again.');
+    const data = await response.json();
+    if (typeof data.token !== 'string' || !data.token) {
+      throw new Error('Could not get sign-in token. Try again.');
+    }
+    $('lexicon-token-command').textContent = 'export LEXRENDER_SESSION=' + data.token;
+    try {
+      await copyToken(data.token);
+      $('lexicon-token-status').textContent = `Copied. Valid for ${data.expires_in_days} days.`;
+    } catch (e) {
+      $('lexicon-token-status').textContent = 'Could not copy automatically. Copy the token from the command below.';
+    }
+  } catch (e) {
+    $('lexicon-token-status').textContent = 'Could not get sign-in token. Try again.';
+  } finally {
+    button.disabled = false;
+    button.focus();
+  }
+};
+
 async function initAuth() {
+  $('lexicon-render').hidden = true;
+  $('lexicon-token-status').textContent = '';
+  $('lexicon-token-command').textContent = 'export LEXRENDER_SESSION=<token>';
+  $('user-box').textContent = '';
   let cfg = {};
-  try { cfg = await api('/api/auth-config'); } catch (e) { boot(); return; }
-  if (!cfg.client_id) { boot(); return; }  // SSO not configured: single-user mode
-  if (cfg.user) {
+  try { cfg = await api('api/auth-config'); } catch (e) { boot(); return; }
+  if (cfg.logged_in) {
+    $('lexicon-render').hidden = false;
     $('user-box').innerHTML =
-      `${esc(cfg.user)} <button class="chip secondary" id="btn-logout">sign out</button>`;
-    $('btn-logout').onclick = async () => { await api('/api/logout', post()); location.reload(); };
+      `${esc(cfg.user || 'Signed in')} <button class="chip secondary" id="btn-logout">sign out</button>`;
+    $('btn-logout').onclick = async () => { await api('api/logout', post()); location.reload(); };
     boot();
     return;
   }
+  if (!cfg.client_id) { boot(); return; }  // SSO not configured: single-user mode
   $('login-overlay').classList.add('open');
   const start = () => {
     google.accounts.id.initialize({client_id: cfg.client_id, callback: async r => {
-      const res = await api('/api/login', post({credential: r.credential}));
+      const res = await api('api/login', post({credential: r.credential}));
       if (res.error) { $('login-msg').textContent = res.error; } else { location.reload(); }
     }});
     google.accounts.id.renderButton($('g-signin'), {theme: 'outline', size: 'large'});

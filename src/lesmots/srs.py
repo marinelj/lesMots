@@ -10,7 +10,6 @@ Grades:
 from __future__ import annotations
 
 from datetime import date, timedelta
-from typing import Optional
 
 from lesmots.models import Word
 
@@ -20,7 +19,7 @@ MIN_EASE = 1.3
 MAX_INTERVAL = 365  # days; uncapped growth overflows date arithmetic (issue #12)
 
 
-def review(word: Word, grade: int, on: Optional[date] = None) -> Word:
+def review(word: Word, grade: int, on: date | None = None) -> Word:
     """Apply a review/exposure grade to a word, mutating its SM-2 state."""
     if grade not in (AGAIN, HARD, GOOD, EASY):
         raise ValueError(f"grade must be 0-3, got {grade}")
@@ -48,7 +47,7 @@ def review(word: Word, grade: int, on: Optional[date] = None) -> Word:
     return word
 
 
-def pick_words(words: list[Word], limit: int = 10, on: Optional[date] = None) -> list[Word]:
+def pick_words(words: list[Word], limit: int = 10, on: date | None = None) -> list[Word]:
     """SM-2 picking rule: words due for exposure, most overdue first.
 
     If fewer than `limit` are due, tops up with the least-familiar remaining words

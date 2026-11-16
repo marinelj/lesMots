@@ -1,0 +1,16 @@
+{
+  "name": "lesmots",
+  "owner": {
+    "name": "marinelj"
+  },
+  "metadata": {
+    "description": "Plugins from LesMots, a personal lexicon for learning English at work."
+  },
+  "plugins": [
+    {
+      "name": "lexicon-render",
+      "source": "./plugins/lexicon-render",
+      "description": "Write with your own lexicon: agents use your phrases, link each one to your lexicon bank, and count every use."
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+[
+  {
+    "id": "fall-back-to",
+    "phrase": "fall back to",
+    "section": "Professional phrases",
+    "link": "https://github.com/marinelj/lesMots/blob/main/lexicon/lexicon.md#231-fall-back-to-",
+    "exposures": 28,
+    "last_seen": "2026-11-14T15:38:00Z",
+    "via_synonyms": 10
+  },
+  {
+    "id": "in-the-trenches",
+    "phrase": "in the trenches",
+    "section": "Idioms & architecture",
+    "link": "https://github.com/marinelj/lesMots/blob/main/lexicon/lexicon.md#11-in-the-trenches",
+    "exposures": 24,
+    "last_seen": "2026-11-14T15:25:00Z",
+    "via_synonyms": 8
+  },
+  {
+    "id": "it-remains-important",
+    "phrase": "It remains important to…",
+    "section": "Sentence patterns",
+    "link": "https://github.com/marinelj/lesMots/blob/main/lexicon/lexicon.md#35-it-remains-important-to-",
+    "exposures": 22,
+    "last_seen": "2026-11-14T13:46:00Z",
+    "via_synonyms": 8
+  },
+  {
+    "id": "idempotent",
+    "phrase": "idempotent",
+    "section": "Technical vocabulary",
+    "link": "https://github.com/marinelj/lesMots/blob/main/lexicon/lexicon.md#4133-idempotent",
+    "exposures": 20,
+    "last_seen": "2026-11-14T16:51:00Z",
+    "via_synonyms": 7
+  },
+  {
+    "id": "align-on",
+    "phrase": "align on [topic]",
+    "section": "Idioms & architecture",
+    "link": "https://github.com/marinelj/lesMots/blob/main/lexicon/lexicon.md#149-align-on-topic-vs-align-with-standard",
+    "exposures": 18,
+    "last_seen": "2026-11-14T16:04:00Z",
+    "via_synonyms": 6
+  },
+  {
+    "id": "degrade-gracefully",
+    "phrase": "degrade gracefully",
+    "section": "Idioms & architecture",
+    "link": "https://github.com/marinelj/lesMots/blob/main/lexicon/lexicon.md#157-degrade-gracefully",
+    "exposures": 17,
+    "last_seen": "2026-11-11T11:20:00Z",
+    "via_synonyms": 6
+  },
+  {
+    "id": "gauge",
+    "phrase": "gauge",
+    "section": "Technical vocabulary",
+    "link": "https://github.com/marinelj/lesMots/blob/main/lexicon/lexicon.md#4361-gauge",
+    "exposures": 15,
+    "last_seen": "2026-11-14T14:59:00Z",
+    "via_synonyms": 5
+  },
+  {
+    "id": "rank-by",
+    "phrase": "rank something by…",
+    "section": "Professional phrases",
+    "link": "https://github.com/marinelj/lesMots/blob/main/lexicon/lexicon.md#233-rank-something-by-",
+    "exposures": 14,
+    "last_seen": "2026-11-14T12:07:00Z",
+    "via_synonyms": 5
+  },
+  {
+    "id": "just-because",
+    "phrase": "Just because A doesn’t mean B.",
+    "section": "Sentence patterns",
+    "link": "https://github.com/marinelj/lesMots/blob/main/lexicon/lexicon.md#37-just-because-a-doesnt-mean-b",
+    "exposures": 10,
+    "last_seen": "2026-11-13T11:47:00Z",
+    "via_synonyms": 4
+  },
+  {
+    "id": "either-way",
+    "phrase": "either way",
+    "section": "Professional phrases",
+    "link": "https://github.com/marinelj/lesMots/blob/main/lexicon/lexicon.md#212-either-way",
+    "exposures": 0,
+    "last_seen": null,
+    "via_synonyms": 0
+  },
+  {
+    "id": "from-my-perspective",
+    "phrase": "From my perspective,…",
+    "section": "Sentence patterns",
+    "link": "https://github.com/marinelj/lesMots/blob/main/lexicon/lexicon.md#33-from-my-perspective-",
+    "exposures": 0,
+    "last_seen": null,
+    "via_synonyms": 0
+  },
+  {
+    "id": "inherit",
+    "phrase": "inherit",
+    "section": "Technical vocabulary",
+    "link": "https://github.com/marinelj/lesMots/blob/main/lexicon/lexicon.md#4362-inherit--inherited-from",
+    "exposures": 0,
+    "last_seen": null,
+    "via_synonyms": 0
+  }
+]

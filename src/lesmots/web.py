@@ -26,6 +26,11 @@ WeChat (M2): set LESMOTS_WX_APPID + LESMOTS_WX_SECRET to accept Mini
 Program logins ({"wx_code"} on /api/login, uid "wx-<openid>"). Sessions
 work as Bearer tokens (Authorization header) for cookie-less clients;
 the login response includes the token in its body.
+
+Path prefix: set LESMOTS_BASE_PATH (e.g. /lesmots-app) to serve the app under
+that prefix behind a gateway. Requests arrive with or without the prefix (the
+gateway may strip it); the bare prefix redirects to prefix + "/" so the UI's
+relative api/ calls resolve under it.
 """
 
 from __future__ import annotations
@@ -42,9 +47,8 @@ import urllib.parse
 import urllib.request
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from typing import Optional
 
-from lesmots import cloudsync, llm, daily, wechat
+from lesmots import cloudsync, daily, llm, wechat
 from lesmots.memory import Memory, data_path
 from lesmots.models import Word
 
@@ -94,7 +98,7 @@ def make_session(uid: str, email: str) -> str:
     return payload + "." + _sign(payload)
 
 
-def check_session(token: str) -> Optional[dict]:
+def check_session(token: str) -> dict | None:
     try:
         payload, sig = token.rsplit(".", 1)
         if not hmac.compare_digest(sig, _sign(payload)):
@@ -107,7 +111,7 @@ def check_session(token: str) -> Optional[dict]:
         return None
 
 
-def verify_google_token(credential: str) -> Optional[dict]:
+def verify_google_token(credential: str) -> dict | None:
     """Have Google validate the ID token (signature + expiry checked server-side)."""
     try:
         url = GOOGLE_TOKENINFO + urllib.parse.quote(credential)
@@ -120,9 +124,31 @@ def verify_google_token(credential: str) -> Optional[dict]:
     return info
 
 
+def _base_path() -> str:
+    """LESMOTS_BASE_PATH normalised to "/prefix" (no trailing slash), or ""."""
+    base = os.environ.get("LESMOTS_BASE_PATH", "").strip().strip("/")
+    return "/" + base if base else ""
+
+
 class Handler(BaseHTTPRequestHandler):
+    def _strip_base(self) -> bool:
+        """Drop the base path from self.path; True when a redirect was sent instead."""
+        base = _base_path()
+        if not base:
+            return False
+        path, sep, query = self.path.partition("?")
+        if path == base:
+            self.send_response(308)
+            self.send_header("Location", base + "/" + sep + query)
+            self.send_header("Content-Length", "0")
+            self.end_headers()
+            return True
+        if path.startswith(base + "/"):
+            self.path = path[len(base):] + sep + query
+        return False
+
     def _send(self, body: bytes, ctype: str = "application/json", code: int = 200,
-              headers: Optional[list] = None) -> None:
+              headers: list | None = None) -> None:
         self.send_response(code)
         self.send_header("Content-Type", ctype + "; charset=utf-8")
         self.send_header("Content-Length", str(len(body)))
@@ -132,7 +158,7 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
-    def _json(self, obj, code: int = 200, headers: Optional[list] = None) -> None:
+    def _json(self, obj, code: int = 200, headers: list | None = None) -> None:
         self._send(json.dumps(obj, ensure_ascii=False).encode(), code=code, headers=headers)
 
     def _body(self) -> dict:
@@ -141,7 +167,7 @@ class Handler(BaseHTTPRequestHandler):
 
     # ---------- session / per-user storage ----------
 
-    def _session(self) -> Optional[dict]:
+    def _session(self) -> dict | None:
         # Bearer token first: cookie-less clients (WeChat Mini Program)
         auth = self.headers.get("Authorization") or ""
         if auth.startswith("Bearer "):
@@ -154,7 +180,7 @@ class Handler(BaseHTTPRequestHandler):
                 return check_session(value)
         return None
 
-    def _resolve_user(self) -> Optional[str]:
+    def _resolve_user(self) -> str | None:
         if not _auth_enabled():
             return None  # single-user mode
         session = self._session()
@@ -177,7 +203,9 @@ class Handler(BaseHTTPRequestHandler):
 
     # ---------- GET ----------
 
-    def do_GET(self) -> None:  # noqa: N802
+    def do_GET(self) -> None:
+        if self._strip_base():
+            return
         self._uid = self._resolve_user()
         if self.path in ("/", "/index.html"):
             self._send(UI_PATH.read_bytes(), ctype="text/html")
@@ -192,6 +220,15 @@ class Handler(BaseHTTPRequestHandler):
             self._json(cloudsync.selftest())
         elif self._login_required():
             return
+        elif self.path == "/api/lexicon-token":
+            # a fresh session token to paste into an MCP client (Lexicon Render signs in
+            # with it); only a signed-in user gets one, and only for their own user_id
+            session = self._session() or {}
+            if not session.get("uid"):
+                self._json({"error": "sign in first"}, code=401)
+                return
+            self._json({"user_id": self._uid, "token": make_session(session["uid"],
+                        session.get("email", "")), "expires_in_days": SESSION_DAYS})
         elif self.path == "/api/words":
             self._json([w.to_dict() for w in self._mem().words])
         elif self.path == "/api/loved":
@@ -205,7 +242,9 @@ class Handler(BaseHTTPRequestHandler):
 
     # ---------- POST ----------
 
-    def do_POST(self) -> None:  # noqa: N802
+    def do_POST(self) -> None:
+        if self._strip_base():
+            return
         self._uid = self._resolve_user()
         if self.path != "/api/login" and self._login_required():
             return
@@ -330,7 +369,7 @@ class Handler(BaseHTTPRequestHandler):
         pass  # quiet
 
 
-def serve(port: Optional[int] = None, host: str = "0.0.0.0") -> None:
+def serve(port: int | None = None, host: str = "0.0.0.0") -> None:
     if port is None:
         port = int(os.environ.get("PORT", "8321"))
     cloudsync.restore()  # must precede session-secret creation and first request

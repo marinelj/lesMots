@@ -1,0 +1,209 @@
+{
+  "entry": {
+    "id": "fall-back-to",
+    "phrase": "fall back to",
+    "section": "Professional phrases",
+    "link": "https://github.com/marinelj/lesMots/blob/main/lexicon/lexicon.md#231-fall-back-to-",
+    "exposures": 28,
+    "last_seen": "2026-11-14T15:38:00Z",
+    "via_synonyms": 10
+  },
+  "exposures": [
+    {
+      "at": "2026-11-14T15:38:00Z",
+      "surface": "Claude Code",
+      "label": "lesMots · dashboard",
+      "mode": "local_rewrite",
+      "via": "use as a backup"
+    },
+    {
+      "at": "2026-11-14T14:12:00Z",
+      "surface": "Claude Code",
+      "label": "lexicon-render",
+      "mode": "remote",
+      "via": "use as a backup"
+    },
+    {
+      "at": "2026-11-14T12:20:00Z",
+      "surface": "ChatGPT",
+      "label": "API reliability review",
+      "mode": "local_rewrite",
+      "via": "resort to"
+    },
+    {
+      "at": "2026-11-14T08:36:00Z",
+      "surface": "Claude Code",
+      "label": "lesMots · dashboard",
+      "mode": "remote",
+      "via": ""
+    },
+    {
+      "at": "2026-11-13T08:29:00Z",
+      "surface": "ChatGPT",
+      "label": "Architecture notes",
+      "mode": "local_rewrite",
+      "via": ""
+    },
+    {
+      "at": "2026-11-12T11:27:00Z",
+      "surface": "Claude Code",
+      "label": "lexicon-render",
+      "mode": "local_rewrite",
+      "via": ""
+    },
+    {
+      "at": "2026-11-11T09:41:00Z",
+      "surface": "Codex",
+      "label": "API reliability review",
+      "mode": "local_rewrite",
+      "via": ""
+    },
+    {
+      "at": "2026-11-09T09:14:00Z",
+      "surface": "Claude Code",
+      "label": "lexicon-render",
+      "mode": "local_rewrite",
+      "via": "use as a backup"
+    },
+    {
+      "at": "2026-11-08T10:33:00Z",
+      "surface": "Claude Code",
+      "label": "Architecture notes",
+      "mode": "local_rewrite",
+      "via": ""
+    },
+    {
+      "at": "2026-11-08T09:20:00Z",
+      "surface": "Codex",
+      "label": "lesMots · dashboard",
+      "mode": "local_rewrite",
+      "via": ""
+    },
+    {
+      "at": "2026-11-02T09:25:00Z",
+      "surface": "Claude Code",
+      "label": "API reliability review",
+      "mode": "remote",
+      "via": ""
+    },
+    {
+      "at": "2026-11-02T08:12:00Z",
+      "surface": "Claude Code",
+      "label": "Architecture notes",
+      "mode": "local_rewrite",
+      "via": "resort to"
+    },
+    {
+      "at": "2026-11-01T08:05:00Z",
+      "surface": "ChatGPT",
+      "label": "lexicon-render",
+      "mode": "local_rewrite",
+      "via": ""
+    },
+    {
+      "at": "2026-10-31T09:11:00Z",
+      "surface": "Claude Code",
+      "label": "lexicon-render",
+      "mode": "local_rewrite",
+      "via": ""
+    },
+    {
+      "at": "2026-10-31T08:45:00Z",
+      "surface": "Codex",
+      "label": "API reliability review",
+      "mode": "remote",
+      "via": ""
+    },
+    {
+      "at": "2026-10-30T10:43:00Z",
+      "surface": "ChatGPT",
+      "label": "Architecture notes",
+      "mode": "local_rewrite",
+      "via": ""
+    },
+    {
+      "at": "2026-10-30T10:30:00Z",
+      "surface": "Claude Code",
+      "label": "Architecture notes",
+      "mode": "remote",
+      "via": "resort to"
+    },
+    {
+      "at": "2026-10-28T08:37:00Z",
+      "surface": "Claude Code",
+      "label": "lexicon-render",
+      "mode": "remote",
+      "via": ""
+    },
+    {
+      "at": "2026-10-26T10:02:00Z",
+      "surface": "Codex",
+      "label": "Architecture notes",
+      "mode": "local_rewrite",
+      "via": "resort to"
+    },
+    {
+      "at": "2026-10-25T09:29:00Z",
+      "surface": "Codex",
+      "label": "lesMots · dashboard",
+      "mode": "local_rewrite",
+      "via": "use as a backup"
+    },
+    {
+      "at": "2026-10-24T09:22:00Z",
+      "surface": "ChatGPT",
+      "label": "API reliability review",
+      "mode": "local_rewrite",
+      "via": ""
+    },
+    {
+      "at": "2026-10-24T08:56:00Z",
+      "surface": "Claude Code",
+      "label": "Architecture notes",
+      "mode": "local_rewrite",
+      "via": ""
+    },
+    {
+      "at": "2026-10-23T08:49:00Z",
+      "surface": "Codex",
+      "label": "API reliability review",
+      "mode": "local_rewrite",
+      "via": "resort to"
+    },
+    {
+      "at": "2026-10-23T08:02:00Z",
+      "surface": "ChatGPT",
+      "label": "lesMots · dashboard",
+      "mode": "local_rewrite",
+      "via": ""
+    },
+    {
+      "at": "2026-10-18T09:40:00Z",
+      "surface": "Claude Code",
+      "label": "lexicon-render",
+      "mode": "local_rewrite",
+      "via": "use as a backup"
+    },
+    {
+      "at": "2026-10-18T08:27:00Z",
+      "surface": "ChatGPT",
+      "label": "API reliability review",
+      "mode": "local_rewrite",
+      "via": ""
+    },
+    {
+      "at": "2026-10-18T08:14:00Z",
+      "surface": "ChatGPT",
+      "label": "lesMots · dashboard",
+      "mode": "local_rewrite",
+      "via": ""
+    },
+    {
+      "at": "2026-10-16T08:13:00Z",
+      "surface": "Claude Desktop",
+      "label": "lesMots · dashboard",
+      "mode": "local_rewrite",
+      "via": ""
+    }
+  ]
+}

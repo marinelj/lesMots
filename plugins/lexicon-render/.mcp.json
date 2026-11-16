@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "lexicon": {
+      "command": "lexrender",
+      "args": [
+        "serve"
+      ],
+      "env": {
+        "LEXRENDER_SESSION": "${LEXRENDER_SESSION}"
+      }
+    }
+  }
+}

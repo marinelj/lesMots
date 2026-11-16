@@ -73,7 +73,7 @@ git clone https://github.com/marinelj/lesMots && cd lesMots
 pip install -e ".[dev]"
 ```
 
-需要 Python 3.9+。**零运行时依赖**——只用标准库。
+需要 Python 3.10+。**零运行时依赖**——只用标准库。
 
 ### 选择大模型服务
 

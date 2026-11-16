@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Lexicon Render on the Mac Studio. Install: see deploy/macstudio/README.md -->
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.lesmots.lexrender</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/zsh</string>
+    <string>-c</string>
+    <string>set -a; source "$HOME/.lexrender/env"; set +a; exec "$HOME/.lexrender/venv/bin/lexrender" serve --http --host 127.0.0.1 --port 8765 --public-url "$LEXRENDER_PUBLIC_URL"</string>
+  </array>
+  <key>RunAtLoad</key><true/>
+  <key>KeepAlive</key><true/>
+  <key>StandardOutPath</key><string>/tmp/lexrender.out.log</string>
+  <key>StandardErrorPath</key><string>/tmp/lexrender.err.log</string>
+</dict>
+</plist>

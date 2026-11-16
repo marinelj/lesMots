@@ -7,7 +7,7 @@ import pytest
 from lesmots import daily
 from lesmots.memory import Memory
 from lesmots.models import Word, detect_kind
-from lesmots.srs import review, pick_words, AGAIN, GOOD, EASY, MIN_EASE
+from lesmots.srs import AGAIN, EASY, GOOD, MIN_EASE, pick_words, review
 
 TODAY = date.today()
 
@@ -451,6 +451,7 @@ def fake_cloud(monkeypatch):
 
 def test_cloudsync_push_and_restore_round_trip(fake_cloud, tmp_path):
     import json
+
     from lesmots import cloudsync
     f = tmp_path / "users" / "wx-abc.json"
     f.parent.mkdir(parents=True)
@@ -493,6 +494,7 @@ def test_cloudsync_failed_restore_blocks_pushes(fake_cloud, tmp_path, monkeypatc
 
 def test_cloudsync_restore_ignores_hostile_manifest_paths(fake_cloud, tmp_path):
     import json
+
     from lesmots import cloudsync
     fake_cloud["lesmots/manifest.json"] = json.dumps(
         ["../escape.json", "/abs.json", "ok.json"]).encode()
