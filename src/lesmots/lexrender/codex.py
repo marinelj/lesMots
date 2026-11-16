@@ -24,6 +24,10 @@ Settings (environment):
   ``LEXRENDER_CODEX_EFFORT`` (default ``low``).
 * ``LEXRENDER_CODEX_TIMEOUT`` seconds (default 180). On timeout or any failure the
   render falls back to local, as with every other model error.
+* ``LEXRENDER_CODEX_FRESH=1``: give every render its own new, read-only conversation
+  (the gateway's ``fresh_thread`` + ``sandbox: "read-only"``). This is the setting to use:
+  readers' text never shares a conversation and Codex can't change anything. It takes
+  precedence over ``LEXRENDER_CODEX_PROJECT``.
 * ``LEXRENDER_CODEX_PROJECT``: a gateway project (``owner/repo``) to run in. Without it,
   runs join the gateway's shared "free talk" conversation. With it, they join that
   project's conversation instead, and the gateway allows one active run per project:
@@ -70,6 +74,7 @@ class CodexConfig:
     timeout: float = DEFAULT_TIMEOUT
     poll: float = DEFAULT_POLL
     project: str = ""
+    fresh: bool = False
 
     @classmethod
     def from_env(cls) -> CodexConfig | None:
@@ -86,6 +91,8 @@ class CodexConfig:
             effort=os.environ.get("LEXRENDER_CODEX_EFFORT") or DEFAULT_EFFORT,
             timeout=float(os.environ.get("LEXRENDER_CODEX_TIMEOUT") or DEFAULT_TIMEOUT),
             project=(os.environ.get("LEXRENDER_CODEX_PROJECT") or "").strip(),
+            fresh=(os.environ.get("LEXRENDER_CODEX_FRESH") or "").strip().lower()
+            in ("1", "true", "yes"),
         )
 
     def allows(self, app_uid: str | None) -> bool:
@@ -116,7 +123,10 @@ def codex_complete(config: CodexConfig, http: Http = _http,
             "model": config.model,
             "reasoning_effort": config.effort,
         }
-        if config.project:
+        if config.fresh:
+            body["fresh_thread"] = True
+            body["sandbox"] = "read-only"
+        elif config.project:
             body["project_id"] = config.project
         run = http("POST", f"{config.base_url}/v1/runs", body)
         run_id = run.get("run_id")

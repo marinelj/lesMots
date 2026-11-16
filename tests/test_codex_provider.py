@@ -78,6 +78,14 @@ def test_project_is_sent_when_set():
     assert fake.calls[0][2]["project_id"] == "marinelj/lesMots"
 
 
+def test_fresh_thread_is_read_only_and_wins_over_project():
+    fake = FakeCodex(["completed"])
+    make(fake, config(project="marinelj/lesMots", fresh=True))("p", "s", 600)
+    body = fake.calls[0][2]
+    assert body["fresh_thread"] is True and body["sandbox"] == "read-only"
+    assert "project_id" not in body and "thread_id" not in body
+
+
 def test_busy_project_raises_so_render_falls_back():
     def http(method, url, body):
         raise OSError("HTTP Error 409: project_busy")
@@ -125,6 +133,9 @@ def test_config_from_env(monkeypatch):
     assert cfg.project == ""
     monkeypatch.setenv("LEXRENDER_CODEX_PROJECT", " marinelj/lesMots ")
     assert CodexConfig.from_env().project == "marinelj/lesMots"
+    assert CodexConfig.from_env().fresh is False
+    monkeypatch.setenv("LEXRENDER_CODEX_FRESH", "1")
+    assert CodexConfig.from_env().fresh is True
 
 
 def test_allowlist():
