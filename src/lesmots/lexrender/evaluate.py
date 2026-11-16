@@ -263,12 +263,16 @@ def openai_complete(base_url: str, model: str, api_key: str = "",
     return complete
 
 
-def run(lex: Lexicon, cases: list[dict], complete: Complete) -> list[dict]:
+def run(lex: Lexicon, cases: list[dict], complete: Complete,
+        prompt: Callable[[str], str] | None = None) -> list[dict]:
+    """``prompt`` builds the model's prompt from an answer; the default is the production
+    prompt over the whole lexicon (``--candidates`` swaps in the dedicated model's)."""
+    prompt = prompt or lex.prompt
     results = []
     for case in cases:
         start = time.monotonic()
         try:
-            reply = complete(lex.prompt(case["text"]), SYSTEM)
+            reply = complete(prompt(case["text"]), SYSTEM)
             error = None
         except Exception as exc:  # a failed call counts as a failed case
             reply, error = "", f"{type(exc).__name__}: {exc}"
@@ -303,6 +307,11 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--split", choices=["dev", "test", "all"], default="test")
     p.add_argument("--limit", type=int, default=0)
     p.add_argument("--out", type=Path, help="write per-case results as JSONL")
+    p.add_argument("--candidates", type=int, default=0,
+                   help="offer only K candidate entries per answer (the dedicated model's "
+                        "prompt, as in training); 0 = the whole lexicon")
+    p.add_argument("--embed-model", default="",
+                   help="Ollama embedding model for --candidates, e.g. nomic-embed-text")
 
     p = sub.add_parser("score", help="score replies collected elsewhere")
     p.add_argument("--outputs", type=Path, required=True,
@@ -336,7 +345,18 @@ def main(argv: list[str] | None = None) -> int:
         chosen = [c for c in cases if args.split == "all" or c["split"] == args.split]
         if args.limit:
             chosen = chosen[: args.limit]
-        results = run(lex, chosen, openai_complete(args.base_url, args.model, args.api_key))
+        prompt = None
+        if args.candidates:
+            from .candidates import CandidateIndex, OllamaEmbedder
+            from .distill import student_prompt
+
+            embed = (OllamaEmbedder(args.base_url, args.embed_model)
+                     if args.embed_model else None)
+            index = CandidateIndex(lex.entries, lex.matcher, embed)
+            def prompt(text: str) -> str:
+                return student_prompt(lex, text, index.select(text, args.candidates))
+        results = run(lex, chosen, openai_complete(args.base_url, args.model, args.api_key),
+                      prompt)
     else:
         by_id = {c["id"]: c for c in cases}
         replies = [json.loads(line) for line in args.outputs.read_text().splitlines()
