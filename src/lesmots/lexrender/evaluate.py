@@ -194,6 +194,16 @@ def score(lex: Lexicon, case: dict, reply: str) -> dict:
             "bad_markers": bad, "stray": stray[:3]}
 
 
+def _wilson(passed: int, n: int, z: float = 1.96) -> list[float]:
+    """95% interval for a pass rate, so small gaps between models aren't over-read."""
+    if n == 0:
+        return [0.0, 0.0]
+    p = passed / n
+    centre = (p + z * z / (2 * n)) / (1 + z * z / n)
+    half = z * ((p * (1 - p) / n + z * z / (4 * n * n)) ** 0.5) / (1 + z * z / n)
+    return [round(max(0.0, centre - half), 3), round(min(1.0, centre + half), 3)]
+
+
 def summarize(results: Iterable[dict]) -> dict:
     results = list(results)
     by_kind: dict[str, list[int]] = {}
@@ -209,6 +219,7 @@ def summarize(results: Iterable[dict]) -> dict:
         "cases": len(results),
         "passed": passed,
         "pass_rate": round(passed / len(results), 3) if results else 0.0,
+        "pass_rate_95ci": _wilson(passed, len(results)),
         "by_kind": {k: f"{p}/{n}" for k, (p, n) in sorted(by_kind.items())},
         "failed_checks": dict(failed.most_common()),
         "median_seconds": sorted(latencies)[len(latencies) // 2] if latencies else None,

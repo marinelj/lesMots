@@ -77,3 +77,8 @@ def test_prompt_is_the_production_prompt(lex, cases):
     assert "LEXICON (id | phrase):" in prompt
     assert "fall-back-to | Fall back to" in prompt
     assert prompt.endswith(cases["para-01"]["text"])
+
+
+def test_summary_reports_a_95_percent_interval():
+    assert evaluate._wilson(76, 95) == [0.709, 0.868]
+    assert evaluate._wilson(0, 0) == [0.0, 0.0]
