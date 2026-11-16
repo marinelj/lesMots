@@ -1,0 +1,75 @@
+{"id": "para-01", "kind": "paraphrase", "text": "If the cache is unavailable, the service uses the database instead.", "expect_any": ["fall-back-to"]}
+{"id": "para-02", "kind": "paraphrase", "text": "When no GPU is found, the app keeps working with fewer features instead of crashing.", "expect_any": ["degrade-gracefully"]}
+{"id": "para-03", "kind": "paraphrase", "text": "Codex does most of the hard work here, and Grok only handles small tasks.", "expect_any": ["handle-the-heavy-lifting"]}
+{"id": "para-04", "kind": "paraphrase", "text": "The whole design depends on one assumption: the clock never goes backwards.", "expect_any": ["rests-on"]}
+{"id": "para-05", "kind": "paraphrase", "text": "We tested the new model thoroughly on 200 real tickets before switching to it.", "expect_any": ["put-tool-model-through-its-paces"]}
+{"id": "para-06", "kind": "paraphrase", "text": "Raise the limit from 50 to 100 requests per minute so the batch job stops failing.", "expect_any": ["bump-the-cap"]}
+{"id": "para-07", "kind": "paraphrase", "text": "All files are stored on disk encrypted with AES-256.", "expect_any": ["encrypted-at-rest"]}
+{"id": "para-08", "kind": "paraphrase", "text": "Traffic between the app and the API uses TLS, so nobody can read it on the way.", "expect_any": ["encrypted-in-transit"]}
+{"id": "para-09", "kind": "paraphrase", "text": "I can't continue until you send me the Google client ID.", "expect_any": ["blocked-on-x"]}
+{"id": "para-10", "kind": "paraphrase", "text": "Write performance dropped suddenly and badly once the table passed 10 million rows.", "expect_any": ["fall-off-a-cliff"]}
+{"id": "para-11", "kind": "paraphrase", "text": "In the end, the choice depends on how much memory the Mac Studio has.", "expect_any": ["come-down-to"]}
+{"id": "para-12", "kind": "paraphrase", "text": "Once the PR is merged, I'll pass the remaining work to Codex.", "expect_any": ["hand-off-to"]}
+{"id": "para-13", "kind": "paraphrase", "text": "Let's move render threads to the HTTP provider this week.", "expect_any": ["switch-over-to"]}
+{"id": "para-14", "kind": "paraphrase", "text": "The API key showed up in a public log, so replace it with a new key today.", "expect_any": ["rotate-a-leaked-key"]}
+{"id": "para-15", "kind": "paraphrase", "text": "Before merging, I cleaned up the unused imports and the old comments.", "expect_any": ["tidy-up"]}
+{"id": "para-16", "kind": "paraphrase", "text": "Sign-in failures went down sharply after the fix shipped.", "expect_any": ["dramatic-drop-in-sth"]}
+{"id": "para-17", "kind": "paraphrase", "text": "Let me go through the whole flow with you, from sign-in to the rendered reply.", "expect_any": ["walk-through-the-end-to-end-flow"]}
+{"id": "para-18", "kind": "paraphrase", "text": "Please contact the Stripe support team about the refund.", "expect_any": ["reach-out-to"]}
+{"id": "para-19", "kind": "paraphrase", "text": "The new setting starts working only after the service restarts.", "expect_any": ["take-effect"]}
+{"id": "para-20", "kind": "paraphrase", "text": "The run isn't moving: no output for 20 minutes, and no error either.", "expect_any": ["stalled"]}
+{"id": "para-21", "kind": "paraphrase", "text": "Cold starts added a lot of extra cost to every deploy.", "expect_any": ["incur-overhead"]}
+{"id": "para-22", "kind": "paraphrase", "text": "The build left temporary files and old logs in the repository root.", "expect_any": ["stray-artifacts"]}
+{"id": "para-23", "kind": "paraphrase", "text": "Your local lexicon must always match the server's copy.", "expect_any": ["in-sync-with"]}
+{"id": "para-24", "kind": "paraphrase", "text": "Retries are built into the client, so callers never have to handle them.", "expect_any": ["be-baked-into"]}
+{"id": "para-25", "kind": "paraphrase", "text": "I'm not sure it will work, but trying costs us almost nothing.", "expect_any": ["its-worth-a-try"]}
+{"id": "para-26", "kind": "paraphrase", "text": "Calling it a total failure is too strong; it mostly worked.", "expect_any": ["i-wouldnt-go-that-far"]}
+{"id": "para-27", "kind": "paraphrase", "text": "The total seems correct at first glance, but it is slightly wrong.", "expect_any": ["look-right-while-being-subtly-wrong", "look-plausible", "looks-plausible"]}
+{"id": "para-28", "kind": "paraphrase", "text": "We'll decide the release date as things develop, without a fixed plan.", "expect_any": ["play-it-by-ear"]}
+{"id": "para-29", "kind": "paraphrase", "text": "The old roadmap is less important now that the training plan is in place.", "expect_any": ["take-a-backseat"]}
+{"id": "para-30", "kind": "paraphrase", "text": "On pricing, I'll accept whatever the paid users decide.", "expect_any": ["defer-to"]}
+{"id": "para-31", "kind": "paraphrase", "text": "Send the long documents to the Mac Studio and the short ones to the laptop.", "expect_any": ["route-workloads-to"]}
+{"id": "para-32", "kind": "paraphrase", "text": "Your diagnosis was exactly right: the proxy was the problem.", "expect_any": ["hit-the-nail-on-the-head"]}
+{"id": "para-33", "kind": "paraphrase", "text": "Several hidden checks keep the metric from being cheated by trivial answers.", "expect_any": ["cant-be-gamed", "cant-be-gamed-2"]}
+{"id": "para-34", "kind": "paraphrase", "text": "The script set up as much of the environment as it could and left blanks where you must decide.", "expect_any": ["as-far-as-possible", "leaving-placeholders"]}
+{"id": "para-35", "kind": "paraphrase", "text": "I'll focus completely on the scorer today and nothing else.", "expect_any": ["laser-focused"]}
+{"id": "none-01", "kind": "none", "text": "The file has 42 lines.", "expect_none": true}
+{"id": "none-02", "kind": "none", "text": "All 312 tests passed in 18 seconds.", "expect_none": true}
+{"id": "none-03", "kind": "none", "text": "The meeting is at 3 PM on Tuesday.", "expect_none": true}
+{"id": "none-04", "kind": "none", "text": "Python 3.12 is installed on the Mac Studio.", "expect_none": true}
+{"id": "none-05", "kind": "none", "text": "The repository has two branches: main and dev.", "expect_none": true}
+{"id": "none-06", "kind": "none", "text": "Ollama listens on port 11434.", "expect_none": true}
+{"id": "none-07", "kind": "none", "text": "The invoice total is $9.99 per month.", "expect_none": true}
+{"id": "none-08", "kind": "none", "text": "Your account was created on November 13.", "expect_none": true}
+{"id": "none-09", "kind": "none", "text": "The model file is 4.7 GB.", "expect_none": true}
+{"id": "none-10", "kind": "none", "text": "There are 686 entries in version 14.", "expect_none": true}
+{"id": "none-11", "kind": "none", "text": "Paris is the capital of France.", "expect_none": true}
+{"id": "none-12", "kind": "none", "text": "The PR changes two files.", "expect_none": true}
+{"id": "none-13", "kind": "none", "text": "Yes.", "expect_none": true}
+{"id": "none-14", "kind": "none", "text": "Thanks, that's all for today.", "expect_none": true}
+{"id": "none-15", "kind": "none", "text": "The download finished at 09:01 UTC.", "expect_none": true}
+{"id": "none-16", "kind": "none", "text": "The table has three columns: id, name and email.", "expect_none": true}
+{"id": "none-17", "kind": "none", "text": "Rename the folder to `data`.", "expect_none": true}
+{"id": "none-18", "kind": "none", "text": "The service returned HTTP 200.", "expect_none": true}
+{"id": "none-19", "kind": "none", "text": "Click Save, then close the window.", "expect_none": true}
+{"id": "none-20", "kind": "none", "text": "The weather in Shanghai is sunny today.", "expect_none": true}
+{"id": "none-21", "kind": "none", "text": "The cup fell off the table and broke.", "expect_none": true}
+{"id": "none-22", "kind": "none", "text": "She sat at the back of the room.", "expect_none": true}
+{"id": "none-23", "kind": "none", "text": "The report is in the shared folder.", "expect_none": true}
+{"id": "none-24", "kind": "none", "text": "Version 0.40.16 is the latest release.", "expect_none": true}
+{"id": "none-25", "kind": "none", "text": "The price went up by 10 percent last year.", "expect_none": true}
+{"id": "code-01", "kind": "protected", "text": "If the primary is down, the client switches to the replica:\n\n```python\nif not primary.ok:\n    fall_back_to(replica)\n```\n\nDocs: https://example.com/docs/fall-back-to"}
+{"id": "code-02", "kind": "protected", "text": "Run `tidy_up --all` before you commit, then push."}
+{"id": "code-03", "kind": "protected", "text": "The helper is defined as:\n\n```js\nfunction handleTheHeavyLifting(job) {\n  return queue.push(job);\n}\n```"}
+{"id": "code-04", "kind": "protected", "text": "See https://example.com/blog/degrade-gracefully for the background, and keep the URL as it is."}
+{"id": "code-05", "kind": "protected", "text": "Set `LEXRENDER_CODEX_FRESH=1` in `~/.lexrender/env`, then restart the service."}
+{"id": "code-06", "kind": "protected", "text": "```bash\ngit switch main && git pull\n```\n\nThat brings your branch up to date."}
+{"id": "code-07", "kind": "protected", "text": "The config line is `supports_websockets = false`, and the base URL is https://chatgpt.com/backend-api/codex."}
+{"id": "code-08", "kind": "protected", "text": "| Model | Pass |\n|---|---|\n| qwen2.5:7b | 2/10 |\n| llama3.1:8b | n/a |"}
+{"id": "code-09", "kind": "protected", "text": "When the cache misses, the app uses the database instead:\n\n```sql\nSELECT * FROM users WHERE id = $1;\n```", "expect_any": ["fall-back-to"]}
+{"id": "code-10", "kind": "protected", "text": "1. Install the venv.\n2. Copy the secret into `~/.lexrender/env`.\n3. Start `com.lesmots.lexrender`."}
+{"id": "code-11", "kind": "protected", "text": "Call `render(text, surface=\"chat\")` and read the `used` field."}
+{"id": "code-12", "kind": "protected", "text": "**Note:** the token expires after 30 days. Visit https://marine-api.tunnel.tungo.cn/lesmots-app to get a new one."}
+{"id": "code-13", "kind": "protected", "text": "The regex is `\\{\\{([a-z0-9-]+)\\|([^}]+)\\}\\}` and it must not change."}
+{"id": "code-14", "kind": "protected", "text": "> If the run is not moving for 20 minutes, cancel it.\n\nThat was the rule we agreed on.", "expect_any": ["stalled"]}
+{"id": "code-15", "kind": "protected", "text": "Use `ollama pull qwen2.5:7b` to download the model, which takes a few minutes."}
