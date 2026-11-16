@@ -98,6 +98,19 @@ def test_matcher_finds_inflected_and_placeholder_phrases():
     assert m.resolve("fallback") is None
 
 
+def test_matcher_treats_letter_slots_in_frames_as_placeholders():
+    m = Matcher([
+        ("tell", ["You can’t tell A from B."]),
+        ("map", ["Map A to B"]),
+        ("approach", ["A fast approach"]),
+    ])
+    text = "Without tracing you can't tell network delay from lock contention. Map ids to users."
+    assert [(x.entry_id, x.text) for x in m.find(text)] == [
+        ("tell", "you can't tell network delay from"), ("map", "Map ids to")]
+    # a lone capital A is the article, not a slot
+    assert [x.entry_id for x in m.find("A fast approach wins.")] == ["approach"]
+
+
 def test_matcher_respects_word_boundaries():
     m = Matcher([("hit", ["hit"])])
     assert m.find("white hitch") == []

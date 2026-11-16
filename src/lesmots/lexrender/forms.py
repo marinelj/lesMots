@@ -137,8 +137,17 @@ def _doubles_final_consonant(word: str) -> bool:
     return word[-2] in _VOWELS and word[-3] not in _VOWELS
 
 
+_LETTER_SLOT_RE = re.compile(r"^[A-Z]$")
+
+
 def _tokens(phrase: str) -> list[str]:
-    text = normalize(phrase).strip().strip(".,;:!?\"")
+    raw = [t.strip(".,;:!?\"") for t in re.split(r"\s+", phrase.strip())]
+    # single capital letters are slots in frames such as "You can't tell A from B" or
+    # "Map A to B": two or more of them, or X/Y/Z. A lone "A" is the article.
+    letters = {t for t in raw if _LETTER_SLOT_RE.match(t)}
+    slots = letters if len(letters) > 1 else letters & {"X", "Y", "Z"}
+    text = " ".join("[" + t + "]" if t in slots else t for t in raw if t)
+    text = normalize(text).strip().strip(".,;:!?\"")
     return [t for t in re.split(r"\s+", text) if t]
 
 
