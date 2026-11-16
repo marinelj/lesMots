@@ -33,31 +33,31 @@
 {"id": "para-33", "kind": "paraphrase", "text": "Several hidden checks keep the metric from being cheated by trivial answers.", "expect_any": ["cant-be-gamed", "cant-be-gamed-2"]}
 {"id": "para-34", "kind": "paraphrase", "text": "The script set up as much of the environment as it could and left blanks where you must decide.", "expect_any": ["as-far-as-possible", "leaving-placeholders"]}
 {"id": "para-35", "kind": "paraphrase", "text": "I'll focus completely on the scorer today and nothing else.", "expect_any": ["laser-focused"]}
-{"id": "none-01", "kind": "none", "text": "The file has 42 lines.", "expect_none": true}
-{"id": "none-02", "kind": "none", "text": "All 312 tests passed in 18 seconds.", "expect_none": true}
-{"id": "none-03", "kind": "none", "text": "The meeting is at 3 PM on Tuesday.", "expect_none": true}
-{"id": "none-04", "kind": "none", "text": "Python 3.12 is installed on the Mac Studio.", "expect_none": true}
-{"id": "none-05", "kind": "none", "text": "The repository has two branches: main and dev.", "expect_none": true}
-{"id": "none-06", "kind": "none", "text": "Ollama listens on port 11434.", "expect_none": true}
-{"id": "none-07", "kind": "none", "text": "The invoice total is $9.99 per month.", "expect_none": true}
+{"id": "none-01", "kind": "open", "text": "The file has 42 lines."}
+{"id": "none-02", "kind": "open", "text": "All 312 tests passed in 18 seconds."}
+{"id": "none-03", "kind": "open", "text": "The meeting is at 3 PM on Tuesday."}
+{"id": "none-04", "kind": "open", "text": "Python 3.12 is installed on the Mac Studio."}
+{"id": "none-05", "kind": "open", "text": "The repository has two branches: main and dev."}
+{"id": "none-06", "kind": "open", "text": "Ollama listens on port 11434."}
+{"id": "none-07", "kind": "open", "text": "The invoice total is $9.99 per month."}
 {"id": "none-08", "kind": "none", "text": "Your account was created on November 13.", "expect_none": true}
-{"id": "none-09", "kind": "none", "text": "The model file is 4.7 GB.", "expect_none": true}
-{"id": "none-10", "kind": "none", "text": "There are 686 entries in version 14.", "expect_none": true}
+{"id": "none-09", "kind": "open", "text": "The model file is 4.7 GB."}
+{"id": "none-10", "kind": "open", "text": "There are 686 entries in version 14."}
 {"id": "none-11", "kind": "none", "text": "Paris is the capital of France.", "expect_none": true}
-{"id": "none-12", "kind": "none", "text": "The PR changes two files.", "expect_none": true}
+{"id": "none-12", "kind": "open", "text": "The PR changes two files."}
 {"id": "none-13", "kind": "none", "text": "Yes.", "expect_none": true}
 {"id": "none-14", "kind": "none", "text": "Thanks, that's all for today.", "expect_none": true}
-{"id": "none-15", "kind": "none", "text": "The download finished at 09:01 UTC.", "expect_none": true}
-{"id": "none-16", "kind": "none", "text": "The table has three columns: id, name and email.", "expect_none": true}
-{"id": "none-17", "kind": "none", "text": "Rename the folder to `data`.", "expect_none": true}
+{"id": "none-15", "kind": "open", "text": "The download finished at 09:01 UTC."}
+{"id": "none-16", "kind": "open", "text": "The table has three columns: id, name and email."}
+{"id": "none-17", "kind": "open", "text": "Rename the folder to `data`."}
 {"id": "none-18", "kind": "none", "text": "The service returned HTTP 200.", "expect_none": true}
-{"id": "none-19", "kind": "none", "text": "Click Save, then close the window.", "expect_none": true}
-{"id": "none-20", "kind": "none", "text": "The weather in Shanghai is sunny today.", "expect_none": true}
-{"id": "none-21", "kind": "none", "text": "The cup fell off the table and broke.", "expect_none": true}
-{"id": "none-22", "kind": "none", "text": "She sat at the back of the room.", "expect_none": true}
-{"id": "none-23", "kind": "none", "text": "The report is in the shared folder.", "expect_none": true}
-{"id": "none-24", "kind": "none", "text": "Version 0.40.16 is the latest release.", "expect_none": true}
-{"id": "none-25", "kind": "none", "text": "The price went up by 10 percent last year.", "expect_none": true}
+{"id": "none-19", "kind": "open", "text": "Click Save, then close the window."}
+{"id": "none-20", "kind": "open", "text": "The weather in Shanghai is sunny today."}
+{"id": "none-21", "kind": "open", "text": "The cup fell off the table and broke."}
+{"id": "none-22", "kind": "open", "text": "She sat at the back of the room."}
+{"id": "none-23", "kind": "open", "text": "The report is in the shared folder."}
+{"id": "none-24", "kind": "open", "text": "Version 0.40.16 is the latest release."}
+{"id": "none-25", "kind": "open", "text": "The price went up by 10 percent last year."}
 {"id": "code-01", "kind": "protected", "text": "If the primary is down, the client switches to the replica:\n\n```python\nif not primary.ok:\n    fall_back_to(replica)\n```\n\nDocs: https://example.com/docs/fall-back-to"}
 {"id": "code-02", "kind": "protected", "text": "Run `tidy_up --all` before you commit, then push."}
 {"id": "code-03", "kind": "protected", "text": "The helper is defined as:\n\n```js\nfunction handleTheHeavyLifting(job) {\n  return queue.push(job);\n}\n```"}

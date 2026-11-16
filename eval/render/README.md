@@ -3,9 +3,11 @@
 A fixed test set for the model behind remote render, so Codex, a stock local model
 (Ollama) and a fine-tuned adapter can be compared on the same cases.
 
-- `handwritten.jsonl`: 75 hand-written cases.
+- `handwritten.jsonl`: 75 hand-written cases. The match policy is aggressive: exposure
+  counts, so the summary also reports `phrases_per_case`.
   - `paraphrase`: a phrase fits, but the answer says it in plain words.
-  - `none`: no phrase fits, so the model must use none.
+  - `open`: plain answers; any correct use of phrases passes (aggressive policy).
+  - `none`: five texts no phrase can touch without changing the facts ("Yes.").
   - `protected`: code, URLs and Markdown that must come back unchanged.
 - `cases.jsonl`: the hand-written cases plus 120 `synonym` cases built from lexicon
   examples, each with a stable `dev` / `test` split. Rebuild it after editing the

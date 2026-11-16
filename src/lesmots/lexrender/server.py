@@ -45,9 +45,10 @@ LOCAL_RULES = """\
 Local render mode. Before you show the user an answer:
 1. Call get_lexicon once per conversation (pass since_version later to fetch only changes).
    Each row is [id, phrase, anchor, synonyms]; an entry's link is link_base + "#" + anchor.
-2. Write the answer using every phrase that fits naturally. Inflect verbs to fit the
-   sentence ("fall back to" may appear as "fell back to"). Do not force a phrase that does
-   not fit. Call get_entry when you need an entry's definition or examples.
+2. Write the answer using as many phrases as fit: the user is learning them, so use one
+   whenever it is grammatical and keeps the meaning. Inflect verbs to fit the sentence
+   ("fall back to" may appear as "fell back to"). Never use one that changes the meaning
+   or the facts. Call get_entry when you need an entry's definition or examples.
 3. Synonyms: when you would write one of an entry's synonyms, judge from the context
    whether the entry's own phrase is appropriate. If it is, use the entry's phrase instead.
 4. Render each phrase you used as a Markdown link to its entry: [fell back to](link).

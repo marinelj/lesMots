@@ -42,10 +42,11 @@ def _prompt(text: str, entries: list[Entry], synonym_hits: list[Match]) -> str:
     index = "\n".join(f"{e.id} | {e.phrase}" for e in entries
                       if len(e.phrase.split()) <= MAX_INDEX_WORDS)
     lines = [
-        ("Rewrite the ANSWER below so it uses phrases from the LEXICON where they fit "
-        "naturally. Inflect them to fit the sentence (\"fall back to\" may become \"fell "
-        "back to\"). Never force a phrase in where it changes the meaning or reads "
-        "awkwardly; using none is fine."),
+        ("Rewrite the ANSWER below so it uses as many phrases from the LEXICON as fit. "
+        "The reader is learning these phrases, so whenever one can replace the wording "
+        "grammatically and keep the meaning, use it. Inflect them to fit the sentence "
+        "(\"fall back to\" may become \"fell back to\"). Never use a phrase that changes "
+        "the meaning or the facts, or that breaks the grammar."),
     ]
     if synonym_hits:
         lines.append(
