@@ -18,7 +18,13 @@ A reply passes when every check passes:
 - ``unchanged``: every sentence without a marker is one of the original sentences, so the
   model only rewrote where it used a phrase, and the reply is about as long as the answer.
 - ``expected``: for cases with ``expect_any``, at least one of those entries was used; for
-  ``expect_none`` cases, no phrase was used at all (catches forcing phrases in).
+  the few ``expect_none`` cases (texts no phrase can touch without changing the facts, such
+  as "Yes."), no phrase was used at all.
+
+The match policy is aggressive (Lexicon Render is a language-learning tool, so exposure
+counts): ``open`` cases pass with any number of correct phrases, and the summary reports
+``phrases_per_case``, the exposures a model produces. Between two models with similar pass
+rates, the one with more phrases per case is better.
 
 Usage::
 
@@ -214,6 +220,8 @@ def summarize(results: Iterable[dict]) -> dict:
         tally[1] += 1
         failed.update(k for k, ok in r["checks"].items() if not ok)
     passed = sum(r["passed"] for r in results)
+    # exposures only count in replies that passed, so broken rewrites don't earn credit
+    exposures = sum(len(r["used"]) for r in results if r["passed"])
     latencies = [r["seconds"] for r in results if "seconds" in r]
     return {
         "cases": len(results),
@@ -222,6 +230,7 @@ def summarize(results: Iterable[dict]) -> dict:
         "pass_rate_95ci": _wilson(passed, len(results)),
         "by_kind": {k: f"{p}/{n}" for k, (p, n) in sorted(by_kind.items())},
         "failed_checks": dict(failed.most_common()),
+        "phrases_per_case": round(exposures / len(results), 2) if results else 0.0,
         "median_seconds": sorted(latencies)[len(latencies) // 2] if latencies else None,
     }
 

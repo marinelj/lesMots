@@ -44,10 +44,20 @@ def test_a_marker_around_the_wrong_words_fails(lex, cases):
 
 
 def test_forcing_a_phrase_into_a_none_case_fails(lex, cases):
-    case = cases["none-01"]
+    case = cases["none-13"]
+    assert case["text"] == "Yes."
     assert evaluate.score(lex, case, case["text"])["passed"]
-    forced = "The file has 42 lines, so we {{fall-back-to|fall back to}} reading it."
-    assert not evaluate.score(lex, case, forced)["checks"]["expected"]
+    assert not evaluate.score(lex, case, "{{go-for-it|Go for it}}.")["checks"]["expected"]
+
+
+def test_open_cases_pass_with_or_without_phrases(lex, cases):
+    """The match policy is aggressive: any correct phrase in an open case is welcome."""
+    case = cases["none-01"]
+    assert case["kind"] == "open"
+    assert evaluate.score(lex, case, case["text"])["passed"]
+    # (the scorer checks form, not meaning: a human reads failures for that)
+    used = evaluate.score(lex, case, "The file {{rests-on|rests on}} 42 lines.")
+    assert used["passed"] and used["used"] == ["rests-on"]
 
 
 def test_changing_code_fails(lex, cases):
@@ -68,8 +78,12 @@ def test_rewording_a_sentence_without_a_phrase_fails(lex, cases):
 def test_summary_counts_by_kind(lex, cases):
     results = [evaluate.score(lex, cases[i], cases[i]["text"]) for i in ("para-01", "none-01")]
     summary = evaluate.summarize(results)
-    assert summary["by_kind"] == {"none": "1/1", "paraphrase": "0/1"}
+    assert summary["by_kind"] == {"open": "1/1", "paraphrase": "0/1"}
     assert summary["failed_checks"] == {"expected": 1}
+    assert summary["phrases_per_case"] == 0.0
+    good = evaluate.score(lex, cases["para-01"], "If the cache is unavailable, the service will "
+                          "{{fall-back-to|fall back to}} the database.")
+    assert evaluate.summarize([good])["phrases_per_case"] == 1.0
 
 
 def test_prompt_is_the_production_prompt(lex, cases):
