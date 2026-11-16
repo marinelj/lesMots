@@ -1,7 +1,7 @@
-# Universal Lexicon & Knowledge Base for AI Agents (v13 Compilation)
+# Universal Lexicon & Knowledge Base for AI Agents (v14 Compilation)
 > **Agent Ingestion Directive**: This specification serves as the universal lexicon, terminology reference, and communication standard across all agent interactions. It encapsulates domain vocabulary, technical collocations, rhetorical sentence patterns, and system design idioms. Spaced-repetition metadata and multilingual artifacts have been completely purged to ensure zero ambiguity and maximum token efficiency. Ingest this document to align your tone, explanations, and code review feedback with these standards.
 
-## 1. High-Impact Idioms & Architecture Lexicon (70 Items)
+## 1. High-Impact Idioms & Architecture Lexicon (71 Items)
 
 ### 1.1 `in the trenches`
 * **Category**: Idiom / Engineering Culture
@@ -511,7 +511,14 @@ eq s$).
 * **Synonyms**: `wire-encrypted`, `in-flight encrypted`, `TLS-secured`
 * **Example**: *"Client-to-MCP communication is strictly encrypted in transit using mutual TLS 1.3."*
 
-## 2. Professional & Idiomatic Phrases (136 Items)
+### 1.71 `grow on [someone]`
+* **Category**: Idiom / Psychological & Aesthetic Alignment
+* **Phonetics**: /ɡrəʊ ɒn/
+* **Definition**: Gradually win someone over / become more likable over time.To gradually become more appealing, likable, or appreciated by someone over time. Strictly requires inverted subject-object syntax (`[The entity/person] grows on [someone]`, never *I grow on it*).
+* **Synonyms**: `win over`, `become appealing to`, `warm up to`
+* **Example**: *"I didn't appreciate the minimalist UI at first glance, but after a week of heavy use, it really grew on me."*
+
+## 2. Professional & Idiomatic Phrases (139 Items)
 
 ### 2.1 `accidental patterns`
 * **Definition**: Patterns that appear by chance, not by design or intention.
@@ -1118,7 +1125,28 @@ eq s$).
 * **Synonyms**: `yield to`, `concede to`, `accede to`
 * **Example**: *"On database sharding and index selectivity, I defer to the DBA's judgment."*
 
-## 3. Structural Framing & Sentence Patterns (44 Items)
+### 2.137 `stumble over / trip over`
+* **Category**: Phrasal Verb / Physical & Technical Stumbling
+* **Phonetics**: /ˈstʌm.bəl ˈəʊ.vər/ | /trɪp ˈəʊ.vər/
+* **Definition**: Trip over... / lose one's footing; get caught out by edge cases.To catch one's foot on an obstacle and lose balance; metaphorically, to make mistakes or get tripped up by subtle edge cases or complex logic. `stumble` is intransitive and cannot take passive voice (`stumbled over the curb`, not *was stumbled*).
+* **Synonyms**: `lose one's footing`, `catch one's foot on`, `falter`
+* **Example**: *"Unsynchronized timezone timestamps often cause distributed pipelines to stumble over subtle boundary conditions."*
+
+### 2.138 `dedicate [sth] to [gerund]`
+* **Category**: Collocation & Resource Allocation
+* **Phonetics**: /ˈded.ɪ.keɪt tuː/
+* **Definition**: Devote (time, resources or compute) specifically to...To commit or allocate exclusive time, compute, or effort to a particular objective. 'to' functions strictly as a preposition governing a gerund (e.g. `dedicated to rendering`, never *dedicated to render*).
+* **Synonyms**: `devote to`, `allocate to`, `commit to`
+* **Example**: *"We provisioned a dedicated cluster dedicated to fine-tuning domain-specific reasoning models."*
+
+### 2.139 `endeavour to [verb]`
+* **Category**: High-Register Collocation & Executive Commitment
+* **Phonetics**: /ɪnˈdev.ər tuː/
+* **Definition**: Strive to do something / make every effort to achieve it.To make an earnest, solemn, or sustained effort to achieve a high-stakes goal. Takes an infinitive complement (`endeavour to achieve`, never *endeavour in*).
+* **Synonyms**: `strive to`, `aspire to`, `undertake to`
+* **Example**: *"The platform engineering team will endeavour to maintain strict sub-millisecond query latency throughout the migration."*
+
+## 3. Structural Framing & Sentence Patterns (45 Items)
 
 ### 3.1 `I’m not much of a ...`
 * **Function & Meaning**: A self-effacing idiom used to state that one is not particularly skilled at or suited for something.
@@ -1373,7 +1401,14 @@ eq s$).
 * **Synonyms**: `exclusive token`, `single authentication factor`, `sole auth credential`
 * **Production Example**: *"The internal staging portal relies on `user_id` as the sole credential for users to log in."*
 
-## 4. Technical & Core Lexicon (403 Items)
+### 3.45 `Dedicated to [gerund] vs. Endeavour to [verb]`
+* **Category**: Grammatical Architecture & Verbal Complements
+* **Grammatical Blueprint**: `Subject + is dedicated to + [Gerund / Noun]` vs. `Subject + endeavours to + [Base Verb]`
+* **Nuance**: In `dedicated to`, 'to' is a directional preposition requiring a nominalized complement (gerund `-ing`). In `endeavour to`, 'to' is an infinitive marker requiring a base lexical verb. Conflating the two creates double-infinitive or prepositional drop errors.
+* **Synonyms**: `devoted to [gerund]`, `committed to [gerund]`, `striving to [verb]`
+* **Production Example**: *"Our team is dedicated to optimizing feature ingestion, and we will endeavour to deliver the updated pipeline before sprint cutoff."*
+
+## 4. Technical & Core Lexicon (416 Items)
 
 ### 4.1 `prestige`
 * **Definition**: It means people respect and admire someone or something because it is important or successful.
@@ -3555,6 +3590,99 @@ eq s$).
 * **Definition**: Anchor / fix to a reference point.To ground an assessment, price expectation, or UI element firmly to a fixed reference point.
 * **Synonyms**: `ground`, `benchmark`, `fix`
 * **Example**: *"Rolling window feature aggregations must be strictly anchored to the prediction cutoff timestamp."*
+
+### 4.404 `curb`
+* **Category**: Infrastructure, Edge Boundaries & Resource Throttling
+* **Phonetics**: /kɜːb/
+* **Definition**: 
+  * **As a Noun**: Curb / curbstone.A stone or concrete edging along a street forming part of a gutter or path boundary.
+  * **As a Transitive Verb**: Restrain / control / rein in.To restrain, keep in check, or control something (such as runaway cloud costs or request floods).
+* **Synonyms**: `curbstone` (noun); `restrain`, `curtail`, `suppress` (verb)
+* **Example**: *"We implemented aggressive token bucket throttling to curb sudden spikes in outbound API requests."*
+
+### 4.405 `sidewalk`
+* **Category**: Urban Topology & Spatial Geolocation
+* **Phonetics**: /ˈsaɪd.wɔːk/
+* **Definition**: Sidewalk.A paved path for pedestrians at the side of a road (US: `sidewalk`, UK: `pavement`).
+* **Synonyms**: `pavement` (UK), `footpath`, `walkway`
+* **Example**: *"Autonomous delivery units must yield right-of-way whenever crossing busy sidewalks."*
+
+### 4.406 `gear shift`
+* **Category**: Mechanical & Electronic Drive Actuation
+* **Phonetics**: /ˈɡɪə ʃɪft/
+* **Definition**: Gear lever / gear stick / gear selector.The lever or selector mechanism used by a driver to change gears in a vehicle or mechanical transmission.
+* **Synonyms**: `gear stick` (UK), `shifter` (US), `gear lever`
+* **Example**: *"Modern EV vehicle architectures replace the mechanical gear shift with an electronic push-button drive selector."*
+
+### 4.407 `windshield`
+* **Category**: Automotive Enclosures & Sensor Mountings
+* **Phonetics**: /ˈwɪnd.ʃiːld/
+* **Definition**: A car's front windshield.The front window of a motor vehicle (US: `windshield`, UK: `windscreen`).
+* **Synonyms**: `windscreen` (UK), `front screen`, `windguard`
+* **Example**: *"The forward-facing ADAS camera suite is mounted directly behind the upper perimeter of the windshield."*
+
+### 4.408 `windshield wiper`
+* **Category**: Automotive Actuators & Vision Preprocessing
+* **Phonetics**: /ˈwɪnd.ʃiːld ˈwaɪ.pər/
+* **Definition**: Windshield wiper.A motor-driven blade that clears rain, snow, or debris from a windshield.
+* **Synonyms**: `wiper blade`, `windscreen wiper` (UK), `rain wiper`
+* **Example**: *"Autonomous driving perception nodes monitor rain sensor signals to automatically calibrate windshield wiper cycle frequencies."*
+
+### 4.409 `steering wheel`
+* **Category**: Vehicle Teleoperation & Control Surfaces
+* **Phonetics**: /ˈstɪə.rɪŋ wiːl/
+* **Definition**: A car's steering wheel.A wheel that a driver turns in order to steer and orient a motor vehicle.
+* **Synonyms**: `wheel`, `helm`, `steering control`
+* **Example**: *"Capacitive hands-on detection in the steering wheel ensures the driver remains attentive during hands-free cruise assist."*
+
+### 4.410 `tier`
+* **Category**: System Architecture, SLA Standards & Commercial Tiers
+* **Phonetics**: /tɪər/
+* **Definition**: Level / grade / echelon.One of several levels in an organizational hierarchy, multi-layer software architecture, or subscription pricing matrix.
+* **Synonyms**: `layer`, `grade`, `level`
+* **Example**: *"Enterprise customers on the premium tier enjoy dedicated worker queues and custom SLA guarantees."*
+
+### 4.411 `feasible`
+* **Category**: Engineering Feasibility & Architectural Scoping
+* **Phonetics**: /ˈfiː.zə.bəl/
+* **Definition**: Feasible / workable / realistically achievable.Capable of being accomplished, sustained, or executed successfully within technical, operational, and financial constraints.
+* **Synonyms**: `viable`, `workable`, `achievable`
+* **Example**: *"Is it feasible to fine-tune a domain-specific model within our current compute budget, or should we rely on in-context prompting?"*
+
+### 4.412 `gerund`
+* **Category**: Syntactic Terminology & Agent Behavioral Contracts
+* **Phonetics**: /ˈdʒer.ənd/
+* **Definition**: Gerund.A verbal noun formed by adding `-ing` to a base verb that functions as a substantive noun in subject or object positions. Crucial after prepositions like `to` in `dedicated to [gerund]`.
+* **Synonyms**: `verbal noun`, `-ing form`, `nominalized verb`
+* **Example**: *"Because 'to' in the phrase 'dedicated to' functions as a preposition, it must govern a gerund rather than an infinitive verb."*
+
+### 4.413 `bland`
+* **Category**: Sensory Description & Product Tone Evaluation
+* **Phonetics**: /blænd/
+* **Definition**: Bland / flavorless and dull.Lacking strong flavor, character, or distinctive qualities; requiring seasoning (salt/spices) physically or narrative punch stylistically.
+* **Synonyms**: `flavorless`, `insipid`, `tasteless`
+* **Example**: *"Without distinct domain-specific examples, the generated executive overview felt bland and unconvincing."*
+
+### 4.414 `greasy`
+* **Category**: Culinary Texture & Physical Surface Properties
+* **Phonetics**: /ˈɡriː.si/
+* **Definition**: Greasy / coated in oil or fat.Covered with, containing, or tasting of excessive oil, animal fat, or grease.
+* **Synonyms**: `oily`, `fatty`, `unctuous`
+* **Example**: *"The deep-fried pork chops turned out excessively greasy because the frying oil was not hot enough."*
+
+### 4.415 `flat`
+* **Category**: Sensory Critique, Beverages & Acoustic Dynamics
+* **Phonetics**: /flæt/
+* **Definition**: Dull and lacking depth; (of soda or beer) gone flat.Lacking vitality, depth, or sparkle; in beverages, having lost carbonation or effervescence.
+* **Synonyms**: `dull / lifeless`, `effervescence-depleted`, `uninspired`
+* **Example**: *"The open bottle of soda left on the desk overnight had gone completely flat by morning."*
+
+### 4.416 `owner distribution` / `distribution`
+* **Category**: Real Estate Asset Management & Cash Flow Payouts
+* **Phonetics**: /ˈoʊ.nər ˌdɪs.trɪˈbjuː.ʃən/
+* **Definition**: Owner distribution / net rental payout.The disbursement of net operating income (rental proceeds minus operating and maintenance expenses) from a property management trust account to the property owner.
+* **Synonyms**: `payout`, `disbursement`, `dividend`
+* **Example**: *"Once the tenant's rent payment has cleared, the property manager will schedule an interim owner distribution."*
 
 ## 5. Architectural Case Excerpts & Data Engineering Standards (15 Items)
 
