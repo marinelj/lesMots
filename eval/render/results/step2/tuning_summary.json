@@ -1,0 +1,139 @@
+{
+  "selection": {
+    "frozen_at": "2026-11-16T19:53:28.426421+08:00",
+    "selected_candidate": "b",
+    "placement": "before-answer",
+    "selection": "highest total passes across both models on the same 24 dev cases; no test replies inspected",
+    "pooled_dev_passed_out_of_48": {
+      "a": 10,
+      "b": 18
+    },
+    "example_case_ids": [
+      "para-15",
+      "syn-chevron",
+      "none-17"
+    ],
+    "all_examples_split": "dev",
+    "pilot_example_cases_excluded": true,
+    "system": "You edit an assistant's answer so it uses the reader's personal lexicon. You keep the meaning, facts, structure, code, URLs and Markdown exactly as they are.",
+    "prompt_sha256": "11b56350564a96150e381a4c9331e63c306d30af75dcfa7d81ab2958a3d4bebf",
+    "template_slots": [
+      "<<CASE_SYNONYM_HINTS>>",
+      "<<CASE_ANSWER>>"
+    ],
+    "exact_test_prompts": [
+      "qwen_fewshot_test_prompts.jsonl",
+      "llama_fewshot_test_prompts.jsonl"
+    ],
+    "dev_template_expansions_verified": 100
+  },
+  "runs": [
+    {
+      "candidate": "a",
+      "model": "qwen",
+      "split": "dev",
+      "summary_path": "/Users/lijia/lexrender-eval/results/dev_a_qwen_summary.json",
+      "results_path": "/Users/lijia/lexrender-eval/results/dev_a_qwen.jsonl",
+      "cases": 24,
+      "passed": 5,
+      "pass_rate": 0.208,
+      "pass_rate_95ci": [
+        0.092,
+        0.405
+      ],
+      "by_kind": {
+        "none": "1/6",
+        "paraphrase": "0/6",
+        "protected": "2/6",
+        "synonym": "2/6"
+      },
+      "failed_checks": {
+        "expected": 16,
+        "markers": 8,
+        "unchanged": 6,
+        "protected": 1
+      },
+      "median_seconds": 0.69
+    },
+    {
+      "candidate": "a",
+      "model": "llama",
+      "split": "dev",
+      "summary_path": "/Users/lijia/lexrender-eval/results/dev_a_llama_summary.json",
+      "results_path": "/Users/lijia/lexrender-eval/results/dev_a_llama.jsonl",
+      "cases": 24,
+      "passed": 5,
+      "pass_rate": 0.208,
+      "pass_rate_95ci": [
+        0.092,
+        0.405
+      ],
+      "by_kind": {
+        "none": "1/6",
+        "paraphrase": "0/6",
+        "protected": "3/6",
+        "synonym": "1/6"
+      },
+      "failed_checks": {
+        "expected": 14,
+        "markers": 8,
+        "unchanged": 7,
+        "protected": 1
+      },
+      "median_seconds": 0.89
+    },
+    {
+      "candidate": "b",
+      "model": "qwen",
+      "split": "dev",
+      "summary_path": "/Users/lijia/lexrender-eval/results/dev_b_qwen_summary.json",
+      "results_path": "/Users/lijia/lexrender-eval/results/dev_b_qwen.jsonl",
+      "cases": 24,
+      "passed": 11,
+      "pass_rate": 0.458,
+      "pass_rate_95ci": [
+        0.279,
+        0.649
+      ],
+      "by_kind": {
+        "none": "4/6",
+        "paraphrase": "0/6",
+        "protected": "3/6",
+        "synonym": "4/6"
+      },
+      "failed_checks": {
+        "expected": 11,
+        "markers": 7,
+        "unchanged": 3
+      },
+      "median_seconds": 0.62
+    },
+    {
+      "candidate": "b",
+      "model": "llama",
+      "split": "dev",
+      "summary_path": "/Users/lijia/lexrender-eval/results/dev_b_llama_summary.json",
+      "results_path": "/Users/lijia/lexrender-eval/results/dev_b_llama.jsonl",
+      "cases": 24,
+      "passed": 7,
+      "pass_rate": 0.292,
+      "pass_rate_95ci": [
+        0.149,
+        0.492
+      ],
+      "by_kind": {
+        "none": "4/6",
+        "paraphrase": "0/6",
+        "protected": "2/6",
+        "synonym": "1/6"
+      },
+      "failed_checks": {
+        "expected": 12,
+        "unchanged": 6,
+        "markers": 6,
+        "protected": 2
+      },
+      "median_seconds": 0.81
+    }
+  ]
+}

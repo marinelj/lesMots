@@ -1,0 +1,297 @@
+[
+  {
+    "model": "Qwen 2.5 7B",
+    "model_id": "qwen2.5:7b-16k",
+    "prompt": "production",
+    "summary": {
+      "cases": 95,
+      "passed": 29,
+      "pass_rate": 0.305,
+      "pass_rate_95ci": [
+        0.222,
+        0.404
+      ],
+      "by_kind": {
+        "none": "0/2",
+        "open": "4/11",
+        "paraphrase": "3/15",
+        "protected": "5/8",
+        "synonym": "17/59"
+      },
+      "failed_checks": {
+        "expected": 55,
+        "unchanged": 38,
+        "markers": 20,
+        "protected": 2
+      },
+      "phrases_per_case": 0.32,
+      "median_seconds": 7.07
+    },
+    "source": "/Users/lijia/lexrender-eval/results/step2b/qwen7_production_test.jsonl",
+    "median_seconds_10_longest": 7.25,
+    "peak_memory_bytes": 5635173252,
+    "peak_memory_gib": 5.25
+  },
+  {
+    "model": "Qwen 2.5 7B",
+    "model_id": "qwen2.5:7b-16k",
+    "prompt": "eager",
+    "summary": {
+      "cases": 95,
+      "passed": 35,
+      "pass_rate": 0.368,
+      "pass_rate_95ci": [
+        0.278,
+        0.469
+      ],
+      "by_kind": {
+        "none": "0/2",
+        "open": "3/11",
+        "paraphrase": "5/15",
+        "protected": "3/8",
+        "synonym": "24/59"
+      },
+      "failed_checks": {
+        "expected": 41,
+        "markers": 37,
+        "unchanged": 13,
+        "protected": 2
+      },
+      "phrases_per_case": 0.36,
+      "median_seconds": 7.51
+    },
+    "source": "/Users/lijia/lexrender-eval/results/step2b/qwen7_eager_test.jsonl",
+    "median_seconds_10_longest": 7.68,
+    "peak_memory_bytes": 5635173252,
+    "peak_memory_gib": 5.25
+  },
+  {
+    "model": "Llama 3.1 8B",
+    "model_id": "llama3.1:8b-16k",
+    "prompt": "production",
+    "summary": {
+      "cases": 95,
+      "passed": 20,
+      "pass_rate": 0.211,
+      "pass_rate_95ci": [
+        0.141,
+        0.303
+      ],
+      "by_kind": {
+        "none": "1/2",
+        "open": "7/11",
+        "paraphrase": "2/15",
+        "protected": "4/8",
+        "synonym": "6/59"
+      },
+      "failed_checks": {
+        "expected": 66,
+        "unchanged": 46,
+        "markers": 15,
+        "protected": 3
+      },
+      "phrases_per_case": 0.14,
+      "median_seconds": 7.77
+    },
+    "source": "/Users/lijia/lexrender-eval/results/step2b/llama8_production_test.jsonl",
+    "median_seconds_10_longest": 7.94,
+    "peak_memory_bytes": 7041733099,
+    "peak_memory_gib": 6.56
+  },
+  {
+    "model": "Llama 3.1 8B",
+    "model_id": "llama3.1:8b-16k",
+    "prompt": "eager",
+    "summary": {
+      "cases": 95,
+      "passed": 40,
+      "pass_rate": 0.421,
+      "pass_rate_95ci": [
+        0.327,
+        0.522
+      ],
+      "by_kind": {
+        "none": "1/2",
+        "open": "5/11",
+        "paraphrase": "2/15",
+        "protected": "4/8",
+        "synonym": "28/59"
+      },
+      "failed_checks": {
+        "expected": 39,
+        "unchanged": 20,
+        "markers": 19,
+        "protected": 1
+      },
+      "phrases_per_case": 0.39,
+      "median_seconds": 8.26
+    },
+    "source": "/Users/lijia/lexrender-eval/results/step2b/llama8_eager_test.jsonl",
+    "median_seconds_10_longest": 8.51,
+    "peak_memory_bytes": 7041733099,
+    "peak_memory_gib": 6.56
+  },
+  {
+    "model": "Qwen 2.5 14B",
+    "model_id": "qwen2.5:14b-16k",
+    "prompt": "production",
+    "summary": {
+      "cases": 95,
+      "passed": 36,
+      "pass_rate": 0.379,
+      "pass_rate_95ci": [
+        0.288,
+        0.479
+      ],
+      "by_kind": {
+        "none": "0/2",
+        "open": "3/11",
+        "paraphrase": "5/15",
+        "protected": "2/8",
+        "synonym": "26/59"
+      },
+      "failed_checks": {
+        "expected": 41,
+        "markers": 34,
+        "unchanged": 18,
+        "protected": 1
+      },
+      "phrases_per_case": 0.38,
+      "median_seconds": 14.86
+    },
+    "source": "/Users/lijia/lexrender-eval/results/step2b/qwen14_production_test.jsonl",
+    "median_seconds_10_longest": 15.2,
+    "peak_memory_bytes": 12052762459,
+    "peak_memory_gib": 11.23
+  },
+  {
+    "model": "Qwen 2.5 14B",
+    "model_id": "qwen2.5:14b-16k",
+    "prompt": "eager",
+    "summary": {
+      "cases": 95,
+      "passed": 43,
+      "pass_rate": 0.453,
+      "pass_rate_95ci": [
+        0.356,
+        0.553
+      ],
+      "by_kind": {
+        "none": "0/2",
+        "open": "3/11",
+        "paraphrase": "5/15",
+        "protected": "2/8",
+        "synonym": "33/59"
+      },
+      "failed_checks": {
+        "markers": 34,
+        "expected": 30,
+        "unchanged": 7,
+        "protected": 1
+      },
+      "phrases_per_case": 0.48,
+      "median_seconds": 15.71
+    },
+    "source": "/Users/lijia/lexrender-eval/results/step2b/qwen14_eager_test.jsonl",
+    "median_seconds_10_longest": 16.23,
+    "peak_memory_bytes": 12052762459,
+    "peak_memory_gib": 11.23
+  },
+  {
+    "model": "Qwen 2.5 32B",
+    "model_id": "qwen2.5:32b-16k",
+    "prompt": "production",
+    "summary": {
+      "cases": 95,
+      "passed": 54,
+      "pass_rate": 0.568,
+      "pass_rate_95ci": [
+        0.468,
+        0.663
+      ],
+      "by_kind": {
+        "none": "2/2",
+        "open": "8/11",
+        "paraphrase": "4/15",
+        "protected": "4/8",
+        "synonym": "36/59"
+      },
+      "failed_checks": {
+        "expected": 29,
+        "markers": 23,
+        "unchanged": 3,
+        "protected": 1
+      },
+      "phrases_per_case": 0.51,
+      "median_seconds": 34.04
+    },
+    "source": "/Users/lijia/lexrender-eval/results/step2b/qwen32_production_test.jsonl",
+    "median_seconds_10_longest": 36.92,
+    "peak_memory_bytes": 23930978958,
+    "peak_memory_gib": 22.29
+  },
+  {
+    "model": "Qwen 2.5 32B",
+    "model_id": "qwen2.5:32b-16k",
+    "prompt": "eager",
+    "summary": {
+      "cases": 95,
+      "passed": 56,
+      "pass_rate": 0.589,
+      "pass_rate_95ci": [
+        0.489,
+        0.683
+      ],
+      "by_kind": {
+        "none": "2/2",
+        "open": "3/11",
+        "paraphrase": "5/15",
+        "protected": "2/8",
+        "synonym": "44/59"
+      },
+      "failed_checks": {
+        "markers": 23,
+        "expected": 22,
+        "unchanged": 3,
+        "protected": 1
+      },
+      "phrases_per_case": 0.65,
+      "median_seconds": 36.01
+    },
+    "source": "/Users/lijia/lexrender-eval/results/step2b/qwen32_eager_test.jsonl",
+    "median_seconds_10_longest": 38.7,
+    "peak_memory_bytes": 23930978958,
+    "peak_memory_gib": 22.29
+  },
+  {
+    "model": "Codex gpt-6.1-sol / low",
+    "model_id": "gpt-6.1-sol",
+    "prompt": "step 2 reference, rescored",
+    "summary": {
+      "cases": 95,
+      "passed": 81,
+      "pass_rate": 0.853,
+      "pass_rate_95ci": [
+        0.768,
+        0.91
+      ],
+      "by_kind": {
+        "none": "2/2",
+        "open": "11/11",
+        "paraphrase": "13/15",
+        "protected": "8/8",
+        "synonym": "47/59"
+      },
+      "failed_checks": {
+        "expected": 14,
+        "markers": 2
+      },
+      "phrases_per_case": 0.8,
+      "median_seconds": 16.71
+    },
+    "source": "/Users/lijia/lexrender-eval/results/codex_production_test_outputs.jsonl",
+    "median_seconds_10_longest": 18.38,
+    "peak_memory_bytes": null,
+    "peak_memory_gib": null
+  }
+]

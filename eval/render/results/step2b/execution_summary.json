@@ -1,0 +1,69 @@
+{
+  "local_test_replies": 760,
+  "reference_test_replies": 95,
+  "inference_errors": [],
+  "peak_model_memory_bytes": {
+    "qwen2.5:7b-16k": 5635173252,
+    "llama3.1:8b-16k": 7041733099,
+    "qwen2.5:14b-16k": 12052762459,
+    "qwen2.5:32b-16k": 23930978958
+  },
+  "memory_pressure_by_model": {
+    "qwen2.5:7b-16k": {
+      "1": 193
+    },
+    "llama3.1:8b-16k": {
+      "1": 204,
+      "2": 1
+    },
+    "qwen2.5:14b-16k": {
+      "1": 395
+    },
+    "qwen2.5:32b-16k": {
+      "1": 25,
+      "2": 910,
+      "4": 2
+    }
+  },
+  "ollama_ps_examples": {
+    "qwen2.5:7b-16k": "NAME              ID              SIZE      PROCESSOR    CONTEXT    RUNNER      UNTIL              \nqwen2.5:7b-16k    2a42d04ce261    5.6 GB    100% GPU     16384      llamacpp    4 minutes from now",
+    "llama3.1:8b-16k": "NAME               ID              SIZE      PROCESSOR    CONTEXT    RUNNER      UNTIL              \nllama3.1:8b-16k    dc09f67c0352    7.0 GB    100% GPU     16384      llamacpp    4 minutes from now",
+    "qwen2.5:14b-16k": "NAME               ID              SIZE     PROCESSOR    CONTEXT    RUNNER      UNTIL              \nqwen2.5:14b-16k    dce32098f420    12 GB    100% GPU     16384      llamacpp    4 minutes from now",
+    "qwen2.5:32b-16k": "NAME               ID              SIZE     PROCESSOR    CONTEXT    RUNNER      UNTIL              \nqwen2.5:32b-16k    3e79ff356f34    23 GB    100% GPU     16384      llamacpp    4 minutes from now"
+  },
+  "longest_case_ids": [
+    "code-01",
+    "syn-monetization",
+    "syn-reproducible",
+    "syn-scandal",
+    "syn-gerund",
+    "syn-outperform",
+    "syn-capable",
+    "syn-curfew",
+    "code-12",
+    "code-09"
+  ],
+  "longest_case_lengths": {
+    "code-01": 164,
+    "syn-monetization": 150,
+    "syn-reproducible": 143,
+    "syn-scandal": 132,
+    "syn-gerund": 130,
+    "syn-outperform": 125,
+    "syn-capable": 117,
+    "syn-curfew": 117,
+    "code-12": 113,
+    "code-09": 104
+  },
+  "qwen32_completed_before_this_task": true,
+  "fresh_inference_this_task": 0,
+  "qwen32_resumer_command": [
+    "/Users/lijia/lexrender-eval/venv/bin/python",
+    "/Users/lijia/lexrender-eval/continue_qwen32.py"
+  ],
+  "qwen32_duplicate_prompt_record": {
+    "case_id": "para-24",
+    "prompt_records": 2,
+    "output_records": 1
+  }
+}

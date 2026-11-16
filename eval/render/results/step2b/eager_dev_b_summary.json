@@ -1,0 +1,23 @@
+{
+  "cases": 19,
+  "passed": 6,
+  "pass_rate": 0.316,
+  "pass_rate_95ci": [
+    0.154,
+    0.54
+  ],
+  "by_kind": {
+    "none": "0/3",
+    "open": "2/4",
+    "paraphrase": "1/4",
+    "protected": "2/4",
+    "synonym": "1/4"
+  },
+  "failed_checks": {
+    "expected": 10,
+    "markers": 7,
+    "unchanged": 5
+  },
+  "phrases_per_case": 0.11,
+  "median_seconds": 0.43
+}

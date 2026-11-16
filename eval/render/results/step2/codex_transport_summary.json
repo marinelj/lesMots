@@ -1,0 +1,23 @@
+{
+  "initial_statuses": {
+    "completed": 93,
+    "submit_error": 2
+  },
+  "retried_ids": [
+    "para-12",
+    "syn-rectified"
+  ],
+  "final_statuses": {
+    "completed": 95
+  },
+  "initial_errors": [
+    {
+      "id": "para-12",
+      "error": "HTTPError: HTTP Error 405: Method Not Allowed"
+    },
+    {
+      "id": "syn-rectified",
+      "error": "HTTPError: HTTP Error 405: Method Not Allowed"
+    }
+  ]
+}

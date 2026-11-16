@@ -1,0 +1,223 @@
+# Evaluation artifact index
+
+Published files are relative to `eval/render/results/`. Per-case replies, exact prompts, model definitions, runtime samples, and logs remain on the Mac at the absolute paths below.
+
+## Published report and summaries
+
+- [report.md](report.md) — source `/Users/lijia/lexrender-eval/results/report.md`
+- [artifact_index.md](artifact_index.md) — source `/Users/lijia/lexrender-eval/results/artifact_index.md`
+- [step2/codex_production_test_score_summary.json](step2/codex_production_test_score_summary.json) — source `/Users/lijia/lexrender-eval/results/codex_production_test_score_summary.json`
+- [step2/codex_production_test_summary.json](step2/codex_production_test_summary.json) — source `/Users/lijia/lexrender-eval/results/codex_production_test_summary.json`
+- [step2/codex_transport_summary.json](step2/codex_transport_summary.json) — source `/Users/lijia/lexrender-eval/results/codex_transport_summary.json`
+- [step2/dev_a_llama_summary.json](step2/dev_a_llama_summary.json) — source `/Users/lijia/lexrender-eval/results/dev_a_llama_summary.json`
+- [step2/dev_a_qwen_summary.json](step2/dev_a_qwen_summary.json) — source `/Users/lijia/lexrender-eval/results/dev_a_qwen_summary.json`
+- [step2/dev_b_llama_summary.json](step2/dev_b_llama_summary.json) — source `/Users/lijia/lexrender-eval/results/dev_b_llama_summary.json`
+- [step2/dev_b_qwen_summary.json](step2/dev_b_qwen_summary.json) — source `/Users/lijia/lexrender-eval/results/dev_b_qwen_summary.json`
+- [step2/llama_fewshot_test_summary.json](step2/llama_fewshot_test_summary.json) — source `/Users/lijia/lexrender-eval/results/llama_fewshot_test_summary.json`
+- [step2/llama_production_test_summary.json](step2/llama_production_test_summary.json) — source `/Users/lijia/lexrender-eval/results/llama_production_test_summary.json`
+- [step2/qwen_fewshot_test_summary.json](step2/qwen_fewshot_test_summary.json) — source `/Users/lijia/lexrender-eval/results/qwen_fewshot_test_summary.json`
+- [step2/qwen_production_test_summary.json](step2/qwen_production_test_summary.json) — source `/Users/lijia/lexrender-eval/results/qwen_production_test_summary.json`
+- [step2/tuning_summary.json](step2/tuning_summary.json) — source `/Users/lijia/lexrender-eval/results/tuning_summary.json`
+- [step2b/codex_all_attempts_rescored_summary.json](step2b/codex_all_attempts_rescored_summary.json) — source `/Users/lijia/lexrender-eval/results/step2b/codex_all_attempts_rescored_summary.json`
+- [step2b/codex_initial_attempts_rescored_summary.json](step2b/codex_initial_attempts_rescored_summary.json) — source `/Users/lijia/lexrender-eval/results/step2b/codex_initial_attempts_rescored_summary.json`
+- [step2b/codex_production_test_outputs_rescored_summary.json](step2b/codex_production_test_outputs_rescored_summary.json) — source `/Users/lijia/lexrender-eval/results/step2b/codex_production_test_outputs_rescored_summary.json`
+- [step2b/codex_production_test_results_rescored_summary.json](step2b/codex_production_test_results_rescored_summary.json) — source `/Users/lijia/lexrender-eval/results/step2b/codex_production_test_results_rescored_summary.json`
+- [step2b/codex_reference_final_summary.json](step2b/codex_reference_final_summary.json) — source `/Users/lijia/lexrender-eval/results/step2b/codex_reference_final_summary.json`
+- [step2b/combined_summary.json](step2b/combined_summary.json) — source `/Users/lijia/lexrender-eval/results/step2b/combined_summary.json`
+- [step2b/completion_resume_summary.json](step2b/completion_resume_summary.json) — source `/Users/lijia/lexrender-eval/results/step2b/completion_resume_summary.json`
+- [step2b/completion_validation_summary.json](step2b/completion_validation_summary.json) — source `/Users/lijia/lexrender-eval/results/step2b/completion_validation_summary.json`
+- [step2b/dev_a_llama_rescored_summary.json](step2b/dev_a_llama_rescored_summary.json) — source `/Users/lijia/lexrender-eval/results/step2b/dev_a_llama_rescored_summary.json`
+- [step2b/dev_a_qwen_rescored_summary.json](step2b/dev_a_qwen_rescored_summary.json) — source `/Users/lijia/lexrender-eval/results/step2b/dev_a_qwen_rescored_summary.json`
+- [step2b/dev_b_llama_rescored_summary.json](step2b/dev_b_llama_rescored_summary.json) — source `/Users/lijia/lexrender-eval/results/step2b/dev_b_llama_rescored_summary.json`
+- [step2b/dev_b_qwen_rescored_summary.json](step2b/dev_b_qwen_rescored_summary.json) — source `/Users/lijia/lexrender-eval/results/step2b/dev_b_qwen_rescored_summary.json`
+- [step2b/eager_dev_a_summary.json](step2b/eager_dev_a_summary.json) — source `/Users/lijia/lexrender-eval/results/step2b/eager_dev_a_summary.json`
+- [step2b/eager_dev_b_summary.json](step2b/eager_dev_b_summary.json) — source `/Users/lijia/lexrender-eval/results/step2b/eager_dev_b_summary.json`
+- [step2b/execution_summary.json](step2b/execution_summary.json) — source `/Users/lijia/lexrender-eval/results/step2b/execution_summary.json`
+- [step2b/llama8_eager_test_summary.json](step2b/llama8_eager_test_summary.json) — source `/Users/lijia/lexrender-eval/results/step2b/llama8_eager_test_summary.json`
+- [step2b/llama8_production_test_summary.json](step2b/llama8_production_test_summary.json) — source `/Users/lijia/lexrender-eval/results/step2b/llama8_production_test_summary.json`
+- [step2b/llama_fewshot_test_rescored_summary.json](step2b/llama_fewshot_test_rescored_summary.json) — source `/Users/lijia/lexrender-eval/results/step2b/llama_fewshot_test_rescored_summary.json`
+- [step2b/llama_production_test_rescored_summary.json](step2b/llama_production_test_rescored_summary.json) — source `/Users/lijia/lexrender-eval/results/step2b/llama_production_test_rescored_summary.json`
+- [step2b/qwen14_eager_test_summary.json](step2b/qwen14_eager_test_summary.json) — source `/Users/lijia/lexrender-eval/results/step2b/qwen14_eager_test_summary.json`
+- [step2b/qwen14_production_test_summary.json](step2b/qwen14_production_test_summary.json) — source `/Users/lijia/lexrender-eval/results/step2b/qwen14_production_test_summary.json`
+- [step2b/qwen32_eager_test_summary.json](step2b/qwen32_eager_test_summary.json) — source `/Users/lijia/lexrender-eval/results/step2b/qwen32_eager_test_summary.json`
+- [step2b/qwen32_production_test_summary.json](step2b/qwen32_production_test_summary.json) — source `/Users/lijia/lexrender-eval/results/step2b/qwen32_production_test_summary.json`
+- [step2b/qwen7_eager_test_summary.json](step2b/qwen7_eager_test_summary.json) — source `/Users/lijia/lexrender-eval/results/step2b/qwen7_eager_test_summary.json`
+- [step2b/qwen7_production_test_summary.json](step2b/qwen7_production_test_summary.json) — source `/Users/lijia/lexrender-eval/results/step2b/qwen7_production_test_summary.json`
+- [step2b/qwen_fewshot_test_rescored_summary.json](step2b/qwen_fewshot_test_rescored_summary.json) — source `/Users/lijia/lexrender-eval/results/step2b/qwen_fewshot_test_rescored_summary.json`
+- [step2b/qwen_production_test_rescored_summary.json](step2b/qwen_production_test_rescored_summary.json) — source `/Users/lijia/lexrender-eval/results/step2b/qwen_production_test_rescored_summary.json`
+- [step2b/step2_old_rules_summary.json](step2b/step2_old_rules_summary.json) — source `/Users/lijia/lexrender-eval/results/step2b/step2_old_rules_summary.json`
+- [step2b/template_validation_summary.json](step2b/template_validation_summary.json) — source `/Users/lijia/lexrender-eval/results/step2b/template_validation_summary.json`
+
+## All local result artifacts
+
+- `/Users/lijia/lexrender-eval/results/build_summary.txt` — 152 bytes; SHA-256 `e4169e7db63fad88372d27e1b74f1c780a374955e9c162f3d0042e5d32d4d833`
+- `/Users/lijia/lexrender-eval/results/cases.jsonl` — 34456 bytes; SHA-256 `392949c52ca9e5d09d95e3d326e3468df9ed6e3d3dd7fc1a41495ddb736d8473`
+- `/Users/lijia/lexrender-eval/results/codex_all_attempts.jsonl` — 37633 bytes; SHA-256 `d76b441eff881f7e7010dad81da1cc6ff5661b1d31c04090921728d440137601`
+- `/Users/lijia/lexrender-eval/results/codex_initial_attempts.jsonl` — 36844 bytes; SHA-256 `0d5b293608004ba30baec852d98c65d03a3ac25766a825b2c7248994b952be42`
+- `/Users/lijia/lexrender-eval/results/codex_production_test_outputs.jsonl` — 36991 bytes; SHA-256 `4a4e161cc8ef852c8ddce48de55a72c140b801e21feb072a7522aa28748d038b`
+- `/Users/lijia/lexrender-eval/results/codex_production_test_results.jsonl` — 37523 bytes; SHA-256 `df25626d1ffe447fe80b7b92595018dc7a886c7144259c72c621c74568116510`
+- `/Users/lijia/lexrender-eval/results/codex_production_test_score_summary.json` — 308 bytes; SHA-256 `792e5b66ab807cb5ce47d8e690aff08b76530583de061566ada0a15c0e808a0b`
+- `/Users/lijia/lexrender-eval/results/codex_production_test_scored.jsonl` — 20201 bytes; SHA-256 `bd640c1b3ece422db2c79612287079fe665474296fcb6a1e1da03a4169c01542`
+- `/Users/lijia/lexrender-eval/results/codex_production_test_summary.json` — 309 bytes; SHA-256 `c19d7333edd435ad99ab2762c966686e8e9d517cea381b508788cd132a27781f`
+- `/Users/lijia/lexrender-eval/results/codex_reference_progress.log` — 4652 bytes; SHA-256 `94b5fa22a5ac94f53c12bdd31687e58240078b8b363ee714a5884f04d173de73`
+- `/Users/lijia/lexrender-eval/results/codex_run_events.jsonl` — 12829 bytes; SHA-256 `8dd561c21294b7abd82a8546c1c2889e5d534ebfef073863e7ed0376043ffe14`
+- `/Users/lijia/lexrender-eval/results/codex_test_prompts.jsonl` — 1949147 bytes; SHA-256 `757258f9176f83b09e0829ae2313e030c2fd3ac4c354d2444f3d99db8a66d755`
+- `/Users/lijia/lexrender-eval/results/codex_transport_summary.json` — 411 bytes; SHA-256 `56002d08df46f40a5b2ad4242ffb4ff51d42a000e7e92a90d9f2c478053a7abe`
+- `/Users/lijia/lexrender-eval/results/commands.jsonl` — 2122 bytes; SHA-256 `9e0fa4725426e30dd7bbffffdad8e1d4950c5faf7cb268be57077782ceffd66c`
+- `/Users/lijia/lexrender-eval/results/comparison.json` — 3524 bytes; SHA-256 `7b339210f903df70f56bbd17b0706024bf0ba6b7a11d887a252eed4136623ca1`
+- `/Users/lijia/lexrender-eval/results/dev_a_llama.jsonl` — 8286 bytes; SHA-256 `b94aae9fdb1cb9bc0d49f2d3bc6ce03f0e256fc686cc3b42704c7fbdd339d15f`
+- `/Users/lijia/lexrender-eval/results/dev_a_llama.log` — 1087 bytes; SHA-256 `8ab77a78c4e143f578743296e235b4cb7776e7614e1341fcab1c8c1c10df7fec`
+- `/Users/lijia/lexrender-eval/results/dev_a_llama_prompts.jsonl` — 505780 bytes; SHA-256 `7bb36086d9dcb57b525967a7d5dece386e0958f691d9dcbfcc3e1a5f7c545cc5`
+- `/Users/lijia/lexrender-eval/results/dev_a_llama_summary.json` — 341 bytes; SHA-256 `3329baee30d84041467761b0ae975a11a1d6a68749eb0de4458f8bd2c82232e5`
+- `/Users/lijia/lexrender-eval/results/dev_a_qwen.jsonl` — 8180 bytes; SHA-256 `e9b47122740dd6d2c460e51ed5dd48b81c83376e90581ba7620afb00548316c8`
+- `/Users/lijia/lexrender-eval/results/dev_a_qwen.log` — 1085 bytes; SHA-256 `00ad20562e0e2d488ef8372c31dc311ff7fce1cbfbb73496589a038e973abdc0`
+- `/Users/lijia/lexrender-eval/results/dev_a_qwen_prompts.jsonl` — 505780 bytes; SHA-256 `7bb36086d9dcb57b525967a7d5dece386e0958f691d9dcbfcc3e1a5f7c545cc5`
+- `/Users/lijia/lexrender-eval/results/dev_a_qwen_summary.json` — 341 bytes; SHA-256 `88eb8462946d759f4095f745ea7aa03df522ffc7ea860ffc647bba77e6b34ff1`
+- `/Users/lijia/lexrender-eval/results/dev_b_llama.jsonl` — 8096 bytes; SHA-256 `378fab14de3fc90031fe8f55583f329e927930b07a5a7367f93b7f442693b1a3`
+- `/Users/lijia/lexrender-eval/results/dev_b_llama.log` — 1084 bytes; SHA-256 `06d5e37d6cd981cd4f8cd05a4c2a8c06f3d6ceb4806f6bc61b432599f94be6c1`
+- `/Users/lijia/lexrender-eval/results/dev_b_llama_prompts.jsonl` — 508564 bytes; SHA-256 `a8f116b8e66b0156d1eea3b282e9d8e4bfea3215736ea9deb682b47f4e7e93b4`
+- `/Users/lijia/lexrender-eval/results/dev_b_llama_summary.json` — 341 bytes; SHA-256 `ce3198cd47b3efa9c9c9f8142a468a1124d035ad231da5dfed3567b485804290`
+- `/Users/lijia/lexrender-eval/results/dev_b_phase.log` — 112 bytes; SHA-256 `bad59a3f96a65029f3666d32c80c0bfeef7b8a360a437bcc375839ef35ece832`
+- `/Users/lijia/lexrender-eval/results/dev_b_qwen.jsonl` — 7727 bytes; SHA-256 `6e2a52fa832cbfdb46cb6450afcb060a9bab1faaf765651393a288100b262103`
+- `/Users/lijia/lexrender-eval/results/dev_b_qwen.log` — 1061 bytes; SHA-256 `c24a6aa516be1eff8f6bdcb0b6ada38dcc4eac5d83e11a82c94f33f8b24387ac`
+- `/Users/lijia/lexrender-eval/results/dev_b_qwen_prompts.jsonl` — 508564 bytes; SHA-256 `a8f116b8e66b0156d1eea3b282e9d8e4bfea3215736ea9deb682b47f4e7e93b4`
+- `/Users/lijia/lexrender-eval/results/dev_b_qwen_summary.json` — 322 bytes; SHA-256 `587781c13b18981e5daee636cdfdbeb77f497e33beb00ec05a89382a4ed1821c`
+- `/Users/lijia/lexrender-eval/results/environment.json` — 707 bytes; SHA-256 `bb87eb66f508780de0d519d733d774bbb90d0bff76437d94c3582e6181750134`
+- `/Users/lijia/lexrender-eval/results/execution_errors.json` — 506 bytes; SHA-256 `23788177e7632093af33d6d5e0b7df3d09a75057205c766ed3fb12f4dbd816ea`
+- `/Users/lijia/lexrender-eval/results/fewshot_candidate_a.txt` — 954 bytes; SHA-256 `0f1b2e9342d664292e57fe7925e3077cf2ac98821eddd6dbdda34e9f139f5ee4`
+- `/Users/lijia/lexrender-eval/results/fewshot_candidate_b.txt` — 1068 bytes; SHA-256 `e86ab0d2fdf87a2e8b77731a4748c72c6f0305ec8d8eff1e17c92b12a90c49a7`
+- `/Users/lijia/lexrender-eval/results/fewshot_examples.txt` — 1068 bytes; SHA-256 `e86ab0d2fdf87a2e8b77731a4748c72c6f0305ec8d8eff1e17c92b12a90c49a7`
+- `/Users/lijia/lexrender-eval/results/fewshot_prompt.txt` — 20180 bytes; SHA-256 `11b56350564a96150e381a4c9331e63c306d30af75dcfa7d81ab2958a3d4bebf`
+- `/Users/lijia/lexrender-eval/results/fewshot_prompt_eager.txt` — 20351 bytes; SHA-256 `4090dc64db2dc50458580ce5fd033031107dace488dd77420716862c7643d170`
+- `/Users/lijia/lexrender-eval/results/final_audit.json` — 422 bytes; SHA-256 `b8d7d26c94acc9dcb4111190b8daea248a6fdeeed0d83083e4b2d1f73f36b7f7`
+- `/Users/lijia/lexrender-eval/results/final_audit.log` — 422 bytes; SHA-256 `b8d7d26c94acc9dcb4111190b8daea248a6fdeeed0d83083e4b2d1f73f36b7f7`
+- `/Users/lijia/lexrender-eval/results/llama_fewshot_test.jsonl` — 31335 bytes; SHA-256 `e6fd595336e1baf1349c2eb32cc226903ba7334972b5ea8cc5d05983f9204a49`
+- `/Users/lijia/lexrender-eval/results/llama_fewshot_test.log` — 3433 bytes; SHA-256 `10a3dde2bf5e8619740696520309afc3730bca2365d4cd1594099a81bf892254`
+- `/Users/lijia/lexrender-eval/results/llama_fewshot_test_prompts.jsonl` — 2018917 bytes; SHA-256 `1d9208902c97e84020f952729870083d5f57e3f7f4e5e571f2b82b9d5ede1ae0`
+- `/Users/lijia/lexrender-eval/results/llama_fewshot_test_summary.json` — 347 bytes; SHA-256 `80b448d71575b0eebf2b2c4543556f426377487e78ae93932e0a6b8a514cc096`
+- `/Users/lijia/lexrender-eval/results/llama_production_test.jsonl` — 33043 bytes; SHA-256 `1df6896c9b6f6ab889a49a4525c3728dc4f2be506c5fe1c31cf87645222f506e`
+- `/Users/lijia/lexrender-eval/results/llama_production_test.log` — 2362 bytes; SHA-256 `4f2de2cf6b013b87728a3badcd44ef0b80176e62f45a4fec616033d025214b09`
+- `/Users/lijia/lexrender-eval/results/llama_production_test_summary.json` — 347 bytes; SHA-256 `6bc4b232f79e588b40a543420534c66c1ac468b6d4c9a4d9496deccaf8a15aff`
+- `/Users/lijia/lexrender-eval/results/local_test_phase.log` — 292 bytes; SHA-256 `a450346933026668d780181e4bc54d68e7450e26e58464c6fad5354ddc75a611`
+- `/Users/lijia/lexrender-eval/results/ollama_models.json` — 1296 bytes; SHA-256 `e46517030b1fae6aa58e498b01aebeee212bb1629b41b57e7e059b77421dbf5c`
+- `/Users/lijia/lexrender-eval/results/ollama_runtime.json` — 581 bytes; SHA-256 `89690eb0e2ddbd6a72eb4ccfc2e5326c8ca6748b7597995cb482232236747aab`
+- `/Users/lijia/lexrender-eval/results/prompt_freeze.json` — 929 bytes; SHA-256 `60ce9af9cc387b417042bfe49991dffa071430000fa60963acc414c89ac91c96`
+- `/Users/lijia/lexrender-eval/results/prompt_freeze.log` — 929 bytes; SHA-256 `60ce9af9cc387b417042bfe49991dffa071430000fa60963acc414c89ac91c96`
+- `/Users/lijia/lexrender-eval/results/pull_qwen32.log` — 3230510 bytes; SHA-256 `7d848010afeaf29b6bdea5bcf4e8d83cbd96b9ceface96c970bd81f6e504aa7b`
+- `/Users/lijia/lexrender-eval/results/qwen_fewshot_test.jsonl` — 31180 bytes; SHA-256 `327664824a8ea1176a268c922c71dfa2be9bd34edfa0e570eee31376665a9a28`
+- `/Users/lijia/lexrender-eval/results/qwen_fewshot_test.log` — 3427 bytes; SHA-256 `adc569081b1f350ac9f1a4dcda2a2204aeb804b66674344ec078533a48de059e`
+- `/Users/lijia/lexrender-eval/results/qwen_fewshot_test_prompts.jsonl` — 2018917 bytes; SHA-256 `1d9208902c97e84020f952729870083d5f57e3f7f4e5e571f2b82b9d5ede1ae0`
+- `/Users/lijia/lexrender-eval/results/qwen_fewshot_test_summary.json` — 348 bytes; SHA-256 `5236925b38a85b4a684acc5029bf40aa4fdc27519eb11e7804e4ae1def1394bb`
+- `/Users/lijia/lexrender-eval/results/qwen_production_test.jsonl` — 33234 bytes; SHA-256 `ec4d0be591e618bc8cb16763c21d0edea1af87d117663f91384c673364963b7c`
+- `/Users/lijia/lexrender-eval/results/qwen_production_test.log` — 2375 bytes; SHA-256 `c03ff74469284e2c771f39c234bcc4cb37a3cb936b2dec6061beab6f3131f1a4`
+- `/Users/lijia/lexrender-eval/results/qwen_production_test_summary.json` — 348 bytes; SHA-256 `23fdf9dab912ddb678cd085f0198363199c23556fa4fb103bf2f969d0bc261c3`
+- `/Users/lijia/lexrender-eval/results/reference_audit.json` — 401 bytes; SHA-256 `f857fe29d22006cd2ff71b004cedaf81aa06c8ca467e5fd343e54f8675afeac7`
+- `/Users/lijia/lexrender-eval/results/reference_finalize.log` — 81 bytes; SHA-256 `935a651dd402ec4117745ce1f7a52ea6187ed20a31629402c4e853dc61452cce`
+- `/Users/lijia/lexrender-eval/results/report.md` — 10545 bytes; SHA-256 `b952b8ed677a03e596fa6ab1edd155fa9bfe0c428f306aaad933f243784088f6`
+- `/Users/lijia/lexrender-eval/results/report_build.log` — 2889 bytes; SHA-256 `cc765a5fb0fd963b7567c438d2d277170a279e723adc779fdba0c63022a5cac6`
+- `/Users/lijia/lexrender-eval/results/representative_failures.json` — 1760 bytes; SHA-256 `4408788caa0b41ac47c1b1e114eccb73bff8a119d3f86c625426f3f3f900a7ad`
+- `/Users/lijia/lexrender-eval/results/reproducibility.md` — 4579 bytes; SHA-256 `1590d8851f934756dde33ac5803b216c1b0b41f9966319b8971362ed008ae377`
+- `/Users/lijia/lexrender-eval/results/setup_audit.json` — 262 bytes; SHA-256 `c223e6d2d5ca64227b1d6493fee45d3ff32b78bc44e45c2e3e93a658e0f83886`
+- `/Users/lijia/lexrender-eval/results/step2_report.txt` — 3147 bytes; SHA-256 `dd69d232139c1c2434c07b0dee388029032147c100a7b3585b7de3a96774d6bb`
+- `/Users/lijia/lexrender-eval/results/step2b/codex_all_attempts_rescored.jsonl` — 20410 bytes; SHA-256 `ccb7371a1eb4dab1f3bdf44a16f0b19ce4e835099927c56b4b873cf2fcf87071`
+- `/Users/lijia/lexrender-eval/results/step2b/codex_all_attempts_rescored_summary.json` — 375 bytes; SHA-256 `b165ef0eb8dbeace29d16f77a842af677768d877b4a152e8f9bfd4b7e8677d33`
+- `/Users/lijia/lexrender-eval/results/step2b/codex_initial_attempts_rescored.jsonl` — 19949 bytes; SHA-256 `5a65ea8518638362e87d17b50681926f17c5170dd631fcd62630c25936eca485`
+- `/Users/lijia/lexrender-eval/results/step2b/codex_initial_attempts_rescored_summary.json` — 375 bytes; SHA-256 `b4eee5a83b19bcab77ca095846c34c5dae406ca99a05ab1a140f52b32fcc0fbf`
+- `/Users/lijia/lexrender-eval/results/step2b/codex_production_test_outputs_rescored.jsonl` — 19997 bytes; SHA-256 `879717d39af73a54d38c50ac803219f190c340ae7bbb5cdddca0eabadb0bf9d3`
+- `/Users/lijia/lexrender-eval/results/step2b/codex_production_test_outputs_rescored_summary.json` — 353 bytes; SHA-256 `fd3c13bf6ec0c68d6f25907c17a0cc9a52c696f9a962319efb544e061acf2234`
+- `/Users/lijia/lexrender-eval/results/step2b/codex_production_test_results_rescored.jsonl` — 19997 bytes; SHA-256 `879717d39af73a54d38c50ac803219f190c340ae7bbb5cdddca0eabadb0bf9d3`
+- `/Users/lijia/lexrender-eval/results/step2b/codex_production_test_results_rescored_summary.json` — 353 bytes; SHA-256 `fd3c13bf6ec0c68d6f25907c17a0cc9a52c696f9a962319efb544e061acf2234`
+- `/Users/lijia/lexrender-eval/results/step2b/codex_reference_final_summary.json` — 354 bytes; SHA-256 `218dfc5c3547e8be3ce35d1b913ed8b4035a771f3b44fb74626a163d5744b00e`
+- `/Users/lijia/lexrender-eval/results/step2b/combined_summary.json` — 7109 bytes; SHA-256 `6fea549cdf06b121ae4046a691b3ada03e114bb4d49e78473c7d451ebc6567de`
+- `/Users/lijia/lexrender-eval/results/step2b/completion_resume.log` — 167 bytes; SHA-256 `f9d4a455f22301f1281aec84c771a3c343d0276c4a74d25be5d033fb891d9568`
+- `/Users/lijia/lexrender-eval/results/step2b/completion_resume_summary.json` — 423 bytes; SHA-256 `577b205019566c7b2ce158f50da72ec0bfc9623744edf0bdd46d33a58f1225c9`
+- `/Users/lijia/lexrender-eval/results/step2b/completion_validation_summary.json` — 6413 bytes; SHA-256 `2af04ecc73c2f557c658c59f59185849f49923b27f215d1e91ba1fa0a1cc6734`
+- `/Users/lijia/lexrender-eval/results/step2b/context_audit.json` — 1394 bytes; SHA-256 `0ad5c7b7083bcccc04bd467d15456d5b86e84ad7bf044ecb783db25420e8149e`
+- `/Users/lijia/lexrender-eval/results/step2b/dev_a_llama_rescored.jsonl` — 5450 bytes; SHA-256 `0d0d897f41761920e46633ad4f6e3e96d30cb3f2ff993f2d81e878c64c6c1b49`
+- `/Users/lijia/lexrender-eval/results/step2b/dev_a_llama_rescored_summary.json` — 388 bytes; SHA-256 `80250bff7af0f2a1bf75346f82bf5956e0e076ff0eddceff0a72cf8cde4d3690`
+- `/Users/lijia/lexrender-eval/results/step2b/dev_a_qwen_rescored.jsonl` — 5447 bytes; SHA-256 `12ce4ffea4384ac8a5d1c2a1f2158df703ec54bc9f2c5ab11fbec56dd3fffd24`
+- `/Users/lijia/lexrender-eval/results/step2b/dev_a_qwen_rescored_summary.json` — 388 bytes; SHA-256 `3399bae0ecbeae212e01d6894623d3252bab6cf459f295f76de937d563531eac`
+- `/Users/lijia/lexrender-eval/results/step2b/dev_b_llama_rescored.jsonl` — 5350 bytes; SHA-256 `b0596347856d82ac4fce6d3f663fe2c824918b834e17ac152cc114672e9d4e0b`
+- `/Users/lijia/lexrender-eval/results/step2b/dev_b_llama_rescored_summary.json` — 387 bytes; SHA-256 `a80b6b44c8d2a396740992ce40300167a5d75955ab3ec5e7b763495b1feb8f67`
+- `/Users/lijia/lexrender-eval/results/step2b/dev_b_qwen_rescored.jsonl` — 5085 bytes; SHA-256 `e2cd167e7485c2baf94ec9a3ae81da5c5a8fab6552dbebe877ef9ec867008aa6`
+- `/Users/lijia/lexrender-eval/results/step2b/dev_b_qwen_rescored_summary.json` — 368 bytes; SHA-256 `04b2ab0b05b99bd471921cdfbc980fcb551c67d83934a4404c0330bb0318a3e8`
+- `/Users/lijia/lexrender-eval/results/step2b/eager_candidate_a.txt` — 1134 bytes; SHA-256 `b9f6f83896e4328e08c33ef0984e48b778e2008f945aaf368066e7f4241cda73`
+- `/Users/lijia/lexrender-eval/results/step2b/eager_candidate_b.txt` — 1356 bytes; SHA-256 `e7db57c0b4d08c8c0fdbbdf85642d9ee2ae1cc8715d020a54f59e933f42144ca`
+- `/Users/lijia/lexrender-eval/results/step2b/eager_dev_a.jsonl` — 7600 bytes; SHA-256 `3422b2003c3d124912a620c29629d1d35e27085ca8b0a8f394a503877f30de65`
+- `/Users/lijia/lexrender-eval/results/step2b/eager_dev_a_prompts.jsonl` — 405887 bytes; SHA-256 `3547db5486b0f03d9dfbe1de68408e0f08e31ad449c148e2244c91a5ce8413e1`
+- `/Users/lijia/lexrender-eval/results/step2b/eager_dev_a_summary.json` — 386 bytes; SHA-256 `e52c671edd8fe5a00f87da00cbd4f22973b431a11e45e8be61186effae74200d`
+- `/Users/lijia/lexrender-eval/results/step2b/eager_dev_b.jsonl` — 7317 bytes; SHA-256 `46bc23e51284ea78fad511dae52c8a698b13805d16c99bfa115d46db9852d435`
+- `/Users/lijia/lexrender-eval/results/step2b/eager_dev_b_prompts.jsonl` — 410200 bytes; SHA-256 `ba4ba19b5bcec6cfdd59cbd2e2e242c9bb41d5a33ea2015ed8bbca4b97b309e6`
+- `/Users/lijia/lexrender-eval/results/step2b/eager_dev_b_summary.json` — 367 bytes; SHA-256 `5737b9cbd1011dea4c9296b4ddda9c832efa1a3ab726162940cb42a0ffb5497c`
+- `/Users/lijia/lexrender-eval/results/step2b/eager_prompt_freeze.json` — 1543 bytes; SHA-256 `c138e82abd13f1c9aa39a27066a4d317f3f3ca3b8c6518b4d9b2cb38e44e39d0`
+- `/Users/lijia/lexrender-eval/results/step2b/evaluation_metadata.json` — 956 bytes; SHA-256 `9372b4846030fb8a224e9ea733e9d2f02bcf4549ea287fa35bbfa5be410cea23`
+- `/Users/lijia/lexrender-eval/results/step2b/execution_summary.json` — 2291 bytes; SHA-256 `e671b2162460370310161595c1a0cbad1cc658a1600f5c4c52ecd52a4ed2a9a0`
+- `/Users/lijia/lexrender-eval/results/step2b/llama3.1_8b.Modelfile` — 41 bytes; SHA-256 `79dfd7dbf12e0a03aefc1276a367b2655e780723b76ba146d6ad5cccce09a45b`
+- `/Users/lijia/lexrender-eval/results/step2b/llama3.1_8b_create.log` — 482 bytes; SHA-256 `64a75a3fc3efd432cab02466fc92515dddf0456ba728780f5fc90b74659dc804`
+- `/Users/lijia/lexrender-eval/results/step2b/llama3.1_8b_show.txt` — 604 bytes; SHA-256 `b05bf7f73c842062f9fd857298242de41522f4b65afed35d6d1a3f8d93d1d9fa`
+- `/Users/lijia/lexrender-eval/results/step2b/llama8_eager_test.jsonl` — 38840 bytes; SHA-256 `e4f0920f4d4565ffdf080f2985ef9b0a5f66073b4f0c87c77c7db4dac761fe55`
+- `/Users/lijia/lexrender-eval/results/step2b/llama8_eager_test_prompts.jsonl` — 2037265 bytes; SHA-256 `d2c16076af27e6733c8eaa3108a9540f798f3aec36b5db73dbc7b65a7239c00b`
+- `/Users/lijia/lexrender-eval/results/step2b/llama8_eager_test_summary.json` — 395 bytes; SHA-256 `419d10c02780bf9b54b973c03220f35f3b326c79115b2c25ab3cecfa60af4fa1`
+- `/Users/lijia/lexrender-eval/results/step2b/llama8_production_test.jsonl` — 37713 bytes; SHA-256 `d0d51eab67a571f052c14c7457a98c306d3fa1a059c993313a00a992a66942b9`
+- `/Users/lijia/lexrender-eval/results/step2b/llama8_production_test_prompts.jsonl` — 1927635 bytes; SHA-256 `d4340b821b711bfc9215f0ebfe5bac970761462a69c6aa40df3aeec281168a2f`
+- `/Users/lijia/lexrender-eval/results/step2b/llama8_production_test_summary.json` — 394 bytes; SHA-256 `7ad0e14f535f53c45f38ceab925caec5754f3818b08c6de5d4c88169d6913d57`
+- `/Users/lijia/lexrender-eval/results/step2b/llama_fewshot_test_rescored.jsonl` — 20926 bytes; SHA-256 `392b1cc1461d4cfb06fceb3b0980899cb19958cb9e06c41cc444fe434eca3609`
+- `/Users/lijia/lexrender-eval/results/step2b/llama_fewshot_test_rescored_summary.json` — 394 bytes; SHA-256 `ad05048e05db53398a156d3e91a2b9b4e20d793ed1e304304b54aaa63776b673`
+- `/Users/lijia/lexrender-eval/results/step2b/llama_production_test_rescored.jsonl` — 22961 bytes; SHA-256 `29124163ed9979e93b39306b860d3d697abaee8c006198b3869a90da9b155cf3`
+- `/Users/lijia/lexrender-eval/results/step2b/llama_production_test_rescored_summary.json` — 394 bytes; SHA-256 `7effb2cdb99e4b449072f4785c2358d528c2e473dd82c78c41a8019d8456a082`
+- `/Users/lijia/lexrender-eval/results/step2b/qwen14_eager_test.jsonl` — 37262 bytes; SHA-256 `47ba0383f95de284678110a2166ed9f44d03e8752f2cf3843a25bafec9cb33f1`
+- `/Users/lijia/lexrender-eval/results/step2b/qwen14_eager_test_prompts.jsonl` — 2037265 bytes; SHA-256 `d2c16076af27e6733c8eaa3108a9540f798f3aec36b5db73dbc7b65a7239c00b`
+- `/Users/lijia/lexrender-eval/results/step2b/qwen14_eager_test_summary.json` — 395 bytes; SHA-256 `511ef08176a286819068057013496932c4651096d0ed61bd2f17226f8a4897ed`
+- `/Users/lijia/lexrender-eval/results/step2b/qwen14_production_test.jsonl` — 37820 bytes; SHA-256 `b522b7db48aab3bead7a67b60fea65350be850ae15f1cefae903079d976a1529`
+- `/Users/lijia/lexrender-eval/results/step2b/qwen14_production_test_prompts.jsonl` — 1927635 bytes; SHA-256 `d4340b821b711bfc9215f0ebfe5bac970761462a69c6aa40df3aeec281168a2f`
+- `/Users/lijia/lexrender-eval/results/step2b/qwen14_production_test_summary.json` — 396 bytes; SHA-256 `73cdcbeddfbe125ddde235bb31b72cef6f58c23741c946ffd952a007bc57b407`
+- `/Users/lijia/lexrender-eval/results/step2b/qwen2.5_14b.Modelfile` — 41 bytes; SHA-256 `55214d9b2bab2619140ed4e4aca54b5fcd2bf8f141cd6403451fdabb5855e177`
+- `/Users/lijia/lexrender-eval/results/step2b/qwen2.5_14b_create.log` — 581 bytes; SHA-256 `3aa9a6894dc3f2f5e97d28fa34ca05fca4464540028c9112cccd3e4d8c2f7a0d`
+- `/Users/lijia/lexrender-eval/results/step2b/qwen2.5_14b_show.txt` — 503 bytes; SHA-256 `7b62a006453e14a3c64d07a24fac6accf4419395a77243077c4a461e2b767fc3`
+- `/Users/lijia/lexrender-eval/results/step2b/qwen2.5_32b.Modelfile` — 41 bytes; SHA-256 `c1af2e1d73aea75252c3caddb11bb89fe6e1e192ee6d557b0241034e0d59c3c0`
+- `/Users/lijia/lexrender-eval/results/step2b/qwen2.5_32b_show.txt` — 503 bytes; SHA-256 `1063bb3ca815202210f6e82b3833623d1162d6aac0370654895fb9f8abed267a`
+- `/Users/lijia/lexrender-eval/results/step2b/qwen2.5_7b.Modelfile` — 40 bytes; SHA-256 `62c763105e0658f83ad830839b7d98113cc24fe51e5a18b21f678a0618ac7f7c`
+- `/Users/lijia/lexrender-eval/results/step2b/qwen2.5_7b_create.log` — 579 bytes; SHA-256 `4c9ee456430927ab4f7fc370f6f13c882dafd254001333aa40d21535cf6161f8`
+- `/Users/lijia/lexrender-eval/results/step2b/qwen2.5_7b_show.txt` — 503 bytes; SHA-256 `47347c55dcfc5af4ab22bfefdd1bcc287f2162cae3e285bc37a5de1eb05e9cd8`
+- `/Users/lijia/lexrender-eval/results/step2b/qwen32_eager_test.jsonl` — 36343 bytes; SHA-256 `9920ff22304bea3d1fa00ad3a87b990b767a5aa74643fb7bee0546d2a295f6cf`
+- `/Users/lijia/lexrender-eval/results/step2b/qwen32_eager_test_prompts.jsonl` — 2037265 bytes; SHA-256 `d2c16076af27e6733c8eaa3108a9540f798f3aec36b5db73dbc7b65a7239c00b`
+- `/Users/lijia/lexrender-eval/results/step2b/qwen32_eager_test_summary.json` — 395 bytes; SHA-256 `987c37e91f1d0ee5fe3cc7ecc66e796d23d8590aa6971b680ef9ee0569dfd148`
+- `/Users/lijia/lexrender-eval/results/step2b/qwen32_production_test.jsonl` — 36120 bytes; SHA-256 `0b6c6334a3b6d6a719cb8cd7c8659565669697138a53a0cb800782d0b499902b`
+- `/Users/lijia/lexrender-eval/results/step2b/qwen32_production_test_prompts.jsonl` — 1948028 bytes; SHA-256 `605d855b4f116ac53c3c8ce521a23c3b4893846491b84ca8facb66b5db79a8a0`
+- `/Users/lijia/lexrender-eval/results/step2b/qwen32_production_test_summary.json` — 395 bytes; SHA-256 `db70b1956425657c84c0e348cb5d863792cbe8bc22d94d792f86ecff3a6da029`
+- `/Users/lijia/lexrender-eval/results/step2b/qwen7_eager_test.jsonl` — 37356 bytes; SHA-256 `374f68cec964c18700fac42474ef7e2a9cc7c1407558193ea415bae44353c958`
+- `/Users/lijia/lexrender-eval/results/step2b/qwen7_eager_test_prompts.jsonl` — 2037265 bytes; SHA-256 `d2c16076af27e6733c8eaa3108a9540f798f3aec36b5db73dbc7b65a7239c00b`
+- `/Users/lijia/lexrender-eval/results/step2b/qwen7_eager_test_summary.json` — 395 bytes; SHA-256 `ab47d81f3da09a3174bdf21fa9d2958141d1acd9a6530e7f39720c3c36383b57`
+- `/Users/lijia/lexrender-eval/results/step2b/qwen7_production_test.jsonl` — 37943 bytes; SHA-256 `54377ee3c451640e5638da72d53a81456134851a938b08a70c6ba863afa9e25d`
+- `/Users/lijia/lexrender-eval/results/step2b/qwen7_production_test_prompts.jsonl` — 1927635 bytes; SHA-256 `d4340b821b711bfc9215f0ebfe5bac970761462a69c6aa40df3aeec281168a2f`
+- `/Users/lijia/lexrender-eval/results/step2b/qwen7_production_test_summary.json` — 395 bytes; SHA-256 `5add89585481333fcde9441b8b494e4f59800a1efd72d8720c481bbd061daafb`
+- `/Users/lijia/lexrender-eval/results/step2b/qwen_fewshot_test_rescored.jsonl` — 20985 bytes; SHA-256 `7890659ff0d9c00326bc0cda244bb69f1e874b39fe8258a353f63a649833389e`
+- `/Users/lijia/lexrender-eval/results/step2b/qwen_fewshot_test_rescored_summary.json` — 394 bytes; SHA-256 `496a967c66bf0c6a3504f4ccb7ad38d0d3a5cc3fe4c29a947ba025c7510d4d6b`
+- `/Users/lijia/lexrender-eval/results/step2b/qwen_production_test_rescored.jsonl` — 22989 bytes; SHA-256 `fcf5aa13b53f2d45a9d2b9e50d0c9ff913777b0444c2c721de5ed430b34a2754`
+- `/Users/lijia/lexrender-eval/results/step2b/qwen_production_test_rescored_summary.json` — 395 bytes; SHA-256 `91f685bc7672645de4fa8c07f02ef99ec0da18ad2b38850edccb94baad488bc6`
+- `/Users/lijia/lexrender-eval/results/step2b/representative_failures.json` — 3269 bytes; SHA-256 `bdf44e58766432c3b2a9fda0e542626b093e3b6f68fd5ef7c16822f79a302279`
+- `/Users/lijia/lexrender-eval/results/step2b/rescore_manifest.json` — 3386 bytes; SHA-256 `f0da731dfca549c8bca443d99f5633bb9b4493e4677813d52a1c2bec347f9282`
+- `/Users/lijia/lexrender-eval/results/step2b/run.log` — 41059 bytes; SHA-256 `cbe8f34d6c7f7595a5ad44dc94d78bde9877e5171ef3f19b9ddbc62e42995b75`
+- `/Users/lijia/lexrender-eval/results/step2b/runtime_samples.jsonl` — 1361202 bytes; SHA-256 `98c8a98d5e180e647e6ab0f64bfd3398d51bb2ab047bb0c0689c4e38d77cc989`
+- `/Users/lijia/lexrender-eval/results/step2b/setup.log` — 44 bytes; SHA-256 `69058f4f134f62c0a4d30a7fc06725abbc7bb7ac82cb2a324d7280f9edb8c33f`
+- `/Users/lijia/lexrender-eval/results/step2b/step2_full_report.md` — 6778 bytes; SHA-256 `660d082a44a0c6f9275898a5ae48ed0fc71efc316873f6399e1077f6c10dbb0c`
+- `/Users/lijia/lexrender-eval/results/step2b/step2_old_rules_summary.json` — 2522 bytes; SHA-256 `8744af808ae4937855e5331aafb328d65511628551247e1c0757f9ca716dc08e`
+- `/Users/lijia/lexrender-eval/results/step2b/template_validation_summary.json` — 113 bytes; SHA-256 `63b17b1b21bd90a15d4c2c8bc188b6f1cb464ecf067932022f1246c18a020fcf`
+- `/Users/lijia/lexrender-eval/results/step2b_install.log` — 1586 bytes; SHA-256 `3fd11eefb2c176e641a3fa1a60a28cfd66fa2c2f5010ad8732c1f274130a6c7a`
+- `/Users/lijia/lexrender-eval/results/tuning_summary.json` — 3649 bytes; SHA-256 `a9a7ce0042c944fbe39b4262fb3581e0f89e6b61ef0c326aaeaaf6d7ddc56709`
+
+## Local evaluation scripts
+
+- `/Users/lijia/lexrender-eval/audit_final.py`
+- `/Users/lijia/lexrender-eval/continue_qwen32.py`
+- `/Users/lijia/lexrender-eval/fewshot_eval.py`
+- `/Users/lijia/lexrender-eval/finalize_reference.py`
+- `/Users/lijia/lexrender-eval/finish_report.py`
+- `/Users/lijia/lexrender-eval/freeze_prompt.py`
+- `/Users/lijia/lexrender-eval/make_report.py`
+- `/Users/lijia/lexrender-eval/run_codex_reference.py`
+- `/Users/lijia/lexrender-eval/run_local_phase.py`
+- `/Users/lijia/lexrender-eval/step2b_publish.py`
+- `/Users/lijia/lexrender-eval/step2b_report.py`
+- `/Users/lijia/lexrender-eval/step2b_run.py`
+- `/Users/lijia/lexrender-eval/step2b_setup.py`

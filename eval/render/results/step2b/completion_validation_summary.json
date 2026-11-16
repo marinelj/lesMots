@@ -1,0 +1,263 @@
+{
+  "validated_at": "2026-11-17T00:53:41.730423+08:00",
+  "runs": [
+    {
+      "run": "qwen7_production",
+      "outputs": 95,
+      "prompt_records": 95,
+      "all_scores_match_current_rules": true,
+      "all_prompts_match": true,
+      "modified": "2026-11-16T20:42:46.362924+08:00",
+      "summary": {
+        "cases": 95,
+        "passed": 29,
+        "pass_rate": 0.305,
+        "pass_rate_95ci": [
+          0.222,
+          0.404
+        ],
+        "by_kind": {
+          "none": "0/2",
+          "open": "4/11",
+          "paraphrase": "3/15",
+          "protected": "5/8",
+          "synonym": "17/59"
+        },
+        "failed_checks": {
+          "expected": 55,
+          "unchanged": 38,
+          "markers": 20,
+          "protected": 2
+        },
+        "phrases_per_case": 0.32,
+        "median_seconds": 7.07
+      }
+    },
+    {
+      "run": "qwen7_eager",
+      "outputs": 95,
+      "prompt_records": 95,
+      "all_scores_match_current_rules": true,
+      "all_prompts_match": true,
+      "modified": "2026-11-16T20:50:32.202111+08:00",
+      "summary": {
+        "cases": 95,
+        "passed": 35,
+        "pass_rate": 0.368,
+        "pass_rate_95ci": [
+          0.278,
+          0.469
+        ],
+        "by_kind": {
+          "none": "0/2",
+          "open": "3/11",
+          "paraphrase": "5/15",
+          "protected": "3/8",
+          "synonym": "24/59"
+        },
+        "failed_checks": {
+          "expected": 41,
+          "markers": 37,
+          "unchanged": 13,
+          "protected": 2
+        },
+        "phrases_per_case": 0.36,
+        "median_seconds": 7.51
+      }
+    },
+    {
+      "run": "llama8_production",
+      "outputs": 95,
+      "prompt_records": 95,
+      "all_scores_match_current_rules": true,
+      "all_prompts_match": true,
+      "modified": "2026-11-16T20:58:56.300706+08:00",
+      "summary": {
+        "cases": 95,
+        "passed": 20,
+        "pass_rate": 0.211,
+        "pass_rate_95ci": [
+          0.141,
+          0.303
+        ],
+        "by_kind": {
+          "none": "1/2",
+          "open": "7/11",
+          "paraphrase": "2/15",
+          "protected": "4/8",
+          "synonym": "6/59"
+        },
+        "failed_checks": {
+          "expected": 66,
+          "unchanged": 46,
+          "markers": 15,
+          "protected": 3
+        },
+        "phrases_per_case": 0.14,
+        "median_seconds": 7.77
+      }
+    },
+    {
+      "run": "llama8_eager",
+      "outputs": 95,
+      "prompt_records": 95,
+      "all_scores_match_current_rules": true,
+      "all_prompts_match": true,
+      "modified": "2026-11-16T21:07:50.732346+08:00",
+      "summary": {
+        "cases": 95,
+        "passed": 40,
+        "pass_rate": 0.421,
+        "pass_rate_95ci": [
+          0.327,
+          0.522
+        ],
+        "by_kind": {
+          "none": "1/2",
+          "open": "5/11",
+          "paraphrase": "2/15",
+          "protected": "4/8",
+          "synonym": "28/59"
+        },
+        "failed_checks": {
+          "expected": 39,
+          "unchanged": 20,
+          "markers": 19,
+          "protected": 1
+        },
+        "phrases_per_case": 0.39,
+        "median_seconds": 8.26
+      }
+    },
+    {
+      "run": "qwen14_production",
+      "outputs": 95,
+      "prompt_records": 95,
+      "all_scores_match_current_rules": true,
+      "all_prompts_match": true,
+      "modified": "2026-11-16T21:24:12.342818+08:00",
+      "summary": {
+        "cases": 95,
+        "passed": 36,
+        "pass_rate": 0.379,
+        "pass_rate_95ci": [
+          0.288,
+          0.479
+        ],
+        "by_kind": {
+          "none": "0/2",
+          "open": "3/11",
+          "paraphrase": "5/15",
+          "protected": "2/8",
+          "synonym": "26/59"
+        },
+        "failed_checks": {
+          "expected": 41,
+          "markers": 34,
+          "unchanged": 18,
+          "protected": 1
+        },
+        "phrases_per_case": 0.38,
+        "median_seconds": 14.86
+      }
+    },
+    {
+      "run": "qwen14_eager",
+      "outputs": 95,
+      "prompt_records": 95,
+      "all_scores_match_current_rules": true,
+      "all_prompts_match": true,
+      "modified": "2026-11-16T21:41:09.851772+08:00",
+      "summary": {
+        "cases": 95,
+        "passed": 43,
+        "pass_rate": 0.453,
+        "pass_rate_95ci": [
+          0.356,
+          0.553
+        ],
+        "by_kind": {
+          "none": "0/2",
+          "open": "3/11",
+          "paraphrase": "5/15",
+          "protected": "2/8",
+          "synonym": "33/59"
+        },
+        "failed_checks": {
+          "markers": 34,
+          "expected": 30,
+          "unchanged": 7,
+          "protected": 1
+        },
+        "phrases_per_case": 0.48,
+        "median_seconds": 15.71
+      }
+    },
+    {
+      "run": "qwen32_production",
+      "outputs": 95,
+      "prompt_records": 96,
+      "all_scores_match_current_rules": true,
+      "all_prompts_match": true,
+      "modified": "2026-11-16T22:23:18.225184+08:00",
+      "summary": {
+        "cases": 95,
+        "passed": 54,
+        "pass_rate": 0.568,
+        "pass_rate_95ci": [
+          0.468,
+          0.663
+        ],
+        "by_kind": {
+          "none": "2/2",
+          "open": "8/11",
+          "paraphrase": "4/15",
+          "protected": "4/8",
+          "synonym": "36/59"
+        },
+        "failed_checks": {
+          "expected": 29,
+          "markers": 23,
+          "unchanged": 3,
+          "protected": 1
+        },
+        "phrases_per_case": 0.51,
+        "median_seconds": 34.04
+      }
+    },
+    {
+      "run": "qwen32_eager",
+      "outputs": 95,
+      "prompt_records": 95,
+      "all_scores_match_current_rules": true,
+      "all_prompts_match": true,
+      "modified": "2026-11-16T23:03:30.817699+08:00",
+      "summary": {
+        "cases": 95,
+        "passed": 56,
+        "pass_rate": 0.589,
+        "pass_rate_95ci": [
+          0.489,
+          0.683
+        ],
+        "by_kind": {
+          "none": "2/2",
+          "open": "3/11",
+          "paraphrase": "5/15",
+          "protected": "2/8",
+          "synonym": "44/59"
+        },
+        "failed_checks": {
+          "markers": 23,
+          "expected": 22,
+          "unchanged": 3,
+          "protected": 1
+        },
+        "phrases_per_case": 0.65,
+        "median_seconds": 36.01
+      }
+    }
+  ],
+  "eager_frozen_sha256": "4090dc64db2dc50458580ce5fd033031107dace488dd77420716862c7643d170",
+  "fresh_inference_required": false
+}

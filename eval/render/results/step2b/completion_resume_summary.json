@@ -1,0 +1,14 @@
+{
+  "command": [
+    "/Users/lijia/lexrender-eval/venv/bin/python",
+    "/Users/lijia/lexrender-eval/continue_qwen32.py"
+  ],
+  "exit_code": 0,
+  "existing_outputs_and_prompts_unchanged": true,
+  "completed_outputs": {
+    "qwen32_production_test": 95,
+    "qwen32_eager_test": 95
+  },
+  "new_completion_requests": 0,
+  "note": "Resumable helper found both runs complete and retained their existing replies and timings."
+}
