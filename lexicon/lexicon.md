@@ -3884,7 +3884,7 @@ eq s$).
 ### 4.425 `stray control character`
 * **Category**: Data Sanitization, Character Encoding & Tokenizer Hygiene
 * **Phonetics**: /streɪ kənˈtroʊl ˈkær.ək.tər/
-* **Definition**: Invisible control characters mixed in by accident / stray control codes. Extraneous non-printable ASCII or Unicode control bytes (e.g. ` `, ``, ``, or unescaped newlines) inadvertently injected into raw text streams or JSON payloads, triggering parser crashes or tokenizer segmentation faults.
+* **Definition**: Invisible control characters mixed in by accident / stray control codes. Extraneous non-printable ASCII or Unicode control bytes (e.g. `\0`, `\b`, `\x1b`, or unescaped newlines) inadvertently injected into raw text streams or JSON payloads, triggering parser crashes or tokenizer segmentation faults.
 * **Synonyms**: `unescaped control character`, `errant non-printable byte`, `extraneous control code`
 * **Example**: *"The downstream JSON deserializer threw a fatal parsing error due to a **stray control character** embedded in the scraped web text."*
 
