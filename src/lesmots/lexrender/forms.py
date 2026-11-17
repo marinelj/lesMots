@@ -89,6 +89,14 @@ PLACEHOLDER_WORDS = {"someone", "something", "somebody", "sth", "sb", "...", "â€
 _PLACEHOLDER_RE = re.compile(r"^\[[^\]]*\]$")
 _VOWELS = set("aeiou")
 
+_AUXILIARIES = frozenset({"be", "is", "am", "are", "was", "were", "been", "being",
+                          "have", "has", "had", "do", "does", "did"})
+
+# particles that may follow the object of a phrasal verb: "hand the work off to",
+# "spin a cluster up". "in" and "on" are left out: "turn left on Main Street" is not
+# "turn on".
+SEPARABLE_PARTICLES = frozenset({"off", "out", "up", "down", "over", "away", "back"})
+
 
 def normalize(text: str) -> str:
     """Lower-case and straighten quotes so 'Canâ€™t' and "can't" compare equal."""
@@ -192,15 +200,31 @@ class Matcher:
             tokens.pop()
         if not tokens or len(tokens) > cls.MAX_WORDS:
             return None
+        # "be baked into" also matches "baked into": the copula is often left out or
+        # carried by an earlier verb ("are built and baked into ...")
+        optional_be = len(tokens) > 1 and tokens[0] == "be"
+        if optional_be:
+            tokens = tokens[1:]
         parts = []
         for i, tok in enumerate(tokens):
             if is_placeholder(tok):
                 parts.append(r"(?:\S+\s+){0,3}\S+")
-            elif i == 0:
-                forms = sorted(inflections(tok), key=len, reverse=True)
-                parts.append("(?:" + "|".join(re.escape(f) for f in forms) + ")")
+                continue
+            # hyphens and spaces are interchangeable: "feel-the-shake" = "feel the shake"
+            pieces = [p for p in tok.split("-") if p] or [tok]
+            if i == 0 and not optional_be:
+                forms = sorted(inflections(pieces[0]), key=len, reverse=True)
+                head = "(?:" + "|".join(re.escape(f) for f in forms) + ")"
             else:
-                parts.append(re.escape(tok))
+                head = re.escape(pieces[0])
+            parts.append(r"[-\s]+".join([head] + [re.escape(p) for p in pieces[1:]]))
+            # a separable phrasal verb: "hand the remaining work off to"
+            if (i == 0 and len(tokens) > 1 and tokens[1] in SEPARABLE_PARTICLES
+                    and not optional_be and tok not in _AUXILIARIES):
+                parts[-1] += r"(?:\s+[\w'-]+){0,3}?"
+        if optional_be:
+            be = "|".join(sorted(inflections("be"), key=len, reverse=True))
+            parts[0] = r"(?:(?:" + be + r")\s+)?" + parts[0]
         body = r"\s+".join(parts)
         pattern = re.compile(r"(?<![\w'])" + body + r"(?![\w'])", re.IGNORECASE)
         weight = sum(len(t) for t in tokens if not is_placeholder(t))

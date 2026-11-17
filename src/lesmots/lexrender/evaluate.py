@@ -119,7 +119,10 @@ def synonym_cases(lex: Lexicon, limit: int = SYNONYM_CASES) -> list[dict]:
             continue
         at = found.start()
         synonym = next((s for s in e.synonyms
-                        if not lex.is_phrase(e.id, s) and s.lower() != e.phrase.lower()), None)
+                        if not lex.is_phrase(e.id, s) and s.lower() != e.phrase.lower()
+                        # a synonym that is itself an entry ("profitable" for
+                        # "lucrative") would make linking that entry a right answer too
+                        and lex.matcher.resolve(s) is None), None)
         if synonym is None:
             continue
         if at == 0 and example[:1].isupper():

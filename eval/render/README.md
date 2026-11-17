@@ -13,7 +13,18 @@ A fixed test set for the model behind remote render, so Codex, a stock local mod
   when every step 2 baseline was scored. `build` copies them as they are and never
   rebuilds them, so scores stay comparable across lexicon versions (rebuilding from v17
   used to swap 4 synonym cases between the splits). Never use them, or their sentences,
-  as training data, and don't edit them: a new test set is a new file.
+  as training data. Don't add, remove or reword cases: a new test set is a new file.
+  The only allowed edit is an answer-key fix that accepts another valid answer, logged
+  here with the date:
+  - 2026-11-17: four synonym cases swapped in a word that is itself a lexicon entry, so
+    linking that entry is also right: `syn-divisor` (+`denominator`), `syn-inherit`
+    (+`derive`), `syn-underwrite` (+`guarantee-noun`), `syn-lucrative` (+`profitable`).
+    `build` no longer makes such cases. Two judgment calls: `syn-capable`
+    (+`capable-of-gerund`, the entry for "capable of doing") and `syn-meantime`
+    (+`meanwhile`). The matcher also started accepting
+    "baked into" for "be baked into", "feel the shake" for "feel-the-shake" and
+    separable phrasal verbs ("hand the work off to"), which fixes `para-24`, `para-12`
+    and `syn-feel-the-shake` without editing them.
 - `cases.jsonl`: the frozen test cases plus every other hand-written case and up to 120
   `synonym` cases built from lexicon examples, all as `dev`. Rebuild it after editing
   the hand-written cases or the lexicon:
