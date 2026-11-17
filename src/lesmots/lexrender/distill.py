@@ -451,8 +451,9 @@ def main(argv: list[str] | None = None) -> int:
     if args.cmd == "seed":
         print(f"kept {seed(lex, teacher, args.out, args.batches, guard)} answers")
     elif args.cmd == "rewrite":
-        print(f"rewrote {rewrite(lex, index, teacher, args.out, args.limit, args.k,
-                                  args.max_prompt_bytes)}")
+        count = rewrite(lex, index, teacher, args.out, args.limit, args.k,
+                        args.max_prompt_bytes)
+        print(f"rewrote {count}")
     else:
         idle = 0
         while stats(args.out)["sources"] < args.target and idle < 3:
