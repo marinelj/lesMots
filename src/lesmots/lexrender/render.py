@@ -24,6 +24,40 @@ Complete = Callable[[str, str, int], str]
 
 MARKER = re.compile(r"\{\{([a-z0-9][a-z0-9-]*)\|([^{}|\n]+)\}\}")
 MAX_INPUT_CHARS = 20_000
+MAX_GROWTH = 1.8  # a reply longer than this times the answer is not a light rewrite
+
+_FENCE_RE = re.compile(r"```.*?```", re.DOTALL)
+_INLINE_RE = re.compile(r"`[^`\n]+`")
+_URL_RE = re.compile(r"https?://[^\s)>\]]+")
+_STRUCTURE_RE = re.compile(r"^\s*(?:#{1,6}\s|[-*+]\s|\d+[.)]\s|>|\|)", re.MULTILINE)
+
+
+def protected_spans(text: str) -> list[str]:
+    """Code blocks, inline code and URLs: the parts a render must return byte for byte."""
+    spans = _FENCE_RE.findall(text)
+    rest = _FENCE_RE.sub(" ", text)
+    spans += _INLINE_RE.findall(rest)
+    spans += _URL_RE.findall(_INLINE_RE.sub(" ", rest))
+    return spans
+
+
+def validate(text: str, reply: str) -> str | None:
+    """Why ``reply`` can't stand in for ``text``, or None when it can.
+
+    Every check is cheap and strict, because a bad render reaches a reader: the local
+    fallback (exact-match links on the original answer) is always safe.
+    """
+    plain = MARKER.sub(lambda m: m.group(2), reply)
+    if len(plain) < 0.5 * len(text.strip()):
+        return "the model's reply did not look like the answer"
+    if len(plain) > MAX_GROWTH * max(len(text.strip()), 40):
+        return "the model's reply is much longer than the answer"
+    for span in protected_spans(text):
+        if span not in reply:  # in ``reply``: a marker inside code would break it too
+            return "the model changed code or a URL"
+    if len(_STRUCTURE_RE.findall(plain)) != len(_STRUCTURE_RE.findall(text)):
+        return "the model changed the Markdown structure"
+    return None
 MAX_INDEX_WORDS = 8  # the case excerpts are too long to be used as phrases
 
 SYSTEM = (
@@ -93,9 +127,9 @@ def render(store: Store, account_id: str, text: str, surface: str, label: str = 
     except Exception as exc:  # any model failure falls back to local rendering
         return _fallback(text, f"{type(exc).__name__}: {exc}")
     reply = (reply or "").strip()
-    plain = MARKER.sub(lambda m: m.group(2), reply)
-    if len(plain) < 0.5 * len(text.strip()):
-        return _fallback(text, "the model's reply did not look like the answer")
+    problem = validate(text, reply)
+    if problem:
+        return _fallback(text, problem)
 
     used: list[str] = []
     via: dict[str, str] = {}

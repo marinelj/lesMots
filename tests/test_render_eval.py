@@ -22,6 +22,16 @@ def test_cases_file_matches_a_fresh_build(lex, tmp_path):
     assert {c["split"] for c in fresh} == {"dev", "test"}
 
 
+def test_test_set_is_frozen(lex, tmp_path):
+    """Rebuilding never moves a case into or out of the test set, or edits one."""
+    frozen = [c for c in evaluate.load_cases(evaluate.FROZEN_TEST)]
+    fresh = evaluate.build(lex, out=tmp_path / "cases.jsonl")
+    assert [c for c in fresh if c["split"] == "test"] == sorted(frozen, key=lambda c: c["id"])
+    assert len(frozen) == 95
+    ids = [c["id"] for c in fresh]
+    assert len(ids) == len(set(ids))
+
+
 def test_a_good_rewrite_passes(lex, cases):
     reply = ("If the cache is unavailable, the service will {{fall-back-to|fall back to}} "
              "the database.")
@@ -96,3 +106,25 @@ def test_prompt_is_the_production_prompt(lex, cases):
 def test_summary_reports_a_95_percent_interval():
     assert evaluate._wilson(76, 95) == [0.709, 0.868]
     assert evaluate._wilson(0, 0) == [0.0, 0.0]
+
+
+def test_shortlist_recall_floor(lex):
+    """Without embeddings, a 40-entry shortlist holds an expected entry for at least 85%
+    of test cases (91% on 2026-11-17). Paraphrase cases are the misses: word overlap
+    can't see them, so the Studio measures recall with embeddings."""
+    from lesmots.lexrender.candidates import CandidateIndex
+
+    index = CandidateIndex(lex.entries, lex.matcher)
+    result = evaluate.shortlist_recall(index, evaluate.load_cases(split="test"), [40])
+    assert result["k=40"]["recall"] >= 0.85, result
+
+
+def test_challenge_cases_are_well_formed(lex):
+    challenge = evaluate.load_cases(evaluate.EVAL_DIR / "challenge.jsonl")
+    assert len({c["id"] for c in challenge}) == len(challenge) >= 20
+    for c in challenge:
+        assert c["split"] == "challenge"
+        assert set(c.get("expect_any", [])) <= set(lex.by_id), c["id"]
+        # returning the answer untouched never breaks code, URLs or the text checks
+        checks = evaluate.score(lex, c, c["text"])["checks"]
+        assert checks["protected"] and checks["unchanged"] and checks["markers"], c["id"]

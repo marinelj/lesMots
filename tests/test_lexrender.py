@@ -635,3 +635,12 @@ def test_hosted_under_a_path_prefix(store):
         evil = client.post("/lesmots/mcp", json=init,
                            headers={**signed_in, "Host": "evil.example"})
         assert evil.status_code in (400, 421)
+
+
+def test_a_lone_word_after_a_slash_swaps_the_last_word():
+    from lesmots.lexrender.parse import _phrase_and_aliases
+
+    _, aliases = _phrase_and_aliases("Inclination: `we lean toward` vs. `we are inclined toward / to`")
+    assert aliases == ["we lean toward", "we are inclined toward", "we are inclined to"]
+    _, aliases = _phrase_and_aliases("`well-worn / well-trodden`")
+    assert aliases == ["well-worn", "well-trodden"]
