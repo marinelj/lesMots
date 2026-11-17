@@ -54,6 +54,7 @@ from .render import MARKER, SYSTEM, _prompt
 
 BATCH = 10
 PLAIN_SHARE = 0.2  # answers with no target phrase
+MAX_PROMPT_BYTES = 24_000  # Grok's webhook cut a ~31 KB body mid-prompt; stay well under
 MAX_FAILURES = 3  # consecutive teacher failures before stopping (exit 75)
 NEAR_DUPLICATE = 0.6  # content-word Jaccard with a test case
 VALID_SHARE = 0.05
@@ -220,8 +221,26 @@ def rewrite_prompt(lex: Lexicon, items: list[tuple[dict, list]]) -> str:
     return "\n".join(parts)
 
 
+def _batches(lex: Lexicon, items: list[tuple[dict, list]], size: int,
+             max_bytes: int) -> list[list[tuple[dict, list]]]:
+    """Up to ``size`` answers per call, fewer when the prompt would pass ``max_bytes``
+    (0 = no byte limit). An answer too long for the limit on its own still goes alone."""
+    out: list[list[tuple[dict, list]]] = []
+    current: list[tuple[dict, list]] = []
+    for item in items:
+        trial = current + [item]
+        too_big = max_bytes and len(rewrite_prompt(lex, trial).encode()) > max_bytes
+        if current and (len(trial) > size or too_big):
+            out.append(current)
+            trial = [item]
+        current = trial
+    if current:
+        out.append(current)
+    return out
+
+
 def rewrite(lex: Lexicon, index: CandidateIndex, teacher: Teacher, out: Path,
-            limit: int = 0, k: int = DEFAULT_K) -> int:
+            limit: int = 0, k: int = DEFAULT_K, max_bytes: int = 0) -> int:
     """Rewrite sources that have no rewrite yet. Returns how many were rewritten."""
     path = out / "rewrites.jsonl"
     done = {r["id"] for r in _read(path)}
@@ -229,14 +248,14 @@ def rewrite(lex: Lexicon, index: CandidateIndex, teacher: Teacher, out: Path,
     if limit:
         todo = todo[:limit]
     written = failures = 0
-    for i in range(0, len(todo), BATCH):
-        batch = [(s, candidates_for(index, lex, s, k)) for s in todo[i:i + BATCH]]
+    items = [(s, candidates_for(index, lex, s, k)) for s in todo]
+    for batch in _batches(lex, items, BATCH, max_bytes):
         try:
             reply = _parse_json(teacher(rewrite_prompt(lex, batch), REWRITE_SYSTEM))
             failures = 0
         except Exception as exc:
             failures += 1
-            print(f"rewrite batch at {todo[i]['id']}: {type(exc).__name__}: {exc}",
+            print(f"rewrite batch at {batch[0][0]['id']}: {type(exc).__name__}: {exc}",
                   file=sys.stderr)
             if failures >= MAX_FAILURES:
                 raise SystemExit(EXIT_RETRY_LATER) from exc
@@ -339,6 +358,13 @@ def grok_complete(base_url: str, timeout: float = 1800.0, poll: float = 5.0,
     base = base_url.rstrip("/")
 
     def complete(prompt: str, system: str) -> str:
+        try:
+            return once(prompt, system)
+        except Exception as first:  # one retry: a truncated webhook body usually goes
+            print(f"Grok run failed, retrying once: {first}", file=sys.stderr)  # through
+            return once(prompt, system)
+
+    def once(prompt: str, system: str) -> str:
         run = http("POST", f"{base}/v1/runs", {"prompt": f"{system}\n\n{prompt}"})
         run_id = run.get("run_id")
         if not run_id:
@@ -394,6 +420,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--model", default="gpt-6.1-sol")
     ap.add_argument("--effort", default="low")
     ap.add_argument("--timeout", type=float, default=600.0)
+    ap.add_argument("--max-prompt-bytes", type=int, default=MAX_PROMPT_BYTES,
+                    help="split rewrite batches above this size (0 = no limit)")
     sub = ap.add_subparsers(dest="cmd", required=True)
     p = sub.add_parser("seed", help="stage 1: write source answers")
     p.add_argument("--batches", type=int, default=10)
@@ -423,14 +451,15 @@ def main(argv: list[str] | None = None) -> int:
     if args.cmd == "seed":
         print(f"kept {seed(lex, teacher, args.out, args.batches, guard)} answers")
     elif args.cmd == "rewrite":
-        print(f"rewrote {rewrite(lex, index, teacher, args.out, args.limit, args.k)}")
+        print(f"rewrote {rewrite(lex, index, teacher, args.out, args.limit, args.k,
+                                  args.max_prompt_bytes)}")
     else:
         idle = 0
         while stats(args.out)["sources"] < args.target and idle < 3:
             kept = seed(lex, teacher, args.out, 5, guard)
-            rewrite(lex, index, teacher, args.out, 0, args.k)
+            rewrite(lex, index, teacher, args.out, 0, args.k, args.max_prompt_bytes)
             idle = 0 if kept else idle + 1  # a teacher that returns nothing usable: stop
-        rewrite(lex, index, teacher, args.out, 0, args.k)
+        rewrite(lex, index, teacher, args.out, 0, args.k, args.max_prompt_bytes)
         print(json.dumps(export(lex, args.out), indent=2))
     return 0
 

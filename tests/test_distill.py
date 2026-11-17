@@ -147,8 +147,34 @@ def test_grok_teacher_raises_on_timeout_status():
 
     from lesmots.lexrender.distill import grok_complete
 
-    replies = iter([{"run_id": "r", "status": "running"}, {"status": "timed_out"}])
+    replies = iter([{"run_id": "r", "status": "running"}, {"status": "timed_out"},
+                    {"run_id": "r2", "status": "running"}, {"status": "failed"}])
     complete = grok_complete("http://gw", poll=0, http=lambda *a: next(replies),
                              sleep=lambda s: None, clock=lambda: 0.0)
     with pytest.raises(RuntimeError):
         complete("t", "s")
+
+
+def test_grok_teacher_retries_once():
+    from lesmots.lexrender.distill import grok_complete
+
+    replies = iter([{"run_id": "r", "status": "failed"},
+                    {"run_id": "r2", "status": "completed", "final_output": "fine"}])
+    complete = grok_complete("http://gw", poll=0, http=lambda *a: next(replies),
+                             sleep=lambda s: None, clock=lambda: 0.0)
+    assert complete("t", "s") == "fine"
+
+
+def test_batches_stay_under_the_byte_limit():
+    from lesmots.lexrender import distill
+    from lesmots.lexrender.evaluate import Lexicon
+
+    lex = Lexicon.load()
+    cands = lex.entries[:40]
+    items = [({"id": f"a{i}", "text": "The service uses the database instead. " * 5}, cands)
+             for i in range(10)]
+    whole = len(distill.rewrite_prompt(lex, items).encode())
+    batches = distill._batches(lex, items, 10, whole // 3)
+    assert len(batches) > 1 and sum(len(b) for b in batches) == 10
+    assert all(len(distill.rewrite_prompt(lex, b).encode()) <= whole // 3 for b in batches)
+    assert distill._batches(lex, items, 10, 0) == [items]
