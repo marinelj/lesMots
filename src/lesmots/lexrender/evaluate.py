@@ -51,7 +51,7 @@ from pathlib import Path
 
 from .forms import Matcher
 from .parse import ParsedEntry, parse_lexicon
-from .render import MARKER, SYSTEM, _prompt
+from .render import MARKER, SYSTEM, _prompt, protected_spans
 
 ROOT = Path(__file__).resolve().parents[3]
 LEXICON = ROOT / "lexicon" / "lexicon.md"
@@ -64,9 +64,6 @@ SYNONYM_CASES = 120  # how many synonym-swap cases ``build`` samples from the le
 MAX_PHRASE_WORDS = 8  # longer headings aren't in the prompt's index (render.MAX_INDEX_WORDS)
 
 _EXAMPLE_RE = re.compile(r"\*\*Example\*\*\s*:\s*\*?\"?(.+?)\"?\*?\s*$", re.MULTILINE)
-_FENCE_RE = re.compile(r"```.*?```", re.DOTALL)
-_INLINE_RE = re.compile(r"`[^`\n]+`")
-_URL_RE = re.compile(r"https?://[^\s)>\]]+")
 _SENTENCE_SPLIT = re.compile(r"(?<=[.!?:])\s+|\n+")
 
 
@@ -188,12 +185,7 @@ def load_cases(path: Path = CASES, split: str | None = None) -> list[dict]:
 
 # --- scoring -------------------------------------------------------------------------
 
-def _protected(text: str) -> list[str]:
-    spans = _FENCE_RE.findall(text)
-    rest = _FENCE_RE.sub(" ", text)
-    spans += _INLINE_RE.findall(rest)
-    spans += _URL_RE.findall(_INLINE_RE.sub(" ", rest))
-    return spans
+_protected = protected_spans
 
 
 def _norm(sentence: str) -> str:
