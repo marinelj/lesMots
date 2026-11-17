@@ -1,0 +1,95 @@
+{"id": "para-05", "reply": "We {{put-tool-model-through-its-paces|put the new model through its paces}} on 200 real tickets before {{switch-over-to|switching over to}} it.", "seconds": 15.85}
+{"id": "para-01", "reply": "If the cache is unavailable, the service {{fall-back-to|falls back to}} the database.", "seconds": 17.65}
+{"id": "para-07", "reply": "All files stored on disk are {{encrypted-at-rest|encrypted at rest}} with AES-256.", "seconds": 20.95}
+{"id": "para-09", "reply": "I'm {{blocked-on-x|blocked on you sending me the Google client ID}}.", "seconds": 8.37}
+{"id": "para-08", "reply": "Traffic between the app and the API is {{encrypted-in-transit|encrypted in transit}} using TLS, so nobody can read it on the way.", "seconds": 13.29}
+{"id": "para-12", "reply": "Once the PR is merged, I'll {{hand-off-to|hand off}} the {{leftover|leftover}} work {{hand-off-to|to}} Codex.", "seconds": 14.4}
+{"id": "para-18", "reply": "Please {{reach-out-to|reach out to}} the Stripe support team about the refund.", "seconds": 8.7}
+{"id": "para-17", "reply": "Let me {{walk-through-the-end-to-end-flow|walk through the end-to-end flow}} with you, from {{authentication|authentication}} to the rendered reply.", "seconds": 13.53}
+{"id": "para-23", "reply": "Your local lexicon must always be {{in-sync-with|in sync with}} the server's copy.", "seconds": 10.04}
+{"id": "para-24", "reply": "Retries {{be-baked-into|are baked into}} the client, so callers never have to handle them.", "seconds": 8.8}
+{"id": "para-20", "reply": "The run has {{stalled|stalled}}: no output for 20 minutes, and no error either.", "seconds": 13.36}
+{"id": "para-26", "reply": "{{i-wouldnt-say-that|I wouldn't say that}} it was a total failure; it mostly worked.", "seconds": 13.18}
+{"id": "para-27", "reply": "At first glance, the total {{look-right-while-being-subtly-wrong|looks right while being subtly wrong}}.", "seconds": 13.49}
+{"id": "para-28", "reply": "We'll {{play-it-by-ear|play it by ear}} when deciding the release date, without a fixed plan.", "seconds": 16.82}
+{"id": "none-04", "reply": "Python 3.12 is installed on the Mac Studio.", "seconds": 14.04}
+{"id": "para-29", "reply": "The old roadmap {{take-a-backseat|takes a backseat}} now that the training plan is in place.", "seconds": 15.26}
+{"id": "none-05", "reply": "The repository {{comprise|comprises}} two branches: main and dev.", "seconds": 15.18}
+{"id": "none-07", "reply": "The invoice total is $9.99 per month.", "seconds": 8.57}
+{"id": "none-08", "reply": "Your account was {{make|made}} on November 13.", "seconds": 14.85}
+{"id": "none-10", "reply": "There are 686 entries in version 14.", "seconds": 14.13}
+{"id": "none-12", "reply": "The PR’s changes {{cover|cover}} two files.", "seconds": 13.66}
+{"id": "none-13", "reply": "Yes.", "seconds": 8.59}
+{"id": "none-16", "reply": "The table {{comprise|comprises}} three columns: id, name and email.", "seconds": 13.87}
+{"id": "none-20", "reply": "The weather in Shanghai is sunny today.", "seconds": 13.8}
+{"id": "none-21", "reply": "The cup fell off the table and broke.", "seconds": 14.23}
+{"id": "none-22", "reply": "She sat at the back of the room.", "seconds": 7.97}
+{"id": "none-24", "reply": "Version 0.40.16 is the {{latest|latest}} release.", "seconds": 13.49}
+{"id": "none-25", "reply": "The price {{exhibit|exhibited}} a 10 percent increase last year.", "seconds": 13.73}
+{"id": "code-01", "reply": "If the primary is down, the client {{fall-back-to|falls back to}} the replica:\n\n```python\nif not primary.ok:\n    fall_back_to(replica)\n```\n\nDocs: https://example.com/docs/fall-back-to", "seconds": 14.12}
+{"id": "code-02", "reply": "Run `tidy_up --all` before you commit, then {{end-with|end with}} a push.", "seconds": 15.39}
+{"id": "code-03", "reply": "The helper {{comprise|comprises}} the following code:\n\n```js\nfunction handleTheHeavyLifting(job) {\n  return queue.push(job);\n}\n```", "seconds": 14.09}
+{"id": "code-09", "reply": "When the cache misses, the app {{fall-back-to|falls back to}} the database:\n\n```sql\nSELECT * FROM users WHERE id = $1;\n```", "seconds": 14.27}
+{"id": "code-11", "reply": "Call `render(text, surface=\"chat\")` and {{refer|refer}} to the `used` field.", "seconds": 15.04}
+{"id": "code-12", "reply": "**Note:** the token expires after 30 days. Visit https://marine-api.tunnel.tungo.cn/lesmots-app to get a new one.", "seconds": 15.12}
+{"id": "code-13", "reply": "The regex is `\\{\\{([a-z0-9-]+)\\|([^}]+)\\}\\}` and must remain {{intact|intact}}.", "seconds": 14.35}
+{"id": "code-15", "reply": "{{get-started-with|Get started with}} `ollama pull qwen2.5:7b` to download the model, which takes a few minutes.", "seconds": 13.63}
+{"id": "syn-ablation", "reply": "The doctor used {{laser|laser}} {{ablation|ablation}} to remove the tumor.", "seconds": 13.82}
+{"id": "syn-adapt", "reply": "Animals must {{adapt|adapt}} to survive in changing environments.", "seconds": 13.37}
+{"id": "syn-allegedly", "reply": "He {{allegedly|allegedly}} stole a car last night.", "seconds": 33.9}
+{"id": "syn-affiliate", "reply": "She works for an {{affiliate|affiliate}} of a major international bank.", "seconds": 33.92}
+{"id": "syn-aspect", "reply": "One important {{aspect|aspect}} of learning English is practicing speaking regularly.", "seconds": 15.02}
+{"id": "syn-ambient", "reply": "The {{ambient|ambient}} light in the room was soft and calming.", "seconds": 35.98}
+{"id": "syn-authenticity", "reply": "The museum checked the {{authenticity|authenticity}} of the painting before {{exhibit|exhibiting}} it.", "seconds": 15.87}
+{"id": "syn-capable", "reply": "The distributed streaming engine is {{capable-of-gerund|capable of processing}} over 500,000 events per second with sub-second latencies.", "seconds": 12.83}
+{"id": "syn-blip", "reply": "The power {{outage|outage}} was just a {{blip|blip}} in the system.", "seconds": 13.28}
+{"id": "syn-awareness", "reply": "Maintaining continuous spatial {{awareness|awareness}} is essential for elite point guards.", "seconds": 31.26}
+{"id": "syn-conflate", "reply": "People often {{conflate|conflate}} climate change with weather, but they are not the same thing.", "seconds": 18.66}
+{"id": "syn-cartesian", "reply": "The teacher explained the {{cartesian|cartesian}} coordinate system using a graph on the board.", "seconds": 30.14}
+{"id": "syn-contamination", "reply": "The water supply was affected by {{contamination|contamination}} from a nearby factory.", "seconds": 18.34}
+{"id": "syn-cradle", "reply": "She gently rocked the baby to sleep in the {{cradle|cradle}}.", "seconds": 24.95}
+{"id": "syn-curfew", "reply": "The municipal authorities imposed a strict midnight {{curfew|curfew}} to restore civil order across the metropolitan district.", "seconds": 23.67}
+{"id": "syn-decisive", "reply": "Her {{decisive|decisive}} action saved the project from failure.", "seconds": 32.49}
+{"id": "syn-detour", "reply": "We had to take a {{detour|detour}} because the main road was under construction.", "seconds": 26.85}
+{"id": "syn-divisor", "reply": "Six is a {{denominator|denominator}} of twelve.", "seconds": 24.96}
+{"id": "syn-dormant", "reply": "The volcano has been {{dormant|dormant}} for centuries.", "seconds": 22.66}
+{"id": "syn-effectiveness", "reply": "The new teaching method improved the {{effectiveness|effectiveness}} of student learning.", "seconds": 21.97}
+{"id": "syn-euclidean", "reply": "The students learned about geometric geometry in their math class.", "seconds": 29.1}
+{"id": "syn-finite", "reply": "The universe may be {{finite|finite}} in size.", "seconds": 21.15}
+{"id": "syn-feel-the-shake", "reply": "The crowd began to {{feel-the-shake|feel-the-shake}} as the bass dropped at the concert.", "seconds": 25.38}
+{"id": "syn-fruitful", "reply": "Our discussion was {{fruitful|fruitful}}, leading to a new project.", "seconds": 13.59}
+{"id": "syn-gerund", "reply": "Because 'to' in the {{phrase|phrase}} 'dedicated to' functions as a preposition, it must govern a {{gerund|gerund}} rather than an infinitive verb.", "seconds": 19.07}
+{"id": "syn-granularity", "reply": "This report has an {{absence|absence}} of the {{granularity|granularity}} needed for precise decision-making.", "seconds": 19.25}
+{"id": "syn-havel", "reply": "Václav proper noun was a prominent Czech playwright and statesman.", "seconds": 23.19}
+{"id": "syn-integrity", "reply": "She {{reject|rejected}} the bribe, showing great {{integrity|integrity}}.", "seconds": 18.02}
+{"id": "syn-inherit", "reply": "Local pipeline configurations strictly {{derive|derive}} all {{compliance|compliance}} rules from the global corporate policy.", "seconds": 25.34}
+{"id": "syn-intersect", "reply": "The two roads {{intersect|intersect}} at the city center.", "seconds": 28.09}
+{"id": "syn-lasso", "reply": "The cowboy threw the {{lasso|lasso}} and caught the runaway calf.", "seconds": 22.97}
+{"id": "syn-latest", "reply": "She bought the {{latest|latest}} smartphone model.", "seconds": 19.25}
+{"id": "syn-lucrative", "reply": "She started a {{profitable|profitable}} online business selling handmade jewelry.", "seconds": 24.53}
+{"id": "syn-magenta", "reply": "The dress she wore was a bold {{magenta|magenta}}.", "seconds": 22.21}
+{"id": "syn-marginal", "reply": "The improvement was only {{marginal|marginal}}, so we decided to try a different approach.", "seconds": 27.22}
+{"id": "syn-meantime", "reply": "{{meanwhile|Meanwhile}}, let's have some tea.", "seconds": 16.01}
+{"id": "syn-monetization", "reply": "By rolling out token-{{meter|metered}} billing {{tier|tiers}}, the platform transitioned its open-source inference engine into a {{profitable|profitable}} API {{monetization|monetization}} model.", "seconds": 22.41}
+{"id": "syn-matchup", "reply": "The basketball game tonight is an {{exhilarating|exhilarating}} {{matchup|matchup}} between the top two teams.", "seconds": 32.85}
+{"id": "syn-nuance", "reply": "She caught the {{nuance|nuance}} in his tone and realized he wasn’t really angry—just tired.", "seconds": 30.82}
+{"id": "syn-outperform", "reply": "In zero-shot code refactoring, specialized domain models often {{outperform|outperform}} generalist LLMs while requiring lower compute latency.", "seconds": 25.32}
+{"id": "syn-oversight", "reply": "The project failed due to a major {{oversight|oversight}} in the planning {{stage|stage}}.", "seconds": 26.11}
+{"id": "syn-recipient", "reply": "The {{recipient|recipient}} of the award was very grateful.", "seconds": 19.33}
+{"id": "syn-rectified", "reply": "The error was {{rectified|rectified}} before the report was submitted.", "seconds": 24.6}
+{"id": "syn-reject", "reply": "She decided to {{reject|reject}} the job offer because the salary was too low.", "seconds": 22.76}
+{"id": "syn-reproducible", "reply": "Before escalating the priority of the ticket, the QA lead verified that the memory leak was reliably {{reproducible|reproducible}} in isolated staging containers.", "seconds": 17.68}
+{"id": "syn-rim", "reply": "The {{rim|rim}} of the cup was chipped.", "seconds": 22.98}
+{"id": "syn-separability", "reply": "The {{separability|separability}} of the software modules allows developers to update them individually.", "seconds": 22.49}
+{"id": "syn-scandal", "reply": "The fintech unicorn {{wrestle|wrestled}} with regaining investor trust following an accounting controversy involving fabricated transaction volumes.", "seconds": 32.13}
+{"id": "syn-serendipity", "reply": "Finding that rare book in a tiny shop was pure {{serendipity|serendipity}}.", "seconds": 21.81}
+{"id": "syn-splash", "reply": "She jumped into the pool with a big {{splash|splash}}.", "seconds": 25.17}
+{"id": "syn-spring", "reply": "The flowers bloom in bloom season.", "seconds": 26.02}
+{"id": "syn-square", "reply": "The table is a perfect quadrilateral.", "seconds": 25.78}
+{"id": "syn-stick", "reply": "I used a {{stick|stick}} to point at the map.", "seconds": 26.5}
+{"id": "syn-stochastic", "reply": "The weather can be considered a {{stochastic|stochastic}} system, as many unpredictable factors {{have-an-effect-on|have an effect on}} it.", "seconds": 29.35}
+{"id": "syn-streaky", "reply": "The steak was inconsistent with fat, {{make|making}} it look {{pretty|pretty}} marbled.", "seconds": 22.55}
+{"id": "syn-swap", "reply": "We decided to {{swap|swap}} our old car for a new one.", "seconds": 28.23}
+{"id": "syn-tangle", "reply": "Her hair was a {{tangle|tangle}} after the windy walk.", "seconds": 22.58}
+{"id": "syn-underwrite", "reply": "The bank agreed to {{guarantee-noun|guarantee the new startup’s loan}}.", "seconds": 28.46}
+{"id": "syn-verdict", "reply": "The jury's {{verdict|verdict}} was not guilty.", "seconds": 19.88}

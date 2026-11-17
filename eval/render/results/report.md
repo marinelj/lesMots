@@ -6,7 +6,7 @@ The initial process check found no evaluation running and `ollama ps` was empty.
 
 ## Combined results
 
-All eight local configurations use the same 95 held-out cases, temperature 0, the PR #57 production prompt, and explicit 16,384-token copies. Eager adds the same frozen worked examples used for 14B. Codex uses the earlier step 2 prompt and saved replies, re-scored under PR #57; it was not rerun with the new production prompt.
+All eight local configurations use the same 95 held-out cases, temperature 0, the PR #57 production prompt, and explicit 16,384-token copies. Eager adds the same frozen worked examples used for 14B. The Codex row now uses a fresh reference run with the aggressive production prompt. Earlier replies using the old prompt, re-scored under PR #57, are compared with the new result in the "Codex gpt-6.1-sol, new prompt" section below.
 
 `by_kind` is **none / open / paraphrase / protected / synonym**, as passed/total. The denominators are 2 / 11 / 15 / 8 / 59. `phrases_per_case` is the number of valid marked phrases in passing replies divided by all 95 cases. The 95% ranges are Wilson intervals.
 
@@ -20,13 +20,32 @@ All eight local configurations use the same 95 held-out cases, temperature 0, th
 | Qwen 2.5 14B / eager | 43/95 (45.3%) | 35.6%–55.3% | 0.48 | 0/2 / 3/11 / 5/15 / 2/8 / 33/59 | 15.71 | 16.23 | 11.23 GiB |
 | Qwen 2.5 32B / production | 54/95 (56.8%) | 46.8%–66.3% | 0.51 | 2/2 / 8/11 / 4/15 / 4/8 / 36/59 | 34.04 | 36.92 | 22.29 GiB |
 | Qwen 2.5 32B / eager | 56/95 (58.9%) | 48.9%–68.3% | 0.65 | 2/2 / 3/11 / 5/15 / 2/8 / 44/59 | 36.01 | 38.70 | 22.29 GiB |
-| Codex gpt-6.1-sol / low / step 2 reference, rescored | 81/95 (85.3%) | 76.8%–91.0% | 0.80 | 2/2 / 11/11 / 13/15 / 8/8 / 47/59 | 16.71 | 18.38 | not measured |
+| Codex gpt-6.1-sol / low / new aggressive prompt | 80/95 (84.2%) | 75.6%–90.2% | 0.91 | 1/2 / 11/11 / 13/15 / 8/8 / 47/59 | 19.07 | 18.38 | not measured |
 
 Local requests were serial. Latency includes cold loading and prompt caching; Codex includes submission, queueing and polling. The ten longest cases are selected by original answer character count: `code-01`, `syn-monetization`, `syn-reproducible`, `syn-scandal`, `syn-gerund`, `syn-outperform`, `syn-capable`, `syn-curfew`, `code-12`, `code-09`. These inputs are only 104–164 characters, so this is not a long-document benchmark.
 
 Peak memory is the maximum loaded-model allocation reported by `/api/ps`, sampled alongside `ollama ps` every five seconds across each model’s runs. It is not total system RAM or training memory. All sampled local contexts were 16,384 tokens. The 32B samples show `23 GB`, `100% GPU`, context `16384`, runner `llamacpp`; the API peak is 23,930,978,958 bytes (22.29 GiB). Its copy uses exactly `FROM qwen2.5:32b` and `PARAMETER num_ctx 16384`, matching the other copies’ construction.
 
 Memory-pressure samples (normal / warning / critical): 7B **193 / 0 / 0**; 8B **204 / 1 / 0**; 14B **395 / 0 / 0**; 32B **25 / 910 / 2**. The 32B run experienced sustained warning pressure and two critical samples. Swap was already in use before the sequence; occupancy grew from 2,960.06 MiB initially to 6,174.81 MiB at the last original sample. These observations do not isolate the evaluation from other applications.
+
+## Codex gpt-6.1-sol, new prompt
+
+Completed 2026-11-17T15:42:00.374481+08:00 using the exact aggressive production prompts from PR #57 (`a2b97027eec546cac257a1cae82b29535b6e5471`). The first session stopped on quota after 37 cases; this resume preserved all 37 non-empty replies byte for byte and generated only the missing 58. There are now 95 non-empty replies with unique IDs, covering the complete test split.
+
+Each request uses `gpt-6.1-sol`, reasoning effort `low`, `fresh_thread: true`, `sandbox: read-only`, and no `project_id`. Prompt text is unchanged stdout from `python -m lesmots.lexrender.evaluate prompt <case_id>`, including its trailing newline. At most three new runs were active; each missing case was allowed one retry.
+
+`by_kind` is **none / open / paraphrase / protected / synonym**, shown as passed/total. Both rows use PR #57 scoring rules and the same 95 cases. Confidence intervals are 95% Wilson intervals.
+
+| Reference | Pass rate | 95% interval | phrases_per_case | by_kind | failed_checks | Median seconds per case |
+|---|---:|---:|---:|---|---|---:|
+| Earlier step 2, old prompt re-scored | 81/95 (85.3%) | 76.8%–91.0% | 0.80 | 2/2 / 11/11 / 13/15 / 8/8 / 47/59 | expected 14; markers 2 | 16.71 |
+| New aggressive production prompt | 80/95 (84.2%) | 75.6%–90.2% | 0.91 | 1/2 / 11/11 / 13/15 / 8/8 / 47/59 | expected 15; markers 1 | 19.07 |
+
+Resume execution: 6 retried cases, 6 failed attempts, zero final API failures, and no second quota stop. Overall timings combine the 37 retained measurements and 58 new measurements; each is client elapsed time through the final poll, including any retry time. Median for the same ten longest cases is 18.38 s.
+
+The required `evaluate score --outputs ... --out ...` command produced the scored JSONL unchanged. Its printed summary is retained locally as `results/sol_aggressive_test_summary.json`. The scorer CLI omits external timing fields, so the median above is restored from the saved reply timings; no scoring checks were changed.
+
+Published data: [replies JSONL](sol_aggressive_test_replies.jsonl) and [scored JSONL](sol_aggressive_test_scored.jsonl). Exact requests, run IDs, retry events, the pre-resume backup, raw printed summary, timing summary, and preservation/concurrency audits remain locally under `results/sol_aggressive_*`. The combined table’s Codex row now uses the new aggressive-prompt result; the earlier old-prompt result remains in the comparison above.
 
 ## Step 2 scores under the old rules
 
