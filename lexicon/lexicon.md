@@ -162,7 +162,7 @@
 ### 1.28 `stative intransitive` (The Stative Intransitive Dual Trap)
 * **Category**: Grammatical Architectural Guardrail
 * **Concept Definition**: Verbs that denote a permanent state, relationship, or condition (`stative`: no progressive `-ing` form) and do not pass action to a direct object (`intransitive`: no passive voice possible).
-* **The Dual Trap**: Second-language engineers often feel the subject is in a passive state or translate literally from Chinese (是属于 / 是取决于), erroneously adding `is` (❌ *is belong to*, ❌ *is depended on*, ❌ *is consisted of*).
+* **The Dual Trap**: Second-language engineers often feel the subject is in a passive state or translate literally from Chinese ("is belong to" / "is depend on"), erroneously adding `is` (❌ *is belong to*, ❌ *is depended on*, ❌ *is consisted of*).
 * **Rule of Thumb**: Always use active simple present directly with third-person singular `-s`. Never prefix with auxiliary `be`.
 * **The Top 5 Technical Verbs**:
   1. **`belong to`**: *"This configuration belongs to the Jupyter server daemon."* (Never *is belong to*)
@@ -277,7 +277,7 @@ eq s$).
 ### 1.41 `fall flat`
 * **Category**: Idiomatic Phrasal Verb / Rhetorical & Presentation Critique
 * **Definition**: To fail completely to achieve the intended effect, resonance, or reception; to be uninspiring or ineffective (often applied to technical pitches, speeches, or project documentation).
-* **Chinese Translation**: 效果平平 / 毫无反响 / 索然无味 / 未能奏效
+* **Plain English**: mediocre / got no reaction / dull / didn't work
 * **Grammatical Patterns**:
   * `fall flat` (absolute): *"The initial architecture pitch fell completely flat with the venture committee."*
   * `fall flat with / on [audience]`: *"Technical humor often falls flat on non-engineering stakeholders."*
@@ -286,7 +286,7 @@ eq s$).
 ### 1.42 `promotional post`
 * **Category**: Professional Collocation / Developer Advocacy & Marketing
 * **Definition**: A targeted, public social media update or article (typically on LinkedIn, X/Twitter, or Reddit) designed to market a project, tool, feature release, or open-source initiative.
-* **Chinese Translation**: 宣传动态 / 推广帖 / 发布公告
+* **Plain English**: promo update / marketing post / release announcement
 * **Collocations & Register Distinction**:
   * `draft a promotional post` | `publish an announcement post`
   * ❌ *promoting message* (sounds like spam direct message) vs. ✅ *promotional post* (public technical network update).
@@ -295,7 +295,7 @@ eq s$).
 ### 1.43 `revamp the README`
 * **Category**: Technical Collocation / Project Maintenance & Documentation
 * **Definition**: To thoroughly overhaul, redesign, and rewrite a project's README file to improve clarity, visual structure, value proposition, and onboarding.
-* **Chinese Translation**: 重构 / 改版 / 全面翻新 README
+* **Plain English**: rework / redesign / fully overhaul the README
 * **Nuance Contrast**:
   * `update / edit`: Fixing typos or bumping version tags.
   * `revamp / overhaul`: Restructuring the narrative arc—shifting the focus from dry mechanics to value proposition, adding architecture diagrams, and polishing quick-start instructions.
@@ -305,7 +305,7 @@ eq s$).
 * **Category**: Idiom / Tactical Adaptability & Dynamic Scheduling
 * **Phonetics**: /ˈpleɪ ɪt baɪ ɪər/
 * **Definition**: To proceed pragmatically without a rigid, predetermined plan; deciding what action to take step-by-step as events, metrics, or circumstances unfold.
-* **Chinese Translation**: 见机行事 / 随机应变 / 到时候看情况再定
+* **Plain English**: adapt as you go / improvise / decide when the time comes
 * **Triad Comparison**:
   * `play it by ear` (Dynamic & Improvisational): Taking action adaptively as new facts emerge.
   * `see how it plays out` (Observational & Patient): Waiting to observe the natural consequences of a system rollout.
@@ -316,7 +316,7 @@ eq s$).
 * **Category**: Discourse Marker / Pragmatic Transition & Balanced Evaluation
 * **Phonetics**: /tuː bi feər/
 * **Definition**: A conversational discourse marker used to introduce an objective fact, mitigating circumstance, or alternative viewpoint to moderate criticism, defend someone, or offer a balanced assessment.
-* **Chinese Translation**: 平心而论 / 说句公道话 / 从公平的角度说 / 客观来说
+* **Plain English**: in fairness / to give credit where due / objectively speaking
 * **Syntactic Patterns**:
   * Sentence-Initial: *"The deployment ran over schedule, but to be fair, the database volume was twice what we benchmarked in staging."*
   * With Personal Object: *"To be fair to the on-call engineer, the upstream service broke contract without giving any heads-up."*
@@ -336,7 +336,7 @@ eq s$).
 ### 1.47 `grace period`
 * **Category**: Domain Collocation / Financial Engineering & Systems SLA
 * **Definition**: A designated window after a due date or payment deadline during which obligations can be met without incurring penalties, late fees, or service termination.
-* **Chinese Translation**: 宽限期 / 缓冲期 / 免息期
+* **Plain English**: grace window / buffer period / interest-free period
 * **Key Contexts**:
   * `interest-free grace period`: The standard 21–25 day billing cycle window before interest accrues.
   * `courtesy / late-payment grace period`: A short buffer window (1–3 days) after the due date before late fees are assessed.
@@ -420,14 +420,14 @@ eq s$).
 ### 1.58 `without further ado`
 * **Category**: Idiom / Discourse Marker & Presentation Transition
 * **Phonetics**: /wɪðˈaʊt ˈfɜː.ðər əˈduː/
-* **Definition**: Transitioning immediately to the core topic, presentation, agenda item, or demonstration without further delay, preamble, or conversational fluff ("言归正传 / 闲话少说").
+* **Definition**: Transitioning immediately to the core topic, presentation, agenda item, or demonstration without further delay, preamble, or conversational fluff ("back to the point" / "enough small talk").
 * **Collocations**: `without further ado, let's dive in`, `without further ado, let me introduce...`, `without further ado, let's look at the benchmarks`
 * **Example**: *"Without further ado, let's examine the query latency distributions across our distributed database cluster."*
 
 ### 1.59 `pump fake` (`bite on a pump fake`)
 * **Category**: Sports Idiom & Negotiation / Tactical Slang
 * **Phonetics**: /ˈpʌmp feɪk/
-* **Definition**: 投篮假动作 / 虚晃一枪、试探性动作。
+* **Definition**: Shot fake / a feint or probing move.
   1. **Basketball Literal**: Feigning a jump shot with an upward ball movement while keeping pivot feet planted to bait a defender into jumping airborne, allowing the ball-handler to drive past or draw a shooting foul.
   2. **Metaphorical / Strategic Negotiation**: Posturing, bluffing, or executing a deceptive tentative maneuver to test the counterparty's reactions, gauge pricing thresholds, or bait them into revealing their hand prematurely.
 * **Collocations**: `bite on a pump fake`, `hit [someone] with a subtle pump fake`, `see through their pump fake`, `merely a pump fake`
@@ -443,7 +443,7 @@ eq s$).
 ### 1.61 `rests on` (`rests on the assumption that...`)
 * **Category**: Logical Foundation & Architecture Invariant
 * **Phonetics**: /rests ɑːn/
-* **Definition**: 建立在……的基础之上 / 取决于、归结于…… (Synonyms: *hinges on*, *is grounded in*). Denotes that an entire theoretical conclusion, proof, or distributed architecture depends critically on an underlying assumption or foundational premise. If that pillar collapses, the superstructure fails.
+* **Definition**: Is built on... / depends on, comes down to... (Synonyms: *hinges on*, *is grounded in*). Denotes that an entire theoretical conclusion, proof, or distributed architecture depends critically on an underlying assumption or foundational premise. If that pillar collapses, the superstructure fails.
 * **Collocations**: `rests on the core assumption that...`, `rests on empirical evidence`, `the entire system rests on...`
 * **Example**: *"Our event-driven microservices architecture rests on the foundational assumption that message delivery across partitions is strictly idempotent."*
 
@@ -451,121 +451,121 @@ eq s$).
 ### 1.62 `put [tool/model] through its paces`
 * **Category**: Benchmark & Rigorous Evaluation
 * **Phonetics**: /pʊt θruː ɪts ˈpeɪsɪz/
-* **Definition**: 全面检验某工具/模型的真实实力、极限潜能与运转稳定性。Derives from equestrian training (testing a horse at all gaits—walk, trot, canter, gallop). In engineering and AI benchmarking, it means subjecting a library, agent pipeline, or neural model to an exhaustive suite of stress tests, edge cases, and heavy production workloads to evaluate real-world resilience.
+* **Definition**: To fully test a tool or model's real strength, limits and stability.Derives from equestrian training (testing a horse at all gaits—walk, trot, canter, gallop). In engineering and AI benchmarking, it means subjecting a library, agent pipeline, or neural model to an exhaustive suite of stress tests, edge cases, and heavy production workloads to evaluate real-world resilience.
 * **Collocations**: `put the new foundation model through its paces`, `thoroughly put the pipeline through its paces`.
 * **Example**: *"Before deploying the orchestration agent to production, our platform team spent two weeks putting it through its paces across thousands of synthetic stress-test scenarios."*
 
 ### 1.63 `bump the cap`
 * **Category**: Cloud Quota Management & Operational SRE
 * **Phonetics**: /bʌmp ðə kæp/
-* **Definition**: 微调提高配额上限 / 适度放宽预算或并发天花板。In cloud operations and API engineering, `bump the cap` is the ubiquitous, idiomatic verb-noun collocation for adjusting an upper bound (financial spend, rate limit, or concurrent worker ceiling) without completely uncapping it.
+* **Definition**: Nudge a quota limit up / modestly raise a budget or concurrency ceiling.In cloud operations and API engineering, `bump the cap` is the ubiquitous, idiomatic verb-noun collocation for adjusting an upper bound (financial spend, rate limit, or concurrent worker ceiling) without completely uncapping it.
 * **Collocations**: `bump the spending cap`, `bump the rate-limit cap by 20%`, `request to bump the quota cap`.
 * **Example**: *"We hit our initial tier boundary during batch inference, so I bumped the spending cap to prevent request throttling."*
 
 ### 1.64 `stalled` vs. `stuck`
 * **Category**: Distributed Systems Diagnostic Nuance & Project Momentum
 * **Definition**: 
-  * **`stalled`** (/stɔːld/): 强调“失去动力、势头停顿、停滞不前”。Metaphor derived from an engine stalling. The process was moving, but halted due to deadlocks, missing dependencies, or stalled negotiations. Can be restarted or unblocked once dependencies clear.
-  * **`stuck`** (/stʌk/): 强调“被困在夹缝中、陷入泥潭、彻底动弹不得”。Metaphor derived from glue or physical wedging. Implies zero progress and often requires external intervention or a complete restart to get unstuck.
+  * **`stalled`** (/stɔːld/): Stresses "losing power, momentum halted, no forward movement".Metaphor derived from an engine stalling. The process was moving, but halted due to deadlocks, missing dependencies, or stalled negotiations. Can be restarted or unblocked once dependencies clear.
+  * **`stuck`** (/stʌk/): Stresses "wedged in, bogged down, completely unable to move".Metaphor derived from glue or physical wedging. Implies zero progress and often requires external intervention or a complete restart to get unstuck.
 * **Collocations**: `stalled pipeline`, `talks stalled over IP terms`, `the CI build is stuck in an infinite loop`, `get unstuck`.
 * **Example**: *"The deployment pipeline stalled while waiting for manual security sign-off, whereas the worker container got stuck in a deadlocked thread pool."*
 
 ### 1.65 `head fake`
 * **Category**: Game Theory, Tactical Feint & Market Signals
 * **Phonetics**: /ˈhed feɪk/
-* **Definition**: 假动作 / 伪信号 / 虚晃一枪（诱多或诱空）。Originally a basketball move where a player moves their head to mislead a defender. Extensively used in Wall Street trading (a brief deceptive price rally before a steep decline) and high-stakes corporate negotiation (a bluff condition floated purely to gauge the other party's bottom line).
+* **Definition**: Fake move / false signal / feint (a bull or bear trap).Originally a basketball move where a player moves their head to mislead a defender. Extensively used in Wall Street trading (a brief deceptive price rally before a steep decline) and high-stakes corporate negotiation (a bluff condition floated purely to gauge the other party's bottom line).
 * **Collocations**: `a head-fake rally`, `treat the counteroffer as a head fake`, `sniff out a head fake`.
 * **Example**: *"Their aggressive threat to terminate the contract turned out to be a head fake designed to test our pricing floor."*
 
 ### 1.66 `make the most of [resources/subscription]`
 * **Category**: Resource Maximization & SaaS ROI
 * **Phonetics**: /meɪk ðə moʊst əv/
-* **Definition**: 物尽其用 / 充分发挥……的价值与效能。The natural, idiomatic expression for ensuring that allocated compute budgets, paid tier quotas, or existing licenses are utilized to their maximum efficiency without leaving paid capacity idle.
+* **Definition**: Use something to the full / get full value from...The natural, idiomatic expression for ensuring that allocated compute budgets, paid tier quotas, or existing licenses are utilized to their maximum efficiency without leaving paid capacity idle.
 * **Collocations**: `make the most of our premium subscription`, `make the most of idle GPU cycles`.
 * **Example**: *"We decided to offload background summarization jobs to the secondary model tier to make the most of our enterprise subscription."*
 ### 1.67 `temporally inconsistent`
 * **Category**: Video Generation, Computer Vision & Time-Series ML
 * **Phonetics**: /ˈtem.pər.əl.i ˌɪn.kənˈsɪs.tənt/
-* **Definition**: 时序不一致 / 跨时间步不连贯。Failing to maintain visual continuity, entity identity, or feature logic smoothly across consecutive temporal frames or intervals.
-* **常见同义词 (Synonyms)**: `temporally unstable`, `time-varying`, `flickering across frames`
+* **Definition**: Inconsistent over time / incoherent across time steps.Failing to maintain visual continuity, entity identity, or feature logic smoothly across consecutive temporal frames or intervals.
+* **Synonyms**: `temporally unstable`, `time-varying`, `flickering across frames`
 * **Example**: *"Diffusion video models often suffer from temporally inconsistent backgrounds during fast camera pans."*
 
 ### 1.68 `tailwind / headwind`
 * **Category**: Macroeconomics, Systems Strategy & Business Momentum
 * **Phonetics**: /ˈteɪl.wɪnd/ | /ˈhed.wɪnd/
-* **Definition**: 顺风红利 vs. 逆风阻力。A favorable macro trend that accelerates adoption (tailwind) versus an adverse external condition that impedes growth (headwind).
-* **常见同义词 (Synonyms)**: `propellant / catalyst` (tailwind), `impediment / resistance` (headwind)
+* **Definition**: Favorable push vs. opposing drag.A favorable macro trend that accelerates adoption (tailwind) versus an adverse external condition that impedes growth (headwind).
+* **Synonyms**: `propellant / catalyst` (tailwind), `impediment / resistance` (headwind)
 * **Example**: *"Surging demand for private, on-device AI created a massive tailwind for our local-first MCP architecture."*
 
 ### 1.69 `encrypted at rest`
 * **Category**: Cybersecurity, Cloud Infrastructure & Data Compliance
 * **Phonetics**: /ɪnˈkrɪp.tɪd æt rest/
-* **Definition**: 静态数据加密 / 落盘加密。Data stored on persistent physical media (SSD, DB blocks, S3/GCS buckets) in ciphertext, rendered unreadable without cryptographic KMS keys.
-* **常见同义词 (Synonyms)**: `disk-level encrypted`, `ciphertext-stored`, `AES-protected`
+* **Definition**: Encryption of stored data / on-disk encryption.Data stored on persistent physical media (SSD, DB blocks, S3/GCS buckets) in ciphertext, rendered unreadable without cryptographic KMS keys.
+* **Synonyms**: `disk-level encrypted`, `ciphertext-stored`, `AES-protected`
 * **Example**: *"All multi-tenant volumes and database tables must be encrypted at rest using customer-managed KMS keys."*
 
 ### 1.70 `encrypted in transit`
 * **Category**: Network Security & Systems Transport
 * **Phonetics**: /ɪnˈkrɪp.tɪd ɪn ˈtræn.zɪt/
-* **Definition**: 传输中加密 / 链路加密。Data traveling across public or private networks that is cryptographically protected against eavesdropping and MITM tampering via TLS/mTLS.
-* **常见同义词 (Synonyms)**: `wire-encrypted`, `in-flight encrypted`, `TLS-secured`
+* **Definition**: Encryption during transfer / link encryption.Data traveling across public or private networks that is cryptographically protected against eavesdropping and MITM tampering via TLS/mTLS.
+* **Synonyms**: `wire-encrypted`, `in-flight encrypted`, `TLS-secured`
 * **Example**: *"Client-to-MCP communication is strictly encrypted in transit using mutual TLS 1.3."*
 
 ### 1.71 `grow on [someone]`
 * **Category**: Idiom / Psychological & Aesthetic Alignment
 * **Phonetics**: /ɡrəʊ ɒn/
-* **Definition**: 逐渐被某人喜欢 / 越看越顺眼 / 日久生情。To gradually become more appealing, likable, or appreciated by someone over time. Strictly requires inverted subject-object syntax (`[The entity/person] grows on [someone]`, never *I grow on it*).
-* **常见同义词 (Synonyms)**: `win over`, `become appealing to`, `warm up to`
+* **Definition**: Gradually win someone over / become more likable over time.To gradually become more appealing, likable, or appreciated by someone over time. Strictly requires inverted subject-object syntax (`[The entity/person] grows on [someone]`, never *I grow on it*).
+* **Synonyms**: `win over`, `become appealing to`, `warm up to`
 * **Example**: *"I didn't appreciate the minimalist UI at first glance, but after a week of heavy use, it really grew on me."*
 
 ### 1.72 `in your capable hands`
 * **Category**: Idiomatic Phrase / Professional Delegation & Team Trust
 * **Phonetics**: /ɪn jɔːr ˈkeɪ.pə.bəl hændz/
-* **Definition**: 放心地全权托付给某人 / 由你全权做主。An idiomatic expression conveying complete executive trust and autonomy when delegating tasks, signalling confidence in the recipient's technical judgment and execution without micromanagement.
-* **常见同义词 (Synonyms)**: `in good hands`, `under your ownership`, `entrusted to you`
+* **Definition**: Entrusted fully to someone / yours to decide. An idiomatic expression conveying complete executive trust and autonomy when delegating tasks, signalling confidence in the recipient's technical judgment and execution without micromanagement.
+* **Synonyms**: `in good hands`, `under your ownership`, `entrusted to you`
 * **Example**: *"I have to step out for the architecture review, so I'll leave the benchmark run in your capable hands."*
 
 ### 1.73 `leave you to it`
 * **Category**: Idiomatic Phrase / Workplace Handoff & Autonomous Focus
 * **Phonetics**: /liːv juː tuː ɪt/
-* **Definition**: 不打扰你先忙 / 这里就交给你了。A natural, considerate, and high-trust conversational exit phrase used when context and objectives have been transferred, stepping aside to give the team member uninterrupted focus.
-* **常见同义词 (Synonyms)**: `let you focus`, `leave you in peace`, `let you get back to it`
+* **Definition**: I'll let you get on with it / it's in your hands now. A natural, considerate, and high-trust conversational exit phrase used when context and objectives have been transferred, stepping aside to give the team member uninterrupted focus.
+* **Synonyms**: `let you focus`, `leave you in peace`, `let you get back to it`
 * **Example**: *"All dependency credentials and API holds have been unblocked. I'll leave you to it—ping me if anything blocks the pipeline."*
 
 ### 1.74 `lift a hold` / `lift the hold on [sth]`
 * **Category**: Idiomatic Collocation / Engineering Governance & Access Unblocking
 * **Phonetics**: /lɪft ə hoʊld/
-* **Definition**: 解除管控 / 解除权限冻结 / 撤销挂起。To release or revoke an administrative block, merge-freeze, or security restriction placed on a repository, compute resource, or deployment pipeline.
-* **常见同义词 (Synonyms)**: `unblock access`, `release the restriction`, `remove the freeze`
+* **Definition**: Lift a control / unfreeze access / cancel a suspension. To release or revoke an administrative block, merge-freeze, or security restriction placed on a repository, compute resource, or deployment pipeline.
+* **Synonyms**: `unblock access`, `release the restriction`, `remove the freeze`
 * **Example**: *"The benchmark run requires local provisioning on the Mac Studio and a lift of your hold on the Codex API credentials."*
 
 ### 1.75 `favor an ... policy` / `favor a ... strategy`
 * **Category**: Collocation / Product Strategy & Algorithmic Trade-offs
 * **Phonetics**: /ˈfeɪ.vər ən ... ˈpɒl.ə.si/
-* **Definition**: 倾向于采用某种策略/方针。In architecture and product design, to deliberately choose or prioritize a specific operational rule or algorithmic trade-off (e.g. recall over precision) after weighing competing constraints.
-* **常见同义词 (Synonyms)**: `lean toward`, `opt for`, `prioritize`, `bias toward`
+* **Definition**: Lean toward adopting a particular strategy or policy. In architecture and product design, to deliberately choose or prioritize a specific operational rule or algorithmic trade-off (e.g. recall over precision) after weighing competing constraints.
+* **Synonyms**: `lean toward`, `opt for`, `prioritize`, `bias toward`
 * **Example**: *"Caveat: In the context of a language learning app, we favor an aggressive matching policy; ultimately, maximizing vocabulary exposure is pivotal to our product experience."*
 
 ### 1.76 `torn between` vs. `on the fence`
 * **Category**: Idiomatic Expression / Decision-Making Psychology & Trade-off Framing
 * **Phonetics**: /tɔːrn bɪˈtwiːn/ vs. /ɒn ðə fens/
-* **Definition**: 左右撕扯为难（内心两个互相冲突的选项剧烈拉扯，两难内耗深）与中立观望犹豫（坐在栅栏上持中立态度，等待更多证据或暂不表态）。
+* **Definition**: Torn between two options (an intense inner pull between two conflicting choices, a costly dilemma) versus on the fence (sitting neutrally, waiting for more evidence or holding back a position).
 * **Nuance**: `torn between A and B` carries intense emotional struggle and acute trade-offs where choosing either path entails sacrifice. In contrast, `on the fence (about sth)` represents objective ambivalence, neutrality, or withholding judgment pending further data or benchmarks.
-* **常见同义词 (Synonyms)**: `conflicted / agonizing over` (torn between); `undecided / uncommitted / sitting on the fence` (on the fence)
+* **Synonyms**: `conflicted / agonizing over` (torn between); `undecided / uncommitted / sitting on the fence` (on the fence)
 * **Example**: *"I am really **torn between** optimizing the legacy pipeline and refactoring it from scratch, while the rest of the architecture committee is still **on the fence**."*
 
 ### 1.77 `strain under` / `put a strain on [compute/memory]`
 * **Category**: Systems Reliability, Infrastructure Capacity & SRE
 * **Phonetics**: /streɪn ˈʌn.dər/ | /pʊt ə streɪn ɒn/
-* **Definition**: 在……高压下不堪重负 / 给系统计算或内存资源带来沉重负担。The physical metaphor of a cable stretched to its tensile breaking point applied to server bottlenecks, unified memory, thermal limits, or database replication under load spikes.
-* **常见同义词 (Synonyms)**: `overburden`, `tax`, `buckle under`, `overwhelm`
+* **Definition**: Buckle under heavy pressure / place a heavy burden on a system's compute or memory. The physical metaphor of a cable stretched to its tensile breaking point applied to server bottlenecks, unified memory, thermal limits, or database replication under load spikes.
+* **Synonyms**: `overburden`, `tax`, `buckle under`, `overwhelm`
 * **Example**: *"Serving multiple concurrent streaming inference requests puts a heavy **strain** on host memory, causing worker threads to **strain under** the surging peak load."*
 
 ### 1.78 `flaky` / `acts flaky`
 * **Category**: Everyday Engineering Culture & Software Testing Reliability
 * **Phonetics**: /ˈfleɪ.ki/ | /ækts ˈfleɪ.ki/
-* **Definition**: 不靠谱的 / 经常掉链子的 / 偶发抽风报错的（测试或协作者）。In software testing, specifically denotes a test that exhibits both passing and failing results across multiple runs despite no changes in underlying code. Syntactically, `act` serves as a linking verb followed directly by the adjective `flaky`.
-* **常见同义词 (Synonyms)**: `intermittent`, `non-deterministic`, `unreliable`
+* **Definition**: Unreliable / prone to letting you down / intermittently failing (of tests or collaborators). In software testing, specifically denotes a test that exhibits both passing and failing results across multiple runs despite no changes in underlying code. Syntactically, `act` serves as a linking verb followed directly by the adjective `flaky`.
+* **Synonyms**: `intermittent`, `non-deterministic`, `unreliable`
 * **Example**: *"We must quarantine that **flaky test** immediately; when network latency spikes, the background sync worker **acts flaky** and fails intermittently."*
 
 ## 2. Professional & Idiomatic Phrases (147 Items)
@@ -1079,14 +1079,14 @@ eq s$).
 ### 2.121 `incur overhead`
 * **Category**: Systems Architecture / Performance Tax Collocation
 * **Phonetics**: /ɪnˈkɜːr ˈoʊ.vər.hed/
-* **Definition**: 产生额外开销 / 带来附带系统成本。To introduce additional memory footprint, CPU cycles, serialization latency, or operational complexity as an unavoidable side effect of an added abstraction, security layer, or telemetry hook.
+* **Definition**: Add extra overhead / bring a side-effect system cost.To introduce additional memory footprint, CPU cycles, serialization latency, or operational complexity as an unavoidable side effect of an added abstraction, security layer, or telemetry hook.
 * **Key Collocations**: `incur significant overhead`, `incur minimal/zero overhead`, `incur serialization overhead`, `incur operational overhead`
 * **Example**: *"Wrapping database queries in comprehensive distributed tracing spans will inevitably incur a slight latency overhead."*
 
 ### 2.122 `stray artifacts` / `stray references`
 * **Category**: Refactoring, Code Hygiene & SRE
 * **Phonetics**: /streɪ ˈɑːr.tɪ.fækts/ / /streɪ ˈref.ər.əns.ɪz/
-* **Definition**: 悬空引用 / 残留工件与死代码碎片。Dangling references, orphaned files, temporary tables, dead memory pointers, or abandoned configuration keys left behind following schema migrations, unhandled exceptions, or incomplete refactoring passes.
+* **Definition**: Dangling references / leftover artifacts and dead-code fragments.Dangling references, orphaned files, temporary tables, dead memory pointers, or abandoned configuration keys left behind following schema migrations, unhandled exceptions, or incomplete refactoring passes.
 * **Key Collocations**: `eliminate stray artifacts`, `purge stray references`, `clean up stray temporary tables`, `held stray references`
 * **Example**: *"Following the database column deprecation, the build broke because legacy batch jobs still held stray references to the dropped entity."*
 
@@ -1094,17 +1094,17 @@ eq s$).
 * **Category**: Irregular Verb Collocations (Swing-Swung-Swung)
 * **Phonetics**: /swʌŋ/
 * **Definition & Contexts**:
-  * **`swung by [place/desk]`**: 顺便拜访 / 顺道过去看看 (Informal visit: *"The tech lead swung by my desk to verify the Canary rollout."*)
-  * **`swung wildly`**: 剧烈震荡 / 剧烈摇摆 (Extreme variance: *"During the network partition, queue depths swung wildly between zero and ten thousand."*)
-  * **`swung the momentum`**: 扭转战局 / 改变竞争动能 (Pivotal turnaround: *"Deploying the real-time cache swung the performance momentum back in our favor."*)
+  * **`swung by [place/desk]`**: dropped in / stopped by on the way (Informal visit: *"The tech lead swung by my desk to verify the Canary rollout."*)
+  * **`swung wildly`**: fluctuated sharply / swung back and forth (Extreme variance: *"During the network partition, queue depths swung wildly between zero and ten thousand."*)
+  * **`swung the momentum`**: turned the tide / shifted the competitive momentum (Pivotal turnaround: *"Deploying the real-time cache swung the performance momentum back in our favor."*)
 
 ### 2.124 `cozy` (UK: `cosy`)
 * **Category**: Cultural, Pragmatic & Sociotechnical Nuance
 * **Phonetics**: /ˈkoʊ.zi/
 * **Pragmatics & Registers**:
-  * **Literal / Atmosphere**: 温暖惬意 / 舒适放松 (*a cozy engineering lounge*).
-  * **Workplace Culture (巴适)**: Low-stress, harmonious, and highly agreeable team dynamics.
-  * **Corporate Governance & Regulatory (Negative Nuance)**: 过从甚密 / 缺乏制衡与合规距离 (*"The antitrust commission scrutinized the cozy relationship between the cloud vendor and enterprise clients."*)
+  * **Literal / Atmosphere**: warm and pleasant / comfortable and relaxed (*a cozy engineering lounge*).
+  * **Workplace Culture (laid-back and pleasant)**: Low-stress, harmonious, and highly agreeable team dynamics.
+  * **Corporate Governance & Regulatory (Negative Nuance)**: too close for comfort / lacking checks and arm's-length distance (*"The antitrust commission scrutinized the cozy relationship between the cloud vendor and enterprise clients."*)
 
 ### 2.125 `top up` vs. `add funds` vs. `reload`
 * **Category**: Financial, SaaS Billing & Transit Registers
@@ -1131,128 +1131,128 @@ eq s$).
 
 ### 2.128 `scale this capability for...`
 * **Category**: System Scaling & Platform Capability Enablement
-* **Definition**: 将某种核心技术能力规模化扩展，并赋能给更广泛的用户群体或业务线。Phrasing that transitions a validated prototype into an enterprise platform feature.
+* **Definition**: To scale a core technical capability and make it available to a wider set of users or business lines.Phrasing that transitions a validated prototype into an enterprise platform feature.
 * **Example**: *"Once the local inference pipeline proved reliable, the team moved quickly to scale this capability for hundreds of concurrent customer support agents."*
 
 ### 2.129 `yielded our best visual aesthetic`
 * **Category**: Generative AI, Multimodal Design & Quality Benchmarking
-* **Definition**: 产出了我们至今为止最佳的视觉美感与艺术调性。Expresses superior qualitative design results during hyperparameter tuning or prompt engineering in multimodal generative pipelines.
+* **Definition**: Produced our best visual look and artistic tone so far.Expresses superior qualitative design results during hyperparameter tuning or prompt engineering in multimodal generative pipelines.
 * **Example**: *"Switching from generic latent sampling to a curated style anchor yielded our best visual aesthetic across all generated storyboard assets."*
 
 ### 2.130 `seeing firsthand`
 * **Category**: Hands-on Empirical Validation & Tech Evaluation
-* **Definition**: 第一手实地验证 / 亲身体验目睹。Used when personal hands-on benchmarking reveals system characteristics that theoretical documentation fails to convey.
+* **Definition**: First-hand validation / experiencing and seeing it yourself.Used when personal hands-on benchmarking reveals system characteristics that theoretical documentation fails to convey.
 * **Example**: *"Seeing firsthand how the agent resolved edge-case exceptions convinced our lead architect that the autonomous triage pipeline was production-ready."*
 
 ### 2.131 `what [X] is capable of`
 * **Category**: System Potential, Model Limits & Ceiling Assessment
-* **Definition**: ……所具备的真正潜能、实力与上限表现。Authoritative framing for presenting evaluation findings regarding model capabilities or infrastructure capacity.
+* **Definition**: The real potential, strength and ceiling of...Authoritative framing for presenting evaluation findings regarding model capabilities or infrastructure capacity.
 * **Example**: *"Running high-concurrency synthetic stress tests demonstrated exactly what our distributed message broker is capable of under extreme spike load."*
 
 ### 2.132 `route workloads to... / offload lightweight tasks to...`
 * **Category**: Multi-Model Orchestration & Compute Delegation
-* **Definition**: 在多智能体架构与异构算力网格中，将低开销或轻量级任务分流/卸载至特定端侧或副模型，把高成本基础大模型算力留给复杂推理。
+* **Definition**: In multi-agent architectures and mixed compute fleets, to divert or offload cheap, lightweight tasks to specific on-device or secondary models, reserving costly frontier-model compute for complex reasoning.
 * **Example**: *"Our orchestration layer automatically routes lightweight classification workloads to Grok or edge SLMs, reserving frontier models for multi-step reasoning."*
 
 ### 2.133 `My connection dropped for a second—how are things looking now?`
 * **Category**: Incident Sync, Session Recovery & Standup Re-entry
-* **Definition**: 刚掉线/断网了，现在的状态与进展如何？The natural, polite, and direct phrasing for rejoining an online engineering huddle, pair-programming session, or terminal recovery without defensive preamble.
+* **Definition**: I just dropped off / lost my connection; where do things stand now?The natural, polite, and direct phrasing for rejoining an online engineering huddle, pair-programming session, or terminal recovery without defensive preamble.
 * **Example**: *"Sorry everyone, my connection dropped for a second—how are things looking on the deployment dashboard?"*
 
 ### 2.134 `rewrite against a private lexicon` / `render phrases as hyperlinks`
 * **Category**: Agent Middleware, Post-Processing & UI Text Transformation
-* **Definition**: 对照专有词库/领域术语表重写模型生成内容，并在界面呈现前将匹配的关键短语自动渲染为可交互超链接。
+* **Definition**: To rewrite model-generated content against a private lexicon or domain glossary, and automatically render the matched key phrases as clickable hyperlinks before they are shown in the interface.
 * **Example**: *"Before rendering the final answer on screen, the markdown middleware intercepts the stream, rewrites terminology against our private lexicon, and renders targeted phrases as hyperlinks."*
 
 ### 2.135 `tracks exposure count per item`
 * **Category**: Telemetry, Impression Analytics & Placement Instrumentation
-* **Definition**: 追踪各条目的曝光次数，捕获其展示时间戳与页面点位上下文。Standard analytical phrasing for data engineering metrics tracking user exposure and impression distribution.
+* **Definition**: Track how many times each item is shown, capturing when it was shown and where on the page.Standard analytical phrasing for data engineering metrics tracking user exposure and impression distribution.
 * **Example**: *"The analytics pipeline tracks exposure count per item, logging precise timestamps and placement contexts to monitor feature fatigue."*
 ### 2.136 `defer to`
 * **Category**: Professional Collaboration & Technical Governance
 * **Phonetics**: /dɪˈfɜːr tuː/
-* **Definition**: 遵从 / 听凭（某人的权威或专业判断）。To yield or submit to another person's judgment, expertise, or authority out of professional respect. Contrasted with the casual *"it's up to you"*.
-* **常见同义词 (Synonyms)**: `yield to`, `concede to`, `accede to`
+* **Definition**: Follow / leave it to (someone's authority or expert judgment).To yield or submit to another person's judgment, expertise, or authority out of professional respect. Contrasted with the casual *"it's up to you"*.
+* **Synonyms**: `yield to`, `concede to`, `accede to`
 * **Example**: *"On database sharding and index selectivity, I defer to the DBA's judgment."*
 
 ### 2.137 `stumble over / trip over`
 * **Category**: Phrasal Verb / Physical & Technical Stumbling
 * **Phonetics**: /ˈstʌm.bəl ˈəʊ.vər/ | /trɪp ˈəʊ.vər/
-* **Definition**: 被……绊倒 / 踉跄失足；在边界条件上栽跟头。To catch one's foot on an obstacle and lose balance; metaphorically, to make mistakes or get tripped up by subtle edge cases or complex logic. `stumble` is intransitive and cannot take passive voice (`stumbled over the curb`, not *was stumbled*).
-* **常见同义词 (Synonyms)**: `lose one's footing`, `catch one's foot on`, `falter`
+* **Definition**: Trip over... / lose one's footing; get caught out by edge cases.To catch one's foot on an obstacle and lose balance; metaphorically, to make mistakes or get tripped up by subtle edge cases or complex logic. `stumble` is intransitive and cannot take passive voice (`stumbled over the curb`, not *was stumbled*).
+* **Synonyms**: `lose one's footing`, `catch one's foot on`, `falter`
 * **Example**: *"Unsynchronized timezone timestamps often cause distributed pipelines to stumble over subtle boundary conditions."*
 
 ### 2.138 `dedicate [sth] to [gerund]`
 * **Category**: Collocation & Resource Allocation
 * **Phonetics**: /ˈded.ɪ.keɪt tuː/
-* **Definition**: 把（时间、资源或算力）专门倾斜/致力于……。To commit or allocate exclusive time, compute, or effort to a particular objective. 'to' functions strictly as a preposition governing a gerund (e.g. `dedicated to rendering`, never *dedicated to render*).
-* **常见同义词 (Synonyms)**: `devote to`, `allocate to`, `commit to`
+* **Definition**: Devote (time, resources or compute) specifically to...To commit or allocate exclusive time, compute, or effort to a particular objective. 'to' functions strictly as a preposition governing a gerund (e.g. `dedicated to rendering`, never *dedicated to render*).
+* **Synonyms**: `devote to`, `allocate to`, `commit to`
 * **Example**: *"We provisioned a dedicated cluster dedicated to fine-tuning domain-specific reasoning models."*
 
 ### 2.139 `endeavour to [verb]`
 * **Category**: High-Register Collocation & Executive Commitment
 * **Phonetics**: /ɪnˈdev.ər tuː/
-* **Definition**: 竭力做某事 / 全力以赴达成。To make an earnest, solemn, or sustained effort to achieve a high-stakes goal. Takes an infinitive complement (`endeavour to achieve`, never *endeavour in*).
-* **常见同义词 (Synonyms)**: `strive to`, `aspire to`, `undertake to`
+* **Definition**: Strive to do something / make every effort to achieve it.To make an earnest, solemn, or sustained effort to achieve a high-stakes goal. Takes an infinitive complement (`endeavour to achieve`, never *endeavour in*).
+* **Synonyms**: `strive to`, `aspire to`, `undertake to`
 * **Example**: *"The platform engineering team will endeavour to maintain strict sub-millisecond query latency throughout the migration."*
 
 ### 2.140 `feed into` / `be fed into`
 * **Category**: Data Engineering, ML Pipelines & Stream Architecture
 * **Phonetics**: /biː fed ˈɪn.tuː/
-* **Definition**: 喂给模型 / 汇入下游数据管道。To stream, ingest, or pass upstream data partitions, feature sets, or prompts directly into downstream model inference engines, scoring harnesses, or data warehouse tables.
-* **常见同义词 (Synonyms)**: `ingest into`, `pipe into`, `pass to`
+* **Definition**: Feed to a model / flow into a downstream data pipeline. To stream, ingest, or pass upstream data partitions, feature sets, or prompts directly into downstream model inference engines, scoring harnesses, or data warehouse tables.
+* **Synonyms**: `ingest into`, `pipe into`, `pass to`
 * **Example**: *"Once the held-out test split is generated, it will be fed into Qwen and Llama to benchmark their performance across our private lexicon."*
 
 ### 2.141 `ground truth`
 * **Category**: Machine Learning, Benchmark Harness & Reference Gold Standard
 * **Phonetics**: /ˌɡraʊnd ˈtruːθ/
-* **Definition**: 真实金标准 / 评测标准答案。The empirical reality, gold-standard reference label, or verified target answer against which model predictions and generated responses are evaluated for accuracy and format adherence.
-* **常见同义词 (Synonyms)**: `gold standard`, `reference target`, `true label`
+* **Definition**: Gold-standard truth / the reference answer for evaluation. The empirical reality, gold-standard reference label, or verified target answer against which model predictions and generated responses are evaluated for accuracy and format adherence.
+* **Synonyms**: `gold standard`, `reference target`, `true label`
 * **Example**: *"To ensure a rigorous benchmark, make sure the ground truth is strictly withheld from the prompt so it is not already present in the model's context window."*
 
 ### 2.142 `buy less`
 * **Category**: Everyday Finance, Consumer Behavior & Sustainable Lifestyle
 * **Phonetics**: /baɪ les/
-* **Definition**: 减少消费 / 适度消费 / 少买一点。A conscious decision or economic philosophy prioritizing minimalism, intentional spending, and quality over quantity by curbing unnecessary purchases.
-* **常见同义词 (Synonyms)**: `cut back on spending`, `consume less`, `curb consumption`
+* **Definition**: Spend less / consume in moderation / buy a little less. A conscious decision or economic philosophy prioritizing minimalism, intentional spending, and quality over quantity by curbing unnecessary purchases.
+* **Synonyms**: `cut back on spending`, `consume less`, `curb consumption`
 * **Example**: *"A core tenet of mindful financial planning is to buy less, choose well, and make what you already own last longer."*
 
 ### 2.143 `a minor tweak` / `tweak`
 * **Category**: Software Engineering, Prompt Refinement & Parameter Tuning
 * **Phonetics**: /ə ˈmaɪ.nər twiːk/ | /twiːk/
-* **Definition**: 微调 / 小调整。A slight, targeted adjustment or fine-tuning applied to code, prompt templates, configuration thresholds, or hyperparameters to optimize performance without overhauling the architecture.
-* **常见同义词 (Synonyms)**: `slight adjustment`, `fine-tune`, `minor modification`
+* **Definition**: Fine-tune / small adjustment. A slight, targeted adjustment or fine-tuning applied to code, prompt templates, configuration thresholds, or hyperparameters to optimize performance without overhauling the architecture.
+* **Synonyms**: `slight adjustment`, `fine-tune`, `minor modification`
 * **Example**: *"The evaluation harness looks solid overall; it just needs a minor tweak to the regex parser to handle edge-case whitespace."*
 
 ### 2.144 `hand in vs. hand over`
 * **Category**: Professional Pragmatics & Custody / Ownership Transfer
 * **Phonetics**: /hænd ɪn/ vs. /hænd ˈoʊ.vər/
-* **Definition**: 自下而上提交（上交报告/作业 `hand in / submit`）与所有权/控制权移交（移交权限/交出钥匙 `hand over / transfer custody`）的语义边界。
+* **Definition**: The semantic boundary between submitting work upward (handing in a report or assignment, `hand in / submit`) and transferring ownership or control (handing over access or keys, `hand over / transfer custody`).
 * **Nuance**: Use `hand in / turn in / submit` when delivering work upward to a superior or automated evaluation system. Use `hand over` strictly when relinquishing control, custody, or access rights to another peer or administrator.
-* **常见同义词 (Synonyms)**: `submit / turn in` (hand in); `transfer custody / relinquish control` (hand over)
+* **Synonyms**: `submit / turn in` (hand in); `transfer custody / relinquish control` (hand over)
 * **Example**: *"The data engineer handed in the final evaluation report after handing over the cluster administration keys to the platform lead."*
 
 ### 2.145 `at risk of [gerund]`
 * **Category**: Prepositional Grammar Invariant & SRE Fault Prevention
 * **Phonetics**: /æt rɪsk əv/
-* **Definition**: 冒着……的风险 / 随时可能导致。A critical prepositional construction strictly requiring a nominalized verb complement (gerund `-ing`, e.g. *at risk of draining*), never a bare infinitive verb.
-* **常见同义词 (Synonyms)**: `in danger of [gerund]`, `jeopardizing`, `venturing on`
+* **Definition**: Running the risk of... / liable to cause at any moment. A critical prepositional construction strictly requiring a nominalized verb complement (gerund `-ing`, e.g. *at risk of draining*), never a bare infinitive verb.
+* **Synonyms**: `in danger of [gerund]`, `jeopardizing`, `venturing on`
 * **Example**: *"The unindexed table scan saturated disk I/O, putting our primary database **at risk of draining** all connection pool buffers."*
 
 ### 2.146 `the rush of traffic` vs. `traffic spikes`
 * **Category**: Network Ingestion, Distributed Systems & Telemetry Monitoring
 * **Phonetics**: /ðə rʌʃ əv ˈtræf.ɪk/ vs. /ˈtræf.ɪk spaɪks/
-* **Definition**: 汹涌而来的流量潮（宏观流动涌入感）与瞬时流量尖峰（监控看板上陡峭的脉冲尖刺）。
+* **Definition**: A surging tide of traffic (a sense of large-scale inflow) versus momentary traffic spikes (sharp pulses on a monitoring dashboard).
 * **Nuance**: *The rush of traffic* describes the sudden, overwhelming influx of incoming requests at system boundaries (e.g. during a flash sale). *Traffic spikes* refers to discrete, measurable telemetry peaks that trigger autoscaling thresholds or rate-limiting circuit breakers.
-* **常见同义词 (Synonyms)**: `traffic surge / influx of requests` (rush of traffic); `request bursts / peak spikes` (traffic spikes)
+* **Synonyms**: `traffic surge / influx of requests` (rush of traffic); `request bursts / peak spikes` (traffic spikes)
 * **Example**: *"Upstream rate limiters cushioned against sudden **traffic spikes**, allowing the API gateway to absorb **the rush of traffic** smoothly."*
 
 ### 2.147 `stray` vs. `strain` vs. `tray`
 * **Category**: Semantic Discrimination, Character Hygiene & System UI
 * **Phonetics**: /streɪ/ vs. /streɪn/ vs. /treɪ/
-* **Definition**: 游离与意外混入的脏数据（stray，如 *stray control character*）、拉紧负荷与吃力紧绷（strain，如 *under strain*）、托盘与硬件/系统托盘（tray，如 *system tray / paper tray*）的三维形近辨析。
+* **Definition**: A three-way look-alike distinction: stray elements that wander in by accident (stray, as in *stray control character*), tension and strained effort under load (strain, as in *under strain*), and a tray or hardware/system tray (tray, as in *system tray / paper tray*).
 * **Nuance**: `stray` denotes wandering, isolated, or extraneous elements that do not belong. `strain` denotes tensile stress, physical exertion, or biological variants. `tray` denotes a shallow receptacle or an OS taskbar status area.
-* **常见同义词 (Synonyms)**: `errant / extraneous` (stray); `tension / stress` (strain); `receptacle / dock area` (tray)
+* **Synonyms**: `errant / extraneous` (stray); `tension / stress` (strain); `receptacle / dock area` (tray)
 * **Example**: *"While the parser strained under high load, a **stray** byte caused the background sync agent in the **system tray** to terminate unexpectedly."*
 
 ## 3. Structural Framing & Sentence Patterns (51 Items)
@@ -1506,15 +1506,15 @@ eq s$).
 ### 3.44 `sole credential / log in vs. login`
 * **Category**: IAM & Authentication Architecture
 * **Phonetics**: /soʊl krɪˈden.ʃəl/
-* **Definition**: 唯一凭据；登录动作（动词短语 `log in` vs. 名词/定语 `login`）。An exclusive authentication token or identifier without secondary verification factors.
-* **常见同义词 (Synonyms)**: `exclusive token`, `single authentication factor`, `sole auth credential`
+* **Definition**: The only credential; the act of signing in (verb phrase `log in` vs. noun/modifier `login`).An exclusive authentication token or identifier without secondary verification factors.
+* **Synonyms**: `exclusive token`, `single authentication factor`, `sole auth credential`
 * **Production Example**: *"The internal staging portal relies on `user_id` as the sole credential for users to log in."*
 
 ### 3.45 `Dedicated to [gerund] vs. Endeavour to [verb]`
 * **Category**: Grammatical Architecture & Verbal Complements
 * **Grammatical Blueprint**: `Subject + is dedicated to + [Gerund / Noun]` vs. `Subject + endeavours to + [Base Verb]`
 * **Nuance**: In `dedicated to`, 'to' is a directional preposition requiring a nominalized complement (gerund `-ing`). In `endeavour to`, 'to' is an infinitive marker requiring a base lexical verb. Conflating the two creates double-infinitive or prepositional drop errors.
-* **常见同义词 (Synonyms)**: `devoted to [gerund]`, `committed to [gerund]`, `striving to [verb]`
+* **Synonyms**: `devoted to [gerund]`, `committed to [gerund]`, `striving to [verb]`
 * **Production Example**: *"Our team is dedicated to optimizing feature ingestion, and we will endeavour to deliver the updated pipeline before sprint cutoff."*
 
 ### 3.46 Product Strategy & Architectural Caveat Framing: `In the context of [X], we favor [Y]`
@@ -1551,12 +1551,12 @@ eq s$).
 
 ### 4.1 `prestige`
 * **Definition**: It means people respect and admire someone or something because it is important or successful.
-* **常见同义词 (Synonyms)**: `status`, `reputation`, `standing`
+* **Synonyms**: `status`, `reputation`, `standing`
 * **Example**: Her university has great prestige.
 
 ### 4.2 `multicollinearity`
 * **Definition**: When two or more variables in a statistical model are highly related to each other, making it hard to tell which one really affects the result.
-* **常见同义词 (Synonyms)**: `collinearity`, `feature redundancy`, `linear dependence`
+* **Synonyms**: `collinearity`, `feature redundancy`, `linear dependence`
 * **Example**: Example: In a house-price model, using both “square meters” and “room count” can cause multicollinearity because bigger houses usually have more rooms.
 
 ### 4.3 `leftover` / `leftovers`
@@ -1564,652 +1564,652 @@ eq s$).
 * **Phonetics**: /ˈlɛftˌoʊvər/
 * **Definition**: Remnants, unconsumed resources, or tasks remaining from an intentional, legitimate whole after the primary work has been completed. In engineering, refers to unfinished backlog items, legacy helper classes after migration, or remaining compute credits. Contrasted with `stray` (accidental isolated slips) and `garbage` (intrinsically defective discards).
 * **Key Collocations**: `leftover tickets / tasks` | `leftover technical debt` | `leftover compute budget` | `clean up the leftovers`
-* **常见同义词 (Synonyms)**: `remainder`, `residual`, `remnant`
+* **Synonyms**: `remainder`, `residual`, `remnant`
 * **Example**: *"After the microservice extraction, there are still some leftover helper classes in the monolith that we need to deprecate next sprint."*
 
 ### 4.4 `correlation`
 * **Definition**: /ˌkɔːrəˈleɪʃən/ — A mutual relationship or connection between two things.
-* **常见同义词 (Synonyms)**: `association`, `relationship`, `correspondence`
+* **Synonyms**: `association`, `relationship`, `correspondence`
 * **Example**: There is a strong correlation between smoking and lung cancer.
 
 ### 4.5 `leverage`
 * **Definition**: /ˈlɛv.ər.ɪdʒ/ — Using something to gain an advantage or help achieve a goal.
-* **常见同义词 (Synonyms)**: `utilize`, `exploit`, `harness`
+* **Synonyms**: `utilize`, `exploit`, `harness`
 * **Example**: She leveraged her language skills to get a job abroad.
 
 ### 4.6 `popcorn`
 * **Definition**: /ˈpɑːpkɔːrn/ — A snack made from corn kernels that expand and puff up when heated.
-* **常见同义词 (Synonyms)**: `puffed corn`, `snack corn`, `popped maize`
+* **Synonyms**: `puffed corn`, `snack corn`, `popped maize`
 * **Example**: I love eating popcorn while watching movies.
 
 ### 4.7 `spring`
 * **Definition**: /sprɪŋ/ — A season between winter and summer when plants begin to grow.
-* **常见同义词 (Synonyms)**: `bloom season`, `vernal season`, `rebound`
+* **Synonyms**: `bloom season`, `vernal season`, `rebound`
 * **Example**: The flowers bloom in spring.
 
 ### 4.8 `cottages`
 * **Definition**: /ˈkɒtɪdʒɪz/ — Small, simple houses, often in the countryside or used for holidays.
-* **常见同义词 (Synonyms)**: `cabins`, `bungalows`, `lodges`
+* **Synonyms**: `cabins`, `bungalows`, `lodges`
 * **Example**: Many tourists rent cottages near the lake for summer vacations.
 
 ### 4.9 `forge`
 * **Definition**: /fɔːrdʒ/ — to make something, especially metal objects, by heating and hammering.
-* **常见同义词 (Synonyms)**: `build`, `construct`, `fabricate`
+* **Synonyms**: `build`, `construct`, `fabricate`
 * **Example**: The two countries forged a new trade agreement after months of negotiation.
 
 ### 4.10 `revamp`
 * **Definition**: /rɪˈvæmp/ — to completely change or improve something, especially to make it more modern or effective.
-* **常见同义词 (Synonyms)**: `overhaul`, `modernize`, `renovate`
+* **Synonyms**: `overhaul`, `modernize`, `renovate`
 * **Example**: The company decided to revamp its website to attract more customers.
 
 ### 4.11 `citadel`
 * **Definition**: /ˈsɪtədɛl/ — A strong fortress, often built on high ground to protect a city.
-* **常见同义词 (Synonyms)**: `fortress`, `stronghold`, `bastion`
+* **Synonyms**: `fortress`, `stronghold`, `bastion`
 * **Example**: The ancient citadel stood proudly on the hill overlooking the harbor.
 
 ### 4.12 `feel-the-shake`
 * **Definition**: /fil ðə ʃeɪk/ — To physically sense vibrations or tremors, often from an earthquake or loud sound.
-* **常见同义词 (Synonyms)**: `sense vibration`, `perceive tremors`, `feel the tremor`
+* **Synonyms**: `sense vibration`, `perceive tremors`, `feel the tremor`
 * **Example**: The crowd began to feel-the-shake as the bass dropped at the concert.
 
 ### 4.13 `mutable`
 * **Definition**: /ˈmjuːtəbəl/ — Able to be changed or altered.
-* **常见同义词 (Synonyms)**: `alterable`, `changeable`, `modifiable`
+* **Synonyms**: `alterable`, `changeable`, `modifiable`
 * **Example**: Python lists are mutable, unlike tuples.
 
 ### 4.14 `regularized`
 * **Definition**: /ˈrɛɡjələraɪzd/ — Made to follow a consistent rule or standard.
-* **常见同义词 (Synonyms)**: `constrained`, `penalized`, `smoothed`
+* **Synonyms**: `constrained`, `penalized`, `smoothed`
 * **Example**: The company regularized its hiring process to ensure fairness.
 
 ### 4.15 `homoscedasticity`
 * **Definition**: /ˌhəʊ.məʊ.sedæsˈtɪs.ə.ti/ — It means the variance of errors is constant across all levels of the independent variable.
-* **常见同义词 (Synonyms)**: `constant variance`, `equal variance`, `uniform dispersion`
+* **Synonyms**: `constant variance`, `equal variance`, `uniform dispersion`
 * **Example**: Homoscedasticity is an important assumption in linear regression.
 
 ### 4.16 `ridge`
 * **Definition**: /ridʒ/ — A long narrow raised area on a surface.
-* **常见同义词 (Synonyms)**: `L2 penalty`, `Tikhonov regularization`, `crest`
+* **Synonyms**: `L2 penalty`, `Tikhonov regularization`, `crest`
 * **Example**: The hikers followed the rocky ridge to the summit.
 
 ### 4.17 `lasso`
 * **Definition**: /ˈlæs.əʊ/ — A rope with a loop that can be tightened, used especially to catch animals.
-* **常见同义词 (Synonyms)**: `L1 penalty`, `sparse regression`, `feature selector`
+* **Synonyms**: `L1 penalty`, `sparse regression`, `feature selector`
 * **Example**: The cowboy threw the lasso and caught the runaway calf.
 
 ### 4.18 `formula`
 * **Definition**: /ˈfɔːr.mjə.lə/ — A set of symbols or numbers that shows a mathematical rule or relationship.
-* **常见同义词 (Synonyms)**: `equation`, `recipe`, `prescription`
+* **Synonyms**: `equation`, `recipe`, `prescription`
 * **Example**: The quadratic formula helps solve equations like x² + 2x − 3 = 0.
 
 ### 4.19 `simultaneously`
 * **Definition**: /ˌsɪm.əlˈteɪ.ni.əs.li/ — Happening at the exact same time.
-* **常见同义词 (Synonyms)**: `concurrently`, `at once`, `in parallel`
+* **Synonyms**: `concurrently`, `at once`, `in parallel`
 * **Example**: They clapped and cheered simultaneously.
 
 ### 4.20 `bento`
 * **Definition**: /ˈbɛn.toʊ/ — A Japanese boxed meal containing single-portion takeout or home-cooked food.
-* **常见同义词 (Synonyms)**: `boxed set`, `compartmentalized grid`, `packed meal`
+* **Synonyms**: `boxed set`, `compartmentalized grid`, `packed meal`
 * **Example**: He grabbed a quick bento for lunch before joining the incident call.
 
 ### 4.21 `guidance`
 * **Definition**: /ˈɡaɪ.dəns/ — Advice or information that helps someone make decisions or do something correctly.
-* **常见同义词 (Synonyms)**: `direction`, `counsel`, `instruction`
+* **Synonyms**: `direction`, `counsel`, `instruction`
 * **Example**: She gave me valuable guidance on how to prepare for the interview.
 
 ### 4.22 `crisp`
 * **Definition**: /krisp/ — Having a pleasantly firm and fresh texture or sound.
-* **常见同义词 (Synonyms)**: `sharp`, `concise`, `clear-cut`
+* **Synonyms**: `sharp`, `concise`, `clear-cut`
 * **Example**: The autumn air was crisp and refreshing.
 
 ### 4.23 `Cracking`
 * **Definition**: /ˈkrækɪŋ/ — Breaking something suddenly with a sharp sound or force.
-* **常见同义词 (Synonyms)**: `fracturing`, `splitting`, `breaking`
+* **Synonyms**: `fracturing`, `splitting`, `breaking`
 * **Example**: The ice was cracking under our feet.
 
 ### 4.24 `scrutiny`
 * **Definition**: /ˈskruːtɪni/ — careful and thorough examination or observation.
-* **常见同义词 (Synonyms)**: `inspection`, `examination`, `audit`
+* **Synonyms**: `inspection`, `examination`, `audit`
 * **Example**: The new policy is under close scrutiny by the media.
 
 ### 4.25 `impurity`
 * **Definition**: /ɪmˈpjʊərəti/ — Something that is not pure or clean, often mixed with unwanted substances.
-* **常见同义词 (Synonyms)**: `contamination`, `pollutant`, `adulteration`
+* **Synonyms**: `contamination`, `pollutant`, `adulteration`
 * **Example**: The water sample contained a dangerous impurity.
 
 ### 4.26 `metaphor`
 * **Definition**: /ˈmɛtəfər/ — A figure of speech that directly compares two unlike things by saying one is the other.
-* **常见同义词 (Synonyms)**: `analogy`, `figurative expression`, `allegory`
+* **Synonyms**: `analogy`, `figurative expression`, `allegory`
 * **Example**: Time is a thief — that’s a common metaphor.
 
 ### 4.27 `distinction`
 * **Definition**: /dɪˈstɪŋkʃən/ — A clear difference between two or more things.
-* **常见同义词 (Synonyms)**: `differentiation`, `contrast`, `nuance`
+* **Synonyms**: `differentiation`, `contrast`, `nuance`
 * **Example**: There’s an important distinction between weather and climate.
 
 ### 4.28 `subtle`
 * **Definition**: /ˈsʌt.əl/ — very slight and not easy to notice or understand.
-* **常见同义词 (Synonyms)**: `delicate`, `understated`, `nuanced`
+* **Synonyms**: `delicate`, `understated`, `nuanced`
 * **Example**: The painting has subtle shades of blue.
 
 ### 4.29 `separability`
 * **Definition**: /ˌsepərəˈbɪləti/ — The quality of being able to be separated or treated independently.
-* **常见同义词 (Synonyms)**: `distinguishability`, `isolability`, `partitionability`
+* **Synonyms**: `distinguishability`, `isolability`, `partitionability`
 * **Example**: The separability of the software modules allows developers to update them individually.
 
 ### 4.30 `scenario`
 * **Definition**: /ˈsɪnərɪəʊ/ — A possible situation or sequence of events, especially one that is imagined or planned.
-* **常见同义词 (Synonyms)**: `use case`, `situation`, `contingency`
+* **Synonyms**: `use case`, `situation`, `contingency`
 * **Example**: What if it rains during the picnic? That’s a likely scenario.
 
 ### 4.31 `probabilistic`
 * **Definition**: /ˌproʊbəˈbɪlɪstɪk/ — Based on or involving probability rather than certainty.
-* **常见同义词 (Synonyms)**: `stochastic`, `chance-based`, `likelihood-driven`
+* **Synonyms**: `stochastic`, `chance-based`, `likelihood-driven`
 * **Example**: Weather forecasts are probabilistic, not definite.
 
 ### 4.32 `transient`
 * **Definition**: /ˈtrænʃənt/ — Lasting only for a short time.
-* **常见同义词 (Synonyms)**: `ephemeral`, `fleeting`, `short-lived`
+* **Synonyms**: `ephemeral`, `fleeting`, `short-lived`
 * **Example**: Her happiness was transient, fading as quickly as it appeared.
 
 ### 4.33 `cure`
 * **Definition**: /kjʊər/ — to make someone healthy again after an illness.
-* **常见同义词 (Synonyms)**: `remedy`, `antidote`, `heal`
+* **Synonyms**: `remedy`, `antidote`, `heal`
 * **Example**: Doctors are trying to find a cure for cancer.
 
 ### 4.34 `cur`
 * **Definition**: /kɜːr/ — A contemptuous term for a dog, especially a mangy or scruffy one.
-* **常见同义词 (Synonyms)**: `mongrel`, `scoundrel`, `stray dog`
+* **Synonyms**: `mongrel`, `scoundrel`, `stray dog`
 * **Example**: That mangy cur won’t stop barking at strangers.
 
 ### 4.35 `incur`
 * **Definition**: /ɪnˈkɜːr/ — to get something unpleasant, especially a cost or punishment, as a result of your actions.
-* **常见同义词 (Synonyms)**: `sustain`, `bring upon`, `contract`
+* **Synonyms**: `sustain`, `bring upon`, `contract`
 * **Example**: The company will incur heavy fines if it violates the new regulations.
 
 ### 4.36 `pretty`
 * **Definition**: /ˈprɪt.i/ — It means attractive or pleasing to look at.
-* **常见同义词 (Synonyms)**: `attractive`, `fairly`, `pleasing`
+* **Synonyms**: `attractive`, `fairly`, `pleasing`
 * **Example**: She looks pretty in that dress.
 
 ### 4.37 `carve`
 * **Definition**: /kɑːrv/ — To cut or shape something, especially wood or stone, with a tool.
-* **常见同义词 (Synonyms)**: `sculpt`, `slice`, `engrave`
+* **Synonyms**: `sculpt`, `slice`, `engrave`
 * **Example**: She likes to carve animals out of soap.
 
 ### 4.38 `residual`
 * **Definition**: /ˈrezɪdʒuəl/ — Something that remains after the main part has gone or been removed.
-* **常见同义词 (Synonyms)**: `remainder`, `leftover`, `error term`
+* **Synonyms**: `remainder`, `leftover`, `error term`
 * **Example**: There was a residual amount of sugar left in the bowl.
 
 ### 4.39 `nudge`
 * **Definition**: /nʌdʒ/ — A gentle push or touch to get someone’s attention or encourage them to do something.
-* **常见同义词 (Synonyms)**: `prompt`, `prod`, `gentle push`
+* **Synonyms**: `prompt`, `prod`, `gentle push`
 * **Example**: She gave him a nudge to remind him it was his turn to speak.
 
 ### 4.40 `explainability`
 * **Definition**: /ɪkˌspleɪnəˈbɪləti/ — The ability to understand and explain how something works or why a decision was made.
-* **常见同义词 (Synonyms)**: `interpretability`, `transparency`, `clarity`
+* **Synonyms**: `interpretability`, `transparency`, `clarity`
 * **Example**: AI systems need high explainability so doctors can trust their medical diagnoses.
 
 ### 4.41 `counter-intuitive`
 * **Definition**: /ˌkaʊn.tər.ɪnˈtjuː.ɪ.tɪv/ — Something that goes against what most people would expect or feel is true.
-* **常见同义词 (Synonyms)**: `paradoxical`, `unexpected`, `contrary to logic`
+* **Synonyms**: `paradoxical`, `unexpected`, `contrary to logic`
 * **Example**: It’s counter-intuitive, but the fastest way to cool a drink is to stir it with ice.
 
 ### 4.42 `proportionally`
 * **Definition**: /ˌproʊˈpɔːrʃənəli/ — In a way that maintains the same ratio or relationship.
-* **常见同义词 (Synonyms)**: `commensurately`, `relatively`, `in scale`
+* **Synonyms**: `commensurately`, `relatively`, `in scale`
 * **Example**: The price increases proportionally with the size of the order.
 
 ### 4.43 `convex`
 * **Definition**: /ˈkɒnveks/ — Curving outward like the outside of a circle or sphere.
-* **常见同义词 (Synonyms)**: `curved outward`, `non-concave`, `bulging`
+* **Synonyms**: `curved outward`, `non-concave`, `bulging`
 * **Example**: The lens has a convex surface that bends light inward.
 
 ### 4.44 `oscillate`
 * **Definition**: /ˈɒs.ɪ.leɪt/ — to move back and forth regularly between two points or states.
-* **常见同义词 (Synonyms)**: `fluctuate`, `vacillate`, `swing`
+* **Synonyms**: `fluctuate`, `vacillate`, `swing`
 * **Example**: The pendulum oscillates smoothly from side to side.
 
 ### 4.45 `cluster`
 * **Definition**: /ˈklʌs.tər/ — A group of similar things or people gathered closely together.
-* **常见同义词 (Synonyms)**: `group`, `agglomeration`, `bundle`
+* **Synonyms**: `group`, `agglomeration`, `bundle`
 * **Example**: A cluster of grapes hung from the vine.
 
 ### 4.46 `saturation`
 * **Definition**: /ˌsætʃəˈreɪʃən/ — The state of being completely filled or soaked with something.
-* **常见同义词 (Synonyms)**: `fullness`, `permeation`, `congestion`
+* **Synonyms**: `fullness`, `permeation`, `congestion`
 * **Example**: The market has reached saturation, so it’s hard to attract new customers.
 
 ### 4.47 `log-adds`
 * **Definition**: /ˈlɒɡ ədz/ — A mathematical operation that adds numbers in log space to avoid underflow.
-* **常见同义词 (Synonyms)**: `log likelihood`, `log accumulation`, `additive log`
+* **Synonyms**: `log likelihood`, `log accumulation`, `additive log`
 * **Example**: The algorithm uses log-adds to safely sum probabilities represented as logarithms.
 
 ### 4.48 `granularity`
 * **Definition**: /ˌɡræn.jəˈlær.ə.ti/ — The level of detail or fineness in something.
-* **常见同义词 (Synonyms)**: `resolution`, `level of detail`, `scale`
+* **Synonyms**: `resolution`, `level of detail`, `scale`
 * **Example**: This report lacks the granularity needed for precise decision-making.
 
 ### 4.49 `derivative`
 * **Definition**: /ˈdɛrɪvətɪv/ — A word formed from another word by adding a prefix or suffix.
-* **常见同义词 (Synonyms)**: `byproduct`, `offshoot`, `rate of change`
+* **Synonyms**: `byproduct`, `offshoot`, `rate of change`
 * **Example**: “Happiness” is a derivative of “happy”.
 
 ### 4.50 `underwrite`
 * **Definition**: /ˌʌndərˈraɪt/ — To agree to pay for something or support it financially.
-* **常见同义词 (Synonyms)**: `guarantee`, `subsidize`, `endorse`
+* **Synonyms**: `guarantee`, `subsidize`, `endorse`
 * **Example**: The bank agreed to underwrite the new startup’s loan.
 
 ### 4.51 `imagine`
 * **Definition**: /ɪˈmædʒ.ɪn/ — To form a picture or idea in your mind.
-* **常见同义词 (Synonyms)**: `visualize`, `envision`, `conceive`
+* **Synonyms**: `visualize`, `envision`, `conceive`
 * **Example**: Imagine you’re on a beach with warm sun and soft sand.
 
 ### 4.52 `replicate`
 * **Definition**: /ˈrɛplɪkeɪt/ — To make an exact copy of something.
-* **常见同义词 (Synonyms)**: `duplicate`, `reproduce`, `clone`
+* **Synonyms**: `duplicate`, `reproduce`, `clone`
 * **Example**: Scientists tried to replicate the experiment to verify the results.
 
 ### 4.53 `outliers`
 * **Definition**: /ˈaʊtˌlaɪ.ər/ — Numbers or data points that are very different from most others in a set.
-* **常见同义词 (Synonyms)**: `anomalies`, `deviations`, `extremes`
+* **Synonyms**: `anomalies`, `deviations`, `extremes`
 * **Example**: In the test scores, two students scored much higher than the rest—these were clear outliers.
 
 ### 4.54 `superpress`
 * **Definition**: /ˈsuːpərprɛs/ — A very strong press or squeeze.
-* **常见同义词 (Synonyms)**: `over-compress`, `high pressure`, `excessive compression`
+* **Synonyms**: `over-compress`, `high pressure`, `excessive compression`
 * **Example**: The machine applies a superpress to compact the metal sheets.
 
 ### 4.55 `blip`
 * **Definition**: /blɪp/ — A short, usually unimportant event or change.
-* **常见同义词 (Synonyms)**: `glitch`, `temporary anomaly`, `spike`
+* **Synonyms**: `glitch`, `temporary anomaly`, `spike`
 * **Example**: The power outage was just a blip in the system.
 
 ### 4.56 `denominator`
 * **Definition**: /ˌdɛnəˈmɪnətər/ — The number below the line in a fraction that shows how many equal parts the whole is divided into.
-* **常见同义词 (Synonyms)**: `divisor`, `base`, `bottom number`
+* **Synonyms**: `divisor`, `base`, `bottom number`
 * **Example**: In the fraction 3/4, 4 is the denominator.
 
 ### 4.57 `artificially`
 * **Definition**: /ˌɑːr.tɪˈfɪʃ.əl.i/ — In a way that is made or done by people, not occurring naturally.
-* **常见同义词 (Synonyms)**: `synthetically`, `unnaturally`, `spudriously`
+* **Synonyms**: `synthetically`, `unnaturally`, `spudriously`
 * **Example**: The flavor is artificially enhanced with chemicals.
 
 ### 4.58 `tangle`
 * **Definition**: /ˈtæŋ.ɡəl/ — A twisted, messy mass of things that are hard to separate.
-* **常见同义词 (Synonyms)**: `entanglement`, `snarl`, `knot`
+* **Synonyms**: `entanglement`, `snarl`, `knot`
 * **Example**: Her hair was a tangle after the windy walk.
 
 ### 4.59 `stale`
 * **Definition**: /stel/ — Not fresh, especially food or air.
-* **常见同义词 (Synonyms)**: `outdated`, `expired`, `obsolete`
+* **Synonyms**: `outdated`, `expired`, `obsolete`
 * **Example**: The bread tastes stale.
 
 ### 4.60 `cutoff`
 * **Definition**: /ˈkʌt.ɒf/ — A point or time when something stops or is no longer accepted.
-* **常见同义词 (Synonyms)**: `threshold`, `deadline`, `boundary`
+* **Synonyms**: `threshold`, `deadline`, `boundary`
 * **Example**: The cutoff for applications is Friday at 5 p.m.
 
 ### 4.61 `uninformative`
 * **Definition**: /ˌʌnɪnˈfɔːrmətɪv/ — Not giving useful or new information.
-* **常见同义词 (Synonyms)**: `non-insightful`, `meaningless`, `vacuous`
+* **Synonyms**: `non-insightful`, `meaningless`, `vacuous`
 * **Example**: This graph is uninformative because it lacks labels and units.
 
 ### 4.62 `arithmetic`
 * **Definition**: /əˈrɪθmətɪk/ — Arithmetic is the branch of mathematics dealing with numbers and basic operations like addition, subtraction, multiplication, and division.
-* **常见同义词 (Synonyms)**: `computation`, `calculation`, `math`
+* **Synonyms**: `computation`, `calculation`, `math`
 * **Example**: She solved the arithmetic problem quickly in her head.
 
 ### 4.63 `dazzling`
 * **Definition**: /ˈdæz.lɪŋ/ — Very bright, impressive, or attractive in a way that amazes you.
-* **常见同义词 (Synonyms)**: `spectacular`, `stunning`, `brilliant`
+* **Synonyms**: `spectacular`, `stunning`, `brilliant`
 * **Example**: Her dazzling smile lit up the whole room.
 
 ### 4.64 `innovation`
 * **Definition**: /ˌɪn.əˈveɪ.ʃən/ — The act of introducing something new or improved.
-* **常见同义词 (Synonyms)**: `novelty`, `breakthrough`, `advancement`
+* **Synonyms**: `novelty`, `breakthrough`, `advancement`
 * **Example**: Smartphones are a great example of technological innovation.
 
 ### 4.65 `effectiveness`
 * **Definition**: /ɪˈfɛktɪvnəs/ — Effectiveness is how well something works to achieve a desired result.
-* **常见同义词 (Synonyms)**: `efficacy`, `potency`, `success`
+* **Synonyms**: `efficacy`, `potency`, `success`
 * **Example**: The new teaching method improved the effectiveness of student learning.
 
 ### 4.66 `disguise`
 * **Definition**: /dɪsˈɡaɪz/ — to change your appearance so that people cannot recognize you.
-* **常见同义词 (Synonyms)**: `mask`, `camouflage`, `conceal`
+* **Synonyms**: `mask`, `camouflage`, `conceal`
 * **Example**: He wore a fake beard as a disguise.
 
 ### 4.67 `arbitrary`
 * **Definition**: /ˈɑːr.bɪ.trer.i/ — It means something is chosen without any clear reason or rule.
-* **常见同义词 (Synonyms)**: `capricious`, `random`, `unreasoned`
+* **Synonyms**: `capricious`, `random`, `unreasoned`
 * **Example**: The teacher picked an arbitrary number to start the game.
 
 ### 4.68 `divisor`
 * **Definition**: /dɪˈvaɪ.zər/ — A number that divides another number evenly without leaving a remainder.
-* **常见同义词 (Synonyms)**: `denominator`, `factor`, `dividend divider`
+* **Synonyms**: `denominator`, `factor`, `dividend divider`
 * **Example**: Six is a divisor of twelve.
 
 ### 4.69 `coastier`
 * **Definition**: /ˈkoʊs.ti.ər/ — A person who lives near or works along the coast.
-* **常见同义词 (Synonyms)**: `more coastal`, `nearer shore`, `seaward`
+* **Synonyms**: `more coastal`, `nearer shore`, `seaward`
 * **Example**: She’s a coastier who runs a small seafood restaurant in Maine.
 
 ### 4.70 `costlier`
 * **Definition**: /ˈkɒs.tlɪər/ — more expensive than something else.
-* **常见同义词 (Synonyms)**: `more expensive`, `pricier`, `higher-cost`
+* **Synonyms**: `more expensive`, `pricier`, `higher-cost`
 * **Example**: This smartphone is costlier than the previous model.
 
 ### 4.71 `narrow`
 * **Definition**: /ˈnæroʊ/ — not wide; having a small distance from side to side.
-* **常见同义词 (Synonyms)**: `restrict`, `constrict`, `tight`
+* **Synonyms**: `restrict`, `constrict`, `tight`
 * **Example**: The path between the houses is very narrow.
 
 ### 4.72 `ledger`
 * **Definition**: /ˈlɛdʒər/ — A book or computer file for recording financial transactions.
-* **常见同义词 (Synonyms)**: `record book`, `audit log`, `journal`
+* **Synonyms**: `record book`, `audit log`, `journal`
 * **Example**: She updated the company’s ledger after processing the invoices.
 
 ### 4.73 `conflate`
 * **Definition**: /kənˈfleɪt/ — To mistakenly treat two different things as if they were the same.
-* **常见同义词 (Synonyms)**: `confuse`, `merge`, `blur`
+* **Synonyms**: `confuse`, `merge`, `blur`
 * **Example**: People often conflate climate change with weather, but they are not the same thing.
 
 ### 4.74 `latest`
 * **Definition**: /ˈleɪtəst/ — It means the most recent or newest thing.
-* **常见同义词 (Synonyms)**: `newest`, `most recent`, `up-to-date`
+* **Synonyms**: `newest`, `most recent`, `up-to-date`
 * **Example**: She bought the latest smartphone model.
 
 ### 4.75 `assume`
 * **Definition**: /əˈsjuːm/ — to think something is true without having proof.
-* **常见同义词 (Synonyms)**: `presume`, `postulate`, `suppose`
+* **Synonyms**: `presume`, `postulate`, `suppose`
 * **Example**: I assume she’s already left for work.
 
 ### 4.76 `drift`
 * **Definition**: /drift/ — to move slowly and smoothly, especially because of wind or water.
-* **常见同义词 (Synonyms)**: `divergence`, `deviation`, `shift`
+* **Synonyms**: `divergence`, `deviation`, `shift`
 * **Example**: Leaves drifted down from the trees.
 
 ### 4.77 `harsh`
 * **Definition**: /hɑːrʃ/ — unpleasantly rough, severe, or cruel.
-* **常见同义词 (Synonyms)**: `severe`, `stringent`, `abrasive`
+* **Synonyms**: `severe`, `stringent`, `abrasive`
 * **Example**: The teacher’s criticism was too harsh.
 
 ### 4.78 `compliance`
 * **Definition**: /kəmˈplai.əns/ — The act of following rules, laws, or requests.
-* **常见同义词 (Synonyms)**: `adherence`, `conformity`, `observance`
+* **Synonyms**: `adherence`, `conformity`, `observance`
 * **Example**: All employees must ensure compliance with safety regulations.
 
 ### 4.79 `leveled`
 * **Definition**: /ˈlɛvəld/ — It means made flat or even, or treated fairly.
-* **常见同义词 (Synonyms)**: `flattened`, `balanced`, `equalized`
+* **Synonyms**: `flattened`, `balanced`, `equalized`
 * **Example**: He leveled the ground before building the shed.
 
 ### 4.80 `inquisitive`
 * **Definition**: /ɪnˈkwɪz.ə.tɪv/ — Wanting to know more, especially by asking questions.
-* **常见同义词 (Synonyms)**: `curious`, `inquiring`, `probing`
+* **Synonyms**: `curious`, `inquiring`, `probing`
 * **Example**: Children are naturally inquisitive and ask “why” about everything.
 
 ### 4.81 `prior`
 * **Definition**: /ˈpraɪ.ər/ — Coming before something in time or order.
-* **常见同义词 (Synonyms)**: `previous`, `preceding`, `antecedent`
+* **Synonyms**: `previous`, `preceding`, `antecedent`
 * **Example**: I had no prior experience with coding.
 
 ### 4.82 `adapt`
 * **Definition**: /əˈdæpt/ — to change something to suit a new situation or purpose.
-* **常见同义词 (Synonyms)**: `adjust`, `accommodate`, `tailor`
+* **Synonyms**: `adjust`, `accommodate`, `tailor`
 * **Example**: Animals must adapt to survive in changing environments.
 
 ### 4.83 `marginal`
 * **Definition**: /ˈmɑːdʒɪnəl/ — Something that is small, unimportant, or at the edge of something.
-* **常见同义词 (Synonyms)**: `incremental`, `borderline`, `slight`
+* **Synonyms**: `incremental`, `borderline`, `slight`
 * **Example**: The improvement was only marginal, so we decided to try a different approach.
 
 ### 4.84 `nuance`
 * **Definition**: /ˈnuː.ɑːns/ — A subtle difference in meaning, expression, or sound.
-* **常见同义词 (Synonyms)**: `subtlety`, `shade`, `distinction`
+* **Synonyms**: `subtlety`, `shade`, `distinction`
 * **Example**: She caught the nuance in his tone and realized he wasn’t really angry—just tired.
 
 ### 4.85 `perimeter`
 * **Definition**: /ˈpɛrɪmɪtər/ — The total distance around the edge of a two-dimensional shape.
-* **常见同义词 (Synonyms)**: `boundary`, `circumference`, `border`
+* **Synonyms**: `boundary`, `circumference`, `border`
 * **Example**: The perimeter of the square is 20 centimeters.
 
 ### 4.86 `strip`
 * **Definition**: /strɪp/ — To remove something, especially clothing or a covering, from a person or thing.
-* **常见同义词 (Synonyms)**: `peel`, `remove`, `dismantle`
+* **Synonyms**: `peel`, `remove`, `dismantle`
 * **Example**: She stripped off her wet coat and hung it by the door.
 
 ### 4.87 `stripe`
 * **Definition**: /straɪp/ — A long narrow band of color or material different from its surroundings.
-* **常见同义词 (Synonyms)**: `band`, `streak`, `strip`
+* **Synonyms**: `band`, `streak`, `strip`
 * **Example**: The zebra has black and white stripes.
 
 ### 4.88 `bluff`
 * **Definition**: /blʌf/ — To pretend to be confident or strong when you are not.
-* **常见同义词 (Synonyms)**: `feint`, `fake`, `deception`
+* **Synonyms**: `feint`, `fake`, `deception`
 * **Example**: He tried to bluff his way out of trouble by pretending he didn’t know anything.
 
 ### 4.89 `anomaly`
 * **Definition**: /əˈnɒm.ə.li/ — Something that is unusual or does not follow the usual pattern.
-* **常见同义词 (Synonyms)**: `outlier`, `irregularity`, `abnormality`
+* **Synonyms**: `outlier`, `irregularity`, `abnormality`
 * **Example**: The sudden temperature drop in July was a weather anomaly.
 
 ### 4.90 `Acyclic`
 * **Definition**: /ˌeɪˈsaɪ.klik/ — Having no cycles or loops.
-* **常见同义词 (Synonyms)**: `non-cyclic`, `loop-free`, `directed acyclic`
+* **Synonyms**: `non-cyclic`, `loop-free`, `directed acyclic`
 * **Example**: This acyclic graph represents a family tree with no circular relationships.
 
 ### 4.91 `median`
 * **Definition**: /ˈmiː.di.ən/ — The middle number in a sorted list of numbers.
-* **常见同义词 (Synonyms)**: `midpoint`, `center value`, `middle`
+* **Synonyms**: `midpoint`, `center value`, `middle`
 * **Example**: The median of 3, 5, and 7 is 5.
 
 ### 4.92 `materially`
 * **Definition**: /maˈtɪərɪəli/ — In a way that affects the physical world or real conditions.
-* **常见同义词 (Synonyms)**: `substantially`, `significantly`, `noticeably`
+* **Synonyms**: `substantially`, `significantly`, `noticeably`
 * **Example**: The new policy materially improved living standards.
 
 ### 4.93 `empirical`
 * **Definition**: /ɪmˈpɪr.ə.kəl/ — Based on observation or experience rather than theory or pure logic.
-* **常见同义词 (Synonyms)**: `observational`, `experimental`, `evidence-based`
+* **Synonyms**: `observational`, `experimental`, `evidence-based`
 * **Example**: Scientists rely on empirical data to support their hypotheses.
 
 ### 4.94 `phrase`
 * **Definition**: /freɪz/ — A group of words that work together as a unit in a sentence.
-* **常见同义词 (Synonyms)**: `expression`, `idiom`, `locution`
+* **Synonyms**: `expression`, `idiom`, `locution`
 * **Example**: She used a common English phrase: “break a leg.”
 
 ### 4.95 `mustafa`
 * **Definition**: /mʊsˈtɑːfə/ — A common male given name of Arabic origin, meaning "the chosen one".
-* **常见同义词 (Synonyms)**: `chosen one`, `epithet`, `proper noun`
+* **Synonyms**: `chosen one`, `epithet`, `proper noun`
 * **Example**: Mustafa is my neighbor’s son.
 
 ### 4.96 `theoretical`
 * **Definition**: /ˌθɪəˈrɛtɪkəl/ — Based on ideas or theories rather than practical experience.
-* **常见同义词 (Synonyms)**: `hypothetical`, `abstract`, `academic`
+* **Synonyms**: `hypothetical`, `abstract`, `academic`
 * **Example**: His explanation was purely theoretical and lacked real-world evidence.
 
 ### 4.97 `floor`
 * **Definition**: /floor/ — The flat surface you stand or walk on in a room.
-* **常见同义词 (Synonyms)**: `lower bound`, `minimum threshold`, `bottom limit`
+* **Synonyms**: `lower bound`, `minimum threshold`, `bottom limit`
 * **Example**: The cat is sleeping on the floor.
 
 ### 4.98 `deviation`
 * **Definition**: /diːviˈeɪʃən/ — A difference or change from what is normal or expected.
-* **常见同义词 (Synonyms)**: `departure`, `variance`, `divergence`
+* **Synonyms**: `departure`, `variance`, `divergence`
 * **Example**: There was a small deviation from the original plan.
 
 ### 4.99 `len`
 * **Definition**: /lɛn/ — It is a shortened form of "length", meaning how long something is.
-* **常见同义词 (Synonyms)**: `length`, `extent`, `count`
+* **Synonyms**: `length`, `extent`, `count`
 * **Example**: The len of the table is 2 meters.
 
 ### 4.100 `lens`
 * **Definition**: /lɛnz/ — A piece of glass or plastic that bends light to make things look bigger, smaller, or clearer.
-* **常见同义词 (Synonyms)**: `perspective`, `viewpoint`, `optic`
+* **Synonyms**: `perspective`, `viewpoint`, `optic`
 * **Example**: The camera lens captured the mountain in sharp detail.
 
 ### 4.101 `stakeholder`
 * **Definition**: /ˈsteɪkˌhoʊldər/ — A person, group, or organization that has an interest in or is affected by a project, decision, or organization.
-* **常见同义词 (Synonyms)**: `interested party`, `investor`, `participant`
+* **Synonyms**: `interested party`, `investor`, `participant`
 * **Example**: Investors, employees, and customers are all key stakeholders in the company’s new sustainability initiative.
 
 ### 4.102 `convolution`
 * **Definition**: /kɒn.vəˈluː.ʃən/ — A mathematical operation that combines two functions to produce a third function expressing how the shape of one is modified by the other.
-* **常见同义词 (Synonyms)**: `filter folding`, `entanglement`, `complexity`
+* **Synonyms**: `filter folding`, `entanglement`, `complexity`
 * **Example**: The convolution of the signal with the filter smooths the data.
 
 ### 4.103 `Serendipity`
 * **Definition**: /ˌser.ənˈdip.ə.ti/ — the pleasant surprise of finding something good while not looking for it.
-* **常见同义词 (Synonyms)**: `fluke`, `chance discovery`, `happy accident`
+* **Synonyms**: `fluke`, `chance discovery`, `happy accident`
 * **Example**: Finding that rare book in a tiny shop was pure serendipity.
 
 ### 4.104 `breadth`
 * **Definition**: /brɛdθ/ — The distance from side to side of something; how wide it is.
-* **常见同义词 (Synonyms)**: `width`, `extent`, `scope`
+* **Synonyms**: `width`, `extent`, `scope`
 * **Example**: The breadth of the river made swimming across impossible.
 
 ### 4.105 `screw`
 * **Definition**: /skruː/ — A tool with a spiral ridge used to fasten things together.
-* **常见同义词 (Synonyms)**: `fastener`, `bolt`, `twist`
+* **Synonyms**: `fastener`, `bolt`, `twist`
 * **Example**: I’ll use a screw to fix the shelf to the wall.
 
 ### 4.106 `denote`
 * **Definition**: /dɪˈnoʊt/ — to mean or represent something.
-* **常见同义词 (Synonyms)**: `signify`, `indicate`, `represent`
+* **Synonyms**: `signify`, `indicate`, `represent`
 * **Example**: A red light denotes danger.
 
 ### 4.107 `benign`
 * **Definition**: /bɪˈnaɪn/ — not harmful or dangerous, especially in medical contexts.
-* **常见同义词 (Synonyms)**: `harmless`, `non-malignant`, `innocuous`
+* **Synonyms**: `harmless`, `non-malignant`, `innocuous`
 * **Example**: The tumor was benign and required no treatment.
 
 ### 4.108 `malignant`
 * **Definition**: /məˈlɪɡ.nənt/ — It describes something harmful or dangerous, especially a type of cancer that can spread and get worse.
-* **常见同义词 (Synonyms)**: `harmful`, `deleterious`, `virulent`
+* **Synonyms**: `harmful`, `deleterious`, `virulent`
 * **Example**: Her doctor diagnosed her with malignant melanoma.
 
 ### 4.109 `ambient`
 * **Definition**: /ˈæm.bi.ənt/ — It means existing or present all around in the environment.
-* **常见同义词 (Synonyms)**: `surrounding`, `environmental`, `atmospheric`
+* **Synonyms**: `surrounding`, `environmental`, `atmospheric`
 * **Example**: The ambient light in the room was soft and calming.
 
 ### 4.110 `dent`
 * **Definition**: /dent/ — a small hollow or depression in a surface.
-* **常见同义词 (Synonyms)**: `impression`, `hollow`, `dimple`
+* **Synonyms**: `impression`, `hollow`, `dimple`
 * **Example**: The car door has a dent from the shopping cart.
 
 ### 4.111 `scratch`
 * **Definition**: /scrætʃ/ — To rub or scrape something lightly with your nails or a sharp object.
-* **常见同义词 (Synonyms)**: `scrape`, `abrasion`, `score`
+* **Synonyms**: `scrape`, `abrasion`, `score`
 * **Example**: She scratched her arm when it itched.
 
 ### 4.112 `alum`
 * **Definition**: /ˈæləm/ — A person who has graduated from a particular school, college, or university.
-* **常见同义词 (Synonyms)**: `graduate`, `former student`, `alumnus`
+* **Synonyms**: `graduate`, `former student`, `alumnus`
 * **Example**: She’s an alum of Harvard Law School.
 
 ### 4.113 `creepy`
 * **Definition**: /ˈkriː.pi/ — Something that makes you feel nervous or frightened in a strange, unsettling way.
-* **常见同义词 (Synonyms)**: `eerie`, `unsettling`, `sinister`
+* **Synonyms**: `eerie`, `unsettling`, `sinister`
 * **Example**: That old doll with staring eyes looks really creepy.
 
 ### 4.114 `alizee`
 * **Definition**: /ˈæl.ɪ.zeɪ/ — A French pop singer known for her 2000s hits.
-* **常见同义词 (Synonyms)**: `proper noun`, `trade wind`, `monsoon`
+* **Synonyms**: `proper noun`, `trade wind`, `monsoon`
 * **Example**: Alizée sang “Moi... Lolita” when she was just 16.
 
 ### 4.115 `breast`
 * **Definition**: /brest/ — It is the front part of the upper body, especially the area where milk is produced in women.
-* **常见同义词 (Synonyms)**: `chest`, `bust`, `front`
+* **Synonyms**: `chest`, `bust`, `front`
 * **Example**: She held her baby close to her breast.
 
 ### 4.116 `specialization`
 * **Definition**: /ˌspeʃəlaɪˈzeɪʃən/ — The process of becoming highly skilled in a particular area.
-* **常见同义词 (Synonyms)**: `expertise`, `focus`, `niche`
+* **Synonyms**: `expertise`, `focus`, `niche`
 * **Example**: Her specialization in pediatric medicine made her the go-to doctor for children’s health issues.
 
 ### 4.117 `flesh`
 * **Definition**: /fluːʃ/ — The soft tissue of the body that covers bones and is used for eating.
-* **常见同义词 (Synonyms)**: `tissue`, `meat`, `substance`
+* **Synonyms**: `tissue`, `meat`, `substance`
 * **Example**: She cooked the chicken flesh until it was no longer pink.
 
 ### 4.118 `discrete`
 * **Definition**: /dɪˈskriːt/ — Separate and distinct, not connected or continuous.
-* **常见同义词 (Synonyms)**: `separate`, `distinct`, `discontinuous`
+* **Synonyms**: `separate`, `distinct`, `discontinuous`
 * **Example**: The course is divided into discrete modules, each covering a different topic.
 
 ### 4.119 `finite`
 * **Definition**: /ˈfaɪ.naɪt/ — Having limits or bounds; not infinite.
-* **常见同义词 (Synonyms)**: `bounded`, `limited`, `terminating`
+* **Synonyms**: `bounded`, `limited`, `terminating`
 * **Example**: The universe may be finite in size.
 
 ### 4.120 `exponent`
 * **Definition**: /ˈɛkspənənt/ — A number that shows how many times a base number is multiplied by itself.
-* **常见同义词 (Synonyms)**: `power`, `index`, `advocate`
+* **Synonyms**: `power`, `index`, `advocate`
 * **Example**: In 2³, the exponent is 3.
 
 ### 4.121 `fancy`
 * **Definition**: /ˈfæn.si/ — It means something that is elegant, stylish, or more expensive than usual.
-* **常见同义词 (Synonyms)**: `elaborate`, `ornate`, `sophisticated`
+* **Synonyms**: `elaborate`, `ornate`, `sophisticated`
 * **Example**: She wore a fancy dress to the party.
 
 ### 4.122 `univariate`
 * **Definition**: /ˌjuːnɪˈvɛərɪət/ — Involving only one variable or measurement.
-* **常见同义词 (Synonyms)**: `single-variable`, `one-dimensional`, `isolated-variable`
+* **Synonyms**: `single-variable`, `one-dimensional`, `isolated-variable`
 * **Example**: A univariate analysis examines the distribution of a single variable, such as age.
 
 ### 4.123 `intersect`
 * **Definition**: /ˌɪntərˈsekt/ — Two lines or paths cross each other at a point.
-* **常见同义词 (Synonyms)**: `cross`, `overlap`, `converge`
+* **Synonyms**: `cross`, `overlap`, `converge`
 * **Example**: The two roads intersect at the city center.
 
 ### 4.124 `hammock`
 * **Definition**: /ˈhæmək/ — A sling made of rope or fabric, hung between two points for lying or resting.
-* **常见同义词 (Synonyms)**: `sling`, `hanging bed`, `lounger`
+* **Synonyms**: `sling`, `hanging bed`, `lounger`
 * **Example**: I relaxed in the hammock under the shade of the palm tree.
 
 ### 4.125 `contour`
 * **Definition**: /ˈkɒn.tʊər/ — A line that shows the shape or outline of something.
-* **常见同义词 (Synonyms)**: `outline`, `profile`, `isoline`
+* **Synonyms**: `outline`, `profile`, `isoline`
 * **Example**: The map shows the mountain’s contour with thin brown lines.
 
 ### 4.126 `slice`
 * **Definition**: /slaɪs/ — A thin, flat piece cut from something larger.
-* **常见同义词 (Synonyms)**: `segment`, `portion`, `partition`
+* **Synonyms**: `segment`, `portion`, `partition`
 * **Example**: I ate a slice of pizza for lunch.
 
 ### 4.127 `ellipse`
 * **Definition**: /ɪˈlɪps/ — A closed curve shaped like a flattened circle.
-* **常见同义词 (Synonyms)**: `oval`, `egg shape`, `ellipsoid`
+* **Synonyms**: `oval`, `egg shape`, `ellipsoid`
 * **Example**: The orbit of a planet around the sun is an ellipse.
 
 ### 4.128 `oval`
 * **Definition**: /ˈoʊ.vəl/ — An oval is a round, egg-shaped figure with no straight sides or corners.
-* **常见同义词 (Synonyms)**: `elliptical`, `egg-shaped`, `oblong`
+* **Synonyms**: `elliptical`, `egg-shaped`, `oblong`
 * **Example**: Her mirror has an elegant oval frame.
 
 ### 4.129 `tangent`
 * **Definition**: /ˈtæn.dʒənt/ — A straight line that touches a curve at exactly one point.
-* **常见同义词 (Synonyms)**: `tangential`, `touching line`, `digression`
+* **Synonyms**: `tangential`, `touching line`, `digression`
 * **Example**: The tangent to the circle meets it at only one point.
 
 ### 4.130 `diverge`
 * **Definition**: /dɪˈvɜːdʒ/ — To move or develop in different directions from the same point.
-* **常见同义词 (Synonyms)**: `deviate`, `branch off`, `fork`
+* **Synonyms**: `deviate`, `branch off`, `fork`
 * **Example**: Their opinions on politics diverge sharply.
 
 ### 4.131 `brute`
 * **Definition**: /bruːt/ — A person or animal that is very strong but lacks intelligence or sensitivity.
-* **常见同义词 (Synonyms)**: `raw`, `unrefined`, `heavy-handed`
+* **Synonyms**: `raw`, `unrefined`, `heavy-handed`
 * **Example**: He solved the problem with brute strength rather than clever thinking.
 
 ### 4.132 `tenure`
 * **Definition**: /ˈten.jər/ — The right to keep a job permanently after a trial period.
-* **常见同义词 (Synonyms)**: `term`, `incumbency`, `period of service`
+* **Synonyms**: `term`, `incumbency`, `period of service`
 * **Example**: She earned tenure at the university after publishing groundbreaking research.
 
 ### 4.133 `idempotent`
@@ -2219,7 +2219,7 @@ eq s$).
   * **HTTP Semantics**: `GET`, `PUT`, and `DELETE` are defined as idempotent in RFC specifications; `POST` creates new resources and is inherently non-idempotent unless protected by an idempotency token.
   * **Data Engineering & ETL**: Transformations such as `.drop_duplicates()` or sentinel replacement `.replace(999, np.nan)` are idempotent; cumulative counters or unconditional append operations are not.
 * **Collocations**: `idempotent operation / function`, `idempotency key`, `idempotent transformation`.
-* **常见同义词 (Synonyms)**: `re-executable`, `repeatable`, `side-effect-free`
+* **Synonyms**: `re-executable`, `repeatable`, `side-effect-free`
 * **Example**: *"In distributed architectures, automatic retry policies are only safe when the underlying worker operation is strictly idempotent."*
 
 ### 4.134 `capable`
@@ -2232,702 +2232,702 @@ eq s$).
   * `capable of [bad thing]`: Objective, colder assertion (*"He is fully capable of bypassing code reviews."*).
   * `I wouldn't put it past someone`: Nuanced understatement indicating cynical expectation (*"I wouldn't put it past him to bypass the checks."*).
 * **Collocations**: `highly capable engineer`, `capable of handling high throughput`, `capable of scaling horizontally`.
-* **常见同义词 (Synonyms)**: `competent`, `able`, `proficient`
+* **Synonyms**: `competent`, `able`, `proficient`
 * **Example**: *"The distributed streaming engine is capable of processing over 500,000 events per second with sub-second latencies."*
 
 ### 4.135 `passive`
 * **Definition**: /ˈpæsɪv/ — Something that is not active or does not act on its own.
-* **常见同义词 (Synonyms)**: `inactive`, `unassertive`, `submissive`
+* **Synonyms**: `inactive`, `unassertive`, `submissive`
 * **Example**: She prefers a passive role in group discussions.
 
 ### 4.136 `vet`
 * **Definition**: /vɛt/ — to carefully examine or check something or someone before making a decision.
-* **常见同义词 (Synonyms)**: `screen`, `appraise`, `inspect`
+* **Synonyms**: `screen`, `appraise`, `inspect`
 * **Example**: All job applicants must be vetted before they’re hired.
 
 ### 4.137 `devops`
 * **Definition**: /ˈdiːvɒps/ — DevOps is a set of practices that combines software development and IT operations to deliver applications faster and more reliably.
-* **常见同义词 (Synonyms)**: `developer operations`, `SRE pipeline`, `infrastructure ops`
+* **Synonyms**: `developer operations`, `SRE pipeline`, `infrastructure ops`
 * **Example**: Many companies adopt DevOps to automate testing and deployment.
 
 ### 4.138 `casual`
 * **Definition**: /ˈkæʒuəl/ — Not formal or serious; relaxed and informal.
-* **常见同义词 (Synonyms)**: `informal`, `relaxed`, `unceremonious`
+* **Synonyms**: `informal`, `relaxed`, `unceremonious`
 * **Example**: Let’s have a casual lunch tomorrow.
 
 ### 4.139 `laser`
 * **Definition**: /ˈleɪzər/ — A device that produces a very narrow and powerful beam of light.
-* **常见同义词 (Synonyms)**: `collimated light`, `focused beam`, `concentrated`
+* **Synonyms**: `collimated light`, `focused beam`, `concentrated`
 * **Example**: Doctors use a laser to remove skin blemishes.
 
 ### 4.140 `signoff`
 * **Definition**: /ˈsaɪn.ɒf/ — The act of officially ending something, such as a project or broadcast.
-* **常见同义词 (Synonyms)**: `approval`, `endorsement`, `authorization`
+* **Synonyms**: `approval`, `endorsement`, `authorization`
 * **Example**: The host gave a cheerful signoff before the show ended.
 
 ### 4.141 `oversight`
 * **Definition**: /ˈoʊ.vər.sɑɪt/ — The act of watching over or managing something to make sure it is done correctly.
-* **常见同义词 (Synonyms)**: `supervision`, `omission`, `lapse`
+* **Synonyms**: `supervision`, `omission`, `lapse`
 * **Example**: The project failed due to a major oversight in the planning stage.
 
 ### 4.142 `unorthodox`
 * **Definition**: /ʌnˈɔː.θə.dɒks/ — Not following the usual or traditional ways.
-* **常见同义词 (Synonyms)**: `unconventional`, `novel`, `nonconformist`
+* **Synonyms**: `unconventional`, `novel`, `nonconformist`
 * **Example**: She used an unorthodox method to solve the math problem.
 
 ### 4.143 `decisive`
 * **Definition**: /dɪˈsaɪ.sɪv/ — Having the power to determine or settle something finally.
-* **常见同义词 (Synonyms)**: `conclusive`, `resolute`, `definitive`
+* **Synonyms**: `conclusive`, `resolute`, `definitive`
 * **Example**: Her decisive action saved the project from failure.
 
 ### 4.144 `parenthesis`
 * **Definition**: /ˈpærənˌθɪsɪs/ — A punctuation mark used to enclose additional or explanatory information.
-* **常见同义词 (Synonyms)**: `bracket`, `aside`, `interlude`
+* **Synonyms**: `bracket`, `aside`, `interlude`
 * **Example**: She added a comment in parenthesis: “(I’ll call you tomorrow).”
 
 ### 4.145 `signifier`
 * **Definition**: /ˈsɪɡ.nɪ.faɪ.ər/ — A signifier is the form a sign takes, such as a word or image, that points to a meaning.
-* **常见同义词 (Synonyms)**: `symbol`, `indicator`, `marker`
+* **Synonyms**: `symbol`, `indicator`, `marker`
 * **Example**: The word “tree” is a signifier for the concept of a large plant with a trunk and branches.
 
 ### 4.146 `square`
 * **Definition**: /skwɛər/ — A flat shape with four equal sides and four right angles.
-* **常见同义词 (Synonyms)**: `quadrilateral`, `even`, `rectify`
+* **Synonyms**: `quadrilateral`, `even`, `rectify`
 * **Example**: The table is a perfect square.
 
 ### 4.147 `factorization`
 * **Definition**: /ˌfæk.tə.raɪˈzeɪ.ʃən/ — The process of breaking a number or expression into smaller parts (factors) that multiply together to give the original.
-* **常见同义词 (Synonyms)**: `decomposition`, `factor analysis`, `factoring`
+* **Synonyms**: `decomposition`, `factor analysis`, `factoring`
 * **Example**: Prime factorization helps simplify fractions.
 
 ### 4.148 `breath`
 * **Definition**: /brɛθ/ — The air that you breathe in and out.
-* **常见同义词 (Synonyms)**: `respiration`, `whisper`, `inhalation`
+* **Synonyms**: `respiration`, `whisper`, `inhalation`
 * **Example**: She took a deep breath before speaking.
 
 ### 4.149 `undertake`
 * **Definition**: /ˌʌndəˈteɪk/ — to begin and carry out a task or project.
-* **常见同义词 (Synonyms)**: `embark upon`, `assume`, `execute`
+* **Synonyms**: `embark upon`, `assume`, `execute`
 * **Example**: She will undertake the responsibility of organizing the event.
 
 ### 4.150 `authentication`
 * **Definition**: /ɔːˌθen.tɪˈkeɪ.ʃən/ — The process of verifying that someone or something is who or what they claim to be.
-* **常见同义词 (Synonyms)**: `verification`, `validation`, `identity check`
+* **Synonyms**: `verification`, `validation`, `identity check`
 * **Example**: Two-factor authentication adds an extra layer of security to your account.
 
 ### 4.151 `exhilarating`
 * **Definition**: /ɪɡˈzɪləreɪtɪŋ/ — It means making you feel very excited and happy.
-* **常见同义词 (Synonyms)**: `thrilling`, `electrifying`, `invigorating`
+* **Synonyms**: `thrilling`, `electrifying`, `invigorating`
 * **Example**: The roller coaster ride was absolutely exhilarating.
 
 ### 4.152 `absence`
 * **Definition**: /ˈæbsəns/ — The state of not being present or not existing.
-* **常见同义词 (Synonyms)**: `lack`, `nonexistence`, `deficiency`
+* **Synonyms**: `lack`, `nonexistence`, `deficiency`
 * **Example**: His absence from the meeting was noticed by everyone.
 
 ### 4.153 `presence`
 * **Definition**: /ˈprez.əns/ — The fact of being in a particular place or situation.
-* **常见同义词 (Synonyms)**: `existence`, `attendance`, `appearance`
+* **Synonyms**: `existence`, `attendance`, `appearance`
 * **Example**: Her calm presence helped ease the tension in the room.
 
 ### 4.154 `variation`
 * **Definition**: /ˌvɛr.iˈeɪ.ʃən/ — A change or difference in something.
-* **常见同义词 (Synonyms)**: `mutation`, `divergence`, `fluctuation`
+* **Synonyms**: `mutation`, `divergence`, `fluctuation`
 * **Example**: There’s a regional variation in how this word is pronounced.
 
 ### 4.155 `variant`
 * **Definition**: /ˈvɛər.i.ənt/ — A version of something that is slightly different from others.
-* **常见同义词 (Synonyms)**: `strain`, `alternative`, `mutation`
+* **Synonyms**: `strain`, `alternative`, `mutation`
 * **Example**: This spelling is a regional variant of the word.
 
 ### 4.156 `lucrative`
 * **Definition**: /ˈluː.krə.tɪv/ — producing a lot of money or profit.
-* **常见同义词 (Synonyms)**: `profitable`, `rewarding`, `gainful`
+* **Synonyms**: `profitable`, `rewarding`, `gainful`
 * **Example**: She started a lucrative online business selling handmade jewelry.
 
 ### 4.157 `profitable`
 * **Definition**: /ˈprɒf.ɪ.tə.bəl/ — Something that brings in more money than it costs.
-* **常见同义词 (Synonyms)**: `moneymaking`, `gainful`, `lucrative`
+* **Synonyms**: `moneymaking`, `gainful`, `lucrative`
 * **Example**: This small business became profitable within a year.
 
 ### 4.158 `magenta`
 * **Definition**: /ˈmædʒəntə/ — Magenta is a bright purplish-red color.
-* **常见同义词 (Synonyms)**: `purplish-red`, `fuchsia`, `carmine`
+* **Synonyms**: `purplish-red`, `fuchsia`, `carmine`
 * **Example**: The dress she wore was a bold magenta.
 
 ### 4.159 `unite`
 * **Definition**: /juˈnaɪt/ — to join together for a common purpose.
-* **常见同义词 (Synonyms)**: `join`, `coalesce`, `merge`
+* **Synonyms**: `join`, `coalesce`, `merge`
 * **Example**: People from different countries united to fight climate change.
 
 ### 4.160 `high`
 * **Definition**: /hɑɪ/ — It means something is at a great distance above the ground or a reference point.
-* **常见同义词 (Synonyms)**: `elevated`, `tall`, `lofty`
+* **Synonyms**: `elevated`, `tall`, `lofty`
 * **Example**: The airplane flew high above the clouds.
 
 ### 4.161 `quadratic`
 * **Definition**: /ˈkwɒdrætɪk/ — Relating to expressions or equations with a variable squared (like x²).
-* **常见同义词 (Synonyms)**: `second-degree`, `squared`, `parabolic`
+* **Synonyms**: `second-degree`, `squared`, `parabolic`
 * **Example**: She solved the quadratic equation using the quadratic formula.
 
 ### 4.162 `cohort`
 * **Definition**: /ˈkoʊ.ɔːrt/ — A group of people who share a common characteristic or experience, especially over time.
-* **常见同义词 (Synonyms)**: `group`, `segment`, `batch`
+* **Synonyms**: `group`, `segment`, `batch`
 * **Example**: She graduated with her cohort in 2020.
 
 ### 4.163 `dormant`
 * **Definition**: /ˈdɔːr.mənt/ — not active or growing now but able to become active later.
-* **常见同义词 (Synonyms)**: `inactive`, `quiescent`, `latent`
+* **Synonyms**: `inactive`, `quiescent`, `latent`
 * **Example**: The volcano has been dormant for centuries.
 
 ### 4.164 `propensity`
 * **Definition**: /ˈprɒpənsəti/ — a natural tendency to behave in a particular way.
-* **常见同义词 (Synonyms)**: `inclination`, `tendency`, `disposition`
+* **Synonyms**: `inclination`, `tendency`, `disposition`
 * **Example**: He has a propensity to interrupt people when they speak.
 
 ### 4.165 `awkwardly`
 * **Definition**: /ɔːkˈwɑːdli/ — In an uncomfortable or clumsy way.
-* **常见同义词 (Synonyms)**: `clumsily`, `gawkily`, `ungracefully`
+* **Synonyms**: `clumsily`, `gawkily`, `ungracefully`
 * **Example**: She smiled awkwardly when she realized she’d forgotten his name.
 
 ### 4.166 `havel`
 * **Definition**: /ˈhɑːvəl/ — A surname of Czech origin, famously associated with the writer and politician Václav Havel.
-* **常见同义词 (Synonyms)**: `proper noun`, `historical figure`, `dissident writer`
+* **Synonyms**: `proper noun`, `historical figure`, `dissident writer`
 * **Example**: Václav Havel was a prominent Czech playwright and statesman.
 
 ### 4.167 `churn`
 * **Definition**: /tʃɜːrn/ — to keep changing or producing something quickly and continuously.
-* **常见同义词 (Synonyms)**: `attrition`, `turnover`, `customer drop-off`
+* **Synonyms**: `attrition`, `turnover`, `customer drop-off`
 * **Example**: The company churns out new products every month.
 
 ### 4.168 `resurgence`
 * **Definition**: /riˈsɜːdʒəns/ — A sudden increase or revival after a period of little activity or decline.
-* **常见同义词 (Synonyms)**: `revival`, `renaissance`, `rebound`
+* **Synonyms**: `revival`, `renaissance`, `rebound`
 * **Example**: There has been a resurgence of interest in classical music among young people.
 
 ### 4.169 `instrumental`
 * **Definition**: /ˌɪnstrəˈmentl/ — Very important in helping something happen or succeed.
-* **常见同义词 (Synonyms)**: `crucial`, `essential`, `influential`
+* **Synonyms**: `crucial`, `essential`, `influential`
 * **Example**: Her advice was instrumental in helping me choose the right career.
 
 ### 4.170 `dendrite`
 * **Definition**: /ˈdɛn.draɪt/ — A branch-like part of a nerve cell that receives signals from other cells.
-* **常见同义词 (Synonyms)**: `branched projection`, `neural arbor`, `filament`
+* **Synonyms**: `branched projection`, `neural arbor`, `filament`
 * **Example**: Each neuron has many dendrites that connect with other neurons.
 
 ### 4.171 `foreseeable`
 * **Definition**: /ˌfɔːrˈsiː.ə.bəl/ — Something that can be predicted or expected to happen in the future.
-* **常见同义词 (Synonyms)**: `predictable`, `anticipated`, `expected`
+* **Synonyms**: `predictable`, `anticipated`, `expected`
 * **Example**: No major changes are expected in the foreseeable future.
 
 ### 4.172 `speculate`
 * **Definition**: /ˈspɛk.jə.leɪt/ — To think about possible reasons or outcomes without having definite proof.
-* **常见同义词 (Synonyms)**: `theorize`, `conjecture`, `hypothesize`
+* **Synonyms**: `theorize`, `conjecture`, `hypothesize`
 * **Example**: Experts speculate that the economy will improve next year.
 
 ### 4.173 `march`
 * **Definition**: /mɑːrtʃ/ — To walk in a steady, regular way, often with others and to music.
-* **常见同义词 (Synonyms)**: `stride`, `advance`, `parade`
+* **Synonyms**: `stride`, `advance`, `parade`
 * **Example**: The soldiers marched proudly down the street.
 
 ### 4.174 `perceive`
 * **Definition**: /pərˈsiːv/ — To become aware of something through the senses or the mind.
-* **常见同义词 (Synonyms)**: `discern`, `observe`, `recognize`
+* **Synonyms**: `discern`, `observe`, `recognize`
 * **Example**: We perceive light and sound through our eyes and ears.
 
 ### 4.175 `comprise`
 * **Definition**: /kəmˈpraɪz/ — to consist of or be made up of parts.
-* **常见同义词 (Synonyms)**: `constitute`, `encompass`, `contain`
+* **Synonyms**: `constitute`, `encompass`, `contain`
 * **Example**: The committee comprises five members.
 
 ### 4.176 `perception`
 * **Definition**: /pərˈsepʃən/ — The way you become aware of things through your senses or how you think about something.
-* **常见同义词 (Synonyms)**: `awareness`, `insight`, `cognition`
+* **Synonyms**: `awareness`, `insight`, `cognition`
 * **Example**: People’s perception of time changes as they get older.
 
 ### 4.177 `coarser`
 * **Definition**: /ˈkɔːsər/ — Having a rougher or less fine texture or structure.
-* **常见同义词 (Synonyms)**: `rougher`, `less refined`, `lower resolution`
+* **Synonyms**: `rougher`, `less refined`, `lower resolution`
 * **Example**: The sandpaper felt coarser than the cloth.
 
 ### 4.178 `neuron`
 * **Definition**: /ˈnʊr.ɑn/ — A neuron is a special cell in the brain and nervous system that sends and receives information.
-* **常见同义词 (Synonyms)**: `nerve cell`, `neural node`, `perceptron`
+* **Synonyms**: `nerve cell`, `neural node`, `perceptron`
 * **Example**: A single neuron can connect with thousands of other neurons.
 
 ### 4.179 `absorb`
 * **Definition**: /əbˈsɔːrb/ — to take something in, especially through a surface or by a substance.
-* **常见同义词 (Synonyms)**: `assimilate`, `ingest`, `soak up`
+* **Synonyms**: `assimilate`, `ingest`, `soak up`
 * **Example**: Plants absorb sunlight to make food.
 
 ### 4.180 `ingested`
 * **Definition**: /ɪnˈdʒɛstɪd/ — Took food or drink into the body through the mouth.
-* **常见同义词 (Synonyms)**: `absorbed`, `imported`, `consumed`
+* **Synonyms**: `absorbed`, `imported`, `consumed`
 * **Example**: She accidentally ingested a small piece of plastic.
 
 ### 4.181 `retained`
 * **Definition**: /rɪˈteɪnd/ — kept something that could have been lost or given up.
-* **常见同义词 (Synonyms)**: `held`, `preserved`, `maintained`
+* **Synonyms**: `held`, `preserved`, `maintained`
 * **Example**: She retained her composure during the difficult interview.
 
 ### 4.182 `intact`
 * **Definition**: /ɪnˈtækt/ — Not damaged or changed in any way.
-* **常见同义词 (Synonyms)**: `unbroken`, `undamaged`, `complete`
+* **Synonyms**: `unbroken`, `undamaged`, `complete`
 * **Example**: The ancient manuscript remained intact after centuries underground.
 
 ### 4.183 `lineage`
 * **Definition**: /ˈlɪn.i.ɪdʒ/ — Lineage is the line of people in a family from whom someone is descended.
-* **常见同义词 (Synonyms)**: `ancestry`, `pedigree`, `provenance`
+* **Synonyms**: `ancestry`, `pedigree`, `provenance`
 * **Example**: Her royal lineage can be traced back to the 15th century.
 
 ### 4.184 `conservative`
 * **Definition**: / kənˈsɜːrvətɪv / — A person who prefers traditional values and is cautious about change.
-* **常见同义词 (Synonyms)**: `cautious`, `traditional`, `moderate`
+* **Synonyms**: `cautious`, `traditional`, `moderate`
 * **Example**: She has very conservative views on education.
 
 ### 4.185 `integrity`
 * **Definition**: /ˈɪn.təɡ.rə.ti/ — Integrity means being honest and having strong moral principles.
-* **常见同义词 (Synonyms)**: `soundness`, `cohesion`, `probity`
+* **Synonyms**: `soundness`, `cohesion`, `probity`
 * **Example**: She refused the bribe, showing great integrity.
 
 ### 4.186 `stem`
 * **Definition**: /stem/ — The main part of a plant that grows upward from the ground and supports leaves and flowers.
-* **常见同义词 (Synonyms)**: `originate`, `derive`, `arise`
+* **Synonyms**: `originate`, `derive`, `arise`
 * **Example**: The rose has a long, thorny stem.
 
 ### 4.187 `pinpoint`
 * **Definition**: /ˈpɪn.pɔɪnt/ — To locate or identify something exactly.
-* **常见同义词 (Synonyms)**: `identify`, `locate`, `distinguish`
+* **Synonyms**: `identify`, `locate`, `distinguish`
 * **Example**: Scientists pinpointed the source of the earthquake.
 
 ### 4.188 `perspective`
 * **Definition**: /ˈpɜːr.spek.tɪv/ — A particular way of thinking about or understanding something.
-* **常见同义词 (Synonyms)**: `standpoint`, `outlook`, `viewpoint`
+* **Synonyms**: `standpoint`, `outlook`, `viewpoint`
 * **Example**: From her perspective, the decision made perfect sense.
 
 ### 4.189 `aspect`
 * **Definition**: /ˈæs.pɛkt/ — A particular part or feature of something.
-* **常见同义词 (Synonyms)**: `facet`, `dimension`, `feature`
+* **Synonyms**: `facet`, `dimension`, `feature`
 * **Example**: One important aspect of learning English is practicing speaking regularly.
 
 ### 4.190 `discrepancy`
 * **Definition**: /dɪˈskrepənsi/ — A difference or inconsistency between two things that should match.
-* **常见同义词 (Synonyms)**: `divergence`, `inconsistency`, `variance`
+* **Synonyms**: `divergence`, `inconsistency`, `variance`
 * **Example**: There’s a discrepancy between the bank statement and my records.
 
 ### 4.191 `niche`
 * **Definition**: /niːʃ/ — A small, specialized segment of a market or activity.
-* **常见同义词 (Synonyms)**: `specialty`, `corner`, `slot`
+* **Synonyms**: `specialty`, `corner`, `slot`
 * **Example**: She opened a boutique that sells handmade candles, filling a niche in the local market.
 
 ### 4.192 `boutique`
 * **Definition**: /ˈbuːtɪk/ — A small shop that sells fashionable clothes or expensive items.
-* **常见同义词 (Synonyms)**: `specialized`, `bespoke`, `custom`
+* **Synonyms**: `specialized`, `bespoke`, `custom`
 * **Example**: She bought a dress at a boutique on Fifth Avenue.
 
 ### 4.193 `cortex`
 * **Definition**: /ˈkɔːr.teks/ — The outer layer of an organ, especially the brain.
-* **常见同义词 (Synonyms)**: `outer layer`, `cerebral shell`, `envelope`
+* **Synonyms**: `outer layer`, `cerebral shell`, `envelope`
 * **Example**: The cerebral cortex is responsible for higher brain functions like thinking and decision-making.
 
 ### 4.194 `auditory`
 * **Definition**: /ˈɔːdɪtəri/ — Relating to the sense of hearing.
-* **常见同义词 (Synonyms)**: `acoustic`, `sound-related`, `hearing-related`
+* **Synonyms**: `acoustic`, `sound-related`, `hearing-related`
 * **Example**: Birdsong is an important auditory cue for many animals.
 
 ### 4.195 `cite`
 * **Definition**: /saɪt/ — To refer to or quote something as evidence or support.
-* **常见同义词 (Synonyms)**: `reference`, `quote`, `attribute`
+* **Synonyms**: `reference`, `quote`, `attribute`
 * **Example**: Please cite your sources in the research paper.
 
 ### 4.196 `overhyper`
 * **Definition**: /ˌoʊ.vərˈhaɪ.pər/ — Extremely and excessively energetic or excited.
-* **常见同义词 (Synonyms)**: `exaggerate`, `over-inflate`, `over-promise`
+* **Synonyms**: `exaggerate`, `over-inflate`, `over-promise`
 * **Example**: The child was overhyper after drinking too much soda.
 
 ### 4.197 `rectified`
 * **Definition**: /ˈrɛk.tɪ.faɪd/ — made right or corrected after being wrong.
-* **常见同义词 (Synonyms)**: `corrected`, `straightened`, `remedied`
+* **Synonyms**: `corrected`, `straightened`, `remedied`
 * **Example**: The error was rectified before the report was submitted.
 
 ### 4.198 `convolutional`
 * **Definition**: /kɒn.vəˈluː.ʃən.əl/ — Relating to a mathematical operation that combines two functions to produce a third function.
-* **常见同义词 (Synonyms)**: `spatial-filtering`, `filter-based`, `folding`
+* **Synonyms**: `spatial-filtering`, `filter-based`, `folding`
 * **Example**: Convolutional neural networks are widely used in image recognition tasks.
 
 ### 4.199 `exhibit`
 * **Definition**: /ɪɡˈzɪb.ɪt/ — To show or display something clearly.
-* **常见同义词 (Synonyms)**: `demonstrate`, `display`, `manifest`
+* **Synonyms**: `demonstrate`, `display`, `manifest`
 * **Example**: She exhibits great talent in painting.
 
 ### 4.200 `captivating`
 * **Definition**: /ˈkæp.tɪ.veɪ.tɪŋ/ — It means something that holds your attention completely because it is very interesting or attractive.
-* **常见同义词 (Synonyms)**: `enchanting`, `enthralling`, `fascinating`
+* **Synonyms**: `enchanting`, `enthralling`, `fascinating`
 * **Example**: Her storytelling was so captivating that everyone sat in silence.
 
 ### 4.201 `rigor`
 * **Definition**: /ˈrɪɡər/ — Strictness, carefulness, and thoroughness in work or thought.
-* **常见同义词 (Synonyms)**: `precision`, `thoroughness`, `stringency`
+* **Synonyms**: `precision`, `thoroughness`, `stringency`
 * **Example**: The scientific method demands intellectual rigor.
 
 ### 4.202 `affiliate`
 * **Definition**: /əˈfɪl.i.ət/ — A person or organization officially connected with another larger group.
-* **常见同义词 (Synonyms)**: `associate`, `partner`, `connect`
+* **Synonyms**: `associate`, `partner`, `connect`
 * **Example**: She works for an affiliate of a major international bank.
 
 ### 4.203 `petition`
 * **Definition**: /ˈpɛtɪʃən/ — A formal written request signed by many people asking for a specific action.
-* **常见同义词 (Synonyms)**: `appeal`, `plea`, `formal request`
+* **Synonyms**: `appeal`, `plea`, `formal request`
 * **Example**: We started a petition to save the local library.
 
 ### 4.204 `itinerary`
 * **Definition**: /ˌɪt.əˈrɛr.i/ — A planned route or schedule for a trip.
-* **常见同义词 (Synonyms)**: `schedule`, `route`, `travel plan`
+* **Synonyms**: `schedule`, `route`, `travel plan`
 * **Example**: Our itinerary includes a morning visit to the museum and lunch at a local café.
 
 ### 4.205 `reciprocity`
 * **Definition**: /ˌres.əˈprɒs.ə.ti/ — Mutual exchange of actions, feelings, or benefits between two parties.
-* **常见同义词 (Synonyms)**: `mutual exchange`, `bilateralism`, `mutuality`
+* **Synonyms**: `mutual exchange`, `bilateralism`, `mutuality`
 * **Example**: Friendship thrives on reciprocity—both people give and receive support.
 
 ### 4.206 `inferential`
 * **Definition**: /ɪnˈfɛrəntʃəl/ — relating to or involving the process of inferring or deducing information.
-* **常见同义词 (Synonyms)**: `deductive`, `conjectural`, `reasoned`
+* **Synonyms**: `deductive`, `conjectural`, `reasoned`
 * **Example**: The report was based on inferential data, suggesting a trend in consumer behavior.
 
 ### 4.207 `signature`
 * **Definition**: /ˈsɪɡ.nə.tʃər/ — a name written in a distinctive way as a form of identification.
-* **常见同义词 (Synonyms)**: `hallmark`, `indicator`, `identifier`
+* **Synonyms**: `hallmark`, `indicator`, `identifier`
 * **Example**: Can I have your signature on this document, please?
 
 ### 4.208 `agnostic`
 * **Definition**: /æɡˈnɑːstɪk/ — someone who believes that it is impossible to know whether God exists or not.
-* **常见同义词 (Synonyms)**: `independent`, `neutral`, `uncommitted`
+* **Synonyms**: `independent`, `neutral`, `uncommitted`
 * **Example**: When it comes to technology, I'm quite agnostic; I just use what works best.
 
 ### 4.209 `identical`
 * **Definition**: /ˈaɪ.dən.tɪ.kəl/ — exactly the same in every way
-* **常见同义词 (Synonyms)**: `indistinguishable`, `exact`, `matching`
+* **Synonyms**: `indistinguishable`, `exact`, `matching`
 * **Example**: The twins are wearing identical dresses.
 
 ### 4.210 `hazard`
 * **Definition**: /ˈhæzərd/ — a danger or risk.
-* **常见同义词 (Synonyms)**: `peril`, `risk`, `danger`
+* **Synonyms**: `peril`, `risk`, `danger`
 * **Example**: It's a hazard to drive in such heavy fog.
 
 ### 4.211 `verdict`
 * **Definition**: /ˈvɜːr.dɪkt/ — a decision made by a jury in a trial
-* **常见同义词 (Synonyms)**: `judgment`, `ruling`, `decision`
+* **Synonyms**: `judgment`, `ruling`, `decision`
 * **Example**: The jury's verdict was not guilty.
 
 ### 4.212 `proctor`
 * **Definition**: /'prɑːktər/ — a person who supervises an exam.
-* **常见同义词 (Synonyms)**: `invigilate`, `supervise`, `monitor`
+* **Synonyms**: `invigilate`, `supervise`, `monitor`
 * **Example**: The proctor walked around the room to ensure no one was cheating.
 
 ### 4.213 `redact`
 * **Definition**: /rɪˈdækt/ — to remove or conceal part of a text for legal or security purposes.
-* **常见同义词 (Synonyms)**: `sanitize`, `censor`, `obscure`
+* **Synonyms**: `sanitize`, `censor`, `obscure`
 * **Example**: The lawyer had to redact sensitive information from the document before it could be released.
 
 ### 4.214 `benefactor`
 * **Definition**: /bɛˈnefəktər/ — a person who gives money or other help to a person or cause
-* **常见同义词 (Synonyms)**: `patron`, `supporter`, `sponsor`
+* **Synonyms**: `patron`, `supporter`, `sponsor`
 * **Example**: My college education was funded by an anonymous benefactor.
 
 ### 4.215 `outages`
 * **Definition**: /ˈaʊtɪdʒɪz/ — a temporary failure or interruption in the supply of something, especially electricity
-* **常见同义词 (Synonyms)**: `blackouts`, `downtimes`, `disruptions`
+* **Synonyms**: `blackouts`, `downtimes`, `disruptions`
 * **Example**: The power outages lasted for several hours.
 
 ### 4.216 `meter`
 * **Definition**: /ˈmiː.tər/ — a device or system for measuring, or the base unit of length in the metric system.
-* **常见同义词 (Synonyms)**: `gauge`, `quantify`, `measure`
+* **Synonyms**: `gauge`, `quantify`, `measure`
 * **Example**: The parking meter will only accept coins.
 
 ### 4.217 `parquet`
 * **Definition**: /ˈpɑːrkeɪ/ — a type of flooring made from pieces of wood arranged in a pattern.
-* **常见同义词 (Synonyms)**: `columnar file format`, `wood inlay`, `tiled storage`
+* **Synonyms**: `columnar file format`, `wood inlay`, `tiled storage`
 * **Example**: The living room features a beautiful parquet floor.
 
 ### 4.218 `flaky`
 * **Definition**: /ˈfleɪki/ — someone or something that is not reliable or consistent
-* **常见同义词 (Synonyms)**: `intermittent`, `unreliable`, `inconsistent`
+* **Synonyms**: `intermittent`, `unreliable`, `inconsistent`
 * **Example**: She's a bit flaky when it comes to keeping promises.
 
 ### 4.219 `uneven`
 * **Definition**: /ˈʌnɪvən/ — not level or smooth, or not equal in amount or number.
-* **常见同义词 (Synonyms)**: `irregular`, `disproportionate`, `lopsided`
+* **Synonyms**: `irregular`, `disproportionate`, `lopsided`
 * **Example**: The road was uneven, making the car ride bumpy.
 
 ### 4.220 `awkward`
 * **Definition**: /ˈɔːkwərd/ — feeling or showing embarrassment or discomfort in a situation
-* **常见同义词 (Synonyms)**: `clumsy`, `ungraceful`, `unwieldy`
+* **Synonyms**: `clumsy`, `ungraceful`, `unwieldy`
 * **Example**: It was an awkward moment when he forgot her name.
 
 ### 4.221 `ingest`
 * **Definition**: /ɪnˈdʒɛst/ — to take food, drink, or other substances into the body
-* **常见同义词 (Synonyms)**: `consume`, `absorb`, `import`
+* **Synonyms**: `consume`, `absorb`, `import`
 * **Example**: She accidentally ingested the cleaning product, mistaking it for a drink.
 
 ### 4.222 `digest`
 * **Definition**: /dɪˈdʒɛst/ — to change food that you have eaten into a form that can be used by the body
-* **常见同义词 (Synonyms)**: `assimilate`, `condense`, `comprehend`
+* **Synonyms**: `assimilate`, `condense`, `comprehend`
 * **Example**: After a big meal, it's important to rest and let your body digest.
 
 ### 4.223 `secondment`
 * **Definition**: /ˈsɛkəndmənt/ — a temporary transfer of an employee to another position or department
-* **常见同义词 (Synonyms)**: `temporary transfer`, `detail`, `attachment`
+* **Synonyms**: `temporary transfer`, `detail`, `attachment`
 * **Example**: During her secondment to the marketing team, she gained valuable experience.
 
 ### 4.224 `exponentiation`
 * **Definition**: /ˌɛkspoʊnənʃiˈeɪʃn/ — the operation of raising one quantity to the power of another.
-* **常见同义词 (Synonyms)**: `raising to power`, `exponential scaling`, `multiplication factor`
+* **Synonyms**: `raising to power`, `exponential scaling`, `multiplication factor`
 * **Example**: In mathematics, exponentiation is used to represent repeated multiplication.
 
 ### 4.225 `expand`
 * **Definition**: /ɪkˈspænd/ — to make something larger or more extensive
-* **常见同义词 (Synonyms)**: `broaden`, `enlarge`, `dilate`
+* **Synonyms**: `broaden`, `enlarge`, `dilate`
 * **Example**: We plan to expand our business into new markets.
 
 ### 4.226 `concatenate`
 * **Definition**: /kənˈkæt.ɪ.neɪt/ — to join or link things together
-* **常见同义词 (Synonyms)**: `chain together`, `link`, `append`
+* **Synonyms**: `chain together`, `link`, `append`
 * **Example**: You can concatenate the two lists to form a longer one.
 
 ### 4.227 `analogy`
 * **Definition**: /ˈænələdʒi/ — a comparison between two things that are similar in some way.
-* **常见同义词 (Synonyms)**: `comparison`, `parallel`, `metaphor`
+* **Synonyms**: `comparison`, `parallel`, `metaphor`
 * **Example**: To explain the concept, she used an analogy comparing the heart to a pump.
 
 ### 4.228 `bog`
 * **Definition**: /bɒɡ/ — a wet, spongy ground that is too soft to walk on.
-* **常见同义词 (Synonyms)**: `marsh`, `swamp`, `mire`
+* **Synonyms**: `marsh`, `swamp`, `mire`
 * **Example**: The hiker's boot got stuck in the bog, making it hard for him to move.
 
 ### 4.229 `materialize`
 * **Definition**: /məˈtɪriəlaɪz/ — to appear or happen, especially after being planned or expected.
-* **常见同义词 (Synonyms)**: `manifest`, `actualize`, `instantiate`
+* **Synonyms**: `manifest`, `actualize`, `instantiate`
 * **Example**: The plans for the new park finally began to materialize after years of discussion.
 
 ### 4.230 `categorical`
 * **Definition**: /ˈkæt.əˌɡɒr.ɪ.kəl/ — a word used to describe something that is absolute and without exceptions
-* **常见同义词 (Synonyms)**: `discrete`, `nominal`, `qualitative`
+* **Synonyms**: `discrete`, `nominal`, `qualitative`
 * **Example**: The company's refusal was categorical, leaving no room for negotiation.
 
 ### 4.231 `cartesian`
 * **Definition**: /ˈkɑːr.ti.zi.ən/ — relating to the French philosopher and mathematician René Descartes, especially his ideas about coordinate systems.
-* **常见同义词 (Synonyms)**: `cross-product`, `orthogonal`, `coordinate-based`
+* **Synonyms**: `cross-product`, `orthogonal`, `coordinate-based`
 * **Example**: The teacher explained the cartesian coordinate system using a graph on the board.
 
 ### 4.232 `cover`
 * **Definition**: /ˈkʌvər/ — to put something over or on top of something else to protect or hide it.
-* **常见同义词 (Synonyms)**: `shield`, `overlay`, `conceal`
+* **Synonyms**: `shield`, `overlay`, `conceal`
 * **Example**: I need to cover the table with a cloth.
 
 ### 4.233 `tuple`
 * **Definition**: /ˈtjuː.pəl/ — a data structure that can store multiple elements in a single variable.
-* **常见同义词 (Synonyms)**: `ordered sequence`, `n-tuple`, `row record`
+* **Synonyms**: `ordered sequence`, `n-tuple`, `row record`
 * **Example**: In Python, you can create a tuple to store a set of coordinates like (45.23, 32.11).
 
 ### 4.234 `verbose`
 * **Definition**: /vɜːrˈboʊs/ — using or expressed in more words than are needed
-* **常见同义词 (Synonyms)**: `wordy`, `prolix`, `lengthy`
+* **Synonyms**: `wordy`, `prolix`, `lengthy`
 * **Example**: His emails are always verbose, filled with unnecessary details.
 
 ### 4.235 `disgraceful`
 * **Definition**: /dɪsˈɡreɪsfʊl/ — very shameful or deserving blame
-* **常见同义词 (Synonyms)**: `shameful`, `scandalous`, `deplorable`
+* **Synonyms**: `shameful`, `scandalous`, `deplorable`
 * **Example**: His behavior at the party was disgraceful.
 
 ### 4.236 `inflate`
 * **Definition**: /ɪnˈfleɪt/ — to fill with air or gas, or to increase in size or amount
-* **常见同义词 (Synonyms)**: `expand`, `amplify`, `exaggerate`
+* **Synonyms**: `expand`, `amplify`, `exaggerate`
 * **Example**: She used a pump to inflate the bicycle tire.
 
 ### 4.237 `unique`
 * **Definition**: /juːˈniːk/ — something that is the only one of its kind
-* **常见同义词 (Synonyms)**: `distinct`, `singular`, `exclusive`
+* **Synonyms**: `distinct`, `singular`, `exclusive`
 * **Example**: Each snowflake has a unique pattern.
 
 ### 4.238 `paragraph`
 * **Definition**: /'pærəɡræf/ — a distinct section in a piece of writing, usually dealing with a particular point or idea.
-* **常见同义词 (Synonyms)**: `text block`, `passage`, `section`
+* **Synonyms**: `text block`, `passage`, `section`
 * **Example**: The first paragraph of the essay introduces the main argument.
 
 ### 4.239 `sentinel`
 * **Definition**: /ˈsɛntɪnl/ — a person or thing that watches and guards
-* **常见同义词 (Synonyms)**: `guard`, `watchdog`, `boundary marker`
+* **Synonyms**: `guard`, `watchdog`, `boundary marker`
 * **Example**: The dog acts as a sentinel, alerting us to any strangers.
 
 ### 4.240 `monotonic`
 * **Definition**: /məˈnɒt.ən.ɪk/ — something that changes in one direction only, without reversing.
-* **常见同义词 (Synonyms)**: `strictly increasing/decreasing`, `uniform`, `invariable`
+* **Synonyms**: `strictly increasing/decreasing`, `uniform`, `invariable`
 * **Example**: The speech was so monotonic that many listeners fell asleep.
 
 ### 4.241 `emit`
 * **Definition**: /ɪˈmɪt/ — to send out something, like light or a sound.
-* **常见同义词 (Synonyms)**: `discharge`, `radiate`, `produce`
+* **Synonyms**: `discharge`, `radiate`, `produce`
 * **Example**: The lamp emits a soft, warm glow.
 
 ### 4.242 `outage`
 * **Definition**: /ˈaʊtɪdʒ/ — a period when a service, especially electricity or water, is not available
-* **常见同义词 (Synonyms)**: `downtime`, `interruption`, `failure`
+* **Synonyms**: `downtime`, `interruption`, `failure`
 * **Example**: The power outage last night forced us to use candles for light.
 
 ### 4.243 `cardinality`
 * **Definition**: /ˈkɑːdɪnælɪti/ — the number of elements in a set.
-* **常见同义词 (Synonyms)**: `uniqueness count`, `set size`, `dimension size`
+* **Synonyms**: `uniqueness count`, `set size`, `dimension size`
 * **Example**: In this context, the cardinality of the set is five.
 
 ### 4.244 `grind`
 * **Definition**: /ɡraɪnd/ — to crush something into small pieces or to make a substance into powder.
-* **常见同义词 (Synonyms)**: `crush`, `mill`, `plod`
+* **Synonyms**: `crush`, `mill`, `plod`
 * **Example**: She grind the coffee beans to make fresh coffee.
 
 ### 4.245 `weave`
 * **Definition**: /wiːv/ — to make cloth by crossing threads over and under each other.
-* **常见同义词 (Synonyms)**: `interlace`, `braid`, `entwine`
+* **Synonyms**: `interlace`, `braid`, `entwine`
 * **Example**: She can weave beautiful patterns into the fabric.
 
 ### 4.246 `persuasion`
 * **Definition**: /pərˈsweɪʒn/ — the act of making someone do or believe something through reasoning or argument.
-* **常见同义词 (Synonyms)**: `conviction`, `coaxing`, `influence`
+* **Synonyms**: `conviction`, `coaxing`, `influence`
 * **Example**: He used his powers of persuasion to convince her to join the team.
 
 ### 4.247 `euclidean`
 * **Definition**: /juːˈklɪdiən/ — relating to the geometry based on the principles of Euclid, especially the principle that parallel lines never meet.
-* **常见同义词 (Synonyms)**: `geometric`, `flat-space`, `metric`
+* **Synonyms**: `geometric`, `flat-space`, `metric`
 * **Example**: The students learned about euclidean geometry in their math class.
 
 ### 4.248 `leakage`
 * **Definition**: /ˈliː.kɪdʒ/ — the unintended escape of a substance from a container or system
-* **常见同义词 (Synonyms)**: `seepage`, `spillover`, `contamination`
+* **Synonyms**: `seepage`, `spillover`, `contamination`
 * **Example**: We noticed water leakage from the ceiling, indicating a problem with the pipes.
 
 ### 4.249 `contamination`
 * **Definition**: /kənˌtæmɪˈneɪʃn/ — the process of making something dirty or impure
-* **常见同义词 (Synonyms)**: `pollution`, `adulteration`, `taint`
+* **Synonyms**: `pollution`, `adulteration`, `taint`
 * **Example**: The water supply was affected by contamination from a nearby factory.
 
 ### 4.250 `subtler`
 * **Definition**: /ˈsʌtlər/ — more delicate or less obvious
-* **常见同义词 (Synonyms)**: `more delicate`, `less obvious`, `finer`
+* **Synonyms**: `more delicate`, `less obvious`, `finer`
 * **Example**: The flavor of this tea is subtler than the one we had yesterday.
 
 ### 4.251 `accumulate`
 * **Definition**: /əˈkjuːmjəleɪt/ — to gather or collect something over a period of time
-* **常见同义词 (Synonyms)**: `amass`, `aggregate`, `gather`
+* **Synonyms**: `amass`, `aggregate`, `gather`
 * **Example**: She managed to accumulate a large amount of savings by the time she was thirty.
 
 ### 4.252 `reproducibility`
 * **Definition**: /rɪˌprɒ.djuː.səˈbɪl.ɪ.ti/ — the ability to produce the same results in an experiment or study multiple times.
-* **常见同义词 (Synonyms)**: `repeatability`, `replicability`, `consistency`
+* **Synonyms**: `repeatability`, `replicability`, `consistency`
 * **Example**: The reproducibility of the experiment was confirmed by researchers in different labs.
 
 ### 4.253 `matchup`
 * **Definition**: /mætʃʌp/ — a contest or comparison between two people or things
-* **常见同义词 (Synonyms)**: `pairing`, `contest`, `head-to-head`
+* **Synonyms**: `pairing`, `contest`, `head-to-head`
 * **Example**: The basketball game tonight is an exciting matchup between the top two teams.
 
 ### 4.254 `postpartum`
 * **Definition**: /'pəʊstˌpɑːtəm/ — the period after a woman has given birth
-* **常见同义词 (Synonyms)**: `postnatal`, `after childbirth`, `maternal recovery`
+* **Synonyms**: `postnatal`, `after childbirth`, `maternal recovery`
 * **Example**: She experienced postpartum depression after the birth of her child.
 
 ### 4.255 `debut`
 * **Definition**: /dəˈbjuː/ — the first public appearance of a person or thing.
-* **常见同义词 (Synonyms)**: `premiere`, `launch`, `unveiling`
+* **Synonyms**: `premiere`, `launch`, `unveiling`
 * **Example**: She made her debut as a singer at the age of 18.
 
 ### 4.256 `narration`
 * **Definition**: /nærˈeɪʃn/ — the act of telling a story or giving an account of events.
-* **常见同义词 (Synonyms)**: `storytelling`, `recounting`, `voiceover`
+* **Synonyms**: `storytelling`, `recounting`, `voiceover`
 * **Example**: In her narration, she vividly described the challenges faced during the expedition.
 
 ### 4.257 `chronological`
 * **Definition**: /krəˈnɑːl.ə.dʒɪ.kəl/ — arranged in the order of time.
-* **常见同义词 (Synonyms)**: `temporal`, `sequential`, `time-ordered`
+* **Synonyms**: `temporal`, `sequential`, `time-ordered`
 * **Example**: The events are listed in chronological order.
 
 ### 4.258 `spreadsheet`
 * **Definition**: /'spred.ʃiːt/ — a computer application used for organizing and analyzing data.
-* **常见同义词 (Synonyms)**: `workbook`, `worksheet`, `tabular sheet`
+* **Synonyms**: `workbook`, `worksheet`, `tabular sheet`
 * **Example**: She organized the budget in a spreadsheet to track expenses.
 
 ### 4.259 `dumbest`
 * **Definition**: /dʌmɪst/ — the most foolish or unintelligent.
-* **常见同义词 (Synonyms)**: `least intelligent`, `most foolish`, `simplest`
+* **Synonyms**: `least intelligent`, `most foolish`, `simplest`
 * **Example**: He asked the dumbest question in class.
 
 ### 4.260 `extrapolate`
 * **Definition**: /ɪkˈstræpəleɪt/ — to make an educated guess or prediction based on known information.
-* **常见同义词 (Synonyms)**: `project`, `infer`, `deduce`
+* **Synonyms**: `project`, `infer`, `deduce`
 * **Example**: From the data, we can extrapolate that sales will increase next quarter.
 
 ### 4.261 `fruitful`
 * **Definition**: /ˈfruːt.fəl/ — Producing good results or benefits.
-* **常见同义词 (Synonyms)**: `productive`, `prolific`, `rewarding`
+* **Synonyms**: `productive`, `prolific`, `rewarding`
 * **Example**: Our discussion was fruitful, leading to a new project.
 
 ### 4.262 `virtu`
 * **Definition**: /ˈvɜːrtʃu/ — a special ability to do something well, especially in the arts.
-* **常见同义词 (Synonyms)**: `virtue`, `excellence`, `artistic quality`
+* **Synonyms**: `virtue`, `excellence`, `artistic quality`
 * **Example**: Her virtu as a painter was recognized when she won the national art competition.
 
 ### 4.263 `conspiracy`
 * **Definition**: /kənˈspɪr.ə.si/ — a secret plan by a group to do something harmful or illegal.
-* **常见同义词 (Synonyms)**: `collusion`, `plot`, `cabal`
+* **Synonyms**: `collusion`, `plot`, `cabal`
 * **Example**: They believed in a conspiracy that the government was hiding the truth.
 
 ### 4.264 `wrestle`
 * **Definition**: /ˈrɛsəl/ — to engage in a struggle or contest where you try to throw, pin, or overpower your opponent.
-* **常见同义词 (Synonyms)**: `grapple`, `struggle`, `contend`
+* **Synonyms**: `grapple`, `struggle`, `contend`
 * **Example**: He used to wrestle in high school and won several championships.
 
 ### 4.265 `reconcile`
 * **Definition**: /ˈrek.ən.saɪl/ — to make two different things agree or to restore friendly relations
-* **常见同义词 (Synonyms)**: `harmonize`, `settle`, `align`
+* **Synonyms**: `harmonize`, `settle`, `align`
 * **Example**: We need to reconcile the differences between our two reports.
 
 ### 4.266 `merch`
 * **Definition**: /mɜːrtʃ/ — merchandise, especially items that promote a brand or artist.
-* **常见同义词 (Synonyms)**: `merchandise`, `goods`, `branded gear`
+* **Synonyms**: `merchandise`, `goods`, `branded gear`
 * **Example**: At the concert, they sold band merch like t-shirts and hats.
 
 ### 4.267 `recur`
 * **Definition**: /rɪˈkɜːr/ — to happen or appear again or repeatedly
-* **常见同义词 (Synonyms)**: `repeat`, `reappear`, `persist`
+* **Synonyms**: `repeat`, `reappear`, `persist`
 * **Example**: The same problem recurred in the next project.
 
 ### 4.268 `citation`
 * **Definition**: /ˈsɪteɪʃn/ — a reference to a source of information or an official summons to appear in court.
-* **常见同义词 (Synonyms)**: `reference`, `attribution`, `quote`
+* **Synonyms**: `reference`, `attribution`, `quote`
 * **Example**: In his research paper, he included several citations to support his argument.
 
 ### 4.269 `clunkier`
 * **Definition**: /ˈklʌŋkiər/ — more awkward or clumsy in shape or movement
-* **常见同义词 (Synonyms)**: `more cumbersome`, `more awkward`, `heavier`
+* **Synonyms**: `more cumbersome`, `more awkward`, `heavier`
 * **Example**: The new model of the phone is clunkier than the previous one.
 
 ### 4.270 `versatile`
 * **Definition**: /ˈvɜːrsətaɪl/ — able to do many different things
-* **常见同义词 (Synonyms)**: `adaptable`, `flexible`, `all-around`
+* **Synonyms**: `adaptable`, `flexible`, `all-around`
 * **Example**: This versatile tool can be used for both cooking and cleaning.
 
 ### 4.271 `lineup`
 * **Definition**: /ˈlaɪnˌʌp/ — a group of people or things arranged in a line, often for a specific purpose.
-* **常见同义词 (Synonyms)**: `starting five`, `roster unit`, `selection`
+* **Synonyms**: `starting five`, `roster unit`, `selection`
 * **Example**: The police asked the witnesses to identify the suspect from the lineup.
 
 ### 4.272 `stint`
 * **Definition**: /stɪnt/ — a specific limited period of time for working or doing something.
-* **常见同义词 (Synonyms)**: `shift`, `term`, `turn`
+* **Synonyms**: `shift`, `term`, `turn`
 * **Example**: She did a short stint at the company before moving on to a new job.
 
 ### 4.273 `guardrail`
 * **Definition**: /ˈɡɑːrdeɪl/ — a barrier at the side of a road or path to prevent people or vehicles from going off it
-* **常见同义词 (Synonyms)**: `safety constraint`, `boundary condition`, `protective fence`
+* **Synonyms**: `safety constraint`, `boundary condition`, `protective fence`
 * **Example**: The new guardrail along the highway will help reduce accidents.
 
 ### 4.274 `fence`
@@ -2940,136 +2940,136 @@ eq s$).
   * *Physical*: *"He painted the wooden fence white to mark the property boundary."*
   * *Systems*: *"A cumulative stateful transformation must be strictly fenced inside its partition boundary to prevent cross-partition contamination."*
 
-* **常见同义词 (Synonyms)**: `barrier`, `enclosure`, `hurdle`
+* **Synonyms**: `barrier`, `enclosure`, `hurdle`
 
 ### 4.275 `recipe`
 * **Definition**: /ˈres.ɪ.pi/ — a set of instructions for preparing a particular dish
-* **常见同义词 (Synonyms)**: `instructions`, `formula`, `blueprint`
+* **Synonyms**: `instructions`, `formula`, `blueprint`
 * **Example**: Follow the recipe carefully to make the cake taste perfect.
 
 ### 4.276 `allegedly`
 * **Definition**: /ˈæl.ɪ.dʒi.li/ — used to say that something is reported or believed to be true, but has not been proven
-* **常见同义词 (Synonyms)**: `purportedly`, `supposedly`, `ostensibly`
+* **Synonyms**: `purportedly`, `supposedly`, `ostensibly`
 * **Example**: He allegedly stole a car last night.
 
 ### 4.277 `courageous`
 * **Definition**: /ˈkɜːrɪdʒəs/ — Someone who is brave and not afraid of danger or difficulty.
-* **常见同义词 (Synonyms)**: `brave`, `valiant`, `bold`
+* **Synonyms**: `brave`, `valiant`, `bold`
 * **Example**: She was courageous to stand up for what she believed in.
 
 ### 4.278 `deviate`
 * **Definition**: /ˈdiːvieɪt/ — to change from the usual or correct way
-* **常见同义词 (Synonyms)**: `diverge`, `stray`, `depart`
+* **Synonyms**: `diverge`, `stray`, `depart`
 * **Example**: We must not deviate from the plan.
 
 ### 4.279 `detour`
 * **Definition**: /diˈtʊr/ — a longer, alternative route taken because the usual path is closed or not available.
-* **常见同义词 (Synonyms)**: `bypass`, `diversion`, `roundabout way`
+* **Synonyms**: `bypass`, `diversion`, `roundabout way`
 * **Example**: We had to take a detour because the main road was under construction.
 
 ### 4.280 `derive`
 * **Definition**: /dɪˈraɪv/ — to obtain or develop something from a source
-* **常见同义词 (Synonyms)**: `deduce`, `originate`, `obtain`
+* **Synonyms**: `deduce`, `originate`, `obtain`
 * **Example**: The company derives its success from innovative technology.
 
 ### 4.281 `backprop`
 * **Definition**: /bækˈprɒp/ — a method used in training artificial neural networks to calculate the gradient of the loss function.
-* **常见同义词 (Synonyms)**: `reverse differentiation`, `gradient propagation`, `backpropagation`
+* **Synonyms**: `reverse differentiation`, `gradient propagation`, `backpropagation`
 * **Example**: In deep learning, we use backprop to adjust the weights of the network.
 
 ### 4.282 `leaky`
 * **Definition**: /ˈliːki/ — Something that lets water or air pass through it in an unwanted way.
-* **常见同义词 (Synonyms)**: `permeable`, `porous`, `unsealed`
+* **Synonyms**: `permeable`, `porous`, `unsealed`
 * **Example**: The roof is leaky, so we need to fix it before the rainy season.
 
 ### 4.283 `dire`
 * **Definition**: /ˈdaɪər/ — very serious or very bad, often in a way that needs immediate attention.
-* **常见同义词 (Synonyms)**: `dreadful`, `grave`, `critical`
+* **Synonyms**: `dreadful`, `grave`, `critical`
 * **Example**: The situation in the flooded area is dire, with many people needing urgent help.
 
 ### 4.284 `spurious`
 * **Definition**: /'spjʊəriəs/ — something that is not genuine or real.
-* **常见同义词 (Synonyms)**: `bogus`, `inauthentic`, `illusory`
+* **Synonyms**: `bogus`, `inauthentic`, `illusory`
 * **Example**: The report was dismissed as spurious by the experts.
 
 ### 4.285 `dump`
 * **Definition**: /dʌmp/ — a place where waste is left or thrown away.
-* **常见同义词 (Synonyms)**: `discard`, `offload`, `empty`
+* **Synonyms**: `discard`, `offload`, `empty`
 * **Example**: They decided to dump the old furniture at the recycling center.
 
 ### 4.286 `dumb`
 * **Definition**: /dʌm/ — not smart or intelligent
-* **常见同义词 (Synonyms)**: `mute`, `unintelligent`, `simple`
+* **Synonyms**: `mute`, `unintelligent`, `simple`
 * **Example**: He asked a dumb question in class.
 
 ### 4.287 `ablation`
 * **Definition**: /ˈæbleɪʃn/ — the process of removing or erasing something, often in a medical or scientific context.
-* **常见同义词 (Synonyms)**: `feature removal`, `surgical excision`, `pruning`
+* **Synonyms**: `feature removal`, `surgical excision`, `pruning`
 * **Example**: The doctor used laser ablation to remove the tumor.
 
 ### 4.288 `clash`
 * **Definition**: /klæʃ/ — a loud noise made when two things hit each other, or a disagreement or fight
-* **常见同义词 (Synonyms)**: `conflict`, `collide`, `dispute`
+* **Synonyms**: `conflict`, `collide`, `dispute`
 * **Example**: Their schedules often clash, making it hard to find time for a meeting.
 
 ### 4.289 `streaky`
 * **Definition**: /ˈstriːki/ — having marks or lines of a different color or texture.
-* **常见同义词 (Synonyms)**: `inconsistent`, `patchy`, `fluctuating`
+* **Synonyms**: `inconsistent`, `patchy`, `fluctuating`
 * **Example**: The steak was streaky with fat, making it look quite marbled.
 
 ### 4.290 `rim`
 * **Definition**: /rɪm/ — the outer edge of a circular object.
-* **常见同义词 (Synonyms)**: `edge`, `lip`, `border`
+* **Synonyms**: `edge`, `lip`, `border`
 * **Example**: The rim of the cup was chipped.
 
 ### 4.291 `vocal`
 * **Definition**: /ˈvoʊ.kəl/ — relating to the voice or sounds made by the voice
-* **常见同义词 (Synonyms)**: `outspoken`, `articulate`, `oral`
+* **Synonyms**: `outspoken`, `articulate`, `oral`
 * **Example**: She is very vocal about her opinions.
 
 ### 4.292 `virtual`
 * **Definition**: /ˈvɜːr.tʃu.əl/ — something that is not physical but is made to appear or feel real through technology
-* **常见同义词 (Synonyms)**: `simulated`, `digital`, `implicit`
+* **Synonyms**: `simulated`, `digital`, `implicit`
 * **Example**: The students attended a virtual meeting with their teacher.
 
 ### 4.293 `stick`
 * **Definition**: /stɪk/ — a long, thin piece of wood.
-* **常见同义词 (Synonyms)**: `adhere`, `cling`, `persist`
+* **Synonyms**: `adhere`, `cling`, `persist`
 * **Example**: I used a stick to point at the map.
 
 ### 4.294 `morale`
 * **Definition**: /məˈræl/ — the overall emotional or mental condition of a person or group
-* **常见同义词 (Synonyms)**: `confidence`, `spirit`, `esprit de corps`
+* **Synonyms**: `confidence`, `spirit`, `esprit de corps`
 * **Example**: The coach's encouraging words helped to boost the team's morale.
 
 ### 4.295 `archetype`
 * **Definition**: /ˈɑːrkɪtaɪp/ — a very typical example of a certain person or thing
-* **常见同义词 (Synonyms)**: `prototype`, `paradigm`, `quintessence`
+* **Synonyms**: `prototype`, `paradigm`, `quintessence`
 * **Example**: In many stories, the wise old man is an archetype.
 
 ### 4.296 `consist`
 * **Definition**: /kənˈsɪst/ — to be made up of or formed by a particular group of things or people
-* **常见同义词 (Synonyms)**: `comprise`, `contain`, `include`
+* **Synonyms**: `comprise`, `contain`, `include`
 * **Example**: The team consists of five players.
 
 ### 4.297 `randomly`
 * **Definition**: /'rændəmli/ — in a way that is not planned or organized
-* **常见同义词 (Synonyms)**: `stochastically`, `haphazardly`, `arbitrarily`
+* **Synonyms**: `stochastically`, `haphazardly`, `arbitrarily`
 * **Example**: She picked names randomly from a hat.
 
 ### 4.298 `trail`
 * **Definition**: /treɪl/ — a path through a forest or across land
-* **常见同义词 (Synonyms)**: `path`, `track`, `trace`
+* **Synonyms**: `path`, `track`, `trace`
 * **Example**: We followed the trail through the dense woods.
 
 ### 4.299 `shrink`
 * **Definition**: /ʃrɪŋk/ — to become or make something become smaller.
-* **常见同义词 (Synonyms)**: `contract`, `diminish`, `dwindle`
+* **Synonyms**: `contract`, `diminish`, `dwindle`
 * **Example**: The shirt shrank in the wash.
 
 ### 4.300 `refer`
 * **Definition**: /rɪˈfɜːr/ — to direct someone's attention to a source of information or to mention something.
-* **常见同义词 (Synonyms)**: `consult`, `allude`, `point`
+* **Synonyms**: `consult`, `allude`, `point`
 * **Example**: You can refer to the dictionary for the correct spelling.
 
 ### 4.301 `stray`
@@ -3077,172 +3077,172 @@ eq s$).
 * **Phonetics**: /streɪ/
 * **Definition**: Describing an isolated, accidental, and unintended item located where it does not belong (e.g., stray commas, stray debug logs, stray whitespace, or lingering orphaned processes). As a verb (`stray from`), to wander away from the intended topic or architectural specification.
 * **Key Collocations**: `a stray comma` | `stray log statements` | `stray background process` | `stray from the spec`
-* **常见同义词 (Synonyms)**: `wander`, `drift`, `deviate`
+* **Synonyms**: `wander`, `drift`, `deviate`
 * **Example**: *"A stray comma in the JSON payload caused the downstream deserializer to crash during staging verification."*
 
 ### 4.302 `lever`
 * **Definition**: /ˈliːvər/ — a simple machine consisting of a rigid bar that pivots about a fixed point
-* **常见同义词 (Synonyms)**: `crowbar`, `handle`, `control`
+* **Synonyms**: `crowbar`, `handle`, `control`
 * **Example**: You can use a lever to lift heavy objects with less effort.
 
 ### 4.303 `stochastic`
 * **Definition**: /'stɒkæstɪk/ — a process that is random and cannot be predicted exactly.
-* **常见同义词 (Synonyms)**: `random`, `probabilistic`, `chance-based`
+* **Synonyms**: `random`, `probabilistic`, `chance-based`
 * **Example**: The weather can be considered a stochastic system, as it is influenced by many unpredictable factors.
 
 ### 4.304 `persona`
 * **Definition**: /pərˈsoʊnə/ — a character or role that someone presents to others, often different from their true self.
-* **常见同义词 (Synonyms)**: `identity`, `character`, `profile`
+* **Synonyms**: `identity`, `character`, `profile`
 * **Example**: He maintains a professional persona at work but is quite casual at home.
 
 ### 4.305 `warrants`
 * **Definition**: /ˈwɔːr.ənts/ — official documents that give permission to do something or that show a right to have, use, or do something.
-* **常见同义词 (Synonyms)**: `justifies`, `authorizes`, `calls for`
+* **Synonyms**: `justifies`, `authorizes`, `calls for`
 * **Example**: The evidence presented in court warrants a thorough investigation.
 
 ### 4.306 `reject`
 * **Definition**: /rɪˈdʒɛkt/ — to refuse to accept, use, or agree with something
-* **常见同义词 (Synonyms)**: `turn down`, `discard`, `dismiss`
+* **Synonyms**: `turn down`, `discard`, `dismiss`
 * **Example**: She decided to reject the job offer because the salary was too low.
 
 ### 4.307 `swap`
 * **Definition**: /swɒp/ — to exchange one thing for another
-* **常见同义词 (Synonyms)**: `exchange`, `interchange`, `substitute`
+* **Synonyms**: `exchange`, `interchange`, `substitute`
 * **Example**: We decided to swap our old car for a new one.
 
 ### 4.308 `wobble`
 * **Definition**: /ˈwɒbəl/ — to move or cause to move unsteadily from side to side
-* **常见同义词 (Synonyms)**: `oscillate`, `teeter`, `waver`
+* **Synonyms**: `oscillate`, `teeter`, `waver`
 * **Example**: The table wobbled slightly when I leaned on it.
 
 ### 4.309 `resemble`
 * **Definition**: /rɪˈzɛm.bəl/ — to look or be similar to someone or something
-* **常见同义词 (Synonyms)**: `look like`, `mirror`, `parallel`
+* **Synonyms**: `look like`, `mirror`, `parallel`
 * **Example**: Her smile resembles her mother's, warm and inviting.
 
 ### 4.310 `seeence`
 * **Definition**: /siːns/ — the study of the natural world and how it works.
-* **常见同义词 (Synonyms)**: `sensory essence`, `manifestation`, `perception`
+* **Synonyms**: `sensory essence`, `manifestation`, `perception`
 * **Example**: She decided to major in seeence because she was fascinated by the mysteries of the universe.
 
 ### 4.311 `essence`
 * **Definition**: /ˈes.əns/ — the most important quality or feature of someone or something
-* **常见同义词 (Synonyms)**: `core`, `quintessence`, `substance`
+* **Synonyms**: `core`, `quintessence`, `substance`
 * **Example**: The essence of this dish is in its simplicity and fresh ingredients.
 
 ### 4.312 `heave`
 * **Definition**: /hiv/ — to lift or pull with great effort.
-* **常见同义词 (Synonyms)**: `lift`, `haul`, `throw`
+* **Synonyms**: `lift`, `haul`, `throw`
 * **Example**: He had to heave the heavy box onto the truck.
 
 ### 4.313 `meantime`
 * **Definition**: /ˈmiːn.taɪm/ — the time that passes before something happens or is completed
-* **常见同义词 (Synonyms)**: `interim`, `interval`, `interlude`
+* **Synonyms**: `interim`, `interval`, `interlude`
 * **Example**: In the meantime, let's have some tea.
 
 ### 4.314 `meanwhile`
 * **Definition**: /ˈmiːn.waɪl/ — a word used to talk about something that happens at the same time as something else
-* **常见同义词 (Synonyms)**: `simultaneously`, `concurrently`, `in the interim`
+* **Synonyms**: `simultaneously`, `concurrently`, `in the interim`
 * **Example**: I'm making dinner, and meanwhile, my brother is setting the table.
 
 ### 4.315 `partial`
 * **Definition**: /ˈpɑːr.ʃəl/ — not complete or whole
-* **常见同义词 (Synonyms)**: `incomplete`, `fractional`, `biased`
+* **Synonyms**: `incomplete`, `fractional`, `biased`
 * **Example**: I have only a partial understanding of the topic.
 
 ### 4.316 `rewind`
 * **Definition**: /rɪˈwaɪnd/ — to move backwards in a recording or go back in time.
-* **常见同义词 (Synonyms)**: `replay`, `reverse`, `backtrack`
+* **Synonyms**: `replay`, `reverse`, `backtrack`
 * **Example**: Can we rewind and try that conversation again?
 
 ### 4.317 `tenant`
 * **Definition**: /ˈtɛnənt/ — a person who rents or occupies a property from a landlord.
-* **常见同义词 (Synonyms)**: `occupant`, `lessee`, `resident`
+* **Synonyms**: `occupant`, `lessee`, `resident`
 * **Example**: The tenant complained about the leaky faucet to the landlord.
 
 ### 4.318 `survivorship`
 * **Definition**: /sərˈvaɪvərʃɪp/ — the condition or fact of having survived, especially a traumatic event.
-* **常见同义词 (Synonyms)**: `survival`, `continuation`, `persistence`
+* **Synonyms**: `survival`, `continuation`, `persistence`
 * **Example**: After the earthquake, the focus shifted to improving the quality of life for those in survivorship.
 
 ### 4.319 `comply`
 * **Definition**: /kəmˈplaɪ/ — to do what someone has asked or ordered you to do
-* **常见同义词 (Synonyms)**: `conform`, `adhere`, `obey`
+* **Synonyms**: `conform`, `adhere`, `obey`
 * **Example**: If you don't comply with the rules, you might be asked to leave.
 
 ### 4.320 `taxation`
 * **Definition**: /tæksˈeɪʃn/ — the process of paying a part of your income or other money to the government.
-* **常见同义词 (Synonyms)**: `levy`, `assessment`, `duty`
+* **Synonyms**: `levy`, `assessment`, `duty`
 * **Example**: The new policy on taxation has affected many small businesses.
 
 ### 4.321 `splash`
 * **Definition**: /splæʃ/ — a sound or the action of liquid hitting a surface.
-* **常见同义词 (Synonyms)**: `splatter`, `display`, `surge`
+* **Synonyms**: `splatter`, `display`, `surge`
 * **Example**: She jumped into the pool with a big splash.
 
 ### 4.322 `awareness`
 * **Definition**: /əˈwɛər.nəs/ — The state of being conscious, informed, or cognizant of something.
-* **常见同义词 (Synonyms)**: `consciousness`, `mindfulness`, `recognition`
+* **Synonyms**: `consciousness`, `mindfulness`, `recognition`
 * **Example**: Maintaining continuous spatial awareness is essential for elite point guards.
 
 ### 4.323 `authenticity`
 * **Definition**: /ɔːθɛnˈtɪsəti/ — the quality of being real or genuine.
-* **常见同义词 (Synonyms)**: `genuineness`, `legitimacy`, `credibility`
+* **Synonyms**: `genuineness`, `legitimacy`, `credibility`
 * **Example**: The museum checked the authenticity of the painting before displaying it.
 
 ### 4.324 `sake`
 * **Definition**: /seɪk/ — a traditional Japanese alcoholic drink made from fermented rice.
-* **常见同义词 (Synonyms)**: `purpose`, `benefit`, `behalf`
+* **Synonyms**: `purpose`, `benefit`, `behalf`
 * **Example**: We tried some sake at the new Japanese restaurant.
 
 ### 4.325 `undersell`
 * **Definition**: /ˌʌndərˈsɛl/ — to sell something at a lower price than usual or necessary.
-* **常见同义词 (Synonyms)**: `undervalue`, `understate`, `discount`
+* **Synonyms**: `undervalue`, `understate`, `discount`
 * **Example**: They decided to undersell the competition to attract more customers.
 
 ### 4.326 `conjunction`
 * **Definition**: /kənˈdʒʌŋkʃn/ — a word used to connect words, phrases, or clauses
-* **常见同义词 (Synonyms)**: `combination`, `junction`, `union`
+* **Synonyms**: `combination`, `junction`, `union`
 * **Example**: In the sentence "I like tea and coffee," "and" is a conjunction.
 
 ### 4.327 `conjectured`
 * **Definition**: /kənˈdʒɛktʃərd/ — thought or guessed based on limited information
-* **常见同义词 (Synonyms)**: `hypothesized`, `surmised`, `posited`
+* **Synonyms**: `hypothesized`, `surmised`, `posited`
 * **Example**: He conjectured that the meeting was postponed due to bad weather.
 
 ### 4.328 `rough`
 * **Definition**: /rʌf/ — not smooth or even
-* **常见同义词 (Synonyms)**: `coarse`, `approximate`, `uneven`
+* **Synonyms**: `coarse`, `approximate`, `uneven`
 * **Example**: The road was rough, making the journey uncomfortable.
 
 ### 4.329 `discreet`
 * **Definition**: /dɪˈskriːt/ — someone who is careful about what they say or do, especially to avoid embarrassment or attract attention
-* **常见同义词 (Synonyms)**: `tactful`, `circumspect`, `understated`
+* **Synonyms**: `tactful`, `circumspect`, `understated`
 * **Example**: She was very discreet when asking about his financial situation.
 
 ### 4.330 `recipient`
 * **Definition**: /rɪˈsɪpiənt/ — a person who receives something
-* **常见同义词 (Synonyms)**: `beneficiary`, `receiver`, `addressee`
+* **Synonyms**: `beneficiary`, `receiver`, `addressee`
 * **Example**: The recipient of the award was very grateful.
 
 ### 4.331 `foolish`
 * **Definition**: /ˈfuː.lɪʃ/ — Lacking good sense, judgment, or discretion; silly.
-* **常见同义词 (Synonyms)**: `unwise`, `silly`, `reckless`
+* **Synonyms**: `unwise`, `silly`, `reckless`
 * **Example**: Deploying breaking changes on a Friday afternoon without testing is foolish.
 
 ### 4.332 `compound`
 * **Definition**: /kɑmpaʊnd/ — a substance formed by combining two or more different elements
-* **常见同义词 (Synonyms)**: `amalgamate`, `intensify`, `aggregate`
+* **Synonyms**: `amalgamate`, `intensify`, `aggregate`
 * **Example**: Water is a compound made of hydrogen and oxygen.
 
 ### 4.333 `diffusion`
 * **Definition**: /dɪˈfjuː.ʒən/ — the process by which something spreads out or moves from an area of high concentration to an area of low concentration
-* **常见同义词 (Synonyms)**: `dispersion`, `spreading`, `permeation`
+* **Synonyms**: `dispersion`, `spreading`, `permeation`
 * **Example**: The diffusion of the perfume filled the entire room with a pleasant aroma.
 
 ### 4.334 `several`
 * **Definition**: /ˈsɛvərəl/ — a few; more than two but not many
-* **常见同义词 (Synonyms)**: `multiple`, `various`, `sundry`
+* **Synonyms**: `multiple`, `various`, `sundry`
 * **Example**: She has several books on her desk.
 
 ### 4.335 `imperative`
@@ -3255,7 +3255,7 @@ eq s$).
   * *"In distributed transaction handling, ensuring endpoint idempotency across retries is an absolute operational imperative."*
   * *"It is imperative that we validate data grain before running downstream aggregations."*
 
-* **常见同义词 (Synonyms)**: `crucial`, `essential`, `mandate`
+* **Synonyms**: `crucial`, `essential`, `mandate`
 
 ### 4.336 `lazybones`
 * **Category**: Idiomatic Vocabulary & Informal Register
@@ -3264,7 +3264,7 @@ eq s$).
 * **Examples**:
   * *"Get out of bed, you lazybones—the morning production standup starts in ten minutes!"*
 
-* **常见同义词 (Synonyms)**: `sluggard`, `idler`, `couch potato`
+* **Synonyms**: `sluggard`, `idler`, `couch potato`
 
 ### 4.337 `friction`
 * **Category**: Physics & Systems Operations Metaphor
@@ -3276,122 +3276,122 @@ eq s$).
   * *"Friction between the moving parts generated unexpected mechanical wear."*
   * *"Automating our code linting and migration checks eliminated unnecessary operational friction between developers and release engineers."*
 
-* **常见同义词 (Synonyms)**: `resistance`, `impediment`, `drag`
+* **Synonyms**: `resistance`, `impediment`, `drag`
 
 ### 4.338 `tie-breaker`
 * **Definition**: I encountered this in an output specification that defines a deterministic sort order. It means a secondary rule used to order rows that are tied on the primary sort key.
 
-* **常见同义词 (Synonyms)**: `deciding factor`, `adjudicator`, `final ballot`
+* **Synonyms**: `deciding factor`, `adjudicator`, `final ballot`
 
 ### 4.339 `spot-check`
 * **Definition**: I encountered this in a time-series feature sanity check. It means manually checking a small, representative sample to confirm the implementation behaves as intended.
 
-* **常见同义词 (Synonyms)**: `random audit`, `sample inspection`, `quick test`
+* **Synonyms**: `random audit`, `sample inspection`, `quick test`
 
 ### 4.340 `afterthought`
 * **Definition**: I encountered this in advice about leakage-safe rolling windows. It means something considered only later, often as a last-minute fix rather than part of the original design.
 
-* **常见同义词 (Synonyms)**: `postscript`, `secondary idea`, `belated addition`
+* **Synonyms**: `postscript`, `secondary idea`, `belated addition`
 
 ### 4.341 `plausible`
 * **Definition**: Seemingly reasonable or believable; not necessarily correct.
 
-* **常见同义词 (Synonyms)**: `credible`, `believable`, `feasible`
+* **Synonyms**: `credible`, `believable`, `feasible`
 
 ### 4.342 `byte-identical`
 * **Definition**: Exactly the same at the binary level; stronger than merely representing the same business event.
 
-* **常见同义词 (Synonyms)**: `bit-for-bit exact`, `strictly matching`, `binary equivalent`
+* **Synonyms**: `bit-for-bit exact`, `strictly matching`, `binary equivalent`
 
 ### 4.343 `column-local`
 * **Definition**: Key phrase from Why Statistic Order Matters.
 
-* **常见同义词 (Synonyms)**: `field-specific`, `column-scoped`, `localized`
+* **Synonyms**: `field-specific`, `column-scoped`, `localized`
 
 ### 4.344 `ragged`
 * **Definition**: I encountered this in a discussion of array and table shapes. It describes an irregular structure whose rows or nested sequences have different lengths, such as [[1, 2], [3], [4, 5, 6]].
 
-* **常见同义词 (Synonyms)**: `jagged`, `irregular`, `uneven`
+* **Synonyms**: `jagged`, `irregular`, `uneven`
 
 ### 4.345 `coerce`
 * **Definition**: I encountered this in pandas type conversion. In errors="coerce", values that cannot be converted are replaced with a missing value such as NaN or NaT instead of raising an error.
 
-* **常见同义词 (Synonyms)**: `cast`, `force-convert`, `compel`
+* **Synonyms**: `cast`, `force-convert`, `compel`
 
 ### 4.346 `cradle`
 * **Definition**: /ˈkreɪdl/ — A small bed for a baby that can be rocked.
-* **常见同义词 (Synonyms)**: `crib`, `nursery`, `foster`
+* **Synonyms**: `crib`, `nursery`, `foster`
 * **Example**: She gently rocked the baby to sleep in the cradle.
 
 ### 4.347 `steer`
 * **Definition**: /stɪr/ — to guide or control the direction of something, especially a vehicle.
-* **常见同义词 (Synonyms)**: `guide`, `direct`, `navigate`
+* **Synonyms**: `guide`, `direct`, `navigate`
 * **Example**: She carefully steered the boat through the narrow channel.
 
 ### 4.348 `revenge`
 * **Definition**: /rɪˈvɛndʒ/ — to do something harmful to someone because they have hurt or harmed you
-* **常见同义词 (Synonyms)**: `retaliation`, `vengeance`, `payback`
+* **Synonyms**: `retaliation`, `vengeance`, `payback`
 * **Example**: He planned his revenge carefully, making sure every detail was perfect.
 
 ### 4.349 `dare`
 * **Definition**: /dɛər/ — to have enough courage or confidence to do something.
-* **常见同义词 (Synonyms)**: `challenge`, `venture`, `risk`
+* **Synonyms**: `challenge`, `venture`, `risk`
 * **Example**: Do you dare to go into the haunted house?
 
 ### 4.350 `joint`
 * **Definition**: /dʒɔɪnt/ — a place where two parts of something are connected or joined together
-* **常见同义词 (Synonyms)**: `connection`, `junction`, `articulation`
+* **Synonyms**: `connection`, `junction`, `articulation`
 * **Example**: The carpenter fixed the loose joint in the chair.
 
 ### 4.351 `FeatureArc`
 * **Definition**: /'fiːtʃərɑrk/ — A term that could refer to a specific feature or arc in software, design, or story.
-* **常见同义词 (Synonyms)**: `attribute lifecycle`, `feature trajectory`, `feature progression`
+* **Synonyms**: `attribute lifecycle`, `feature trajectory`, `feature progression`
 * **Example**: The new FeatureArc in the app improves user navigation.
 
 ### 4.352 `magnetizing`
 * **Definition**: /ˈmæɡ.nɪ.taɪ.zɪŋ/ — the process of making something magnetic or attractive
-* **常见同义词 (Synonyms)**: `attracting`, `mesmerizing`, `captivating`
+* **Synonyms**: `attracting`, `mesmerizing`, `captivating`
 * **Example**: The charm of his personality is truly magnetizing.
 
 ### 4.353 `arrogant`
 * **Definition**: /ˈærəɡənt/ — Someone who is arrogant thinks they are better than others and behaves in a way that shows this.
-* **常见同义词 (Synonyms)**: `haughty`, `conceited`, `presumptuous`
+* **Synonyms**: `haughty`, `conceited`, `presumptuous`
 * **Example**: He was so arrogant that he didn't even listen to his friends' advice.
 
 ### 4.354 `adolescent`
 * **Definition**: /ˈæd.əl.ɛs.ənt/ — a young person who is developing into an adult
-* **常见同义词 (Synonyms)**: `youthful`, `juvenile`, `teenage`
+* **Synonyms**: `youthful`, `juvenile`, `teenage`
 * **Example**: Many adolescent boys are interested in sports.
 
 ### 4.355 `unmatched`
 * **Definition**: /ʌnˈmætʃt/ — not having an equal or rival
-* **常见同义词 (Synonyms)**: `peerless`, `incomparable`, `unrivaled`
+* **Synonyms**: `peerless`, `incomparable`, `unrivaled`
 * **Example**: Her skills in the game are unmatched.
 
 ### 4.356 `pile`
 * **Definition**: /paɪl/ — a collection of things laid or lying one on top of another.
-* **常见同义词 (Synonyms)**: `stack`, `heap`, `mound`
+* **Synonyms**: `stack`, `heap`, `mound`
 * **Example**: There's a pile of books on the table.
 
 ### 4.357 `orphanage`
 * **Definition**: /'ɔrfənɪdʒ/ — a place where children without parents live.
-* **常见同义词 (Synonyms)**: `care home`, `children's home`, `asylum`
+* **Synonyms**: `care home`, `children's home`, `asylum`
 * **Example**: She spent her early years in an orphanage.
 
 ### 4.358 `hallucination`
 * **Definition**: /həˌluːsɪˈneɪʃn/ — a perception of something that is not really there
-* **常见同义词 (Synonyms)**: `confabulation`, `delusion`, `phantom output`
+* **Synonyms**: `confabulation`, `delusion`, `phantom output`
 * **Example**: She claimed to have seen an alien, but it was just a hallucination.
 
 ### 4.359 `fan`
 * **Definition**: /fæn/ — a device with rotating blades that creates a current of air.
-* **常见同义词 (Synonyms)**: `enthusiast`, `supporter`, `admirer`
+* **Synonyms**: `enthusiast`, `supporter`, `admirer`
 * **Example**: I need to turn on the fan because it's too hot today.
 
 ### 4.360 `indie`
 * **Definition**: /ˈɪn.di/ — Short for 'independent'; describing software developers, artists, or studios operating without major corporate funding or publisher backing, retaining complete creative and operational autonomy.
 * **Key Collocations**: `indie hacker` | `indie developer (indie dev)` | `indie game`
-* **常见同义词 (Synonyms)**: `independent`, `self-funded`, `grassroots`
+* **Synonyms**: `independent`, `self-funded`, `grassroots`
 * **Example**: *"He transitioned from big-tech infrastructure to become an indie hacker, building profitable developer tooling."*
 
 ### 4.361 `gauge`
@@ -3399,7 +3399,7 @@ eq s$).
 * **Phonetics**: /ɡeɪdʒ/
 * **Definition**: To estimate, evaluate, or judge the magnitude, feasibility, impact, or emotional reaction of a proposed change or technical initiative; as a noun in monitoring, a metric representing a single numerical value that can arbitrarily go up and down.
 * **Collocations**: `gauge interest`, `gauge feasibility`, `gauge the scope/impact`, `Prometheus gauge`
-* **常见同义词 (Synonyms)**: `measure`, `estimate`, `evaluate`
+* **Synonyms**: `measure`, `estimate`, `evaluate`
 * **Example**: *"Before writing the full RFC, let's post an outline in Slack to gauge team interest and measure feedback."*
 
 ### 4.362 `inherit` / `inherited from`
@@ -3407,7 +3407,7 @@ eq s$).
 * **Phonetics**: /ɪnˈhɛrɪt/
 * **Definition**: To derive properties, behaviors, constraints, or configurations from a parent, base class, or global template.
 * **Collocations**: `inherit from [base/global]`, `inherited rules`, `strictly inherit`
-* **常见同义词 (Synonyms)**: `derive`, `receive`, `acquire`
+* **Synonyms**: `derive`, `receive`, `acquire`
 * **Example**: *"Local pipeline configurations strictly inherit all compliance rules from the global corporate policy."*
 
 ### 4.363 `stage`
@@ -3415,7 +3415,7 @@ eq s$).
 * **Phonetics**: /steɪdʒ/
 * **Definition**: As a verb, to mark files or modifications in Git's index staging area (`git add`) prior to commit; as a noun, an isolated pre-production staging environment mirroring production architecture.
 * **Collocations**: `stage changes`, `staging environment`, `multi-stage deployment pipeline`
-* **常见同义词 (Synonyms)**: `phase`, `step`, `platform`
+* **Synonyms**: `phase`, `step`, `platform`
 * **Example**: *"Stage the schema migration files first, but keep the local environment overrides unstaged in your working tree."*
 
 ### 4.364 `chevron`
@@ -3423,7 +3423,7 @@ eq s$).
 * **Phonetics**: /ˈʃɛv.rən/
 * **Definition**: A V-shaped or angle-bracket typographical indicator (`>`, `v`, `^`) utilized extensively in modern UI/UX design to indicate collapsible accordions, dropdowns, and breadcrumb navigation hierarchies.
 * **Collocations**: `expandable chevron`, `chevron icon`, `breadcrumb chevron`
-* **常见同义词 (Synonyms)**: `arrowhead marker`, `v-shape insignia`, `angled stripe`
+* **Synonyms**: `arrowhead marker`, `v-shape insignia`, `angled stripe`
 * **Example**: *"Click the chevron next to 'Advanced Networking' to toggle the subnet configuration panel."*
 
 ### 4.365 `outperform`
@@ -3431,7 +3431,7 @@ eq s$).
 * **Phonetics**: /ˌaʊtpərˈfɔːrm/
 * **Definition**: To perform significantly better or deliver superior throughput, accuracy, or efficiency compared to an existing baseline, competitor model, or alternative algorithm. In multi-model agent architectures, to demonstrate measurable superiority on specific task types.
 * **Key Collocations**: `outperform a baseline`, `consistently outperform`, `outperform on [task]`, `outperform generalist models`
-* **常见同义词 (Synonyms)**: `eclipse`, `surpass`, `exceed`
+* **Synonyms**: `eclipse`, `surpass`, `exceed`
 * **Example**: *"In zero-shot code refactoring, specialized domain models often outperform generalist LLMs while requiring lower compute latency."*
 
 ### 4.366 `corpus`
@@ -3439,7 +3439,7 @@ eq s$).
 * **Phonetics**: /ˈkɔːr.pəs/ (plural: `corpora` /ˈkɔːr.pə.rə/)
 * **Definition**: A large, principled, and structured collection of machine-readable texts or recorded utterances used for linguistic research, language model pre-training, instruction fine-tuning, and evaluation.
 * **Key Collocations**: `pre-training corpus`, `curated corpus`, `code corpus`, `master lexicon corpus`
-* **常见同义词 (Synonyms)**: `text collection`, `dataset`, `body of work`
+* **Synonyms**: `text collection`, `dataset`, `body of work`
 * **Example**: *"Filtering synthetic artifacts and low-entropy sequences from the pre-training corpus directly improved the model's downstream reasoning fidelity."*
 
 ### 4.367 `terrain`
@@ -3447,7 +3447,7 @@ eq s$).
 * **Phonetics**: /təˈreɪn/
 * **Definition**: Physical topography; in machine learning and system architecture, the geometric contour of a loss surface (loss terrain) or the complex operational landscape of an evolving infrastructure stack. (Contrasted with `Terran` /ˈter.ən/, the human faction in StarCraft).
 * **Key Collocations**: `loss terrain`, `rugged architectural terrain`, `navigate unfamiliar terrain`
-* **常见同义词 (Synonyms)**: `landscape`, `topography`, `ground`
+* **Synonyms**: `landscape`, `topography`, `ground`
 * **Example**: *"The optimizer escaped the saddle point because momentum smoothed the rugged landscape of the loss terrain."*
 
 ### 4.368 `telemetry`
@@ -3455,7 +3455,7 @@ eq s$).
 * **Phonetics**: /təˈlem.ə.tri/
 * **Definition**: The automated gathering, formatting, and real-time transmission of operational health metrics, structured logs, and distributed trace spans from remote nodes or agent processes to an observability backend.
 * **Key Collocations**: `client-side telemetry`, `emit telemetry`, `OpenTelemetry SDK`, `ingest telemetry`
-* **常见同义词 (Synonyms)**: `remote monitoring`, `metric telemetry`, `system observability`
+* **Synonyms**: `remote monitoring`, `metric telemetry`, `system observability`
 * **Example**: *"Embedding lightweight telemetry into each agent process allowed us to pinpoint token queue bottlenecks across the distributed mesh."*
 
 ### 4.369 `churn`
@@ -3463,7 +3463,7 @@ eq s$).
 * **Phonetics**: /tʃɜːrn/
 * **Definition**: (1) In SaaS and business analytics, the rate at which subscribers discontinue their subscriptions (`customer churn`). (2) In software engineering, rapid code volatility (`code churn`) or excessive memory/cache invalidation (`cache churn`, `allocation churn`).
 * **Key Collocations**: `churn rate`, `customer churn`, `code churn`, `cache churn`
-* **常见同义词 (Synonyms)**: `attrition`, `turnover`, `customer drop-off`
+* **Synonyms**: `attrition`, `turnover`, `customer drop-off`
 * **Example**: *"High cache churn in the Redis cluster caused severe latency spikes, prompting the team to lengthen key TTLs."*
 
 ### 4.370 `trivial baseline`
@@ -3471,7 +3471,7 @@ eq s$).
 * **Phonetics**: /ˈtrɪv.i.əl ˈbeɪs.laɪn/
 * **Definition**: A naive, zero-intelligence heuristic or simplistic model (such as always predicting the majority class or carrying forward the previous day's value) used to benchmark whether an advanced model delivers genuine predictive lift.
 * **Key Collocations**: `submit a trivial baseline`, `outperform a trivial baseline`, `majority-class trivial baseline`
-* **常见同义词 (Synonyms)**: `naive benchmark`, `dummy baseline`, `heuristic reference`
+* **Synonyms**: `naive benchmark`, `dummy baseline`, `heuristic reference`
 * **Example**: *"In imbalanced fraud detection datasets, a trivial baseline predicting zero fraud achieves 99.9% accuracy but provides zero utility."*
 
 ### 4.371 `immune to`
@@ -3479,7 +3479,7 @@ eq s$).
 * **Phonetics**: /ɪˈmjuːn tuː/
 * **Definition**: Resistant to, unaffected by, or naturally shielded against systemic defects, external manipulation, or race conditions. Requires preposition `to` followed by a noun or gerund.
 * **Key Collocations**: `immune to gaming`, `immune to look-ahead bias`, `immune to retry duplicates`
-* **常见同义词 (Synonyms)**: `resistant to`, `impervious to`, `shielded from`
+* **Synonyms**: `resistant to`, `impervious to`, `shielded from`
 * **Example**: *"Because our transaction gateway uses strict idempotency keys, it is completely immune to duplicate chargebacks caused by network retries."*
 
 ### 4.372 `integrate`
@@ -3487,7 +3487,7 @@ eq s$).
 * **Phonetics**: /ˈɪn.tɪ.ɡreɪt/
 * **Definition**: To combine, link, or incorporate components into a functioning whole. Governed by two primary prepositions: `integrate A into B` (assimilating a component into an established system) and `integrate with B` (bilateral interface interoperation).
 * **Key Collocations**: `integrate into the pipeline`, `integrate with third-party APIs`, `seamless integration`, `play an integral role`
-* **常见同义词 (Synonyms)**: `assimilate`, `incorporate`, `synthesize`
+* **Synonyms**: `assimilate`, `incorporate`, `synthesize`
 * **Example**: *"We plan to integrate Grok into our agent mesh so that deep contextual reasoning is accessible across all terminal nodes."*
 
 ### 4.373 `short-form video`
@@ -3495,7 +3495,7 @@ eq s$).
 * **Phonetics**: /ˌʃɔːrt.fɔːrm ˈvɪd.i.oʊ/
 * **Definition**: Brief, vertical digital video content (typically under 60–90 seconds) popularized by TikTok, YouTube Shorts, and Instagram Reels, characterized by rapid hook cycles and vertical feed scrolling.
 * **Key Collocations**: `short-form video content`, `scroll through short-form videos`, `long-form vs short-form`
-* **常见同义词 (Synonyms)**: `micro-video`, `reel`, `short-clip`
+* **Synonyms**: `micro-video`, `reel`, `short-clip`
 * **Example**: *"Short-form video platforms rely heavily on sub-second hook retention to determine algorithmic feed distribution."*
 
 ### 4.374 `hilarious`
@@ -3503,7 +3503,7 @@ eq s$).
 * **Phonetics**: /hɪˈler.i.əs/
 * **Definition**: Extremely amusing, comedic, or provoking spontaneous laughter; significantly more intense and vivid than standard *funny*.
 * **Key Collocations**: `absolutely hilarious`, `a hilarious clip`, `find something hilarious`
-* **常见同义词 (Synonyms)**: `hysterical`, `uproarious`, `amusing`
+* **Synonyms**: `hysterical`, `uproarious`, `amusing`
 * **Example**: *"While reviewing user interaction recordings, the UX team came across a hilarious clip of a user repeatedly trying to click a static screenshot."*
 
 ### 4.375 `huge`
@@ -3511,7 +3511,7 @@ eq s$).
 * **Phonetics**: /hjuːdʒ/
 * **Definition**: Denoting massive physical size, or idiomatically, tremendous significance, breakthrough success, or deep gratitude. Extensively utilized in engineering and workplace praise.
 * **Key Collocations**: `huge welcome`, `huge thanks`, `this is huge`, `a huge performance win`
-* **常见同义词 (Synonyms)**: `colossal`, `immense`, `enormous`
+* **Synonyms**: `colossal`, `immense`, `enormous`
 * **Example**: *"Slashing API response latency from 300ms to 25ms was a huge win for the infrastructure engineering team."*
 
 ### 4.376 `critique` vs. `criticism` vs. `criticize`
@@ -3519,47 +3519,47 @@ eq s$).
 * **Phonetics**: /krɪˈtiːk/ (n./v.) vs. /ˈkrɪt.ɪ.sɪ.zəm/ (n.) vs. /ˈkrɪt.ɪ.saɪz/ (v.)
 * **Definition**: Morphological and pragmatic distinction: `criticize` is strictly a verb; `criticism` is the general noun for fault-finding or disapproval; `critique` is a structured, constructive, and analytical assessment of a design, architecture, or codebase.
 * **Key Collocations**: `offer a constructive critique`, `meant as a critique`, `harsh criticism`, `architectural critique`
-* **常见同义词 (Synonyms)**: `appraisal`, `evaluation`, `review`
+* **Synonyms**: `appraisal`, `evaluation`, `review`
 * **Example**: *"The code review comment was not personal criticism; it was an architectural critique highlighting concurrency bottlenecks."*
 
 ### 4.377 `Treasury yields`
 * **Category**: Fixed Income / Macroeconomic Asset Pricing
 * **Phonetics**: /ˈtreʒ.ər.i jiːldz/
-* **Definition**: 美债收益率。The effective annualized interest rate returned on US sovereign debt securities. Forms the benchmark for the global risk-free rate, debt financing costs, and equity valuation discount factors. Prices and yields move in strict inverse lockstep.
+* **Definition**: US Treasury yield.The effective annualized interest rate returned on US sovereign debt securities. Forms the benchmark for the global risk-free rate, debt financing costs, and equity valuation discount factors. Prices and yields move in strict inverse lockstep.
 * **Key Collocations**: `10-year Treasury yield`, `benchmark Treasury yields`, `spooked by surging Treasury yields`, `yield curve inversion`
-* **常见同义词 (Synonyms)**: `government bond yields`, `risk-free rates`, `sovereign debt yields`
+* **Synonyms**: `government bond yields`, `risk-free rates`, `sovereign debt yields`
 * **Example**: *"Surging 10-year Treasury yields compressed valuation multiples for high-growth SaaS companies across public markets."*
 
 ### 4.378 `the Federal Reserve` (`the Fed`, `FOMC`)
 * **Category**: Macroeconomics & Monetary Governance
 * **Phonetics**: /ðə ˈfed.ər.əl rɪˈzɜːrv/
-* **Definition**: 美联储。The central banking authority of the United States. Sets monetary policy through the Federal Open Market Committee (FOMC), governing the federal funds rate, open market operations, and quantitative easing/tightening.
+* **Definition**: The Federal Reserve.The central banking authority of the United States. Sets monetary policy through the Federal Open Market Committee (FOMC), governing the federal funds rate, open market operations, and quantitative easing/tightening.
 * **Key Collocations**: `Federal Reserve rate hike`, `the Fed signals dovish pause`, `FOMC policy statement`, `Fed balance sheet reduction`
-* **常见同义词 (Synonyms)**: `the central bank`, `the Fed`, `monetary authority`
+* **Synonyms**: `the central bank`, `the Fed`, `monetary authority`
 * **Example**: *"Equities rallied sharply after the Federal Reserve indicated that benchmark interest rates had reached their terminal level."*
 
 ### 4.379 `celebrity` (`celebs`)
 * **Category**: Media Culture & Public Influence
 * **Phonetics**: /səˈleb.rə.ti/ (colloquial: /səˈlebz/)
-* **Definition**: 名人 / 知名公众人物 / 名流状态。A prominent, widely recognized person in public life, entertainment, sports, or business; also denotes the state or status of broad public acclaim.
+* **Definition**: Famous person / well-known public figure / celebrity status.A prominent, widely recognized person in public life, entertainment, sports, or business; also denotes the state or status of broad public acclaim.
 * **Key Collocations**: `tech celebrity`, `A-list celebrity`, `celebrity endorsement`, `instant celebrity`
-* **常见同义词 (Synonyms)**: `star`, `public figure`, `VIP`
+* **Synonyms**: `star`, `public figure`, `VIP`
 * **Example**: *"The developer conference secured an iconic open-source tech celebrity to deliver the opening keynote."*
 
 ### 4.380 `compelling`
 * **Category**: Adjective / Executive Communication & Persuasion
 * **Phonetics**: /kəmˈpel.ɪŋ/
-* **Definition**: 令人信服的 / 扣人心弦的 / 无法抗拒的。Possessing overwhelming logical force, undeniable evidence, or captivating delivery that commands agreement and investment. Far superior in technical reviews and RFCs to weak adjectives like *interesting* or *convincing*.
+* **Definition**: Convincing / gripping / irresistible.Possessing overwhelming logical force, undeniable evidence, or captivating delivery that commands agreement and investment. Far superior in technical reviews and RFCs to weak adjectives like *interesting* or *convincing*.
 * **Key Collocations**: `compelling argument`, `compelling reason`, `compelling business case`, `compelling narrative`, `compel [someone] to act`
-* **常见同义词 (Synonyms)**: `convincing`, `captivating`, `persuasive`
+* **Synonyms**: `convincing`, `captivating`, `persuasive`
 * **Example**: *"The principal engineer articulated a compelling business case for decomposing the monolithic codebase into domain-driven microservices."*
 
 ### 4.381 `monetization` / `monetize` (UK: `monetisation`)
 * **Category**: SaaS Business Model & Platform Economics
 * **Phonetics**: /ˌmʌn.ɪ.taɪˈzeɪ.ʃən/ | verb: /ˈmʌn.ɪ.taɪz/
-* **Definition**: 变现 / 商业化 / 货币化。The formal architectural and business process of converting user traffic, software functionality, data assets, or API throughput into sustainable commercial revenue and recurring cash flow.
+* **Definition**: Turning into revenue / commercialization / monetization.The formal architectural and business process of converting user traffic, software functionality, data assets, or API throughput into sustainable commercial revenue and recurring cash flow.
 * **Key Collocations**: `monetization strategy`, `API monetization`, `monetize user traffic`, `usage-based monetization model`, `monetizable asset`
-* **常见同义词 (Synonyms)**: `revenue generation`, `commercialization`, `cash flow conversion`
+* **Synonyms**: `revenue generation`, `commercialization`, `cash flow conversion`
 * **Example**: *"By rolling out token-metered billing tiers, the platform transitioned its open-source inference engine into a profitable API monetization model."*
 
 ### 4.382 `hit` (AAA Irregular Conjugation: `hit` - `hit` - `hit`)
@@ -3567,325 +3567,325 @@ eq s$).
 * **Phonetics**: /hɪt/ (past: /hɪt/, past participle: /hɪt/, present participle: /ˈhɪt.ɪŋ/)
 * **Morphological Rule**: Strict AAA irregular verb invariant: *hit – hit – hit*. Never append *-ed* (no "hitted").
 * **Key Collocations**: `hit the rate limit`, `once the quota is hit`, `hit a latency wall`, `traffic hitting the server`
-* **常见同义词 (Synonyms)**: `strike`, `success`, `collision`
+* **Synonyms**: `strike`, `success`, `collision`
 * **Example**: *"The ingestion consumer automatically backed off once the external webhook hit its concurrency threshold."*
 
 
 ### 4.383 `curfew`
 * **Category**: Legal Governance, Public Order & Operational Restrictions
 * **Phonetics**: /ˈkɜː.fjuː/
-* **Definition**: 宵禁 / 门禁 / 晚间起降限制。A regulation requiring people to remain indoors between specified hours, typically at night. Also refers to parental household rules or airport night flight bans.
+* **Definition**: Curfew / house-return deadline / night flight restrictions.A regulation requiring people to remain indoors between specified hours, typically at night. Also refers to parental household rules or airport night flight bans.
 * **Collocations**: `impose a curfew`, `lift a curfew`, `defy / break the curfew`, `miss curfew`, `night curfew`.
-* **常见同义词 (Synonyms)**: `lockdown`, `restriction window`, `quiet hours`
+* **Synonyms**: `lockdown`, `restriction window`, `quiet hours`
 * **Example**: *"The municipal authorities imposed a strict midnight curfew to restore civil order across the metropolitan district."*
 
 ### 4.384 `backlash`
 * **Category**: Public Relations, Developer Sentiment & Crisis Management
 * **Phonetics**: /ˈbæk.læʃ/
-* **Definition**: 强烈的集体反对 / 舆论反弹 / 猛烈反扑。A strong, sudden, and widespread negative reaction by a large group of people (such as open-source developers or consumers) against an abrupt policy change, price hike, or controversial decision.
+* **Definition**: Strong collective opposition / public backlash / fierce pushback.A strong, sudden, and widespread negative reaction by a large group of people (such as open-source developers or consumers) against an abrupt policy change, price hike, or controversial decision.
 * **Collocations**: `face intense backlash`, `spark widespread backlash`, `consumer backlash`, `brace for the backlash`.
-* **常见同义词 (Synonyms)**: `outcry`, `repercussion`, `pushback`
+* **Synonyms**: `outcry`, `repercussion`, `pushback`
 * **Example**: *"The platform faced immediate developer backlash after announcing sudden rate limits on its previously unmetered API endpoints."*
 
 ### 4.385 `feint`
 * **Category**: Tactical Movement, Combat Sports & Deceptive Signals
 * **Phonetics**: /feɪnt/
-* **Definition**: 虚晃一枪 / 佯攻 / 诱敌假动作。A deceptive or pretended blow, thrust, or other movement, especially in boxing, football, or fencing, designed to distract or deceive an opponent.
+* **Definition**: Feint / mock attack / decoy move.A deceptive or pretended blow, thrust, or other movement, especially in boxing, football, or fencing, designed to distract or deceive an opponent.
 * **Collocations**: `body feint`, `make a feint`, `feint to the left`.
-* **常见同义词 (Synonyms)**: `diversion`, `fake move`, `trick`
+* **Synonyms**: `diversion`, `fake move`, `trick`
 * **Example**: *"The winger made a sharp body feint to unbalance the center-back before whipping a cross into the box."*
 
 ### 4.386 `dummy`
 * **Category**: Sports Idioms & Intentional Misdirection
 * **Phonetics**: /ˈdʌm.i/
-* **Definition**: （足球等运动中的）故意漏球 / 虚晃一枪假动作。An intentional act of letting the ball pass through or running over the ball to deceive defenders and allow a teammate behind to strike.
+* **Definition**: (In soccer and similar sports) deliberately letting the ball run / a dummy move.An intentional act of letting the ball pass through or running over the ball to deceive defenders and allow a teammate behind to strike.
 * **Collocations**: `sell someone a dummy`, `dummy the ball`.
-* **常见同义词 (Synonyms)**: `decoy`, `mock-up`, `simulated object`
+* **Synonyms**: `decoy`, `mock-up`, `simulated object`
 * **Example**: *"The striker sold the defender a brilliant dummy, letting the low pass run directly to the unmarked midfielder."*
 
 ### 4.387 `juke`
 * **Category**: High-Agility Evasion & Athletic Maneuvers
 * **Phonetics**: /dʒuːk/
-* **Definition**: （美式橄榄球与街球中的）快速变向晃人假动作。To make a rapid deceptive lateral move to evade a defender.
+* **Definition**: (In American football and streetball) a quick change-of-direction fake.To make a rapid deceptive lateral move to evade a defender.
 * **Collocations**: `juke a defender`, `juke someone out of their shoes`.
-* **常见同义词 (Synonyms)**: `sidestep`, `dodge`, `evasion`
+* **Synonyms**: `sidestep`, `dodge`, `evasion`
 * **Example**: *"The running back executed a lightning-fast juke, leaving two linebackers completely grasping at air."*
 
 ### 4.388 `leverage`
 * **Category**: Strategic Advantage, Financial Gearing & Compute Optimization
 * **Phonetics**: /ˈliː.vər.ɪdʒ/ or /ˈlev.ər.ɪdʒ/
 * **Definition**: 
-  * **As a Verb**: 充分利用 / 撬动 / 借力发挥（far more strategic than generic *use*）。To utilize an existing asset, technology, or insight to achieve an amplified outcome.
-  * **As a Noun**: 筹码 / 战略优势 / 财务杠杆。Strategic power to influence a negotiation, or financial gearing using borrowed capital.
+  * **As a Verb**: Make full use of / pry open / build on (far more strategic than generic *use*).To utilize an existing asset, technology, or insight to achieve an amplified outcome.
+  * **As a Noun**: Bargaining chips / strategic advantage / financial leverage.Strategic power to influence a negotiation, or financial gearing using borrowed capital.
 * **Collocations**: `leverage open-source models`, `leverage caching`, `have leverage in negotiations`, `high leverage`, `deleverage`.
-* **常见同义词 (Synonyms)**: `utilize`, `exploit`, `harness`
+* **Synonyms**: `utilize`, `exploit`, `harness`
 * **Example**: *"Instead of building a speech model from scratch, the startup leveraged open-weight foundation weights to build their proprietary real-time translation agent."*
 
 ### 4.389 `passable`
 * **Category**: Quality Evaluation & Pragmatic Understatement
 * **Phonetics**: /ˈpɑː.sə.bəl/ (UK) | /ˈpæs.ə.bəl/ (US)
-* **Definition**: 尚可的 / 勉强过得去的 / 差强人意的（~60–70分水准）。Satisfactory but not outstanding; meeting minimal acceptable standards without catastrophic flaws. Often used in British understatement to indicate functional acceptability with clear room for polish.
+* **Definition**: Acceptable / passable / barely satisfactory (roughly a C grade).Satisfactory but not outstanding; meeting minimal acceptable standards without catastrophic flaws. Often used in British understatement to indicate functional acceptability with clear room for polish.
 * **Collocations**: `passable colloquial English`, `barely passable`, `in passable condition`.
-* **常见同义词 (Synonyms)**: `acceptable`, `tolerable`, `fair`
+* **Synonyms**: `acceptable`, `tolerable`, `fair`
 * **Example**: *"The initial migration script is passable for staging validation, but requires thorough profiling before running on primary tables."*
 
 ### 4.390 `distill`
 * **Category**: Machine Learning Optimization & Model Compression
 * **Phonetics**: /dɪˈstɪl/
-* **Definition**: 知识蒸馏 / 浓缩提炼。In deep learning, transferring knowledge from a large, high-capacity teacher model into a compact, low-latency student model without sacrificing empirical accuracy.
+* **Definition**: Knowledge distillation / condensing and refining.In deep learning, transferring knowledge from a large, high-capacity teacher model into a compact, low-latency student model without sacrificing empirical accuracy.
 * **Collocations**: `distill [X] into a [Y] model`, `knowledge distillation`, `distill teacher weights`.
-* **常见同义词 (Synonyms)**: `extract`, `concentrate`, `refine`
+* **Synonyms**: `extract`, `concentrate`, `refine`
 * **Example**: *"The research team successfully distilled a 70B parameter reasoning model into an 8B edge-deployable checkpoint for on-device inference."*
 
 ### 4.391 `stress-test`
 * **Category**: SRE Resilience, Load Testing & Architectural Rigor
 * **Phonetics**: /ˈstres.test/
-* **Definition**: 极限压力测试 / 验明架构极限。Subjecting a system, financial balance sheet, or network architecture to extreme and adversarial operating conditions to uncover breaking points and concurrency bottlenecks.
+* **Definition**: Extreme stress testing / proving an architecture's limits.Subjecting a system, financial balance sheet, or network architecture to extreme and adversarial operating conditions to uncover breaking points and concurrency bottlenecks.
 * **Collocations**: `stress-test the database under peak concurrency`, `subject the API gateway to rigorous stress-testing`.
-* **常见同义词 (Synonyms)**: `overload test`, `benchmark`, `probe limits`
+* **Synonyms**: `overload test`, `benchmark`, `probe limits`
 * **Example**: *"We stress-tested the WebSocket ingestion layer by simulating ten thousand simultaneous client reconnects during simulated network partitions."*
 
 ### 4.392 `reproducible`
 * **Category**: QA Rigor, Scientific Method & Bug Triage
 * **Phonetics**: /ˌriː.prəˈdjuː.sə.bəl/
-* **Definition**: 可稳定复现的（非偶发性偶发故障）。Capable of being recreated reliably and deterministically under specified experimental or runtime parameters.
+* **Definition**: Reliably reproducible (not a one-off, intermittent failure).Capable of being recreated reliably and deterministically under specified experimental or runtime parameters.
 * **Collocations**: `reliably reproducible`, `a minimal reproducible example (MRE)`.
-* **常见同义词 (Synonyms)**: `replicable`, `consistent`, `deterministic`
+* **Synonyms**: `replicable`, `consistent`, `deterministic`
 * **Example**: *"Before escalating the priority of the ticket, the QA lead verified that the memory leak was reliably reproducible in isolated staging containers."*
 
 ### 4.393 `scandal`
 * **Category**: Corporate Governance, Ethics & Public Crisis
 * **Phonetics**: /ˈskæn.dəl/
-* **Definition**: 丑闻 / 轩然大波。An action or event regarded as morally or legally wrong and causing general public outrage.
+* **Definition**: Scandal / uproar.An action or event regarded as morally or legally wrong and causing general public outrage.
 * **Collocations**: `embroiled in a scandal`, `corporate governance scandal`, `manage the fallout from a scandal`.
-* **常见同义词 (Synonyms)**: `controversy`, `outrage`, `disgrace`
+* **Synonyms**: `controversy`, `outrage`, `disgrace`
 * **Example**: *"The fintech unicorn struggled to regain investor trust following an accounting scandal involving fabricated transaction volumes."*
 ### 4.394 `dub`
 * **Category**: Media Production, Localization & Cultural Naming
 * **Phonetics**: /dʌb/
-* **Definition**: （影视）配音；冠以……称号/赋予绰号。To provide a film, video, or television program with a soundtrack in a different language; to give someone or something a particular name, title, or nickname.
-* **常见同义词 (Synonyms)**: `voice-over`, `re-record`, `name / christen`
+* **Definition**: (Film and TV) to dub; to give a title or nickname to...To provide a film, video, or television program with a soundtrack in a different language; to give someone or something a particular name, title, or nickname.
+* **Synonyms**: `voice-over`, `re-record`, `name / christen`
 * **Example**: *"The documentary was dubbed into four European languages before streaming."*
 
 ### 4.395 `converge` / `convergence`
 * **Category**: Mathematics, Optimization & Architecture Consensus
 * **Phonetics**: /kənˈvɜːdʒ/ | /kənˈvɜː.dʒəns/
-* **Definition**: （算法）收敛；（方案/意见）趋同。To approach a definite finite limit or equilibrium point; for different viewpoints or designs to move toward a unified conclusion.
-* **常见同义词 (Synonyms)**: `coalesce`, `align`, `narrow down`
+* **Definition**: (Algorithms) to converge; (plans or opinions) to come together.To approach a definite finite limit or equilibrium point; for different viewpoints or designs to move toward a unified conclusion.
+* **Synonyms**: `coalesce`, `align`, `narrow down`
 * **Example**: *"After three rounds of review, the engineering leads converged on the lightweight MCP gateway design."*
 
 ### 4.396 `dividend`
 * **Category**: Economics, Corporate Governance & Structural Payoffs
 * **Phonetics**: /ˈdɪv.ɪ.dend/
-* **Definition**: 红利 / 股息 / 长期收益。A distribution of corporate profits to shareholders; metaphorically, the sustained structural benefit or payoff gained from a demographic shift or architectural investment.
-* **常见同义词 (Synonyms)**: `payoff`, `windfall`, `accrued benefit`
+* **Definition**: Payoff / dividend / long-term return.A distribution of corporate profits to shareholders; metaphorically, the sustained structural benefit or payoff gained from a demographic shift or architectural investment.
+* **Synonyms**: `payoff`, `windfall`, `accrued benefit`
 * **Example**: *"Investing in end-to-end type safety pays dividends in developer velocity for years to come."*
 
 ### 4.397 `abruptly`
 * **Category**: Temporal Adverbs & System State Transitions
 * **Phonetics**: /əˈbrʌpt.li/
-* **Definition**: 猝然 / 毫无预兆地（中断或转变）。Suddenly and unexpectedly, often with an unpleasant or jarring impact.
-* **常见同义词 (Synonyms)**: `suddenly`, `sharply`, `without warning`
+* **Definition**: Suddenly / without warning (an interruption or shift).Suddenly and unexpectedly, often with an unpleasant or jarring impact.
+* **Synonyms**: `suddenly`, `sharply`, `without warning`
 * **Example**: *"The streaming socket closed abruptly when the client triggered an out-of-memory exception."*
 
 ### 4.398 `retention`
 * **Category**: Product Analytics & Data Engineering Lifecycles
 * **Phonetics**: /rɪˈten.ʃən/
-* **Definition**: 留存 / 保持 / 数据保留期。The continued use or holding of users, customers, or stored data over designated evaluation windows. Direct antonym of `churn`.
-* **常见同义词 (Synonyms)**: `preservation`, `maintenance`, `holding`
+* **Definition**: Retention / keeping / data retention period.The continued use or holding of users, customers, or stored data over designated evaluation windows. Direct antonym of `churn`.
+* **Synonyms**: `preservation`, `maintenance`, `holding`
 * **Example**: *"Our data retention policy mandates purging raw event telemetry after 90 days."*
 
 ### 4.399 `convoluted`
 * **Category**: Systems Architecture & Code Complexity
 * **Phonetics**: /ˈkɒn.və.luː.tɪd/
-* **Definition**: 迂回盘绕的 / 错综复杂的 / 令人费解的。Extremely intricate, complex, and difficult to follow or comprehend. Direct antonym of `streamlined`.
-* **常见同义词 (Synonyms)**: `overcomplicated`, `cumbersome`, `labyrinthine`
+* **Definition**: Winding / intricate / baffling.Extremely intricate, complex, and difficult to follow or comprehend. Direct antonym of `streamlined`.
+* **Synonyms**: `overcomplicated`, `cumbersome`, `labyrinthine`
 * **Example**: *"Our legacy subscription tier hierarchy is too convoluted; we must streamline the checkout experience."*
 
 ### 4.400 `streamline`
 * **Category**: Engineering Optimization & Process Design
 * **Phonetics**: /ˈstriːm.laɪn/
-* **Definition**: 精简 / 流线化 / 剔除冗余。To make a system, process, or organization more efficient and effective by removing unnecessary complexities.
-* **常见同义词 (Synonyms)**: `simplify`, `rationalize`, `optimize`
+* **Definition**: Simplify / streamline / cut redundancy.To make a system, process, or organization more efficient and effective by removing unnecessary complexities.
+* **Synonyms**: `simplify`, `rationalize`, `optimize`
 * **Example**: *"We streamlined the billing flow from five screens down to a single one-click confirmation."*
 
 ### 4.401 `approbate` / `approbation`
 * **Category**: Formal Governance, Legal Doctrine & High-Register Praise
 * **Phonetics**: /ˈæp.rə.beɪt/ | /ˌæp.rəˈbeɪ.ʃən/
-* **Definition**: 正式认可 / 批准；嘉许赞赏。To approve formally or sanction; official or high-level commendation. (Common law maxim: *approbate and reprobate*).
-* **常见同义词 (Synonyms)**: `sanction`, `endorse`, `approve`
+* **Definition**: Formal endorsement / approval; praise and commendation.To approve formally or sanction; official or high-level commendation. (Common law maxim: *approbate and reprobate*).
+* **Synonyms**: `sanction`, `endorse`, `approve`
 * **Example**: *"The platform architect’s approbation paved the way for immediate executive budget signoff."*
 
 ### 4.402 `appropriate`
 * **Category**: Evaluation & Resource Allocation
 * **Phonetics**: /əˈprəʊ.pri.ət/ (adj) | /əˈprəʊ.pri.eɪt/ (v)
-* **Definition**: 合适的 / 恰当的；划拨专款 / 挪用。Suitable or proper in the circumstances; to allocate money or assets for a specific purpose.
-* **常见同义词 (Synonyms)**: `suitable`, `fitting`, `apt`
+* **Definition**: Suitable / proper; to earmark funds / to take for one's own use.Suitable or proper in the circumstances; to allocate money or assets for a specific purpose.
+* **Synonyms**: `suitable`, `fitting`, `apt`
 * **Example**: *"The infrastructure committee appropriated additional GPU budget for distributed training."*
 
 ### 4.403 `anchor` / `anchored`
 * **Category**: Behavioral Economics, Systems Metrics & Frontend Positioning
 * **Phonetics**: /ˈæŋ.kər/
-* **Definition**: 锚定 / 基准定位。To ground an assessment, price expectation, or UI element firmly to a fixed reference point.
-* **常见同义词 (Synonyms)**: `ground`, `benchmark`, `fix`
+* **Definition**: Anchor / fix to a reference point.To ground an assessment, price expectation, or UI element firmly to a fixed reference point.
+* **Synonyms**: `ground`, `benchmark`, `fix`
 * **Example**: *"Rolling window feature aggregations must be strictly anchored to the prediction cutoff timestamp."*
 
 ### 4.404 `curb`
 * **Category**: Infrastructure, Edge Boundaries & Resource Throttling
 * **Phonetics**: /kɜːb/
 * **Definition**: 
-  * **As a Noun**: 马路牙子 / 路缘石。A stone or concrete edging along a street forming part of a gutter or path boundary.
-  * **As a Transitive Verb**: 抑制 / 控制 / 遏止。To restrain, keep in check, or control something (such as runaway cloud costs or request floods).
-* **常见同义词 (Synonyms)**: `curbstone` (noun); `restrain`, `curtail`, `suppress` (verb)
+  * **As a Noun**: Curb / curbstone.A stone or concrete edging along a street forming part of a gutter or path boundary.
+  * **As a Transitive Verb**: Restrain / control / rein in.To restrain, keep in check, or control something (such as runaway cloud costs or request floods).
+* **Synonyms**: `curbstone` (noun); `restrain`, `curtail`, `suppress` (verb)
 * **Example**: *"We implemented aggressive token bucket throttling to curb sudden spikes in outbound API requests."*
 
 ### 4.405 `sidewalk`
 * **Category**: Urban Topology & Spatial Geolocation
 * **Phonetics**: /ˈsaɪd.wɔːk/
-* **Definition**: 人行道。A paved path for pedestrians at the side of a road (US: `sidewalk`, UK: `pavement`).
-* **常见同义词 (Synonyms)**: `pavement` (UK), `footpath`, `walkway`
+* **Definition**: Sidewalk.A paved path for pedestrians at the side of a road (US: `sidewalk`, UK: `pavement`).
+* **Synonyms**: `pavement` (UK), `footpath`, `walkway`
 * **Example**: *"Autonomous delivery units must yield right-of-way whenever crossing busy sidewalks."*
 
 ### 4.406 `gear shift`
 * **Category**: Mechanical & Electronic Drive Actuation
 * **Phonetics**: /ˈɡɪə ʃɪft/
-* **Definition**: 换挡杆 / 挡把 / 换挡机构。The lever or selector mechanism used by a driver to change gears in a vehicle or mechanical transmission.
-* **常见同义词 (Synonyms)**: `gear stick` (UK), `shifter` (US), `gear lever`
+* **Definition**: Gear lever / gear stick / gear selector.The lever or selector mechanism used by a driver to change gears in a vehicle or mechanical transmission.
+* **Synonyms**: `gear stick` (UK), `shifter` (US), `gear lever`
 * **Example**: *"Modern EV vehicle architectures replace the mechanical gear shift with an electronic push-button drive selector."*
 
 ### 4.407 `windshield`
 * **Category**: Automotive Enclosures & Sensor Mountings
 * **Phonetics**: /ˈwɪnd.ʃiːld/
-* **Definition**: 汽车前挡风玻璃。The front window of a motor vehicle (US: `windshield`, UK: `windscreen`).
-* **常见同义词 (Synonyms)**: `windscreen` (UK), `front screen`, `windguard`
+* **Definition**: A car's front windshield.The front window of a motor vehicle (US: `windshield`, UK: `windscreen`).
+* **Synonyms**: `windscreen` (UK), `front screen`, `windguard`
 * **Example**: *"The forward-facing ADAS camera suite is mounted directly behind the upper perimeter of the windshield."*
 
 ### 4.408 `windshield wiper`
 * **Category**: Automotive Actuators & Vision Preprocessing
 * **Phonetics**: /ˈwɪnd.ʃiːld ˈwaɪ.pər/
-* **Definition**: 雨刷器 / 雨刮器。A motor-driven blade that clears rain, snow, or debris from a windshield.
-* **常见同义词 (Synonyms)**: `wiper blade`, `windscreen wiper` (UK), `rain wiper`
+* **Definition**: Windshield wiper.A motor-driven blade that clears rain, snow, or debris from a windshield.
+* **Synonyms**: `wiper blade`, `windscreen wiper` (UK), `rain wiper`
 * **Example**: *"Autonomous driving perception nodes monitor rain sensor signals to automatically calibrate windshield wiper cycle frequencies."*
 
 ### 4.409 `steering wheel`
 * **Category**: Vehicle Teleoperation & Control Surfaces
 * **Phonetics**: /ˈstɪə.rɪŋ wiːl/
-* **Definition**: 汽车方向盘。A wheel that a driver turns in order to steer and orient a motor vehicle.
-* **常见同义词 (Synonyms)**: `wheel`, `helm`, `steering control`
+* **Definition**: A car's steering wheel.A wheel that a driver turns in order to steer and orient a motor vehicle.
+* **Synonyms**: `wheel`, `helm`, `steering control`
 * **Example**: *"Capacitive hands-on detection in the steering wheel ensures the driver remains attentive during hands-free cruise assist."*
 
 ### 4.410 `tier`
 * **Category**: System Architecture, SLA Standards & Commercial Tiers
 * **Phonetics**: /tɪər/
-* **Definition**: 层级 / 档位 / 梯队。One of several levels in an organizational hierarchy, multi-layer software architecture, or subscription pricing matrix.
-* **常见同义词 (Synonyms)**: `layer`, `grade`, `level`
+* **Definition**: Level / grade / echelon.One of several levels in an organizational hierarchy, multi-layer software architecture, or subscription pricing matrix.
+* **Synonyms**: `layer`, `grade`, `level`
 * **Example**: *"Enterprise customers on the premium tier enjoy dedicated worker queues and custom SLA guarantees."*
 
 ### 4.411 `feasible`
 * **Category**: Engineering Feasibility & Architectural Scoping
 * **Phonetics**: /ˈfiː.zə.bəl/
-* **Definition**: 可行的 / 行得通的 / 切实可达成的。Capable of being accomplished, sustained, or executed successfully within technical, operational, and financial constraints.
-* **常见同义词 (Synonyms)**: `viable`, `workable`, `achievable`
+* **Definition**: Feasible / workable / realistically achievable.Capable of being accomplished, sustained, or executed successfully within technical, operational, and financial constraints.
+* **Synonyms**: `viable`, `workable`, `achievable`
 * **Example**: *"Is it feasible to fine-tune a domain-specific model within our current compute budget, or should we rely on in-context prompting?"*
 
 ### 4.412 `gerund`
 * **Category**: Syntactic Terminology & Agent Behavioral Contracts
 * **Phonetics**: /ˈdʒer.ənd/
-* **Definition**: 动名词。A verbal noun formed by adding `-ing` to a base verb that functions as a substantive noun in subject or object positions. Crucial after prepositions like `to` in `dedicated to [gerund]`.
-* **常见同义词 (Synonyms)**: `verbal noun`, `-ing form`, `nominalized verb`
+* **Definition**: Gerund.A verbal noun formed by adding `-ing` to a base verb that functions as a substantive noun in subject or object positions. Crucial after prepositions like `to` in `dedicated to [gerund]`.
+* **Synonyms**: `verbal noun`, `-ing form`, `nominalized verb`
 * **Example**: *"Because 'to' in the phrase 'dedicated to' functions as a preposition, it must govern a gerund rather than an infinitive verb."*
 
 ### 4.413 `bland`
 * **Category**: Sensory Description & Product Tone Evaluation
 * **Phonetics**: /blænd/
-* **Definition**: 淡而无味的 / 寡淡平庸的。Lacking strong flavor, character, or distinctive qualities; requiring seasoning (salt/spices) physically or narrative punch stylistically.
-* **常见同义词 (Synonyms)**: `flavorless`, `insipid`, `tasteless`
+* **Definition**: Bland / flavorless and dull.Lacking strong flavor, character, or distinctive qualities; requiring seasoning (salt/spices) physically or narrative punch stylistically.
+* **Synonyms**: `flavorless`, `insipid`, `tasteless`
 * **Example**: *"Without distinct domain-specific examples, the generated executive overview felt bland and unconvincing."*
 
 ### 4.414 `greasy`
 * **Category**: Culinary Texture & Physical Surface Properties
 * **Phonetics**: /ˈɡriː.si/
-* **Definition**: 油腻的 / 附着油脂的。Covered with, containing, or tasting of excessive oil, animal fat, or grease.
-* **常见同义词 (Synonyms)**: `oily`, `fatty`, `unctuous`
+* **Definition**: Greasy / coated in oil or fat.Covered with, containing, or tasting of excessive oil, animal fat, or grease.
+* **Synonyms**: `oily`, `fatty`, `unctuous`
 * **Example**: *"The deep-fried pork chops turned out excessively greasy because the frying oil was not hot enough."*
 
 ### 4.415 `flat`
 * **Category**: Sensory Critique, Beverages & Acoustic Dynamics
 * **Phonetics**: /flæt/
-* **Definition**: 缺乏层次平淡无奇的；（碳酸饮料/啤酒）跑气的。Lacking vitality, depth, or sparkle; in beverages, having lost carbonation or effervescence.
-* **常见同义词 (Synonyms)**: `dull / lifeless`, `effervescence-depleted`, `uninspired`
+* **Definition**: Dull and lacking depth; (of soda or beer) gone flat.Lacking vitality, depth, or sparkle; in beverages, having lost carbonation or effervescence.
+* **Synonyms**: `dull / lifeless`, `effervescence-depleted`, `uninspired`
 * **Example**: *"The open bottle of soda left on the desk overnight had gone completely flat by morning."*
 
 ### 4.416 `owner distribution` / `distribution`
 * **Category**: Real Estate Asset Management & Cash Flow Payouts
 * **Phonetics**: /ˈoʊ.nər ˌdɪs.trɪˈbjuː.ʃən/
-* **Definition**: 业主分红 / 净租金划款。The disbursement of net operating income (rental proceeds minus operating and maintenance expenses) from a property management trust account to the property owner.
-* **常见同义词 (Synonyms)**: `payout`, `disbursement`, `dividend`
+* **Definition**: Owner distribution / net rental payout.The disbursement of net operating income (rental proceeds minus operating and maintenance expenses) from a property management trust account to the property owner.
+* **Synonyms**: `payout`, `disbursement`, `dividend`
 * **Example**: *"Once the tenant's rent payment has cleared, the property manager will schedule an interim owner distribution."*
 
 ### 4.417 `imbalanced`
 * **Category**: Machine Learning, Data Science & Classification Statistics
 * **Phonetics**: /ɪmˈbæl.ənst/
-* **Definition**: 不平衡的 / 偏斜不对称的。Characterized by a severe disproportion in class distribution, sample sizes, or category representations (e.g. fraud detection where positive cases constitute <0.1% of all records).
-* **常见同义词 (Synonyms)**: `skewed`, `asymmetrical`, `disproportionate`
+* **Definition**: Unbalanced / skewed and asymmetric. Characterized by a severe disproportion in class distribution, sample sizes, or category representations (e.g. fraud detection where positive cases constitute <0.1% of all records).
+* **Synonyms**: `skewed`, `asymmetrical`, `disproportionate`
 * **Example**: *"Evaluating an imbalanced dataset requires precision-recall curves or strictly proper scoring rules rather than raw accuracy."*
 
 ### 4.418 `held-out`
 * **Category**: Machine Learning, Model Evaluation & Data Partitioning
 * **Phonetics**: /ˌheʊld ˈaʊt/
-* **Definition**: 留出的 / 独立封存用于无偏评估的。Specifically designated as isolated and completely unexposed during feature selection, model training, and hyperparameter tuning to ensure an honest, unbiased assessment of generalization capability.
-* **常见同义词 (Synonyms)**: `unseen`, `out-of-sample`, `reserved`
+* **Definition**: Held out / sealed off independently for unbiased evaluation. Specifically designated as isolated and completely unexposed during feature selection, model training, and hyperparameter tuning to ensure an honest, unbiased assessment of generalization capability.
+* **Synonyms**: `unseen`, `out-of-sample`, `reserved`
 * **Example**: *"To guarantee zero data leakage, final accuracy scores were computed strictly on a held-out test split."*
 
 ### 4.419 `pivotal`
 * **Category**: Strategic Planning, System Architecture & Metric Prioritization
 * **Phonetics**: /ˈpɪv.ə.təl/
-* **Definition**: 关键的 / 核心枢纽作用的。Of crucial, vital, and decisive importance upon which the success, stability, or progression of a system or project hinges.
-* **常见同义词 (Synonyms)**: `crucial`, `central`, `critical`
+* **Definition**: Critical / playing a central, hinge-like role. Of crucial, vital, and decisive importance upon which the success, stability, or progression of a system or project hinges.
+* **Synonyms**: `crucial`, `central`, `critical`
 * **Example**: *"Establishing strict ground truth isolation is pivotal to preventing benchmark contamination across our evaluation harnesses."*
 
 ### 4.420 `thriving vs. trivial`
 * **Category**: Semantic Discrimination & Lexical Register
 * **Phonetics**: /ˈθraɪ.vɪŋ/ vs. /ˈtrɪv.i.əl/
-* **Definition**: 繁荣蓬勃的（极度褒义，充满生命力与增长势头）与平庸微不足道的（中性偏贬义，显而易见或工程价值极低）两极语义辨析。
+* **Definition**: A two-pole semantic distinction between thriving (strongly positive, full of vitality and growth momentum) and trivial (neutral to negative, obvious or of very low engineering value).
 * **Nuance**: `thriving` originates from *thrive* (vigorous growth/prosperity, e.g. *thriving open-source ecosystem*). `trivial` stems from the Latin for 'crossroads' (commonplace/trite, e.g. *trivial baseline predicting the majority class*).
-* **常见同义词 (Synonyms)**: `flourishing / prosperous` (thriving); `negligible / insignificant` (trivial)
+* **Synonyms**: `flourishing / prosperous` (thriving); `negligible / insignificant` (trivial)
 * **Example**: *"While the framework enjoys a thriving developer community, defeating a trivial majority-class baseline remains the first hurdle in imbalanced evaluation."*
 
 ### 4.421 `user cap`
 * **Category**: Quota Management, Rate Limiting & Resource Allocation
 * **Phonetics**: /ˈjuː.zər kæp/
-* **Definition**: 用户配额上限 / 用户级硬性封顶。A strict, non-negotiable ceiling enforced on an individual account or tenant governing maximum API calls, concurrent sessions, token allowances, or storage consumption.
-* **常见同义词 (Synonyms)**: `quota ceiling`, `usage threshold`, `hard limit`
+* **Definition**: Per-user quota ceiling / hard per-user cap. A strict, non-negotiable ceiling enforced on an individual account or tenant governing maximum API calls, concurrent sessions, token allowances, or storage consumption.
+* **Synonyms**: `quota ceiling`, `usage threshold`, `hard limit`
 * **Example**: *"To prevent noisy-neighbor degradation, the SaaS platform enforces a strict daily **user cap** on model token consumption."*
 
 ### 4.422 `eager vs. greedy`
 * **Category**: Computer Science, Algorithmic Paradigms & Execution Policies
 * **Phonetics**: /ˈiː.ɡər/ vs. /ˈɡriː.di/
-* **Definition**: 即时执行/即时加载（eager，核心对立面为惰性延迟 `lazy`，关注发生的时间与触发时机）与贪心贪婪选择（greedy，核心对立面为全局最优 `optimal` 或非贪婪 `non-greedy`，关注每一步决策的局部收益与范围吞吐）。
+* **Definition**: Immediate execution or eager loading (eager, whose core opposite is lazy deferral; concerned with when something happens and what triggers it) versus greedy selection (greedy, whose core opposite is the global optimum `optimal` or `non-greedy`; concerned with the local payoff and scope of each step's decision).
 * **Nuance**: *Eager* execution computes values immediately upon invocation (e.g. PyTorch eager mode vs. TensorFlow static graphs; eager ORM joins). *Greedy* algorithms make locally optimal decisions at each stage without backtracking (e.g. Dijkstra, regex greedy quantifiers, greedy token decoding).
-* **常见同义词 (Synonyms)**: `immediate / unprompted` (eager); `locally optimal / voracious` (greedy)
+* **Synonyms**: `immediate / unprompted` (eager); `locally optimal / voracious` (greedy)
 * **Example**: *"In our pipeline, regex extraction employs an **eager** evaluation trigger, whereas token parsing relies on a **greedy** longest-match algorithm."*
 
 ### 4.423 `computational power`
 * **Category**: Hardware Architecture, GPU Compute & Cluster Scaling
 * **Phonetics**: /ˌkɒm.pjʊˈteɪ.ʃən.əl ˈpaʊ.ər/
-* **Definition**: 算力 / 计算能力。The quantitative aggregate processing capability of CPUs, GPUs, TPUs, or distributed clusters to execute floating-point calculations, model training, and real-time inference.
-* **常见同义词 (Synonyms)**: `compute capacity`, `compute resources`, `processing throughput`
+* **Definition**: Compute / computing capability. The quantitative aggregate processing capability of CPUs, GPUs, TPUs, or distributed clusters to execute floating-point calculations, model training, and real-time inference.
+* **Synonyms**: `compute capacity`, `compute resources`, `processing throughput`
 * **Example**: *"Quantizing the 32B model reduces VRAM overhead, allowing our cluster to maximize inference throughput without requiring exorbitant **computational power**."*
 
 ### 4.424 `carry-over` / `cross-case carry-over`
 * **Category**: Agile Planning, Time-Series Engineering & LLM Context Contamination
 * **Phonetics**: /ˈkær.iˌoʊ.vər/
-* **Definition**: 结转 / 顺延 / 跨用例状态残留与污染。The persistence or forward-transfer of unresolved tasks (in sprints), accumulated balances (in budgeting), or residual conversational state (in sequential multi-turn LLM benchmark prompts).
-* **常见同义词 (Synonyms)**: `rollover`, `residual state`, `context contamination`, `spillover`
+* **Definition**: Carry forward / roll over / residual state and contamination across cases. The persistence or forward-transfer of unresolved tasks (in sprints), accumulated balances (in budgeting), or residual conversational state (in sequential multi-turn LLM benchmark prompts).
+* **Synonyms**: `rollover`, `residual state`, `context contamination`, `spillover`
 * **Example**: *"Evaluating all benchmark cases within a single conversation session introduced significant **cross-case carry-over**, distorting our accuracy metrics."*
 
 ### 4.425 `stray control character`
 * **Category**: Data Sanitization, Character Encoding & Tokenizer Hygiene
 * **Phonetics**: /streɪ kənˈtroʊl ˈkær.ək.tər/
-* **Definition**: 意外混入的不可见控制字符 / 游离控制符。Extraneous non-printable ASCII or Unicode control bytes (e.g. ` `, ``, ``, or unescaped newlines) inadvertently injected into raw text streams or JSON payloads, triggering parser crashes or tokenizer segmentation faults.
-* **常见同义词 (Synonyms)**: `unescaped control character`, `errant non-printable byte`, `extraneous control code`
+* **Definition**: Invisible control characters mixed in by accident / stray control codes. Extraneous non-printable ASCII or Unicode control bytes (e.g. ` `, ``, ``, or unescaped newlines) inadvertently injected into raw text streams or JSON payloads, triggering parser crashes or tokenizer segmentation faults.
+* **Synonyms**: `unescaped control character`, `errant non-printable byte`, `extraneous control code`
 * **Example**: *"The downstream JSON deserializer threw a fatal parsing error due to a **stray control character** embedded in the scraped web text."*
 
 ## 5. Architectural Case Excerpts & Data Engineering Standards (17 Items)
@@ -4160,5 +4160,5 @@ To ensure maximum signal-to-noise ratio during language reviews (`/md` diagnosti
 
 ### 6.5 Universal Lexicon Card Standard: Common Synonyms Sector
 When formatting or compiling word entries into the master lexicon bank (`/add`, `/kw`, `/compile`):
-* **Mandatory Synonyms Sector**: Every vocabulary card for a target word must include a `* **常见同义词 (Synonyms)**:` field.
+* **Mandatory Synonyms Sector**: Every vocabulary card for a target word must include a `* **Synonyms**:` field.
 * **Quantity & Quality**: Include **2–3 concise, high-frequency, authentic synonyms** (or direct antonym pairs where pedagogically valuable, such as `retention` vs. `churn`). Avoid exhaustive thesaurus dumps.
