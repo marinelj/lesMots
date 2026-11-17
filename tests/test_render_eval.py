@@ -106,3 +106,14 @@ def test_prompt_is_the_production_prompt(lex, cases):
 def test_summary_reports_a_95_percent_interval():
     assert evaluate._wilson(76, 95) == [0.709, 0.868]
     assert evaluate._wilson(0, 0) == [0.0, 0.0]
+
+
+def test_shortlist_recall_floor(lex):
+    """Without embeddings, a 40-entry shortlist holds an expected entry for at least 85%
+    of test cases (91% on 2026-11-17). Paraphrase cases are the misses: word overlap
+    can't see them, so the Studio measures recall with embeddings."""
+    from lesmots.lexrender.candidates import CandidateIndex
+
+    index = CandidateIndex(lex.entries, lex.matcher)
+    result = evaluate.shortlist_recall(index, evaluate.load_cases(split="test"), [40])
+    assert result["k=40"]["recall"] >= 0.85, result

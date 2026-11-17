@@ -163,6 +163,24 @@ def build(lex: Lexicon, handwritten: Path = HANDWRITTEN, out: Path = CASES,
     return cases
 
 
+def shortlist_recall(index, cases: list[dict], ks: list[int]) -> dict:
+    """For each shortlist size k, the share of cases with an expected entry whose
+    shortlist holds at least one of them. A miss caps the student: it can't link an entry
+    it never sees. Also lists the missed case ids at the largest k."""
+    targets = [c for c in cases if c.get("expect_any")]
+    out: dict = {"cases": len(targets)}
+    for k in sorted(ks):
+        missed = [c["id"] for c in targets
+                  if not set(c["expect_any"]) & {e.id for e in index.select(c["text"], k)}]
+        by_kind = Counter(c["kind"] for c in targets)
+        miss_kind = Counter(c["kind"] for c in targets if c["id"] in set(missed))
+        out[f"k={k}"] = {"recall": round(1 - len(missed) / max(1, len(targets)), 3),
+                         "by_kind": {kd: f"{n - miss_kind[kd]}/{n}"
+                                     for kd, n in sorted(by_kind.items())}}
+        out["missed_at_max_k"] = missed
+    return out
+
+
 def load_cases(path: Path = CASES, split: str | None = None) -> list[dict]:
     cases = [json.loads(line) for line in path.read_text().splitlines() if line.strip()]
     return [c for c in cases if split in (None, "all") or c["split"] == split]
@@ -331,6 +349,13 @@ def main(argv: list[str] | None = None) -> int:
                    help='JSONL of {"id": case id, "reply": model reply}')
     p.add_argument("--out", type=Path)
 
+    p = sub.add_parser("recall", help="how often the shortlist holds an expected entry")
+    p.add_argument("--k", default="10,20,40,80", help="shortlist sizes, comma-separated")
+    p.add_argument("--split", choices=["dev", "test", "all"], default="all")
+    p.add_argument("--embed-model", default="",
+                   help="Ollama embedding model, e.g. nomic-embed-text (default: none)")
+    p.add_argument("--ollama", default="http://127.0.0.1:11434")
+
     p = sub.add_parser("prompt", help="print the prompt a model gets for one case")
     p.add_argument("case_id")
 
@@ -350,6 +375,16 @@ def main(argv: list[str] | None = None) -> int:
         if case is None:
             raise SystemExit(f"no case {args.case_id}")
         print(lex.prompt(case["text"]))
+        return 0
+
+    if args.cmd == "recall":
+        from .candidates import CandidateIndex, OllamaEmbedder
+
+        embed = OllamaEmbedder(args.ollama, args.embed_model) if args.embed_model else None
+        index = CandidateIndex(lex.entries, lex.matcher, embed)
+        chosen = [c for c in cases if args.split == "all" or c["split"] == args.split]
+        print(json.dumps(shortlist_recall(index, chosen,
+                                          [int(k) for k in args.k.split(",")]), indent=2))
         return 0
 
     if args.cmd == "run":
