@@ -25,6 +25,9 @@ A fixed test set for the model behind remote render, so Codex, a stock local mod
     "baked into" for "be baked into", "feel the shake" for "feel-the-shake" and
     separable phrasal verbs ("hand the work off to"), which fixes `para-24`, `para-12`
     and `syn-feel-the-shake` without editing them.
+  - 2026-11-17: single everyday words are never linked (`forms.COMMON_WORDS`, Marine's
+    rule). Six synonym cases targeted such an entry, so they now expect no link:
+    `syn-latest`, `syn-reject`, `syn-spring`, `syn-square`, `syn-stick`, `syn-swap`.
 - `cases.jsonl`: the frozen test cases plus every other hand-written case and up to 120
   `synonym` cases built from lexicon examples, all as `dev`. Rebuild it after editing
   the hand-written cases or the lexicon:

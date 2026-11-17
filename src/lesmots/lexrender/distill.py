@@ -47,6 +47,7 @@ from .evaluate import (
     Lexicon,
     _protected,
     _sentences,
+    drop_common_markers,
     load_cases,
     openai_complete,
 )
@@ -273,7 +274,8 @@ def rewrite(lex: Lexicon, index: CandidateIndex, teacher: Teacher, out: Path,
 # --- stage 3: check and export -------------------------------------------------------
 
 def check(lex: Lexicon, source: dict, rewrite_row: dict) -> tuple[bool, str]:
-    text, reply = source["text"], (rewrite_row.get("rewrite") or "").strip()
+    text = source["text"]
+    reply = drop_common_markers(lex, (rewrite_row.get("rewrite") or "").strip())
     if not reply:
         return False, "empty"
     offered = set(rewrite_row["candidates"])
@@ -311,7 +313,8 @@ def export(lex: Lexicon, out: Path) -> dict:
         example = {"messages": [
             {"role": "system", "content": SYSTEM},
             {"role": "user", "content": student_prompt(lex, source["text"], cands)},
-            {"role": "assistant", "content": row["rewrite"].strip()},
+            {"role": "assistant",
+             "content": drop_common_markers(lex, row["rewrite"].strip())},
         ]}
         bucket = hashlib.sha256(row["id"].encode()).digest()[0] / 256
         (valid if bucket < VALID_SHARE else train).append(example)
