@@ -121,3 +121,34 @@ def test_embedder_brings_paraphrase_targets_into_the_list(lex):
     assert "fall-back-to" not in [e.id for e in plain.select(text, 20)]
     embedded = CandidateIndex(lex.entries, lex.matcher, fake_embed)
     assert "fall-back-to" in [e.id for e in embedded.select(text, 20)]
+
+
+def test_grok_teacher_polls_and_strips_control_characters():
+    from lesmots.lexrender.distill import grok_complete
+
+    calls = []
+    replies = iter([{"run_id": "run_1", "status": "queued"},
+                    {"status": "running"},
+                    {"status": "completed", "final_output": "ok\x07 text\x00"}])
+
+    def http(method, url, body):
+        calls.append((method, url, body))
+        return next(replies)
+
+    complete = grok_complete("http://gw/grokbot/", poll=0, http=http,
+                             sleep=lambda s: None, clock=lambda: 0.0)
+    assert complete("TASK", "SYS") == "ok text"
+    assert calls[0] == ("POST", "http://gw/grokbot/v1/runs", {"prompt": "SYS\n\nTASK"})
+    assert calls[1][1] == "http://gw/grokbot/v1/runs/run_1"
+
+
+def test_grok_teacher_raises_on_timeout_status():
+    import pytest
+
+    from lesmots.lexrender.distill import grok_complete
+
+    replies = iter([{"run_id": "r", "status": "running"}, {"status": "timed_out"}])
+    complete = grok_complete("http://gw", poll=0, http=lambda *a: next(replies),
+                             sleep=lambda s: None, clock=lambda: 0.0)
+    with pytest.raises(RuntimeError):
+        complete("t", "s")

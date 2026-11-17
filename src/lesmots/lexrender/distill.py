@@ -20,10 +20,11 @@ The teacher is called in batches (10 answers per call by default) to save quota.
 teacher fails several times in a row, for example because the quota ran out, the command
 stops with exit code 75; running it again continues where it stopped.
 
-Usage on the Mac Studio (teacher = Codex gpt-6.1-sol through the gateway)::
+Usage on the Mac Studio (teacher = Grok through the gateway; ``--codex-url`` and
+``--base-url`` pick Codex or an OpenAI-compatible model instead)::
 
     python -m lesmots.lexrender.distill run --out ~/lexrender-distill \\
-        --codex-url http://127.0.0.1:<port> --model gpt-6.1-sol --target 3000
+        --grok-url http://127.0.0.1:<port>/grokbot --target 3000
     python -m lesmots.lexrender.distill export --out ~/lexrender-distill
     python -m lesmots.lexrender.distill stats --out ~/lexrender-distill
 """
@@ -314,7 +315,56 @@ def stats(out: Path) -> dict:
 
 # --- command line --------------------------------------------------------------------
 
+_CONTROL = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")
+
+
+def grok_complete(base_url: str, timeout: float = 1800.0, poll: float = 5.0,
+                  http=None, sleep=None, clock=None) -> Teacher:
+    """Grok through the grokbot gateway: POST ``{base}/v1/runs`` with ``{prompt}``, then
+    poll ``GET {base}/v1/runs/{run_id}`` until Grok posts its result back.
+
+    Grok runs in its desktop app and has no "waiting" status: a run stays ``running``
+    until the result callback arrives, and the gateway marks it ``timed_out`` after 30
+    minutes. Stray control characters in the output are removed, since they would break
+    the JSONL files.
+    """
+    import time
+    import urllib.parse
+
+    from .codex import FINAL, _http
+
+    http = http or _http
+    sleep = sleep or time.sleep
+    clock = clock or time.monotonic
+    base = base_url.rstrip("/")
+
+    def complete(prompt: str, system: str) -> str:
+        run = http("POST", f"{base}/v1/runs", {"prompt": f"{system}\n\n{prompt}"})
+        run_id = run.get("run_id")
+        if not run_id:
+            raise RuntimeError(f"no run_id in the Grok submit response: {run}")
+        url = f"{base}/v1/runs/{urllib.parse.quote(str(run_id), safe='')}"
+        deadline = clock() + timeout
+        status = run.get("status", "")
+        while status not in FINAL:
+            if clock() >= deadline:
+                raise RuntimeError(f"Grok run {run_id} still {status or 'pending'} "
+                                   f"after {timeout:.0f}s")
+            sleep(poll)
+            run = http("GET", url, None)
+            status = run.get("status", "")
+        output = run.get("final_output")
+        if status != "completed" or not output:
+            raise RuntimeError(f"Grok run {run_id} {status} with "
+                               f"{'no output' if not output else 'output'}")
+        return _CONTROL.sub("", str(output))
+
+    return complete
+
+
 def _teacher(args: argparse.Namespace) -> Teacher:
+    if args.grok_url:
+        return grok_complete(args.grok_url, timeout=max(args.timeout, 1800.0))
     if args.codex_url:
         from .codex import CodexConfig, codex_complete
 
@@ -324,7 +374,8 @@ def _teacher(args: argparse.Namespace) -> Teacher:
         return lambda prompt, system: complete(prompt, system, 4000)
     if args.base_url:
         return openai_complete(args.base_url, args.model, args.api_key, args.timeout)
-    raise SystemExit("give --codex-url (Codex gateway) or --base-url (OpenAI-compatible)")
+    raise SystemExit("give --grok-url (Grok gateway), --codex-url (Codex gateway) "
+                     "or --base-url (OpenAI-compatible)")
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -336,6 +387,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--embed-model", default="",
                     help="Ollama embedding model for candidates, e.g. nomic-embed-text")
     ap.add_argument("--ollama", default="http://127.0.0.1:11434")
+    ap.add_argument("--grok-url", default="", help="Grok gateway base, e.g. .../grokbot")
     ap.add_argument("--codex-url", default="", help="Codex gateway base, e.g. .../codex")
     ap.add_argument("--base-url", default="", help="or an OpenAI-compatible endpoint")
     ap.add_argument("--api-key", default="")
