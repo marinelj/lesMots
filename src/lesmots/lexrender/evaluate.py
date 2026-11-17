@@ -51,21 +51,19 @@ from pathlib import Path
 
 from .forms import Matcher
 from .parse import ParsedEntry, parse_lexicon
-from .render import MARKER, SYSTEM, _prompt
+from .render import MARKER, SYSTEM, _prompt, protected_spans
 
 ROOT = Path(__file__).resolve().parents[3]
 LEXICON = ROOT / "lexicon" / "lexicon.md"
 EVAL_DIR = ROOT / "eval" / "render"
 HANDWRITTEN = EVAL_DIR / "handwritten.jsonl"
 CASES = EVAL_DIR / "cases.jsonl"
+FROZEN_TEST = EVAL_DIR / "test-frozen.jsonl"  # the held-out test set, never rebuilt
 
 SYNONYM_CASES = 120  # how many synonym-swap cases ``build`` samples from the lexicon
 MAX_PHRASE_WORDS = 8  # longer headings aren't in the prompt's index (render.MAX_INDEX_WORDS)
 
 _EXAMPLE_RE = re.compile(r"\*\*Example\*\*\s*:\s*\*?\"?(.+?)\"?\*?\s*$", re.MULTILINE)
-_FENCE_RE = re.compile(r"```.*?```", re.DOTALL)
-_INLINE_RE = re.compile(r"`[^`\n]+`")
-_URL_RE = re.compile(r"https?://[^\s)>\]]+")
 _SENTENCE_SPLIT = re.compile(r"(?<=[.!?:])\s+|\n+")
 
 
@@ -95,11 +93,6 @@ class Lexicon:
 
 # --- building cases ------------------------------------------------------------------
 
-def _split(case_id: str) -> str:
-    """A stable half/half split that doesn't depend on case order."""
-    return "test" if hashlib.sha256(case_id.encode()).digest()[0] % 2 else "dev"
-
-
 def synonym_cases(lex: Lexicon, limit: int = SYNONYM_CASES) -> list[dict]:
     """Take an entry's example sentence and swap its phrase for one of its synonyms.
 
@@ -123,7 +116,10 @@ def synonym_cases(lex: Lexicon, limit: int = SYNONYM_CASES) -> list[dict]:
             continue
         at = found.start()
         synonym = next((s for s in e.synonyms
-                        if not lex.is_phrase(e.id, s) and s.lower() != e.phrase.lower()), None)
+                        if not lex.is_phrase(e.id, s) and s.lower() != e.phrase.lower()
+                        # a synonym that is itself an entry ("profitable" for
+                        # "lucrative") would make linking that entry a right answer too
+                        and lex.matcher.resolve(s) is None), None)
         if synonym is None:
             continue
         if at == 0 and example[:1].isupper():
@@ -137,17 +133,49 @@ def synonym_cases(lex: Lexicon, limit: int = SYNONYM_CASES) -> list[dict]:
     return sorted(candidates[:limit], key=lambda c: c["id"])
 
 
-def build(lex: Lexicon, handwritten: Path = HANDWRITTEN, out: Path = CASES) -> list[dict]:
-    cases = [json.loads(line) for line in handwritten.read_text().splitlines() if line.strip()]
-    cases += synonym_cases(lex)
+def build(lex: Lexicon, handwritten: Path = HANDWRITTEN, out: Path = CASES,
+          frozen: Path = FROZEN_TEST) -> list[dict]:
+    """Write ``cases.jsonl``: the frozen test cases exactly as stored, then every other
+    hand-written and synonym case as ``dev``.
+
+    The test set is frozen so scores stay comparable across lexicon versions: rebuilding
+    synonym cases from a new lexicon used to move cases between the splits (v17 swapped
+    4). A case whose id is in the frozen set is never rebuilt, even if its source changed.
+    """
+    test = [json.loads(line) for line in frozen.read_text().splitlines() if line.strip()]
+    frozen_ids = {c["id"] for c in test}
+    dev = [json.loads(line) for line in handwritten.read_text().splitlines() if line.strip()]
+    dev += synonym_cases(lex)
+    dev = [c for c in dev if c["id"] not in frozen_ids]
+    for c in test:
+        c["split"] = "test"
+    for c in dev:
+        c["split"] = "dev"
+    cases = sorted(test + dev, key=lambda c: c["id"])
     missing = sorted({i for c in cases for i in c.get("expect_any", [])} - set(lex.by_id))
     if missing:
         raise SystemExit(f"cases name entries the lexicon doesn't have: {', '.join(missing)}")
-    for c in cases:
-        c["split"] = _split(c["id"])
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text("".join(json.dumps(c, ensure_ascii=False) + "\n" for c in cases))
     return cases
+
+
+def shortlist_recall(index, cases: list[dict], ks: list[int]) -> dict:
+    """For each shortlist size k, the share of cases with an expected entry whose
+    shortlist holds at least one of them. A miss caps the student: it can't link an entry
+    it never sees. Also lists the missed case ids at the largest k."""
+    targets = [c for c in cases if c.get("expect_any")]
+    out: dict = {"cases": len(targets)}
+    for k in sorted(ks):
+        missed = [c["id"] for c in targets
+                  if not set(c["expect_any"]) & {e.id for e in index.select(c["text"], k)}]
+        by_kind = Counter(c["kind"] for c in targets)
+        miss_kind = Counter(c["kind"] for c in targets if c["id"] in set(missed))
+        out[f"k={k}"] = {"recall": round(1 - len(missed) / max(1, len(targets)), 3),
+                         "by_kind": {kd: f"{n - miss_kind[kd]}/{n}"
+                                     for kd, n in sorted(by_kind.items())}}
+        out["missed_at_max_k"] = missed
+    return out
 
 
 def load_cases(path: Path = CASES, split: str | None = None) -> list[dict]:
@@ -157,12 +185,7 @@ def load_cases(path: Path = CASES, split: str | None = None) -> list[dict]:
 
 # --- scoring -------------------------------------------------------------------------
 
-def _protected(text: str) -> list[str]:
-    spans = _FENCE_RE.findall(text)
-    rest = _FENCE_RE.sub(" ", text)
-    spans += _INLINE_RE.findall(rest)
-    spans += _URL_RE.findall(_INLINE_RE.sub(" ", rest))
-    return spans
+_protected = protected_spans
 
 
 def _norm(sentence: str) -> str:
@@ -263,12 +286,16 @@ def openai_complete(base_url: str, model: str, api_key: str = "",
     return complete
 
 
-def run(lex: Lexicon, cases: list[dict], complete: Complete) -> list[dict]:
+def run(lex: Lexicon, cases: list[dict], complete: Complete,
+        prompt: Callable[[str], str] | None = None) -> list[dict]:
+    """``prompt`` builds the model's prompt from an answer; the default is the production
+    prompt over the whole lexicon (``--candidates`` swaps in the dedicated model's)."""
+    prompt = prompt or lex.prompt
     results = []
     for case in cases:
         start = time.monotonic()
         try:
-            reply = complete(lex.prompt(case["text"]), SYSTEM)
+            reply = complete(prompt(case["text"]), SYSTEM)
             error = None
         except Exception as exc:  # a failed call counts as a failed case
             reply, error = "", f"{type(exc).__name__}: {exc}"
@@ -303,11 +330,23 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--split", choices=["dev", "test", "all"], default="test")
     p.add_argument("--limit", type=int, default=0)
     p.add_argument("--out", type=Path, help="write per-case results as JSONL")
+    p.add_argument("--candidates", type=int, default=0,
+                   help="offer only K candidate entries per answer (the dedicated model's "
+                        "prompt, as in training); 0 = the whole lexicon")
+    p.add_argument("--embed-model", default="",
+                   help="Ollama embedding model for --candidates, e.g. nomic-embed-text")
 
     p = sub.add_parser("score", help="score replies collected elsewhere")
     p.add_argument("--outputs", type=Path, required=True,
                    help='JSONL of {"id": case id, "reply": model reply}')
     p.add_argument("--out", type=Path)
+
+    p = sub.add_parser("recall", help="how often the shortlist holds an expected entry")
+    p.add_argument("--k", default="10,20,40,80", help="shortlist sizes, comma-separated")
+    p.add_argument("--split", choices=["dev", "test", "all"], default="all")
+    p.add_argument("--embed-model", default="",
+                   help="Ollama embedding model, e.g. nomic-embed-text (default: none)")
+    p.add_argument("--ollama", default="http://127.0.0.1:11434")
 
     p = sub.add_parser("prompt", help="print the prompt a model gets for one case")
     p.add_argument("case_id")
@@ -330,13 +369,34 @@ def main(argv: list[str] | None = None) -> int:
         print(lex.prompt(case["text"]))
         return 0
 
+    if args.cmd == "recall":
+        from .candidates import CandidateIndex, OllamaEmbedder
+
+        embed = OllamaEmbedder(args.ollama, args.embed_model) if args.embed_model else None
+        index = CandidateIndex(lex.entries, lex.matcher, embed)
+        chosen = [c for c in cases if args.split == "all" or c["split"] == args.split]
+        print(json.dumps(shortlist_recall(index, chosen,
+                                          [int(k) for k in args.k.split(",")]), indent=2))
+        return 0
+
     if args.cmd == "run":
         if not (args.base_url and args.model):
             raise SystemExit("--base-url and --model are required (or LESMOTS_API_BASE/MODEL)")
         chosen = [c for c in cases if args.split == "all" or c["split"] == args.split]
         if args.limit:
             chosen = chosen[: args.limit]
-        results = run(lex, chosen, openai_complete(args.base_url, args.model, args.api_key))
+        prompt = None
+        if args.candidates:
+            from .candidates import CandidateIndex, OllamaEmbedder
+            from .distill import student_prompt
+
+            embed = (OllamaEmbedder(args.base_url, args.embed_model)
+                     if args.embed_model else None)
+            index = CandidateIndex(lex.entries, lex.matcher, embed)
+            def prompt(text: str) -> str:
+                return student_prompt(lex, text, index.select(text, args.candidates))
+        results = run(lex, chosen, openai_complete(args.base_url, args.model, args.api_key),
+                      prompt)
     else:
         by_id = {c["id"]: c for c in cases}
         replies = [json.loads(line) for line in args.outputs.read_text().splitlines()
