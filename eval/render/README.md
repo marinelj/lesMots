@@ -31,6 +31,18 @@ A fixed test set for the model behind remote render, so Codex, a stock local mod
 
       python -m lesmots.lexrender.evaluate build
 
+- `challenge.jsonl`: 20 public edge cases kept apart from the test set, because the
+  reference models already pass almost every test case: prompt injection, other
+  languages, Markdown tables, nested lists with code, existing links, JSON-only and
+  emoji-only answers, HTML, template braces, LaTeX, shell transcripts, quotes, a long
+  answer with four openings, curly quotes. Score it with `--cases eval/render/challenge.jsonl
+  --split all`.
+
+Check that the shortlist the student model sees holds the expected entry (add
+`--embed-model nomic-embed-text` on the Mac Studio):
+
+    python -m lesmots.lexrender.evaluate recall --split test
+
 Score a model on any OpenAI-compatible endpoint, for example Ollama on the Mac Studio:
 
     python -m lesmots.lexrender.evaluate run --base-url http://127.0.0.1:11434/v1 \

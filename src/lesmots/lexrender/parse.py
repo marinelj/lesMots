@@ -72,8 +72,16 @@ def _phrase_and_aliases(heading: str) -> (str, list[str]):
         return phrase, [phrase]
     aliases: list[str] = []
     for chunk in chunks:
+        previous = ""
         for part in chunk.split(" / "):
             part = part.strip()
+            # "we are inclined toward / to": a lone word after a longer phrase swaps the
+            # phrase's last word ("we are inclined to"); it is not a phrase of its own,
+            # or every "to" in every answer would link to the entry
+            if previous and len(part.split()) == 1 and len(previous.split()) > 1:
+                part = previous.rsplit(" ", 1)[0] + " " + part
+            else:
+                previous = part
             if part and part not in aliases:
                 aliases.append(part)
     return aliases[0], aliases

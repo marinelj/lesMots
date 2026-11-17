@@ -117,3 +117,14 @@ def test_shortlist_recall_floor(lex):
     index = CandidateIndex(lex.entries, lex.matcher)
     result = evaluate.shortlist_recall(index, evaluate.load_cases(split="test"), [40])
     assert result["k=40"]["recall"] >= 0.85, result
+
+
+def test_challenge_cases_are_well_formed(lex):
+    challenge = evaluate.load_cases(evaluate.EVAL_DIR / "challenge.jsonl")
+    assert len({c["id"] for c in challenge}) == len(challenge) >= 20
+    for c in challenge:
+        assert c["split"] == "challenge"
+        assert set(c.get("expect_any", [])) <= set(lex.by_id), c["id"]
+        # returning the answer untouched never breaks code, URLs or the text checks
+        checks = evaluate.score(lex, c, c["text"])["checks"]
+        assert checks["protected"] and checks["unchanged"] and checks["markers"], c["id"]
