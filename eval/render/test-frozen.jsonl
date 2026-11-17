@@ -1,0 +1,95 @@
+{"id": "para-01", "kind": "paraphrase", "text": "If the cache is unavailable, the service uses the database instead.", "expect_any": ["fall-back-to"], "split": "test"}
+{"id": "para-05", "kind": "paraphrase", "text": "We tested the new model thoroughly on 200 real tickets before switching to it.", "expect_any": ["put-tool-model-through-its-paces"], "split": "test"}
+{"id": "para-07", "kind": "paraphrase", "text": "All files are stored on disk encrypted with AES-256.", "expect_any": ["encrypted-at-rest"], "split": "test"}
+{"id": "para-08", "kind": "paraphrase", "text": "Traffic between the app and the API uses TLS, so nobody can read it on the way.", "expect_any": ["encrypted-in-transit"], "split": "test"}
+{"id": "para-09", "kind": "paraphrase", "text": "I can't continue until you send me the Google client ID.", "expect_any": ["blocked-on-x"], "split": "test"}
+{"id": "para-12", "kind": "paraphrase", "text": "Once the PR is merged, I'll pass the remaining work to Codex.", "expect_any": ["hand-off-to"], "split": "test"}
+{"id": "para-17", "kind": "paraphrase", "text": "Let me go through the whole flow with you, from sign-in to the rendered reply.", "expect_any": ["walk-through-the-end-to-end-flow"], "split": "test"}
+{"id": "para-18", "kind": "paraphrase", "text": "Please contact the Stripe support team about the refund.", "expect_any": ["reach-out-to"], "split": "test"}
+{"id": "para-20", "kind": "paraphrase", "text": "The run isn't moving: no output for 20 minutes, and no error either.", "expect_any": ["stalled"], "split": "test"}
+{"id": "para-23", "kind": "paraphrase", "text": "Your local lexicon must always match the server's copy.", "expect_any": ["in-sync-with"], "split": "test"}
+{"id": "para-24", "kind": "paraphrase", "text": "Retries are built into the client, so callers never have to handle them.", "expect_any": ["be-baked-into"], "split": "test"}
+{"id": "para-26", "kind": "paraphrase", "text": "Calling it a total failure is too strong; it mostly worked.", "expect_any": ["i-wouldnt-go-that-far"], "split": "test"}
+{"id": "para-27", "kind": "paraphrase", "text": "The total seems correct at first glance, but it is slightly wrong.", "expect_any": ["look-right-while-being-subtly-wrong", "look-plausible", "looks-plausible"], "split": "test"}
+{"id": "para-28", "kind": "paraphrase", "text": "We'll decide the release date as things develop, without a fixed plan.", "expect_any": ["play-it-by-ear"], "split": "test"}
+{"id": "para-29", "kind": "paraphrase", "text": "The old roadmap is less important now that the training plan is in place.", "expect_any": ["take-a-backseat"], "split": "test"}
+{"id": "none-04", "kind": "open", "text": "Python 3.12 is installed on the Mac Studio.", "split": "test"}
+{"id": "none-05", "kind": "open", "text": "The repository has two branches: main and dev.", "split": "test"}
+{"id": "none-07", "kind": "open", "text": "The invoice total is $9.99 per month.", "split": "test"}
+{"id": "none-08", "kind": "none", "text": "Your account was created on November 13.", "expect_none": true, "split": "test"}
+{"id": "none-10", "kind": "open", "text": "There are 686 entries in version 14.", "split": "test"}
+{"id": "none-12", "kind": "open", "text": "The PR changes two files.", "split": "test"}
+{"id": "none-13", "kind": "none", "text": "Yes.", "expect_none": true, "split": "test"}
+{"id": "none-16", "kind": "open", "text": "The table has three columns: id, name and email.", "split": "test"}
+{"id": "none-20", "kind": "open", "text": "The weather in Shanghai is sunny today.", "split": "test"}
+{"id": "none-21", "kind": "open", "text": "The cup fell off the table and broke.", "split": "test"}
+{"id": "none-22", "kind": "open", "text": "She sat at the back of the room.", "split": "test"}
+{"id": "none-24", "kind": "open", "text": "Version 0.40.16 is the latest release.", "split": "test"}
+{"id": "none-25", "kind": "open", "text": "The price went up by 10 percent last year.", "split": "test"}
+{"id": "code-01", "kind": "protected", "text": "If the primary is down, the client switches to the replica:\n\n```python\nif not primary.ok:\n    fall_back_to(replica)\n```\n\nDocs: https://example.com/docs/fall-back-to", "split": "test"}
+{"id": "code-02", "kind": "protected", "text": "Run `tidy_up --all` before you commit, then push.", "split": "test"}
+{"id": "code-03", "kind": "protected", "text": "The helper is defined as:\n\n```js\nfunction handleTheHeavyLifting(job) {\n  return queue.push(job);\n}\n```", "split": "test"}
+{"id": "code-09", "kind": "protected", "text": "When the cache misses, the app uses the database instead:\n\n```sql\nSELECT * FROM users WHERE id = $1;\n```", "expect_any": ["fall-back-to"], "split": "test"}
+{"id": "code-11", "kind": "protected", "text": "Call `render(text, surface=\"chat\")` and read the `used` field.", "split": "test"}
+{"id": "code-12", "kind": "protected", "text": "**Note:** the token expires after 30 days. Visit https://marine-api.tunnel.tungo.cn/lesmots-app to get a new one.", "split": "test"}
+{"id": "code-13", "kind": "protected", "text": "The regex is `\\{\\{([a-z0-9-]+)\\|([^}]+)\\}\\}` and it must not change.", "split": "test"}
+{"id": "code-15", "kind": "protected", "text": "Use `ollama pull qwen2.5:7b` to download the model, which takes a few minutes.", "split": "test"}
+{"id": "syn-ablation", "kind": "synonym", "text": "The doctor used laser feature removal to remove the tumor.", "expect_any": ["ablation"], "source": "lexicon 4.287", "split": "test"}
+{"id": "syn-adapt", "kind": "synonym", "text": "Animals must adjust to survive in changing environments.", "expect_any": ["adapt"], "source": "lexicon 4.82", "split": "test"}
+{"id": "syn-affiliate", "kind": "synonym", "text": "She works for an associate of a major international bank.", "expect_any": ["affiliate"], "source": "lexicon 4.202", "split": "test"}
+{"id": "syn-allegedly", "kind": "synonym", "text": "He purportedly stole a car last night.", "expect_any": ["allegedly"], "source": "lexicon 4.276", "split": "test"}
+{"id": "syn-ambient", "kind": "synonym", "text": "The surrounding light in the room was soft and calming.", "expect_any": ["ambient"], "source": "lexicon 4.109", "split": "test"}
+{"id": "syn-aspect", "kind": "synonym", "text": "One important facet of learning English is practicing speaking regularly.", "expect_any": ["aspect"], "source": "lexicon 4.189", "split": "test"}
+{"id": "syn-authenticity", "kind": "synonym", "text": "The museum checked the genuineness of the painting before displaying it.", "expect_any": ["authenticity"], "source": "lexicon 4.323", "split": "test"}
+{"id": "syn-awareness", "kind": "synonym", "text": "Maintaining continuous spatial consciousness is essential for elite point guards.", "expect_any": ["awareness"], "source": "lexicon 4.322", "split": "test"}
+{"id": "syn-blip", "kind": "synonym", "text": "The power outage was just a glitch in the system.", "expect_any": ["blip"], "source": "lexicon 4.55", "split": "test"}
+{"id": "syn-capable", "kind": "synonym", "text": "The distributed streaming engine is competent of processing over 500,000 events per second with sub-second latencies.", "expect_any": ["capable"], "source": "lexicon 4.134", "split": "test"}
+{"id": "syn-cartesian", "kind": "synonym", "text": "The teacher explained the cross-product coordinate system using a graph on the board.", "expect_any": ["cartesian"], "source": "lexicon 4.231", "split": "test"}
+{"id": "syn-conflate", "kind": "synonym", "text": "People often confuse climate change with weather, but they are not the same thing.", "expect_any": ["conflate"], "source": "lexicon 4.73", "split": "test"}
+{"id": "syn-contamination", "kind": "synonym", "text": "The water supply was affected by pollution from a nearby factory.", "expect_any": ["contamination"], "source": "lexicon 4.249", "split": "test"}
+{"id": "syn-cradle", "kind": "synonym", "text": "She gently rocked the baby to sleep in the crib.", "expect_any": ["cradle"], "source": "lexicon 4.346", "split": "test"}
+{"id": "syn-curfew", "kind": "synonym", "text": "The municipal authorities imposed a strict midnight lockdown to restore civil order across the metropolitan district.", "expect_any": ["curfew"], "source": "lexicon 4.383", "split": "test"}
+{"id": "syn-decisive", "kind": "synonym", "text": "Her conclusive action saved the project from failure.", "expect_any": ["decisive"], "source": "lexicon 4.143", "split": "test"}
+{"id": "syn-detour", "kind": "synonym", "text": "We had to take a bypass because the main road was under construction.", "expect_any": ["detour"], "source": "lexicon 4.279", "split": "test"}
+{"id": "syn-divisor", "kind": "synonym", "text": "Six is a denominator of twelve.", "expect_any": ["divisor"], "source": "lexicon 4.68", "split": "test"}
+{"id": "syn-dormant", "kind": "synonym", "text": "The volcano has been inactive for centuries.", "expect_any": ["dormant"], "source": "lexicon 4.163", "split": "test"}
+{"id": "syn-effectiveness", "kind": "synonym", "text": "The new teaching method improved the efficacy of student learning.", "expect_any": ["effectiveness"], "source": "lexicon 4.65", "split": "test"}
+{"id": "syn-euclidean", "kind": "synonym", "text": "The students learned about geometric geometry in their math class.", "expect_any": ["euclidean"], "source": "lexicon 4.247", "split": "test"}
+{"id": "syn-feel-the-shake", "kind": "synonym", "text": "The crowd began to sense vibration as the bass dropped at the concert.", "expect_any": ["feel-the-shake"], "source": "lexicon 4.12", "split": "test"}
+{"id": "syn-finite", "kind": "synonym", "text": "The universe may be bounded in size.", "expect_any": ["finite"], "source": "lexicon 4.119", "split": "test"}
+{"id": "syn-fruitful", "kind": "synonym", "text": "Our discussion was productive, leading to a new project.", "expect_any": ["fruitful"], "source": "lexicon 4.261", "split": "test"}
+{"id": "syn-gerund", "kind": "synonym", "text": "Because 'to' in the phrase 'dedicated to' functions as a preposition, it must govern a verbal noun rather than an infinitive verb.", "expect_any": ["gerund"], "source": "lexicon 4.412", "split": "test"}
+{"id": "syn-granularity", "kind": "synonym", "text": "This report lacks the resolution needed for precise decision-making.", "expect_any": ["granularity"], "source": "lexicon 4.48", "split": "test"}
+{"id": "syn-havel", "kind": "synonym", "text": "Václav proper noun was a prominent Czech playwright and statesman.", "expect_any": ["havel"], "source": "lexicon 4.166", "split": "test"}
+{"id": "syn-inherit", "kind": "synonym", "text": "Local pipeline configurations strictly derive all compliance rules from the global corporate policy.", "expect_any": ["inherit"], "source": "lexicon 4.362", "split": "test"}
+{"id": "syn-integrity", "kind": "synonym", "text": "She refused the bribe, showing great soundness.", "expect_any": ["integrity"], "source": "lexicon 4.185", "split": "test"}
+{"id": "syn-intersect", "kind": "synonym", "text": "The two roads cross at the city center.", "expect_any": ["intersect"], "source": "lexicon 4.123", "split": "test"}
+{"id": "syn-lasso", "kind": "synonym", "text": "The cowboy threw the L1 penalty and caught the runaway calf.", "expect_any": ["lasso"], "source": "lexicon 4.17", "split": "test"}
+{"id": "syn-latest", "kind": "synonym", "text": "She bought the newest smartphone model.", "expect_any": ["latest"], "source": "lexicon 4.74", "split": "test"}
+{"id": "syn-lucrative", "kind": "synonym", "text": "She started a profitable online business selling handmade jewelry.", "expect_any": ["lucrative"], "source": "lexicon 4.156", "split": "test"}
+{"id": "syn-magenta", "kind": "synonym", "text": "The dress she wore was a bold purplish-red.", "expect_any": ["magenta"], "source": "lexicon 4.158", "split": "test"}
+{"id": "syn-marginal", "kind": "synonym", "text": "The improvement was only incremental, so we decided to try a different approach.", "expect_any": ["marginal"], "source": "lexicon 4.83", "split": "test"}
+{"id": "syn-matchup", "kind": "synonym", "text": "The basketball game tonight is an exciting pairing between the top two teams.", "expect_any": ["matchup"], "source": "lexicon 4.253", "split": "test"}
+{"id": "syn-meantime", "kind": "synonym", "text": "In the interim, let's have some tea.", "expect_any": ["meantime"], "source": "lexicon 4.313", "split": "test"}
+{"id": "syn-monetization", "kind": "synonym", "text": "By rolling out token-metered billing tiers, the platform transitioned its open-source inference engine into a profitable API revenue generation model.", "expect_any": ["monetization"], "source": "lexicon 4.381", "split": "test"}
+{"id": "syn-nuance", "kind": "synonym", "text": "She caught the subtlety in his tone and realized he wasn’t really angry—just tired.", "expect_any": ["nuance"], "source": "lexicon 4.84", "split": "test"}
+{"id": "syn-outperform", "kind": "synonym", "text": "In zero-shot code refactoring, specialized domain models often eclipse generalist LLMs while requiring lower compute latency.", "expect_any": ["outperform"], "source": "lexicon 4.365", "split": "test"}
+{"id": "syn-oversight", "kind": "synonym", "text": "The project failed due to a major supervision in the planning stage.", "expect_any": ["oversight"], "source": "lexicon 4.141", "split": "test"}
+{"id": "syn-recipient", "kind": "synonym", "text": "The beneficiary of the award was very grateful.", "expect_any": ["recipient"], "source": "lexicon 4.330", "split": "test"}
+{"id": "syn-rectified", "kind": "synonym", "text": "The error was corrected before the report was submitted.", "expect_any": ["rectified"], "source": "lexicon 4.197", "split": "test"}
+{"id": "syn-reject", "kind": "synonym", "text": "She decided to turn down the job offer because the salary was too low.", "expect_any": ["reject"], "source": "lexicon 4.306", "split": "test"}
+{"id": "syn-reproducible", "kind": "synonym", "text": "Before escalating the priority of the ticket, the QA lead verified that the memory leak was reliably replicable in isolated staging containers.", "expect_any": ["reproducible"], "source": "lexicon 4.392", "split": "test"}
+{"id": "syn-rim", "kind": "synonym", "text": "The edge of the cup was chipped.", "expect_any": ["rim"], "source": "lexicon 4.290", "split": "test"}
+{"id": "syn-scandal", "kind": "synonym", "text": "The fintech unicorn struggled to regain investor trust following an accounting controversy involving fabricated transaction volumes.", "expect_any": ["scandal"], "source": "lexicon 4.393", "split": "test"}
+{"id": "syn-separability", "kind": "synonym", "text": "The distinguishability of the software modules allows developers to update them individually.", "expect_any": ["separability"], "source": "lexicon 4.29", "split": "test"}
+{"id": "syn-serendipity", "kind": "synonym", "text": "Finding that rare book in a tiny shop was pure fluke.", "expect_any": ["serendipity"], "source": "lexicon 4.103", "split": "test"}
+{"id": "syn-splash", "kind": "synonym", "text": "She jumped into the pool with a big splatter.", "expect_any": ["splash"], "source": "lexicon 4.321", "split": "test"}
+{"id": "syn-spring", "kind": "synonym", "text": "The flowers bloom in bloom season.", "expect_any": ["spring"], "source": "lexicon 4.7", "split": "test"}
+{"id": "syn-square", "kind": "synonym", "text": "The table is a perfect quadrilateral.", "expect_any": ["square"], "source": "lexicon 4.146", "split": "test"}
+{"id": "syn-stick", "kind": "synonym", "text": "I used a adhere to point at the map.", "expect_any": ["stick"], "source": "lexicon 4.293", "split": "test"}
+{"id": "syn-stochastic", "kind": "synonym", "text": "The weather can be considered a random system, as it is influenced by many unpredictable factors.", "expect_any": ["stochastic"], "source": "lexicon 4.303", "split": "test"}
+{"id": "syn-streaky", "kind": "synonym", "text": "The steak was inconsistent with fat, making it look quite marbled.", "expect_any": ["streaky"], "source": "lexicon 4.289", "split": "test"}
+{"id": "syn-swap", "kind": "synonym", "text": "We decided to exchange our old car for a new one.", "expect_any": ["swap"], "source": "lexicon 4.307", "split": "test"}
+{"id": "syn-tangle", "kind": "synonym", "text": "Her hair was a entanglement after the windy walk.", "expect_any": ["tangle"], "source": "lexicon 4.58", "split": "test"}
+{"id": "syn-underwrite", "kind": "synonym", "text": "The bank agreed to guarantee the new startup’s loan.", "expect_any": ["underwrite"], "source": "lexicon 4.50", "split": "test"}
+{"id": "syn-verdict", "kind": "synonym", "text": "The jury's judgment was not guilty.", "expect_any": ["verdict"], "source": "lexicon 4.211", "split": "test"}

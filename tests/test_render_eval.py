@@ -22,6 +22,16 @@ def test_cases_file_matches_a_fresh_build(lex, tmp_path):
     assert {c["split"] for c in fresh} == {"dev", "test"}
 
 
+def test_test_set_is_frozen(lex, tmp_path):
+    """Rebuilding never moves a case into or out of the test set, or edits one."""
+    frozen = [c for c in evaluate.load_cases(evaluate.FROZEN_TEST)]
+    fresh = evaluate.build(lex, out=tmp_path / "cases.jsonl")
+    assert [c for c in fresh if c["split"] == "test"] == sorted(frozen, key=lambda c: c["id"])
+    assert len(frozen) == 95
+    ids = [c["id"] for c in fresh]
+    assert len(ids) == len(set(ids))
+
+
 def test_a_good_rewrite_passes(lex, cases):
     reply = ("If the cache is unavailable, the service will {{fall-back-to|fall back to}} "
              "the database.")

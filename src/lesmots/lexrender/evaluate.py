@@ -58,6 +58,7 @@ LEXICON = ROOT / "lexicon" / "lexicon.md"
 EVAL_DIR = ROOT / "eval" / "render"
 HANDWRITTEN = EVAL_DIR / "handwritten.jsonl"
 CASES = EVAL_DIR / "cases.jsonl"
+FROZEN_TEST = EVAL_DIR / "test-frozen.jsonl"  # the held-out test set, never rebuilt
 
 SYNONYM_CASES = 120  # how many synonym-swap cases ``build`` samples from the lexicon
 MAX_PHRASE_WORDS = 8  # longer headings aren't in the prompt's index (render.MAX_INDEX_WORDS)
@@ -94,11 +95,6 @@ class Lexicon:
 
 
 # --- building cases ------------------------------------------------------------------
-
-def _split(case_id: str) -> str:
-    """A stable half/half split that doesn't depend on case order."""
-    return "test" if hashlib.sha256(case_id.encode()).digest()[0] % 2 else "dev"
-
 
 def synonym_cases(lex: Lexicon, limit: int = SYNONYM_CASES) -> list[dict]:
     """Take an entry's example sentence and swap its phrase for one of its synonyms.
@@ -137,14 +133,28 @@ def synonym_cases(lex: Lexicon, limit: int = SYNONYM_CASES) -> list[dict]:
     return sorted(candidates[:limit], key=lambda c: c["id"])
 
 
-def build(lex: Lexicon, handwritten: Path = HANDWRITTEN, out: Path = CASES) -> list[dict]:
-    cases = [json.loads(line) for line in handwritten.read_text().splitlines() if line.strip()]
-    cases += synonym_cases(lex)
+def build(lex: Lexicon, handwritten: Path = HANDWRITTEN, out: Path = CASES,
+          frozen: Path = FROZEN_TEST) -> list[dict]:
+    """Write ``cases.jsonl``: the frozen test cases exactly as stored, then every other
+    hand-written and synonym case as ``dev``.
+
+    The test set is frozen so scores stay comparable across lexicon versions: rebuilding
+    synonym cases from a new lexicon used to move cases between the splits (v17 swapped
+    4). A case whose id is in the frozen set is never rebuilt, even if its source changed.
+    """
+    test = [json.loads(line) for line in frozen.read_text().splitlines() if line.strip()]
+    frozen_ids = {c["id"] for c in test}
+    dev = [json.loads(line) for line in handwritten.read_text().splitlines() if line.strip()]
+    dev += synonym_cases(lex)
+    dev = [c for c in dev if c["id"] not in frozen_ids]
+    for c in test:
+        c["split"] = "test"
+    for c in dev:
+        c["split"] = "dev"
+    cases = sorted(test + dev, key=lambda c: c["id"])
     missing = sorted({i for c in cases for i in c.get("expect_any", [])} - set(lex.by_id))
     if missing:
         raise SystemExit(f"cases name entries the lexicon doesn't have: {', '.join(missing)}")
-    for c in cases:
-        c["split"] = _split(c["id"])
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text("".join(json.dumps(c, ensure_ascii=False) + "\n" for c in cases))
     return cases

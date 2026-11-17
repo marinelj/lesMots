@@ -9,13 +9,16 @@ A fixed test set for the model behind remote render, so Codex, a stock local mod
   - `open`: plain answers; any correct use of phrases passes (aggressive policy).
   - `none`: five texts no phrase can touch without changing the facts ("Yes.").
   - `protected`: code, URLs and Markdown that must come back unchanged.
-- `cases.jsonl`: the hand-written cases plus 120 `synonym` cases built from lexicon
-  examples, each with a stable `dev` / `test` split. Rebuild it after editing the
-  hand-written cases or the lexicon:
+- `test-frozen.jsonl`: the 95 held-out `test` cases, frozen on 2026-11-17 as they were
+  when every step 2 baseline was scored. `build` copies them as they are and never
+  rebuilds them, so scores stay comparable across lexicon versions (rebuilding from v17
+  used to swap 4 synonym cases between the splits). Never use them, or their sentences,
+  as training data, and don't edit them: a new test set is a new file.
+- `cases.jsonl`: the frozen test cases plus every other hand-written case and up to 120
+  `synonym` cases built from lexicon examples, all as `dev`. Rebuild it after editing
+  the hand-written cases or the lexicon:
 
       python -m lesmots.lexrender.evaluate build
-
-  `test` cases are held out: never use them, or their sentences, as training data.
 
 Score a model on any OpenAI-compatible endpoint, for example Ollama on the Mac Studio:
 
