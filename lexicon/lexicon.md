@@ -1,7 +1,7 @@
-# Universal Lexicon & Knowledge Base for AI Agents (v14 Compilation)
+# Universal Lexicon & Knowledge Base for AI Agents (v16 Compilation)
 > **Agent Ingestion Directive**: This specification serves as the universal lexicon, terminology reference, and communication standard across all agent interactions. It encapsulates domain vocabulary, technical collocations, rhetorical sentence patterns, and system design idioms. Spaced-repetition metadata and multilingual artifacts have been completely purged to ensure zero ambiguity and maximum token efficiency. Ingest this document to align your tone, explanations, and code review feedback with these standards.
 
-## 1. High-Impact Idioms & Architecture Lexicon (71 Items)
+## 1. High-Impact Idioms & Architecture Lexicon (78 Items)
 
 ### 1.1 `in the trenches`
 * **Category**: Idiom / Engineering Culture
@@ -518,7 +518,57 @@ eq s$).
 * **Synonyms**: `win over`, `become appealing to`, `warm up to`
 * **Example**: *"I didn't appreciate the minimalist UI at first glance, but after a week of heavy use, it really grew on me."*
 
-## 2. Professional & Idiomatic Phrases (139 Items)
+### 1.72 `in your capable hands`
+* **Category**: Idiomatic Phrase / Professional Delegation & Team Trust
+* **Phonetics**: /ɪn jɔːr ˈkeɪ.pə.bəl hændz/
+* **Definition**: Entrusted fully to someone / yours to decide. An idiomatic expression conveying complete executive trust and autonomy when delegating tasks, signalling confidence in the recipient's technical judgment and execution without micromanagement.
+* **Synonyms**: `in good hands`, `under your ownership`, `entrusted to you`
+* **Example**: *"I have to step out for the architecture review, so I'll leave the benchmark run in your capable hands."*
+
+### 1.73 `leave you to it`
+* **Category**: Idiomatic Phrase / Workplace Handoff & Autonomous Focus
+* **Phonetics**: /liːv juː tuː ɪt/
+* **Definition**: I'll let you get on with it / it's in your hands now. A natural, considerate, and high-trust conversational exit phrase used when context and objectives have been transferred, stepping aside to give the team member uninterrupted focus.
+* **Synonyms**: `let you focus`, `leave you in peace`, `let you get back to it`
+* **Example**: *"All dependency credentials and API holds have been unblocked. I'll leave you to it—ping me if anything blocks the pipeline."*
+
+### 1.74 `lift a hold` / `lift the hold on [sth]`
+* **Category**: Idiomatic Collocation / Engineering Governance & Access Unblocking
+* **Phonetics**: /lɪft ə hoʊld/
+* **Definition**: Lift a control / unfreeze access / cancel a suspension. To release or revoke an administrative block, merge-freeze, or security restriction placed on a repository, compute resource, or deployment pipeline.
+* **Synonyms**: `unblock access`, `release the restriction`, `remove the freeze`
+* **Example**: *"The benchmark run requires local provisioning on the Mac Studio and a lift of your hold on the Codex API credentials."*
+
+### 1.75 `favor an ... policy` / `favor a ... strategy`
+* **Category**: Collocation / Product Strategy & Algorithmic Trade-offs
+* **Phonetics**: /ˈfeɪ.vər ən ... ˈpɒl.ə.si/
+* **Definition**: Lean toward adopting a particular strategy or policy. In architecture and product design, to deliberately choose or prioritize a specific operational rule or algorithmic trade-off (e.g. recall over precision) after weighing competing constraints.
+* **Synonyms**: `lean toward`, `opt for`, `prioritize`, `bias toward`
+* **Example**: *"Caveat: In the context of a language learning app, we favor an aggressive matching policy; ultimately, maximizing vocabulary exposure is pivotal to our product experience."*
+
+### 1.76 `torn between` vs. `on the fence`
+* **Category**: Idiomatic Expression / Decision-Making Psychology & Trade-off Framing
+* **Phonetics**: /tɔːrn bɪˈtwiːn/ vs. /ɒn ðə fens/
+* **Definition**: Torn between two options (an intense inner pull between two conflicting choices, a costly dilemma) versus on the fence (sitting neutrally, waiting for more evidence or holding back a position).
+* **Nuance**: `torn between A and B` carries intense emotional struggle and acute trade-offs where choosing either path entails sacrifice. In contrast, `on the fence (about sth)` represents objective ambivalence, neutrality, or withholding judgment pending further data or benchmarks.
+* **Synonyms**: `conflicted / agonizing over` (torn between); `undecided / uncommitted / sitting on the fence` (on the fence)
+* **Example**: *"I am really **torn between** optimizing the legacy pipeline and refactoring it from scratch, while the rest of the architecture committee is still **on the fence**."*
+
+### 1.77 `strain under` / `put a strain on [compute/memory]`
+* **Category**: Systems Reliability, Infrastructure Capacity & SRE
+* **Phonetics**: /streɪn ˈʌn.dər/ | /pʊt ə streɪn ɒn/
+* **Definition**: Buckle under heavy pressure / place a heavy burden on a system's compute or memory. The physical metaphor of a cable stretched to its tensile breaking point applied to server bottlenecks, unified memory, thermal limits, or database replication under load spikes.
+* **Synonyms**: `overburden`, `tax`, `buckle under`, `overwhelm`
+* **Example**: *"Serving multiple concurrent streaming inference requests puts a heavy **strain** on host memory, causing worker threads to **strain under** the surging peak load."*
+
+### 1.78 `flaky` / `acts flaky`
+* **Category**: Everyday Engineering Culture & Software Testing Reliability
+* **Phonetics**: /ˈfleɪ.ki/ | /ækts ˈfleɪ.ki/
+* **Definition**: Unreliable / prone to letting you down / intermittently failing (of tests or collaborators). In software testing, specifically denotes a test that exhibits both passing and failing results across multiple runs despite no changes in underlying code. Syntactically, `act` serves as a linking verb followed directly by the adjective `flaky`.
+* **Synonyms**: `intermittent`, `non-deterministic`, `unreliable`
+* **Example**: *"We must quarantine that **flaky test** immediately; when network latency spikes, the background sync worker **acts flaky** and fails intermittently."*
+
+## 2. Professional & Idiomatic Phrases (147 Items)
 
 ### 2.1 `accidental patterns`
 * **Definition**: Patterns that appear by chance, not by design or intention.
@@ -1146,7 +1196,66 @@ eq s$).
 * **Synonyms**: `strive to`, `aspire to`, `undertake to`
 * **Example**: *"The platform engineering team will endeavour to maintain strict sub-millisecond query latency throughout the migration."*
 
-## 3. Structural Framing & Sentence Patterns (45 Items)
+### 2.140 `feed into` / `be fed into`
+* **Category**: Data Engineering, ML Pipelines & Stream Architecture
+* **Phonetics**: /biː fed ˈɪn.tuː/
+* **Definition**: Feed to a model / flow into a downstream data pipeline. To stream, ingest, or pass upstream data partitions, feature sets, or prompts directly into downstream model inference engines, scoring harnesses, or data warehouse tables.
+* **Synonyms**: `ingest into`, `pipe into`, `pass to`
+* **Example**: *"Once the held-out test split is generated, it will be fed into Qwen and Llama to benchmark their performance across our private lexicon."*
+
+### 2.141 `ground truth`
+* **Category**: Machine Learning, Benchmark Harness & Reference Gold Standard
+* **Phonetics**: /ˌɡraʊnd ˈtruːθ/
+* **Definition**: Gold-standard truth / the reference answer for evaluation. The empirical reality, gold-standard reference label, or verified target answer against which model predictions and generated responses are evaluated for accuracy and format adherence.
+* **Synonyms**: `gold standard`, `reference target`, `true label`
+* **Example**: *"To ensure a rigorous benchmark, make sure the ground truth is strictly withheld from the prompt so it is not already present in the model's context window."*
+
+### 2.142 `buy less`
+* **Category**: Everyday Finance, Consumer Behavior & Sustainable Lifestyle
+* **Phonetics**: /baɪ les/
+* **Definition**: Spend less / consume in moderation / buy a little less. A conscious decision or economic philosophy prioritizing minimalism, intentional spending, and quality over quantity by curbing unnecessary purchases.
+* **Synonyms**: `cut back on spending`, `consume less`, `curb consumption`
+* **Example**: *"A core tenet of mindful financial planning is to buy less, choose well, and make what you already own last longer."*
+
+### 2.143 `a minor tweak` / `tweak`
+* **Category**: Software Engineering, Prompt Refinement & Parameter Tuning
+* **Phonetics**: /ə ˈmaɪ.nər twiːk/ | /twiːk/
+* **Definition**: Fine-tune / small adjustment. A slight, targeted adjustment or fine-tuning applied to code, prompt templates, configuration thresholds, or hyperparameters to optimize performance without overhauling the architecture.
+* **Synonyms**: `slight adjustment`, `fine-tune`, `minor modification`
+* **Example**: *"The evaluation harness looks solid overall; it just needs a minor tweak to the regex parser to handle edge-case whitespace."*
+
+### 2.144 `hand in vs. hand over`
+* **Category**: Professional Pragmatics & Custody / Ownership Transfer
+* **Phonetics**: /hænd ɪn/ vs. /hænd ˈoʊ.vər/
+* **Definition**: The semantic boundary between submitting work upward (handing in a report or assignment, `hand in / submit`) and transferring ownership or control (handing over access or keys, `hand over / transfer custody`).
+* **Nuance**: Use `hand in / turn in / submit` when delivering work upward to a superior or automated evaluation system. Use `hand over` strictly when relinquishing control, custody, or access rights to another peer or administrator.
+* **Synonyms**: `submit / turn in` (hand in); `transfer custody / relinquish control` (hand over)
+* **Example**: *"The data engineer handed in the final evaluation report after handing over the cluster administration keys to the platform lead."*
+
+### 2.145 `at risk of [gerund]`
+* **Category**: Prepositional Grammar Invariant & SRE Fault Prevention
+* **Phonetics**: /æt rɪsk əv/
+* **Definition**: Running the risk of... / liable to cause at any moment. A critical prepositional construction strictly requiring a nominalized verb complement (gerund `-ing`, e.g. *at risk of draining*), never a bare infinitive verb.
+* **Synonyms**: `in danger of [gerund]`, `jeopardizing`, `venturing on`
+* **Example**: *"The unindexed table scan saturated disk I/O, putting our primary database **at risk of draining** all connection pool buffers."*
+
+### 2.146 `the rush of traffic` vs. `traffic spikes`
+* **Category**: Network Ingestion, Distributed Systems & Telemetry Monitoring
+* **Phonetics**: /ðə rʌʃ əv ˈtræf.ɪk/ vs. /ˈtræf.ɪk spaɪks/
+* **Definition**: A surging tide of traffic (a sense of large-scale inflow) versus momentary traffic spikes (sharp pulses on a monitoring dashboard).
+* **Nuance**: *The rush of traffic* describes the sudden, overwhelming influx of incoming requests at system boundaries (e.g. during a flash sale). *Traffic spikes* refers to discrete, measurable telemetry peaks that trigger autoscaling thresholds or rate-limiting circuit breakers.
+* **Synonyms**: `traffic surge / influx of requests` (rush of traffic); `request bursts / peak spikes` (traffic spikes)
+* **Example**: *"Upstream rate limiters cushioned against sudden **traffic spikes**, allowing the API gateway to absorb **the rush of traffic** smoothly."*
+
+### 2.147 `stray` vs. `strain` vs. `tray`
+* **Category**: Semantic Discrimination, Character Hygiene & System UI
+* **Phonetics**: /streɪ/ vs. /streɪn/ vs. /treɪ/
+* **Definition**: A three-way look-alike distinction: stray elements that wander in by accident (stray, as in *stray control character*), tension and strained effort under load (strain, as in *under strain*), and a tray or hardware/system tray (tray, as in *system tray / paper tray*).
+* **Nuance**: `stray` denotes wandering, isolated, or extraneous elements that do not belong. `strain` denotes tensile stress, physical exertion, or biological variants. `tray` denotes a shallow receptacle or an OS taskbar status area.
+* **Synonyms**: `errant / extraneous` (stray); `tension / stress` (strain); `receptacle / dock area` (tray)
+* **Example**: *"While the parser strained under high load, a **stray** byte caused the background sync agent in the **system tray** to terminate unexpectedly."*
+
+## 3. Structural Framing & Sentence Patterns (51 Items)
 
 ### 3.1 `I’m not much of a ...`
 * **Function & Meaning**: A self-effacing idiom used to state that one is not particularly skilled at or suited for something.
@@ -1408,7 +1517,37 @@ eq s$).
 * **Synonyms**: `devoted to [gerund]`, `committed to [gerund]`, `striving to [verb]`
 * **Production Example**: *"Our team is dedicated to optimizing feature ingestion, and we will endeavour to deliver the updated pipeline before sprint cutoff."*
 
-## 4. Technical & Core Lexicon (416 Items)
+### 3.46 Product Strategy & Architectural Caveat Framing: `In the context of [X], we favor [Y]`
+* **Category**: System Design RFC & Algorithmic Trade-off Framing
+* **Syntactic Rule**: When stating an intentional engineering trade-off or deviation from default industry practice (such as prioritizing recall over precision in language acquisition), introduce the constraint with **`In the context of [domain/system], we favor [policy]`**, followed by an objective justification introduced by **`Ultimately, [mechanism] is pivotal to [core outcome]`**.
+* **Production Example**: *"Caveat: In the context of a language learning app, we favor an aggressive matching policy. Ultimately, maximizing vocabulary exposure is pivotal to our product experience."*
+
+### 3.47 Multi-Model Benchmark Milestone Delivery: `Can we expect [X] to be submitted once [Y] finish?`
+* **Category**: Project Delivery, Asynchronous Coordination & Model Evaluation
+* **Syntactic Rule**: Frame deliverable expectations across asynchronous dependencies using passive or action-oriented inquiry: **`Can we expect [a consolidated report] covering [entities] to be submitted / delivered once [dependencies] finish downloading / are complete?`** Avoid awkward double verbs like *download finish*.
+* **Production Example**: *"Can we expect an integrated benchmark report consisting of four local models to be submitted once the 24B and 32B model downloads finish?"*
+
+### 3.48 Psychological vs. Dynamic Inclination: `we lean toward` vs. `we are inclined toward / to`
+* **Category**: Register Calibration & Architectural Preference
+* **Syntactic Rule**: Use **`we lean toward [noun / gerund]`** for pragmatic, modern, and collaborative discussions (RFCs, code reviews, Slack) to indicate a flexible, dynamic preference open to new data. Reserve **`we are inclined to [verb]`** for formal, academic, or legal declarations conveying a settled psychological or institutional disposition.
+* **Production Example**: *"Between local 7B inference and cloud API endpoints, we lean toward running quantized models locally to minimize latency and preserve complete data privacy."*
+
+### 3.49 Systems Stress & Capacity Depletion Framing: `[System] was straining to handle [X], at risk of draining [Y]`
+* **Category**: SRE Post-Mortem, Incident Review & Capacity Planning
+* **Syntactic Rule**: When diagnosing resource exhaustion during load surges, frame the failure boundary using: **`[Component/Engine] was straining to handle / process [the rush of traffic / surging load], at risk of draining / exhausting [compute resources / memory capacity]`**. Ensure the gerund `-ing` follows `at risk of`.
+* **Production Example**: *"The inference engine was straining to process the rush of incoming requests, at risk of draining all host computational power before autoscaling kicked in."*
+
+### 3.50 Sequential Benchmark Session Disclaimer: `Because [Run] processes all cases in a single context rather than stateless calls, cross-case carry-over is possible.`
+* **Category**: AI Model Evaluation, Benchmark Rigor & Experimental Methodology
+* **Syntactic Rule**: When presenting multi-case model evaluations conducted in an unpurged conversational thread, disclose context pollution via: **`Because [the evaluation run] processes all [N] cases sequentially within a single context rather than isolated, stateless calls per case, [cross-case carry-over / context bleed] is possible. We will report both metrics side by side once the run concludes.`**
+* **Production Example**: *"Because the evaluation harness processes all 95 cases in a single context rather than fresh calls per case, some cross-case carry-over is possible. We'll present both benchmark scores side by side."*
+
+### 3.51 Syntactic Linking Invariant: `acts [Adjective]` vs. `acts [Adverbially]` (`acts flaky` in Technical Colloquialisms)
+* **Category**: Grammatical Architecture & Linking Verb Complements
+* **Syntactic Rule**: In modern technical colloquial speech, `act` frequently functions as a copular/linking verb (analogous to *seem*, *appear*, or *look*), taking an adjective complement (e.g. `acts flaky`, `acts strange`, `acts sluggish`). While the adverbial form `acts flakily` is syntactically licit, `act + adjective` is overwhelmingly preferred in engineering triage and standup communication.
+* **Production Example**: *"Whenever memory pressure reaches 90%, the worker thread acts flaky and drops heartbeat pings."*
+
+## 4. Technical & Core Lexicon (425 Items)
 
 ### 4.1 `prestige`
 * **Definition**: It means people respect and admire someone or something because it is important or successful.
@@ -3684,7 +3823,72 @@ eq s$).
 * **Synonyms**: `payout`, `disbursement`, `dividend`
 * **Example**: *"Once the tenant's rent payment has cleared, the property manager will schedule an interim owner distribution."*
 
-## 5. Architectural Case Excerpts & Data Engineering Standards (15 Items)
+### 4.417 `imbalanced`
+* **Category**: Machine Learning, Data Science & Classification Statistics
+* **Phonetics**: /ɪmˈbæl.ənst/
+* **Definition**: Unbalanced / skewed and asymmetric. Characterized by a severe disproportion in class distribution, sample sizes, or category representations (e.g. fraud detection where positive cases constitute <0.1% of all records).
+* **Synonyms**: `skewed`, `asymmetrical`, `disproportionate`
+* **Example**: *"Evaluating an imbalanced dataset requires precision-recall curves or strictly proper scoring rules rather than raw accuracy."*
+
+### 4.418 `held-out`
+* **Category**: Machine Learning, Model Evaluation & Data Partitioning
+* **Phonetics**: /ˌheʊld ˈaʊt/
+* **Definition**: Held out / sealed off independently for unbiased evaluation. Specifically designated as isolated and completely unexposed during feature selection, model training, and hyperparameter tuning to ensure an honest, unbiased assessment of generalization capability.
+* **Synonyms**: `unseen`, `out-of-sample`, `reserved`
+* **Example**: *"To guarantee zero data leakage, final accuracy scores were computed strictly on a held-out test split."*
+
+### 4.419 `pivotal`
+* **Category**: Strategic Planning, System Architecture & Metric Prioritization
+* **Phonetics**: /ˈpɪv.ə.təl/
+* **Definition**: Critical / playing a central, hinge-like role. Of crucial, vital, and decisive importance upon which the success, stability, or progression of a system or project hinges.
+* **Synonyms**: `crucial`, `central`, `critical`
+* **Example**: *"Establishing strict ground truth isolation is pivotal to preventing benchmark contamination across our evaluation harnesses."*
+
+### 4.420 `thriving vs. trivial`
+* **Category**: Semantic Discrimination & Lexical Register
+* **Phonetics**: /ˈθraɪ.vɪŋ/ vs. /ˈtrɪv.i.əl/
+* **Definition**: A two-pole semantic distinction between thriving (strongly positive, full of vitality and growth momentum) and trivial (neutral to negative, obvious or of very low engineering value).
+* **Nuance**: `thriving` originates from *thrive* (vigorous growth/prosperity, e.g. *thriving open-source ecosystem*). `trivial` stems from the Latin for 'crossroads' (commonplace/trite, e.g. *trivial baseline predicting the majority class*).
+* **Synonyms**: `flourishing / prosperous` (thriving); `negligible / insignificant` (trivial)
+* **Example**: *"While the framework enjoys a thriving developer community, defeating a trivial majority-class baseline remains the first hurdle in imbalanced evaluation."*
+
+### 4.421 `user cap`
+* **Category**: Quota Management, Rate Limiting & Resource Allocation
+* **Phonetics**: /ˈjuː.zər kæp/
+* **Definition**: Per-user quota ceiling / hard per-user cap. A strict, non-negotiable ceiling enforced on an individual account or tenant governing maximum API calls, concurrent sessions, token allowances, or storage consumption.
+* **Synonyms**: `quota ceiling`, `usage threshold`, `hard limit`
+* **Example**: *"To prevent noisy-neighbor degradation, the SaaS platform enforces a strict daily **user cap** on model token consumption."*
+
+### 4.422 `eager vs. greedy`
+* **Category**: Computer Science, Algorithmic Paradigms & Execution Policies
+* **Phonetics**: /ˈiː.ɡər/ vs. /ˈɡriː.di/
+* **Definition**: Immediate execution or eager loading (eager, whose core opposite is lazy deferral; concerned with when something happens and what triggers it) versus greedy selection (greedy, whose core opposite is the global optimum `optimal` or `non-greedy`; concerned with the local payoff and scope of each step's decision).
+* **Nuance**: *Eager* execution computes values immediately upon invocation (e.g. PyTorch eager mode vs. TensorFlow static graphs; eager ORM joins). *Greedy* algorithms make locally optimal decisions at each stage without backtracking (e.g. Dijkstra, regex greedy quantifiers, greedy token decoding).
+* **Synonyms**: `immediate / unprompted` (eager); `locally optimal / voracious` (greedy)
+* **Example**: *"In our pipeline, regex extraction employs an **eager** evaluation trigger, whereas token parsing relies on a **greedy** longest-match algorithm."*
+
+### 4.423 `computational power`
+* **Category**: Hardware Architecture, GPU Compute & Cluster Scaling
+* **Phonetics**: /ˌkɒm.pjʊˈteɪ.ʃən.əl ˈpaʊ.ər/
+* **Definition**: Compute / computing capability. The quantitative aggregate processing capability of CPUs, GPUs, TPUs, or distributed clusters to execute floating-point calculations, model training, and real-time inference.
+* **Synonyms**: `compute capacity`, `compute resources`, `processing throughput`
+* **Example**: *"Quantizing the 32B model reduces VRAM overhead, allowing our cluster to maximize inference throughput without requiring exorbitant **computational power**."*
+
+### 4.424 `carry-over` / `cross-case carry-over`
+* **Category**: Agile Planning, Time-Series Engineering & LLM Context Contamination
+* **Phonetics**: /ˈkær.iˌoʊ.vər/
+* **Definition**: Carry forward / roll over / residual state and contamination across cases. The persistence or forward-transfer of unresolved tasks (in sprints), accumulated balances (in budgeting), or residual conversational state (in sequential multi-turn LLM benchmark prompts).
+* **Synonyms**: `rollover`, `residual state`, `context contamination`, `spillover`
+* **Example**: *"Evaluating all benchmark cases within a single conversation session introduced significant **cross-case carry-over**, distorting our accuracy metrics."*
+
+### 4.425 `stray control character`
+* **Category**: Data Sanitization, Character Encoding & Tokenizer Hygiene
+* **Phonetics**: /streɪ kənˈtroʊl ˈkær.ək.tər/
+* **Definition**: Invisible control characters mixed in by accident / stray control codes. Extraneous non-printable ASCII or Unicode control bytes (e.g. `\0`, `\b`, `\x1b`, or unescaped newlines) inadvertently injected into raw text streams or JSON payloads, triggering parser crashes or tokenizer segmentation faults.
+* **Synonyms**: `unescaped control character`, `errant non-printable byte`, `extraneous control code`
+* **Example**: *"The downstream JSON deserializer threw a fatal parsing error due to a **stray control character** embedded in the scraped web text."*
+
+## 5. Architectural Case Excerpts & Data Engineering Standards (17 Items)
 
 ### 5.1 POINT-IN-TIME CORRECTNESS. Joining a fact to the version of a dimension that was true at fact time, rather than to whatever is true today.
 I encountered this in historical dimension joins and backfilled reporting. It means matching each fact to the dimension version that was valid when the fact occurred, not to the latest version.
@@ -3891,6 +4095,23 @@ When outbound message dispatch fails or is deliberately opted out:
 * The system informs the user through non-intrusive status indicators, maintaining operational continuity without degrading core functionality.
 
 Key phrases: graceful degradation | graceful fallback mechanism | dispatch payloads | opt out of sending | append-only buffer | operational continuity
+
+---
+
+### 5.16 Ground Truth Isolation in LLM Evaluation Harnesses: Preventing In-Context Benchmark Contamination
+I encountered this when designing automated evaluation pipelines for small language models (SLMs). It means that when evaluating models on a held-out benchmark split, the ground truth (reference answer) must be strictly withheld from the inference prompt context. If reference answers are inadvertently included in the prompt context window, the model engages in open-book memorization rather than true out-of-sample inference. Ground truth labels must reside exclusively within the isolated scoring script or evaluator harness to compute valid, untainted metrics.
+
+Key phrases: held-out split | ground truth isolation | in-context contamination | benchmark leakage | evaluation harness | unassisted inference
+
+### 5.17 Multi-Turn Context Contamination in LLM Benchmarks: Mitigating Sequential State Carry-Over vs. Isolated Stateless Invocations
+In automated evaluation harnesses for language models, benchmark engineers frequently face a critical trade-off between runtime execution efficiency and evaluation purity. When running comprehensive evaluation suites (e.g. 95 target cases), running all prompts sequentially through a single persistent context window drastically cuts session initialization overhead. However, this creates severe **cross-case carry-over** (also known as *context bleed* or *residual state contamination*), where the model's outputs on earlier cases prime its stylistic choices, reasoning paths, and error patterns on subsequent cases.
+
+To establish valid, reproducible benchmarks:
+1. **Stateless Default**: Production benchmarks must default to isolated, stateless invocations where each evaluation case initializes a completely pristine context window with zero historical carry-over.
+2. **Explicit Disclaimer Protocol**: If single-context sequential execution is utilized to measure multi-turn degradation or speed up evaluation passes, reports must explicitly disclose the methodology (e.g. *"Because the run processes all 95 cases sequentially within a single context rather than stateless calls, cross-case carry-over is possible"*).
+3. **Side-by-Side Validation**: Benchmark reports should publish side-by-side comparative scores contrasting single-context sequential performance against isolated stateless baselines to quantify the precise delta introduced by contextual carry-over.
+
+Key phrases: cross-case carry-over | context bleed | stateless invocation | persistent context window | benchmark purity | evaluation harness | side-by-side comparative scores
 
 ## 6. Unified Slash-Command & Knowledge Sync Protocol
 

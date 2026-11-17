@@ -73,6 +73,7 @@
 {"id": "code-13", "kind": "protected", "text": "The regex is `\\{\\{([a-z0-9-]+)\\|([^}]+)\\}\\}` and it must not change.", "split": "test"}
 {"id": "code-14", "kind": "protected", "text": "> If the run is not moving for 20 minutes, cancel it.\n\nThat was the rule we agreed on.", "expect_any": ["stalled"], "split": "dev"}
 {"id": "code-15", "kind": "protected", "text": "Use `ollama pull qwen2.5:7b` to download the model, which takes a few minutes.", "split": "test"}
+{"id": "syn-a-minor-tweak", "kind": "synonym", "text": "The evaluation harness looks solid overall; it just needs slight adjustment to the regex parser to handle edge-case whitespace.", "expect_any": ["a-minor-tweak"], "source": "lexicon 2.143", "split": "dev"}
 {"id": "syn-ablation", "kind": "synonym", "text": "The doctor used laser feature removal to remove the tumor.", "expect_any": ["ablation"], "source": "lexicon 4.287", "split": "test"}
 {"id": "syn-adapt", "kind": "synonym", "text": "Animals must adjust to survive in changing environments.", "expect_any": ["adapt"], "source": "lexicon 4.82", "split": "test"}
 {"id": "syn-affiliate", "kind": "synonym", "text": "She works for an associate of a major international bank.", "expect_any": ["affiliate"], "source": "lexicon 4.202", "split": "test"}
@@ -101,7 +102,6 @@
 {"id": "syn-correlation", "kind": "synonym", "text": "There is a strong association between smoking and lung cancer.", "expect_any": ["correlation"], "source": "lexicon 4.4", "split": "dev"}
 {"id": "syn-cortex", "kind": "synonym", "text": "The cerebral outer layer is responsible for higher brain functions like thinking and decision-making.", "expect_any": ["cortex"], "source": "lexicon 4.193", "split": "dev"}
 {"id": "syn-courageous", "kind": "synonym", "text": "She was brave to stand up for what she believed in.", "expect_any": ["courageous"], "source": "lexicon 4.277", "split": "dev"}
-{"id": "syn-cradle", "kind": "synonym", "text": "She gently rocked the baby to sleep in the crib.", "expect_any": ["cradle"], "source": "lexicon 4.346", "split": "test"}
 {"id": "syn-curfew", "kind": "synonym", "text": "The municipal authorities imposed a strict midnight lockdown to restore civil order across the metropolitan district.", "expect_any": ["curfew"], "source": "lexicon 4.383", "split": "test"}
 {"id": "syn-cutoff", "kind": "synonym", "text": "The threshold for applications is Friday at 5 p.m.", "expect_any": ["cutoff"], "source": "lexicon 4.60", "split": "dev"}
 {"id": "syn-dazzling", "kind": "synonym", "text": "Her spectacular smile lit up the whole room.", "expect_any": ["dazzling"], "source": "lexicon 4.63", "split": "dev"}
@@ -132,14 +132,15 @@
 {"id": "syn-guidance", "kind": "synonym", "text": "She gave me valuable direction on how to prepare for the interview.", "expect_any": ["guidance"], "source": "lexicon 4.21", "split": "dev"}
 {"id": "syn-hallucination", "kind": "synonym", "text": "She claimed to have seen an alien, but it was just a confabulation.", "expect_any": ["hallucination"], "source": "lexicon 4.358", "split": "dev"}
 {"id": "syn-hammock", "kind": "synonym", "text": "I relaxed in the sling under the shade of the palm tree.", "expect_any": ["hammock"], "source": "lexicon 4.124", "split": "dev"}
-{"id": "syn-harsh", "kind": "synonym", "text": "The teacher’s criticism was too severe.", "expect_any": ["harsh"], "source": "lexicon 4.77", "split": "dev"}
 {"id": "syn-havel", "kind": "synonym", "text": "Václav proper noun was a prominent Czech playwright and statesman.", "expect_any": ["havel"], "source": "lexicon 4.166", "split": "test"}
+{"id": "syn-held-out", "kind": "synonym", "text": "To guarantee zero data leakage, final accuracy scores were computed strictly on a unseen test split.", "expect_any": ["held-out"], "source": "lexicon 4.418", "split": "dev"}
 {"id": "syn-high", "kind": "synonym", "text": "The airplane flew elevated above the clouds.", "expect_any": ["high"], "source": "lexicon 4.160", "split": "dev"}
 {"id": "syn-hit", "kind": "synonym", "text": "The ingestion consumer automatically backed off once the external webhook strike its concurrency threshold.", "expect_any": ["hit"], "source": "lexicon 4.382", "split": "dev"}
 {"id": "syn-imagine", "kind": "synonym", "text": "Visualize you’re on a beach with warm sun and soft sand.", "expect_any": ["imagine"], "source": "lexicon 4.51", "split": "dev"}
+{"id": "syn-imbalanced", "kind": "synonym", "text": "Evaluating an skewed dataset requires precision-recall curves or strictly proper scoring rules rather than raw accuracy.", "expect_any": ["imbalanced"], "source": "lexicon 4.417", "split": "dev"}
 {"id": "syn-impurity", "kind": "synonym", "text": "The water sample contained a dangerous contamination.", "expect_any": ["impurity"], "source": "lexicon 4.25", "split": "dev"}
+{"id": "syn-in-your-capable-hands", "kind": "synonym", "text": "I have to step out for the architecture review, so I'll leave the benchmark run in good hands.", "expect_any": ["in-your-capable-hands"], "source": "lexicon 1.72", "split": "test"}
 {"id": "syn-ingested", "kind": "synonym", "text": "She accidentally absorbed a small piece of plastic.", "expect_any": ["ingested"], "source": "lexicon 4.180", "split": "dev"}
-{"id": "syn-inherit", "kind": "synonym", "text": "Local pipeline configurations strictly derive all compliance rules from the global corporate policy.", "expect_any": ["inherit"], "source": "lexicon 4.362", "split": "test"}
 {"id": "syn-integrate", "kind": "synonym", "text": "We plan to assimilate Grok into our agent mesh so that deep contextual reasoning is accessible across all terminal nodes.", "expect_any": ["integrate"], "source": "lexicon 4.372", "split": "dev"}
 {"id": "syn-integrity", "kind": "synonym", "text": "She refused the bribe, showing great soundness.", "expect_any": ["integrity"], "source": "lexicon 4.185", "split": "test"}
 {"id": "syn-intersect", "kind": "synonym", "text": "The two roads cross at the city center.", "expect_any": ["intersect"], "source": "lexicon 4.123", "split": "test"}
@@ -153,7 +154,6 @@
 {"id": "syn-meantime", "kind": "synonym", "text": "In the interim, let's have some tea.", "expect_any": ["meantime"], "source": "lexicon 4.313", "split": "test"}
 {"id": "syn-monetization", "kind": "synonym", "text": "By rolling out token-metered billing tiers, the platform transitioned its open-source inference engine into a profitable API revenue generation model.", "expect_any": ["monetization"], "source": "lexicon 4.381", "split": "test"}
 {"id": "syn-multicollinearity", "kind": "synonym", "text": "Example: In a house-price model, using both “square meters” and “room count” can cause collinearity because bigger houses usually have more rooms.", "expect_any": ["multicollinearity"], "source": "lexicon 4.2", "split": "dev"}
-{"id": "syn-nuance", "kind": "synonym", "text": "She caught the subtlety in his tone and realized he wasn’t really angry—just tired.", "expect_any": ["nuance"], "source": "lexicon 4.84", "split": "test"}
 {"id": "syn-outperform", "kind": "synonym", "text": "In zero-shot code refactoring, specialized domain models often eclipse generalist LLMs while requiring lower compute latency.", "expect_any": ["outperform"], "source": "lexicon 4.365", "split": "test"}
 {"id": "syn-oversight", "kind": "synonym", "text": "The project failed due to a major supervision in the planning stage.", "expect_any": ["oversight"], "source": "lexicon 4.141", "split": "test"}
 {"id": "syn-parenthesis", "kind": "synonym", "text": "She added a comment in bracket: “(I’ll call you tomorrow).", "expect_any": ["parenthesis"], "source": "lexicon 4.144", "split": "dev"}
@@ -172,7 +172,6 @@
 {"id": "syn-rim", "kind": "synonym", "text": "The edge of the cup was chipped.", "expect_any": ["rim"], "source": "lexicon 4.290", "split": "test"}
 {"id": "syn-scandal", "kind": "synonym", "text": "The fintech unicorn struggled to regain investor trust following an accounting controversy involving fabricated transaction volumes.", "expect_any": ["scandal"], "source": "lexicon 4.393", "split": "test"}
 {"id": "syn-scrutiny", "kind": "synonym", "text": "The new policy is under close inspection by the media.", "expect_any": ["scrutiny"], "source": "lexicon 4.24", "split": "dev"}
-{"id": "syn-separability", "kind": "synonym", "text": "The distinguishability of the software modules allows developers to update them individually.", "expect_any": ["separability"], "source": "lexicon 4.29", "split": "test"}
 {"id": "syn-serendipity", "kind": "synonym", "text": "Finding that rare book in a tiny shop was pure fluke.", "expect_any": ["serendipity"], "source": "lexicon 4.103", "split": "test"}
 {"id": "syn-splash", "kind": "synonym", "text": "She jumped into the pool with a big splatter.", "expect_any": ["splash"], "source": "lexicon 4.321", "split": "test"}
 {"id": "syn-spring", "kind": "synonym", "text": "The flowers bloom in bloom season.", "expect_any": ["spring"], "source": "lexicon 4.7", "split": "test"}
@@ -180,6 +179,7 @@
 {"id": "syn-stem", "kind": "synonym", "text": "The rose has a long, thorny originate.", "expect_any": ["stem"], "source": "lexicon 4.186", "split": "dev"}
 {"id": "syn-stick", "kind": "synonym", "text": "I used a adhere to point at the map.", "expect_any": ["stick"], "source": "lexicon 4.293", "split": "test"}
 {"id": "syn-stochastic", "kind": "synonym", "text": "The weather can be considered a random system, as it is influenced by many unpredictable factors.", "expect_any": ["stochastic"], "source": "lexicon 4.303", "split": "test"}
+{"id": "syn-stray-2", "kind": "synonym", "text": "A wander comma in the JSON payload caused the downstream deserializer to crash during staging verification.", "expect_any": ["stray-2"], "source": "lexicon 4.301", "split": "dev"}
 {"id": "syn-streaky", "kind": "synonym", "text": "The steak was inconsistent with fat, making it look quite marbled.", "expect_any": ["streaky"], "source": "lexicon 4.289", "split": "test"}
 {"id": "syn-swap", "kind": "synonym", "text": "We decided to exchange our old car for a new one.", "expect_any": ["swap"], "source": "lexicon 4.307", "split": "test"}
 {"id": "syn-tangle", "kind": "synonym", "text": "Her hair was a entanglement after the windy walk.", "expect_any": ["tangle"], "source": "lexicon 4.58", "split": "test"}
