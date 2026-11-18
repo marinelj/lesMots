@@ -178,3 +178,35 @@ def test_batches_stay_under_the_byte_limit():
     assert len(batches) > 1 and sum(len(b) for b in batches) == 10
     assert all(len(distill.rewrite_prompt(lex, b).encode()) <= whole // 3 for b in batches)
     assert distill._batches(lex, items, 10, 0) == [items]
+
+
+def test_rewrite_runs_batches_in_parallel_and_resumes(lex, index, tmp_path):
+    import threading
+    import time
+
+    sources = [{"id": f"s{i:03d}", "batch": 0, "target": None,
+                "text": f"Answer number {i} uses the database instead."} for i in range(25)]
+    (tmp_path / "sources.jsonl").write_text("".join(json.dumps(s) + "\n" for s in sources))
+    active = peak = 0
+    lock = threading.Lock()
+
+    def slow(i):
+        return f"Answer number {int(i[1:])} uses the database instead."
+
+    base = fake_teacher(None, slow)
+
+    def teacher(prompt, system):
+        nonlocal active, peak
+        with lock:
+            active += 1
+            peak = max(peak, active)
+        time.sleep(0.05)
+        with lock:
+            active -= 1
+        return base(prompt, system)
+
+    assert distill.rewrite(lex, index, teacher, tmp_path, limit=10, workers=3) == 10
+    assert distill.rewrite(lex, index, teacher, tmp_path, workers=3) == 15  # skips done
+    assert peak >= 2
+    ids = [r["id"] for r in distill._read(tmp_path / "rewrites.jsonl")]
+    assert sorted(ids) == [s["id"] for s in sources]
