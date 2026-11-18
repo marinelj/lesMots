@@ -654,3 +654,19 @@ def test_single_everyday_words_are_never_linked():
     found = {x.entry_id for x in m.find("Let me have a go: we make the most of a capable GPU.")}
     assert found == {"make-the-most-of", "capable"}
     assert is_common("have") and not is_common("make the most of")
+
+
+def test_matcher_accepts_teacher_forms_from_the_grok_pilot():
+    """Forms Grok used in the pilot that are correct English for the entry."""
+    from lesmots.lexrender.evaluate import Lexicon
+    lex = Lexicon.load()
+    ok = [("pull-it-off", "pulled off"), ("pull-it-off", "pulled the launch off"),
+          ("incur-overhead", "incurring overhead"), ("scenario", "scenarios"),
+          ("seeing-firsthand", "seeing it firsthand"), ("edge-cases-2", "edge case"),
+          ("favor-an-policy", "favor the second policy"),
+          ("hand-off-to", "hand off responsibility and the file to")]
+    for eid, words in ok:
+        assert lex.is_phrase(eid, words), (eid, words)
+    # still not loose enough to link everyday words or stray text
+    assert not lex.is_phrase("favor-an-policy", "favor policy")
+    assert not lex.matcher.find("Take it.")

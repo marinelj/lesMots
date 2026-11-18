@@ -83,8 +83,8 @@ def test_pipeline_keeps_good_rewrites_and_rejects_bad_ones(lex, index, tmp_path)
 
 @pytest.mark.parametrize(("reply", "why"), [
     ("", "empty"),
-    ("If the cache is down, we {{degrade-gracefully|fall back to}} the database.",
-     "bad marker degrade-gracefully|fall back to"),
+    ("If the cache is down, we {{degrade-gracefully|use}} the database instead.",
+     "bad marker degrade-gracefully|use"),
     ("If the cache is down, we use the database instead.", "no phrase used"),
     ("The cache is down. We {{fall-back-to|fall back to}} the database.",
      "unmarked sentence changed"),
@@ -94,6 +94,15 @@ def test_check_rejects(lex, reply, why):
               "target": "fall-back-to"}
     row = {"rewrite": reply, "candidates": ["fall-back-to", "degrade-gracefully"]}
     assert distill.check(lex, source, row) == (False, why)
+
+
+def test_check_repairs_a_wrong_id_when_the_words_are_an_offered_phrase(lex):
+    source = {"text": "If the cache is down, we use the database instead.",
+              "target": "fall-back-to"}
+    row = {"rewrite": "If the cache is down, we {{degrade-gracefully|fall back to}} the database.",
+           "candidates": ["fall-back-to", "degrade-gracefully"]}
+    assert distill.check(lex, source, row) == (True, "")
+    assert "{{fall-back-to|fall back to}}" in distill._clean_reply(lex, row)
 
 
 def test_teacher_failures_stop_with_retry_later(lex, tmp_path):
