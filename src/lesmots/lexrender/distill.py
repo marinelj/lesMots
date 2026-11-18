@@ -243,33 +243,59 @@ def _batches(lex: Lexicon, items: list[tuple[dict, list]], size: int,
 
 
 def rewrite(lex: Lexicon, index: CandidateIndex, teacher: Teacher, out: Path,
-            limit: int = 0, k: int = DEFAULT_K, max_bytes: int = 0) -> int:
-    """Rewrite sources that have no rewrite yet. Returns how many were rewritten."""
+            limit: int = 0, k: int = DEFAULT_K, max_bytes: int = 0, workers: int = 1) -> int:
+    """Rewrite sources that have no rewrite yet. Returns how many were rewritten.
+
+    ``workers`` teacher calls run at once (the grokbot gateway has 3 Grok workers).
+    Results are appended as each call finishes, so a restart skips what is done.
+    """
+    from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
+
     path = out / "rewrites.jsonl"
     done = {r["id"] for r in _read(path)}
     todo = [s for s in _read(out / "sources.jsonl") if s["text"] and s["id"] not in done]
     if limit:
         todo = todo[:limit]
-    written = failures = 0
     items = [(s, candidates_for(index, lex, s, k)) for s in todo]
-    for batch in _batches(lex, items, BATCH, max_bytes):
-        try:
-            reply = _parse_json(teacher(rewrite_prompt(lex, batch), REWRITE_SYSTEM))
-            failures = 0
-        except Exception as exc:
-            failures += 1
-            print(f"rewrite batch at {batch[0][0]['id']}: {type(exc).__name__}: {exc}",
-                  file=sys.stderr)
-            if failures >= MAX_FAILURES:
-                raise SystemExit(EXIT_RETRY_LATER) from exc
-            continue
-        rows = []
-        for source, cands in batch:
-            text = reply.get(source["id"]) if isinstance(reply, dict) else None
-            rows.append({"id": source["id"], "rewrite": text if isinstance(text, str) else "",
-                         "candidates": [e.id for e in cands]})
-        _append(path, rows)
-        written += len(rows)
+    batches = iter(_batches(lex, items, BATCH, max_bytes))
+    written = failures = 0
+
+    def call(batch):
+        return _parse_json(teacher(rewrite_prompt(lex, batch), REWRITE_SYSTEM))
+
+    with ThreadPoolExecutor(max_workers=max(1, workers)) as pool:
+        running = {}
+        for batch in batches:
+            running[pool.submit(call, batch)] = batch
+            if len(running) >= max(1, workers):
+                break
+        while running:
+            finished, _ = wait(running, return_when=FIRST_COMPLETED)
+            for future in finished:
+                batch = running.pop(future)
+                try:
+                    reply = future.result()
+                    failures = 0
+                except Exception as exc:
+                    failures += 1
+                    print(f"rewrite batch at {batch[0][0]['id']}: {type(exc).__name__}: "
+                          f"{exc}", file=sys.stderr)
+                    if failures >= MAX_FAILURES:
+                        for f in running:
+                            f.cancel()
+                        raise SystemExit(EXIT_RETRY_LATER) from exc
+                else:
+                    rows = []
+                    for source, cands in batch:
+                        text = reply.get(source["id"]) if isinstance(reply, dict) else None
+                        rows.append({"id": source["id"],
+                                     "rewrite": text if isinstance(text, str) else "",
+                                     "candidates": [e.id for e in cands]})
+                    _append(path, rows)
+                    written += len(rows)
+                nxt = next(batches, None)
+                if nxt is not None:
+                    running[pool.submit(call, nxt)] = nxt
     return written
 
 
@@ -432,6 +458,7 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--batches", type=int, default=10)
     p = sub.add_parser("rewrite", help="stage 2: rewrite source answers")
     p.add_argument("--limit", type=int, default=0)
+    p.add_argument("--workers", type=int, default=1, help="teacher calls at once")
     p = sub.add_parser("run", help="stages 1 and 2 in turn until --target sources exist")
     p.add_argument("--target", type=int, default=3000)
     sub.add_parser("export", help="stage 3: check rewrites, write train/valid JSONL")
@@ -457,7 +484,7 @@ def main(argv: list[str] | None = None) -> int:
         print(f"kept {seed(lex, teacher, args.out, args.batches, guard)} answers")
     elif args.cmd == "rewrite":
         count = rewrite(lex, index, teacher, args.out, args.limit, args.k,
-                        args.max_prompt_bytes)
+                        args.max_prompt_bytes, args.workers)
         print(f"rewrote {count}")
     else:
         idle = 0
