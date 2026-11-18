@@ -189,7 +189,11 @@ def candidates_for(index: CandidateIndex, lex: Lexicon, source: dict, k: int) ->
     chosen = index.select(source["text"], k)
     target = source.get("target")
     if target and target in lex.by_id and all(e.id != target for e in chosen):
-        chosen = [*chosen[: k - 1], lex.by_id[target]]
+        # put the target at a random (but repeatable) position: always appending it would
+        # teach the student "the answer is often last", which never holds in production
+        chosen = list(chosen[: k - 1])
+        pos = random.Random(source.get("id") or source["text"]).randrange(len(chosen) + 1)
+        chosen.insert(pos, lex.by_id[target])
     return chosen
 
 

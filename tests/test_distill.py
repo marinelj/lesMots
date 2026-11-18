@@ -219,3 +219,16 @@ def test_rewrite_runs_batches_in_parallel_and_resumes(lex, index, tmp_path):
     assert peak >= 2
     ids = [r["id"] for r in distill._read(tmp_path / "rewrites.jsonl")]
     assert sorted(ids) == [s["id"] for s in sources]
+
+
+def test_injected_target_is_not_always_last(lex, index):
+    """A target the shortlist missed goes in at a random, repeatable position."""
+    positions = set()
+    for i in range(12):
+        source = {"id": f"s{i:04d}", "target": "fall-back-to",
+                  "text": "The weather was pleasant and the tea was warm."}
+        cands = [e.id for e in distill.candidates_for(index, lex, source, 20)]
+        assert len(cands) == 20 and cands.count("fall-back-to") == 1
+        assert cands == [e.id for e in distill.candidates_for(index, lex, source, 20)]
+        positions.add(cands.index("fall-back-to"))
+    assert len(positions) > 3
