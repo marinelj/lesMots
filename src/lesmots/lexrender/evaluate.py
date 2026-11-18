@@ -49,7 +49,7 @@ from collections.abc import Callable, Iterable
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from .forms import Matcher
+from .forms import Matcher, is_common
 from .parse import ParsedEntry, parse_lexicon
 from .render import MARKER, SYSTEM, _prompt, protected_spans
 
@@ -100,7 +100,7 @@ def synonym_cases(lex: Lexicon, limit: int = SYNONYM_CASES) -> list[dict]:
     """
     candidates: list[dict] = []
     for e in lex.entries:
-        if not e.synonyms or len(e.phrase.split()) > MAX_PHRASE_WORDS:
+        if not e.synonyms or len(e.phrase.split()) > MAX_PHRASE_WORDS or is_common(e.phrase):
             continue
         m = _EXAMPLE_RE.search(e.body)
         if not m:
@@ -196,10 +196,20 @@ def _sentences(text: str) -> list[str]:
     return [s for s in (_norm(p) for p in _SENTENCE_SPLIT.split(text)) if s]
 
 
+def drop_common_markers(lex: Lexicon, reply: str) -> str:
+    """Unwrap markers on entries that are single everyday words ("have", "swap"). They
+    are never linked (``forms.COMMON_WORDS``), so live renders drop them silently; the
+    scorer does the same, and training targets never contain them."""
+    def unwrap(m: re.Match) -> str:
+        entry = lex.by_id.get(m.group(1))
+        return m.group(2) if entry is not None and is_common(entry.phrase) else m.group(0)
+    return MARKER.sub(unwrap, reply)
+
+
 def score(lex: Lexicon, case: dict, reply: str) -> dict:
     """Check one model reply against its case. Returns the checks and ``passed``."""
     text = case["text"]
-    reply = (reply or "").strip()
+    reply = drop_common_markers(lex, (reply or "").strip())
     plain = MARKER.sub(lambda m: m.group(2), reply)
     markers = MARKER.findall(reply)
     used = [eid for eid, words in markers if eid in lex.by_id and lex.is_phrase(eid, words)]

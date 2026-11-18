@@ -15,7 +15,7 @@ import re
 import secrets
 from collections.abc import Callable
 
-from .forms import Match, Matcher
+from .forms import Match, Matcher, is_common
 from .store import Entry, Store
 
 # (prompt, system, max_tokens) -> reply text. Defaults to lesmots.llm, which reads
@@ -74,7 +74,7 @@ def _default_complete(prompt: str, system: str, max_tokens: int) -> str:
 
 def _prompt(text: str, entries: list[Entry], synonym_hits: list[Match]) -> str:
     index = "\n".join(f"{e.id} | {e.phrase}" for e in entries
-                      if len(e.phrase.split()) <= MAX_INDEX_WORDS)
+                      if len(e.phrase.split()) <= MAX_INDEX_WORDS and not is_common(e.phrase))
     lines = [
         ("Rewrite the ANSWER below so it uses as many phrases from the LEXICON as fit. "
         "The reader is learning these phrases, so whenever one can replace the wording "

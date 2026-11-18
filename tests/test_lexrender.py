@@ -644,3 +644,13 @@ def test_a_lone_word_after_a_slash_swaps_the_last_word():
     assert aliases == ["we lean toward", "we are inclined toward", "we are inclined to"]
     _, aliases = _phrase_and_aliases("`well-worn / well-trodden`")
     assert aliases == ["well-worn", "well-trodden"]
+
+
+def test_single_everyday_words_are_never_linked():
+    from lesmots.lexrender.forms import Matcher, is_common
+
+    m = Matcher([("make", ["make", "have", "let"]), ("make-the-most-of", ["make the most of"]),
+                 ("capable", ["capable"])])
+    found = {x.entry_id for x in m.find("Let me have a go: we make the most of a capable GPU.")}
+    assert found == {"make-the-most-of", "capable"}
+    assert is_common("have") and not is_common("make the most of")

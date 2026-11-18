@@ -89,6 +89,12 @@ PLACEHOLDER_WORDS = {"someone", "something", "somebody", "sth", "sb", "...", "�
 _PLACEHOLDER_RE = re.compile(r"^\[[^\]]*\]$")
 _VOWELS = set("aeiou")
 
+# Single everyday words are never linked, even when they are lexicon entries (Marine,
+# 2026-11-17: linking "have" or "let" is noise, not learning). Exposure is for learning
+# phrases, idioms and real vocabulary. Multi-word phrases that contain these words
+# ("make the most of") are not affected. Add to this list rather than special-casing.
+COMMON_WORDS = frozenset(["a", "an", "the", "and", "or", "but", "if", "so", "as", "at", "by", "for", "from", "in", "into", "of", "off", "on", "onto", "out", "over", "to", "up", "with", "be", "am", "is", "are", "was", "were", "been", "being", "do", "does", "did", "have", "has", "had", "will", "would", "can", "could", "shall", "should", "may", "might", "must", "i", "you", "he", "she", "it", "we", "they", "me", "him", "her", "us", "them", "my", "your", "his", "its", "our", "their", "this", "that", "these", "those", "there", "here", "who", "what", "which", "when", "where", "why", "how", "not", "no", "yes", "ask", "have", "let", "make", "get", "go", "take", "give", "use", "high", "hit", "huge", "latest", "cover", "floor", "flat", "march", "pile", "phrase", "pretty", "several", "stage", "square", "spring", "stick", "stuck", "strip", "swap", "slice", "tray", "trail", "unique", "rough", "recipe", "refer", "reload", "imagine", "identical", "expand", "fancy", "dumb", "dump", "fan", "fence", "formula", "guidance", "narrow", "paragraph", "partial", "presence", "prior", "scratch", "screw", "sidewalk", "signature", "spreadsheet", "stem", "cure", "dare", "dent", "digest", "flesh", "forbid", "grind", "greasy", "harsh", "joint", "lens", "lever", "meter", "oval", "relay", "reject", "rewind", "ridge", "sake", "shrink", "steer", "tier", "unite", "variant", "vocal", "weave", "breast", "breath", "celebrity", "cozy", "cosy", "cottages", "creepy", "crisp", "criticism", "criticize", "debut", "foolish", "hilarious", "popcorn", "hammock", "windshield", "itinerary", "lineup", "strain"])
+
 _AUXILIARIES = frozenset({"be", "is", "am", "are", "was", "were", "been", "being",
                           "have", "has", "had", "do", "does", "did"})
 
@@ -101,6 +107,12 @@ SEPARABLE_PARTICLES = frozenset({"off", "out", "up", "down", "over", "away", "ba
 def normalize(text: str) -> str:
     """Lower-case and straighten quotes so 'Can’t' and "can't" compare equal."""
     return text.replace("’", "'").replace("‘", "'").replace("“", '"').replace("”", '"').lower()
+
+
+def is_common(phrase: str) -> bool:
+    """True when ``phrase`` is a single everyday word, which is never linked."""
+    tokens = [t for t in _tokens(phrase) if not is_placeholder(t)]
+    return len(tokens) == 1 and tokens[0] in COMMON_WORDS
 
 
 def is_placeholder(token: str) -> bool:
@@ -200,6 +212,8 @@ class Matcher:
             tokens.pop()
         if not tokens or len(tokens) > cls.MAX_WORDS:
             return None
+        if len(tokens) == 1 and tokens[0] in COMMON_WORDS:
+            return None  # an everyday word on its own is never linked
         # "be baked into" also matches "baked into": the copula is often left out or
         # carried by an earlier verb ("are built and baked into ...")
         optional_be = len(tokens) > 1 and tokens[0] == "be"

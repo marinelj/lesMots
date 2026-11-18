@@ -31,7 +31,7 @@ from collections.abc import Callable, Sequence
 from pathlib import Path
 from typing import Protocol
 
-from .forms import Matcher
+from .forms import Matcher, is_common
 
 DEFAULT_K = 40
 FILLERS = 5  # distractors per list
@@ -108,7 +108,8 @@ class CandidateIndex:
 
     def __init__(self, entries: Sequence[EntryLike], matcher: Matcher,
                  embed: Embed | None = None):
-        self.entries = [e for e in entries if len(e.phrase.split()) <= MAX_PHRASE_WORDS]
+        self.entries = [e for e in entries
+                        if len(e.phrase.split()) <= MAX_PHRASE_WORDS and not is_common(e.phrase)]
         self.matcher = matcher
         self.embed = embed
         self._vectors: list[list[float]] = []

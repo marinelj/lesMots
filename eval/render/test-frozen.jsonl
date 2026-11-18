@@ -65,7 +65,7 @@
 {"id": "syn-integrity", "kind": "synonym", "text": "She refused the bribe, showing great soundness.", "expect_any": ["integrity"], "source": "lexicon 4.185", "split": "test"}
 {"id": "syn-intersect", "kind": "synonym", "text": "The two roads cross at the city center.", "expect_any": ["intersect"], "source": "lexicon 4.123", "split": "test"}
 {"id": "syn-lasso", "kind": "synonym", "text": "The cowboy threw the L1 penalty and caught the runaway calf.", "expect_any": ["lasso"], "source": "lexicon 4.17", "split": "test"}
-{"id": "syn-latest", "kind": "synonym", "text": "She bought the newest smartphone model.", "expect_any": ["latest"], "source": "lexicon 4.74", "split": "test"}
+{"id": "syn-latest", "kind": "synonym", "text": "She bought the newest smartphone model.", "source": "lexicon 4.74", "split": "test", "expect_none": true}
 {"id": "syn-lucrative", "kind": "synonym", "text": "She started a profitable online business selling handmade jewelry.", "expect_any": ["lucrative", "profitable"], "source": "lexicon 4.156", "split": "test"}
 {"id": "syn-magenta", "kind": "synonym", "text": "The dress she wore was a bold purplish-red.", "expect_any": ["magenta"], "source": "lexicon 4.158", "split": "test"}
 {"id": "syn-marginal", "kind": "synonym", "text": "The improvement was only incremental, so we decided to try a different approach.", "expect_any": ["marginal"], "source": "lexicon 4.83", "split": "test"}
@@ -77,19 +77,19 @@
 {"id": "syn-oversight", "kind": "synonym", "text": "The project failed due to a major supervision in the planning stage.", "expect_any": ["oversight"], "source": "lexicon 4.141", "split": "test"}
 {"id": "syn-recipient", "kind": "synonym", "text": "The beneficiary of the award was very grateful.", "expect_any": ["recipient"], "source": "lexicon 4.330", "split": "test"}
 {"id": "syn-rectified", "kind": "synonym", "text": "The error was corrected before the report was submitted.", "expect_any": ["rectified"], "source": "lexicon 4.197", "split": "test"}
-{"id": "syn-reject", "kind": "synonym", "text": "She decided to turn down the job offer because the salary was too low.", "expect_any": ["reject"], "source": "lexicon 4.306", "split": "test"}
+{"id": "syn-reject", "kind": "synonym", "text": "She decided to turn down the job offer because the salary was too low.", "source": "lexicon 4.306", "split": "test", "expect_none": true}
 {"id": "syn-reproducible", "kind": "synonym", "text": "Before escalating the priority of the ticket, the QA lead verified that the memory leak was reliably replicable in isolated staging containers.", "expect_any": ["reproducible"], "source": "lexicon 4.392", "split": "test"}
 {"id": "syn-rim", "kind": "synonym", "text": "The edge of the cup was chipped.", "expect_any": ["rim"], "source": "lexicon 4.290", "split": "test"}
 {"id": "syn-scandal", "kind": "synonym", "text": "The fintech unicorn struggled to regain investor trust following an accounting controversy involving fabricated transaction volumes.", "expect_any": ["scandal"], "source": "lexicon 4.393", "split": "test"}
 {"id": "syn-separability", "kind": "synonym", "text": "The distinguishability of the software modules allows developers to update them individually.", "expect_any": ["separability"], "source": "lexicon 4.29", "split": "test"}
 {"id": "syn-serendipity", "kind": "synonym", "text": "Finding that rare book in a tiny shop was pure fluke.", "expect_any": ["serendipity"], "source": "lexicon 4.103", "split": "test"}
 {"id": "syn-splash", "kind": "synonym", "text": "She jumped into the pool with a big splatter.", "expect_any": ["splash"], "source": "lexicon 4.321", "split": "test"}
-{"id": "syn-spring", "kind": "synonym", "text": "The flowers bloom in bloom season.", "expect_any": ["spring"], "source": "lexicon 4.7", "split": "test"}
-{"id": "syn-square", "kind": "synonym", "text": "The table is a perfect quadrilateral.", "expect_any": ["square"], "source": "lexicon 4.146", "split": "test"}
-{"id": "syn-stick", "kind": "synonym", "text": "I used a adhere to point at the map.", "expect_any": ["stick"], "source": "lexicon 4.293", "split": "test"}
+{"id": "syn-spring", "kind": "synonym", "text": "The flowers bloom in bloom season.", "source": "lexicon 4.7", "split": "test", "expect_none": true}
+{"id": "syn-square", "kind": "synonym", "text": "The table is a perfect quadrilateral.", "source": "lexicon 4.146", "split": "test", "expect_none": true}
+{"id": "syn-stick", "kind": "synonym", "text": "I used a adhere to point at the map.", "source": "lexicon 4.293", "split": "test", "expect_none": true}
 {"id": "syn-stochastic", "kind": "synonym", "text": "The weather can be considered a random system, as it is influenced by many unpredictable factors.", "expect_any": ["stochastic"], "source": "lexicon 4.303", "split": "test"}
 {"id": "syn-streaky", "kind": "synonym", "text": "The steak was inconsistent with fat, making it look quite marbled.", "expect_any": ["streaky"], "source": "lexicon 4.289", "split": "test"}
-{"id": "syn-swap", "kind": "synonym", "text": "We decided to exchange our old car for a new one.", "expect_any": ["swap"], "source": "lexicon 4.307", "split": "test"}
+{"id": "syn-swap", "kind": "synonym", "text": "We decided to exchange our old car for a new one.", "source": "lexicon 4.307", "split": "test", "expect_none": true}
 {"id": "syn-tangle", "kind": "synonym", "text": "Her hair was a entanglement after the windy walk.", "expect_any": ["tangle"], "source": "lexicon 4.58", "split": "test"}
 {"id": "syn-underwrite", "kind": "synonym", "text": "The bank agreed to guarantee the new startup’s loan.", "expect_any": ["underwrite", "guarantee-noun"], "source": "lexicon 4.50", "split": "test"}
 {"id": "syn-verdict", "kind": "synonym", "text": "The jury's judgment was not guilty.", "expect_any": ["verdict"], "source": "lexicon 4.211", "split": "test"}

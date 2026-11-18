@@ -47,6 +47,7 @@ from .evaluate import (
     Lexicon,
     _protected,
     _sentences,
+    drop_common_markers,
     load_cases,
     openai_complete,
 )
@@ -204,7 +205,9 @@ def rewrite_prompt(lex: Lexicon, items: list[tuple[dict, list]]) -> str:
         ("Rewrite each ANSWER below with the reader's lexicon, following these rules. The "
         "reader is learning these phrases, so use as many from that answer's LEXICON as "
         "fit: whenever one can replace the wording grammatically and keep the meaning, use "
-        "it. Never use one that changes the meaning or the facts. Inflect phrases to fit "
+        "it. Most answers have at least one phrase that fits, often several: look for each one "
+        "before deciding an answer has none. Never use one that changes the meaning or the "
+        "facts. Inflect phrases to fit "
         "(\"fall back to\" may become \"fell back to\"). Mark every phrase you used as "
         "{{entry-id|the words as they appear}}, where the marked words are the phrase "
         "itself; rewrite the sentence around the phrase rather than marking the original "
@@ -273,7 +276,8 @@ def rewrite(lex: Lexicon, index: CandidateIndex, teacher: Teacher, out: Path,
 # --- stage 3: check and export -------------------------------------------------------
 
 def check(lex: Lexicon, source: dict, rewrite_row: dict) -> tuple[bool, str]:
-    text, reply = source["text"], (rewrite_row.get("rewrite") or "").strip()
+    text = source["text"]
+    reply = drop_common_markers(lex, (rewrite_row.get("rewrite") or "").strip())
     if not reply:
         return False, "empty"
     offered = set(rewrite_row["candidates"])
@@ -311,7 +315,8 @@ def export(lex: Lexicon, out: Path) -> dict:
         example = {"messages": [
             {"role": "system", "content": SYSTEM},
             {"role": "user", "content": student_prompt(lex, source["text"], cands)},
-            {"role": "assistant", "content": row["rewrite"].strip()},
+            {"role": "assistant",
+             "content": drop_common_markers(lex, row["rewrite"].strip())},
         ]}
         bucket = hashlib.sha256(row["id"].encode()).digest()[0] / 256
         (valid if bucket < VALID_SHARE else train).append(example)
