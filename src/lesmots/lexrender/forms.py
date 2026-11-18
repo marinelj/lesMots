@@ -167,9 +167,10 @@ def _ends_consonant_vowel_consonant(word: str) -> bool:
             and word[-2] in _VOWELS and word[-3] not in _VOWELS)
 
 
-def _number_forms(word: str) -> set[str]:
-    """A plural last noun also matches its singular: "edge cases" matches "edge case"."""
-    if not word.isalpha() or len(word) < 4 or word in COMMON_WORDS:
+def _number_forms(word: str, plural: bool = False) -> set[str]:
+    """A plural last noun also matches its singular: "edge cases" matches "edge case".
+    With ``plural``, a singular one also matches its plural: "partition keys"."""
+    if not word.isalpha() or len(word) < 3 or word in COMMON_WORDS:
         return {word}
     if word.endswith("ies"):
         return {word, word[:-3] + "y"}
@@ -177,8 +178,21 @@ def _number_forms(word: str) -> set[str]:
         return {word, word[:-2]}
     if word.endswith("s") and not word.endswith(("ss", "us", "is")):
         return {word, word[:-1]}
-    # singular stays singular: adding -s turns adjectives into nouns ("left blanks")
-    return {word}
+    if not plural:
+        return {word}
+    return {word} | (inflections(word) & {word + "s", word + "es", word[:-1] + "ies"})
+
+
+_VERB_FORMS = frozenset(f for forms in IRREGULAR.values() for f in forms) | set(IRREGULAR)
+
+
+def _is_noun_phrase(tokens: list[str]) -> bool:
+    """Rough test for a phrase whose last word is a noun that can take a plural:
+    "partition key", "e-scooter", but not "left blank" or "kept quiet"."""
+    first = tokens[0]
+    return not (first in _VERB_FORMS or first.endswith(("ed", "ing"))
+                or tokens[-1].endswith(("ly", "ed", "ing", "ful", "ous", "ive", "al", "ent",
+                                        "ant", "ic", "able", "ible", "less", "ish")))
 
 
 def _doubles_final_consonant(word: str) -> bool:
@@ -193,6 +207,8 @@ _LETTER_SLOT_RE = re.compile(r"^[A-Z]$")
 
 def _tokens(phrase: str) -> list[str]:
     # "..." and "…" are placeholders: keep them, don't strip them as punctuation
+    # a bracketed slot is one placeholder even with spaces inside: "[the task]"
+    phrase = re.sub(r"\[[^\]]*\]", lambda m: m.group(0).replace(" ", "_"), phrase)
     raw = [t if t in ("...", "…") else t.strip(".,;:!?\"")
            for t in re.split(r"\s+", phrase.strip())]
     # single capital letters are slots in frames such as "You can't tell A from B" or
@@ -254,9 +270,10 @@ class Matcher:
             tokens = tokens[1:]
         parts = []
         last = len(tokens) - 1
+        noun_phrase = _is_noun_phrase(tokens)
         for i, tok in enumerate(tokens):
             if is_placeholder(tok):
-                parts.append(r"(?:\S+\s+){0,3}\S+")
+                parts.append(r"(?:\S+\s+){0,5}\S+")
                 continue
             # "pull it off" also matches "pulled off" and "pulled the launch off"
             if (tok == "it" and 0 < i < last and tokens[i + 1] in SEPARABLE_PARTICLES):
@@ -267,15 +284,16 @@ class Matcher:
                 continue
             # hyphens and spaces are interchangeable: "feel-the-shake" = "feel the shake"
             pieces = [p for p in tok.split("-") if p] or [tok]
+            def alt(forms: set[str]) -> str:
+                return "(?:" + "|".join(re.escape(f) for f in
+                                       sorted(forms, key=len, reverse=True)) + ")"
+            pats = [re.escape(p) for p in pieces]
             if i == 0 and not optional_be:
-                forms = sorted(inflections(pieces[0]), key=len, reverse=True)
-                head = "(?:" + "|".join(re.escape(f) for f in forms) + ")"
-            elif i == last and len(pieces) == 1:
-                forms = sorted(_number_forms(pieces[0]), key=len, reverse=True)
-                head = "(?:" + "|".join(re.escape(f) for f in forms) + ")"
-            else:
-                head = re.escape(pieces[0])
-            parts.append(r"[-\s]+".join([head] + [re.escape(p) for p in pieces[1:]]))
+                pats[0] = alt(inflections(pieces[0]))
+            if i == last and (i > 0 or len(pieces) > 1):
+                # the last noun in either number ("edge case", "e-scooters")
+                pats[-1] = alt(_number_forms(pieces[-1], plural=noun_phrase))
+            parts.append(r"[-\s]+".join(pats))
             separable = (len(tokens) > 1 and tokens[1] in SEPARABLE_PARTICLES
                          and not optional_be and tokens[0] not in _AUXILIARIES)
             if i == 0 and separable:
