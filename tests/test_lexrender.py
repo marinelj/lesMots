@@ -670,3 +670,13 @@ def test_matcher_accepts_teacher_forms_from_the_grok_pilot():
     # still not loose enough to link everyday words or stray text
     assert not lex.is_phrase("favor-an-policy", "favor policy")
     assert not lex.matcher.find("Take it.")
+
+
+def test_matcher_accepts_more_pilot_forms_but_not_adjective_plurals():
+    from lesmots.lexrender.evaluate import Lexicon
+    lex = Lexicon.load()
+    for eid, words in [("take-over-the-task", "took over the task"),
+                       ("squash-down-to", "squash this whole list of features down to"),
+                       ("e-scooter", "e-scooters"), ("partition-key", "partition keys")]:
+        assert lex.is_phrase(eid, words), (eid, words)
+    assert not lex.is_phrase("remain-unpopulated", "left blanks")
