@@ -76,6 +76,7 @@
 {"id": "syn-a-minor-tweak", "kind": "synonym", "text": "The evaluation harness looks solid overall; it just needs slight adjustment to the regex parser to handle edge-case whitespace.", "expect_any": ["a-minor-tweak"], "source": "lexicon 2.143", "split": "dev"}
 {"id": "syn-ablation", "kind": "synonym", "text": "The doctor used laser feature removal to remove the tumor.", "expect_any": ["ablation"], "source": "lexicon 4.287", "split": "test"}
 {"id": "syn-adapt", "kind": "synonym", "text": "Animals must adjust to survive in changing environments.", "expect_any": ["adapt"], "source": "lexicon 4.82", "split": "test"}
+{"id": "syn-adjust-the-seasoning", "kind": "synonym", "text": "Once the core routing logic is in place, we will **fine-tune** by fine-tuning backoff intervals and circuit-breaker thresholds.", "expect_any": ["adjust-the-seasoning"], "source": "lexicon 1.83", "split": "dev"}
 {"id": "syn-affiliate", "kind": "synonym", "text": "She works for an associate of a major international bank.", "expect_any": ["affiliate"], "source": "lexicon 4.202", "split": "test"}
 {"id": "syn-allegedly", "kind": "synonym", "text": "He purportedly stole a car last night.", "expect_any": ["allegedly"], "source": "lexicon 4.276", "split": "test"}
 {"id": "syn-ambient", "kind": "synonym", "text": "The surrounding light in the room was soft and calming.", "expect_any": ["ambient"], "source": "lexicon 4.109", "split": "test"}
@@ -99,7 +100,6 @@
 {"id": "syn-conflate", "kind": "synonym", "text": "People often confuse climate change with weather, but they are not the same thing.", "expect_any": ["conflate"], "source": "lexicon 4.73", "split": "test"}
 {"id": "syn-conspiracy", "kind": "synonym", "text": "They believed in a collusion that the government was hiding the truth.", "expect_any": ["conspiracy"], "source": "lexicon 4.263", "split": "dev"}
 {"id": "syn-contamination", "kind": "synonym", "text": "The water supply was affected by pollution from a nearby factory.", "expect_any": ["contamination"], "source": "lexicon 4.249", "split": "test"}
-{"id": "syn-correlation", "kind": "synonym", "text": "There is a strong association between smoking and lung cancer.", "expect_any": ["correlation"], "source": "lexicon 4.4", "split": "dev"}
 {"id": "syn-cortex", "kind": "synonym", "text": "The cerebral outer layer is responsible for higher brain functions like thinking and decision-making.", "expect_any": ["cortex"], "source": "lexicon 4.193", "split": "dev"}
 {"id": "syn-courageous", "kind": "synonym", "text": "She was brave to stand up for what she believed in.", "expect_any": ["courageous"], "source": "lexicon 4.277", "split": "dev"}
 {"id": "syn-cradle", "kind": "synonym", "text": "She gently rocked the baby to sleep in the crib.", "expect_any": ["cradle"], "source": "lexicon 4.346", "split": "test"}
@@ -110,7 +110,6 @@
 {"id": "syn-denominator", "kind": "synonym", "text": "In the fraction 3/4, 4 is the base.", "expect_any": ["denominator"], "source": "lexicon 4.56", "split": "dev"}
 {"id": "syn-dent", "kind": "synonym", "text": "The car door has a impression from the shopping cart.", "expect_any": ["dent"], "source": "lexicon 4.110", "split": "dev"}
 {"id": "syn-detour", "kind": "synonym", "text": "We had to take a bypass because the main road was under construction.", "expect_any": ["detour"], "source": "lexicon 4.279", "split": "test"}
-{"id": "syn-deviation", "kind": "synonym", "text": "There was a small departure from the original plan.", "expect_any": ["deviation"], "source": "lexicon 4.98", "split": "dev"}
 {"id": "syn-diffusion", "kind": "synonym", "text": "The dispersion of the perfume filled the entire room with a pleasant aroma.", "expect_any": ["diffusion"], "source": "lexicon 4.333", "split": "dev"}
 {"id": "syn-disgraceful", "kind": "synonym", "text": "His behavior at the party was shameful.", "expect_any": ["disgraceful"], "source": "lexicon 4.235", "split": "dev"}
 {"id": "syn-divisor", "kind": "synonym", "text": "Six is a denominator of twelve.", "expect_any": ["divisor", "denominator"], "source": "lexicon 4.68", "split": "test"}
@@ -137,6 +136,7 @@
 {"id": "syn-held-out", "kind": "synonym", "text": "To guarantee zero data leakage, final accuracy scores were computed strictly on a unseen test split.", "expect_any": ["held-out"], "source": "lexicon 4.418", "split": "dev"}
 {"id": "syn-high", "kind": "synonym", "text": "The airplane flew elevated above the clouds.", "expect_any": ["high"], "source": "lexicon 4.160", "split": "dev"}
 {"id": "syn-hit", "kind": "synonym", "text": "The ingestion consumer automatically backed off once the external webhook strike its concurrency threshold.", "expect_any": ["hit"], "source": "lexicon 4.382", "split": "dev"}
+{"id": "syn-holds-an-edge", "kind": "synonym", "text": "While both models demonstrate high reasoning capabilities, the 32B variant consistently **has the upper hand** on complex algorithmic benchmarks.", "expect_any": ["holds-an-edge"], "source": "lexicon 1.87", "split": "dev"}
 {"id": "syn-imagine", "kind": "synonym", "text": "Visualize you’re on a beach with warm sun and soft sand.", "expect_any": ["imagine"], "source": "lexicon 4.51", "split": "dev"}
 {"id": "syn-imbalanced", "kind": "synonym", "text": "Evaluating an skewed dataset requires precision-recall curves or strictly proper scoring rules rather than raw accuracy.", "expect_any": ["imbalanced"], "source": "lexicon 4.417", "split": "dev"}
 {"id": "syn-impurity", "kind": "synonym", "text": "The water sample contained a dangerous pollutant.", "expect_any": ["impurity"], "source": "lexicon 4.25", "split": "dev"}
@@ -165,7 +165,6 @@
 {"id": "syn-pretty", "kind": "synonym", "text": "She looks attractive in that dress.", "expect_any": ["pretty"], "source": "lexicon 4.36", "split": "dev"}
 {"id": "syn-proctor", "kind": "synonym", "text": "The invigilate walked around the room to ensure no one was cheating.", "expect_any": ["proctor"], "source": "lexicon 4.212", "split": "dev"}
 {"id": "syn-profitable", "kind": "synonym", "text": "This small business became moneymaking within a year.", "expect_any": ["profitable"], "source": "lexicon 4.157", "split": "dev"}
-{"id": "syn-randomly", "kind": "synonym", "text": "She picked names stochastically from a hat.", "expect_any": ["randomly"], "source": "lexicon 4.297", "split": "dev"}
 {"id": "syn-recipient", "kind": "synonym", "text": "The beneficiary of the award was very grateful.", "expect_any": ["recipient"], "source": "lexicon 4.330", "split": "test"}
 {"id": "syn-rectified", "kind": "synonym", "text": "The error was corrected before the report was submitted.", "expect_any": ["rectified"], "source": "lexicon 4.197", "split": "test"}
 {"id": "syn-reject", "kind": "synonym", "text": "She decided to turn down the job offer because the salary was too low.", "expect_any": ["reject"], "source": "lexicon 4.306", "split": "test"}
@@ -174,9 +173,9 @@
 {"id": "syn-retained", "kind": "synonym", "text": "She held her composure during the difficult interview.", "expect_any": ["retained"], "source": "lexicon 4.181", "split": "dev"}
 {"id": "syn-rim", "kind": "synonym", "text": "The edge of the cup was chipped.", "expect_any": ["rim"], "source": "lexicon 4.290", "split": "test"}
 {"id": "syn-scandal", "kind": "synonym", "text": "The fintech unicorn struggled to regain investor trust following an accounting controversy involving fabricated transaction volumes.", "expect_any": ["scandal"], "source": "lexicon 4.393", "split": "test"}
-{"id": "syn-scrutiny", "kind": "synonym", "text": "The new policy is under close inspection by the media.", "expect_any": ["scrutiny"], "source": "lexicon 4.24", "split": "dev"}
 {"id": "syn-separability", "kind": "synonym", "text": "The distinguishability of the software modules allows developers to update them individually.", "expect_any": ["separability"], "source": "lexicon 4.29", "split": "test"}
 {"id": "syn-serendipity", "kind": "synonym", "text": "Finding that rare book in a tiny shop was pure fluke.", "expect_any": ["serendipity"], "source": "lexicon 4.103", "split": "test"}
+{"id": "syn-shades", "kind": "synonym", "text": "From the hillside, the autumn foliage presented at least five or six distinct **hues** of crimson, amber, and gold.", "expect_any": ["shades"], "source": "lexicon 4.430", "split": "dev"}
 {"id": "syn-splash", "kind": "synonym", "text": "She jumped into the pool with a big splatter.", "expect_any": ["splash"], "source": "lexicon 4.321", "split": "test"}
 {"id": "syn-spring", "kind": "synonym", "text": "The flowers bloom in bloom season.", "expect_any": ["spring"], "source": "lexicon 4.7", "split": "test"}
 {"id": "syn-square", "kind": "synonym", "text": "The table is a perfect quadrilateral.", "expect_any": ["square"], "source": "lexicon 4.146", "split": "test"}
@@ -197,3 +196,4 @@
 {"id": "syn-versatile", "kind": "synonym", "text": "This adaptable tool can be used for both cooking and cleaning.", "expect_any": ["versatile"], "source": "lexicon 4.270", "split": "dev"}
 {"id": "syn-virtual", "kind": "synonym", "text": "The students attended a simulated meeting with their teacher.", "expect_any": ["virtual"], "source": "lexicon 4.292", "split": "dev"}
 {"id": "syn-wrestle", "kind": "synonym", "text": "He used to grapple in high school and won several championships.", "expect_any": ["wrestle"], "source": "lexicon 4.264", "split": "dev"}
+{"id": "syn-write-up", "kind": "synonym", "text": "The staff engineer published a comprehensive **post-mortem report** breaking down the root causes of our connection pool exhaustion incident.", "expect_any": ["write-up"], "source": "lexicon 4.427", "split": "dev"}
