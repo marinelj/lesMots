@@ -98,6 +98,12 @@ COMMON_WORDS = frozenset(["a", "an", "the", "and", "or", "but", "if", "so", "as"
 _AUXILIARIES = frozenset({"be", "is", "am", "are", "was", "were", "been", "being",
                           "have", "has", "had", "do", "does", "did"})
 
+# an object pronoun the writer may add after the head verb: "seeing it firsthand"
+_OBJECT_PRONOUN = r"(?:\s+(?:it|them))?"
+# articles in a frame are interchangeable: "favor an ... policy" = "favor the strict policy"
+_ARTICLES = frozenset({"a", "an", "the"})
+_ARTICLE_RE = r"(?:an|a|the)"
+
 # particles that may follow the object of a phrasal verb: "hand the work off to",
 # "spin a cluster up". "in" and "on" are left out: "turn left on Main Street" is not
 # "turn on".
@@ -128,8 +134,10 @@ def inflections(word: str) -> set[str]:
         return {word}
     forms = {word}
     # third person / plural
-    if word.endswith(("s", "x", "z", "ch", "sh", "o")):
+    if word.endswith(("s", "x", "z", "ch", "sh")):
         forms.add(word + "es")
+    elif word.endswith("o"):
+        forms |= {word + "s", word + "es"}  # scenarios, potatoes
     elif word.endswith("y") and word[-2] not in _VOWELS:
         forms.add(word[:-1] + "ies")
     else:
@@ -147,7 +155,30 @@ def inflections(word: str) -> set[str]:
         forms |= {word + word[-1] + "ed", word + word[-1] + "ing"}
     else:
         forms |= {word + "ed", word + "ing"}
+        # stress-final words double too (incur -> incurring, refer -> referred); spelling
+        # alone can't tell them from "visit", so accept both: a misspelling never occurs
+        if _ends_consonant_vowel_consonant(word):
+            forms |= {word + word[-1] + "ed", word + word[-1] + "ing"}
     return forms
+
+
+def _ends_consonant_vowel_consonant(word: str) -> bool:
+    return (len(word) >= 3 and word[-1] not in _VOWELS and word[-1] not in "wxy"
+            and word[-2] in _VOWELS and word[-3] not in _VOWELS)
+
+
+def _number_forms(word: str) -> set[str]:
+    """A plural last noun also matches its singular: "edge cases" matches "edge case"."""
+    if not word.isalpha() or len(word) < 4 or word in COMMON_WORDS:
+        return {word}
+    if word.endswith("ies"):
+        return {word, word[:-3] + "y"}
+    if word.endswith(("ches", "shes", "xes", "sses")):
+        return {word, word[:-2]}
+    if word.endswith("s") and not word.endswith(("ss", "us", "is")):
+        return {word, word[:-1]}
+    # singular stays singular: adding -s turns adjectives into nouns ("left blanks")
+    return {word}
 
 
 def _doubles_final_consonant(word: str) -> bool:
@@ -161,7 +192,9 @@ _LETTER_SLOT_RE = re.compile(r"^[A-Z]$")
 
 
 def _tokens(phrase: str) -> list[str]:
-    raw = [t.strip(".,;:!?\"") for t in re.split(r"\s+", phrase.strip())]
+    # "..." and "…" are placeholders: keep them, don't strip them as punctuation
+    raw = [t if t in ("...", "…") else t.strip(".,;:!?\"")
+           for t in re.split(r"\s+", phrase.strip())]
     # single capital letters are slots in frames such as "You can't tell A from B" or
     # "Map A to B": two or more of them, or X/Y/Z. A lone "A" is the article.
     letters = {t for t in raw if _LETTER_SLOT_RE.match(t)}
@@ -220,22 +253,40 @@ class Matcher:
         if optional_be:
             tokens = tokens[1:]
         parts = []
+        last = len(tokens) - 1
         for i, tok in enumerate(tokens):
             if is_placeholder(tok):
                 parts.append(r"(?:\S+\s+){0,3}\S+")
+                continue
+            # "pull it off" also matches "pulled off" and "pulled the launch off"
+            if (tok == "it" and 0 < i < last and tokens[i + 1] in SEPARABLE_PARTICLES):
+                parts[-1] += r"(?:\s+[\w'-]+){0,3}?"
+                continue
+            if tok in _ARTICLES and 0 < i < last:
+                parts.append(_ARTICLE_RE)
                 continue
             # hyphens and spaces are interchangeable: "feel-the-shake" = "feel the shake"
             pieces = [p for p in tok.split("-") if p] or [tok]
             if i == 0 and not optional_be:
                 forms = sorted(inflections(pieces[0]), key=len, reverse=True)
                 head = "(?:" + "|".join(re.escape(f) for f in forms) + ")"
+            elif i == last and len(pieces) == 1:
+                forms = sorted(_number_forms(pieces[0]), key=len, reverse=True)
+                head = "(?:" + "|".join(re.escape(f) for f in forms) + ")"
             else:
                 head = re.escape(pieces[0])
             parts.append(r"[-\s]+".join([head] + [re.escape(p) for p in pieces[1:]]))
-            # a separable phrasal verb: "hand the remaining work off to"
-            if (i == 0 and len(tokens) > 1 and tokens[1] in SEPARABLE_PARTICLES
-                    and not optional_be and tok not in _AUXILIARIES):
+            separable = (len(tokens) > 1 and tokens[1] in SEPARABLE_PARTICLES
+                         and not optional_be and tokens[0] not in _AUXILIARIES)
+            if i == 0 and separable:
+                # a separable phrasal verb: "hand the remaining work off to"
                 parts[-1] += r"(?:\s+[\w'-]+){0,3}?"
+            elif i == 1 and separable and i < last:
+                # or the object after the particle: "hand off the file and notes to"
+                parts[-1] += r"(?:\s+[\w'-]+){0,5}?"
+            elif (i == 0 and not optional_be and len(tokens) > 1
+                  and not is_placeholder(tokens[1]) and tokens[1] != "it"):
+                parts[-1] += _OBJECT_PRONOUN
         if optional_be:
             be = "|".join(sorted(inflections("be"), key=len, reverse=True))
             parts[0] = r"(?:(?:" + be + r")\s+)?" + parts[0]

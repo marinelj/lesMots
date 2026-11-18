@@ -301,9 +301,28 @@ def rewrite(lex: Lexicon, index: CandidateIndex, teacher: Teacher, out: Path,
 
 # --- stage 3: check and export -------------------------------------------------------
 
+def repair_markers(lex: Lexicon, reply: str, offered: set[str]) -> str:
+    """Fix a marker whose words are right but whose id is slightly off: a teacher that
+    writes ``{{rectify|rectified}}`` meant the offered entry ``rectified``. The words
+    must be exactly one offered entry's phrase in some form, so nothing new is linked."""
+    def fix(m: re.Match) -> str:
+        eid, words = m.group(1), m.group(2)
+        if eid in offered and lex.is_phrase(eid, words):
+            return m.group(0)
+        hits = [h for h in lex.matcher.find(words) if h.kind == "phrase"
+                and h.start == 0 and h.end == len(words) and h.entry_id in offered]
+        return "{{" + hits[0].entry_id + "|" + words + "}}" if hits else m.group(0)
+    return MARKER.sub(fix, reply)
+
+
+def _clean_reply(lex: Lexicon, rewrite_row: dict) -> str:
+    reply = drop_common_markers(lex, (rewrite_row.get("rewrite") or "").strip())
+    return repair_markers(lex, reply, set(rewrite_row["candidates"]))
+
+
 def check(lex: Lexicon, source: dict, rewrite_row: dict) -> tuple[bool, str]:
     text = source["text"]
-    reply = drop_common_markers(lex, (rewrite_row.get("rewrite") or "").strip())
+    reply = _clean_reply(lex, rewrite_row)
     if not reply:
         return False, "empty"
     offered = set(rewrite_row["candidates"])
@@ -342,7 +361,7 @@ def export(lex: Lexicon, out: Path) -> dict:
             {"role": "system", "content": SYSTEM},
             {"role": "user", "content": student_prompt(lex, source["text"], cands)},
             {"role": "assistant",
-             "content": drop_common_markers(lex, row["rewrite"].strip())},
+             "content": _clean_reply(lex, row)},
         ]}
         bucket = hashlib.sha256(row["id"].encode()).digest()[0] / 256
         (valid if bucket < VALID_SHARE else train).append(example)
