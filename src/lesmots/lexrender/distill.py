@@ -204,7 +204,17 @@ def student_prompt(lex: Lexicon, text: str, candidates: list) -> str:
     return _prompt(text, candidates, hits)
 
 
-def rewrite_prompt(lex: Lexicon, items: list[tuple[dict, list]]) -> str:
+# Added to the teacher's rewrite instructions with ``--eager``. Only the teacher sees it:
+# the exported examples keep the plain student prompt. On the 300-source pilot it took
+# Codex from 1.10 to 1.34 phrases per kept answer, with the same number of answers kept.
+EAGER_NUDGE = (
+    "Be eager: the reader is learning these phrases, so use every offered phrase that fits "
+    "grammatically and keeps the meaning. Aim for two or more phrases per answer when they "
+    "fit. An answer with no phrase is a failure unless truly none fits: rewrite the "
+    "sentence around a phrase rather than skipping it.")
+
+
+def rewrite_prompt(lex: Lexicon, items: list[tuple[dict, list]], eager: bool = False) -> str:
     parts = [
         ("Rewrite each ANSWER below with the reader's lexicon, following these rules. The "
         "reader is learning these phrases, so use as many from that answer's LEXICON as "
@@ -218,6 +228,7 @@ def rewrite_prompt(lex: Lexicon, items: list[tuple[dict, list]]) -> str:
         "words. Keep everything else exactly as it is: unchanged sentences stay word for "
         "word, and code blocks, inline code, URLs and Markdown never change. Use only "
         "entries from that answer's own LEXICON."),
+        *([EAGER_NUDGE] if eager else []),
         "",
         'Reply with only a JSON object: {"<answer id>": "<rewritten answer>", ...}',
     ]
@@ -229,14 +240,14 @@ def rewrite_prompt(lex: Lexicon, items: list[tuple[dict, list]]) -> str:
 
 
 def _batches(lex: Lexicon, items: list[tuple[dict, list]], size: int,
-             max_bytes: int) -> list[list[tuple[dict, list]]]:
+             max_bytes: int, eager: bool = False) -> list[list[tuple[dict, list]]]:
     """Up to ``size`` answers per call, fewer when the prompt would pass ``max_bytes``
     (0 = no byte limit). An answer too long for the limit on its own still goes alone."""
     out: list[list[tuple[dict, list]]] = []
     current: list[tuple[dict, list]] = []
     for item in items:
         trial = current + [item]
-        too_big = max_bytes and len(rewrite_prompt(lex, trial).encode()) > max_bytes
+        too_big = max_bytes and len(rewrite_prompt(lex, trial, eager).encode()) > max_bytes
         if current and (len(trial) > size or too_big):
             out.append(current)
             trial = [item]
@@ -247,7 +258,8 @@ def _batches(lex: Lexicon, items: list[tuple[dict, list]], size: int,
 
 
 def rewrite(lex: Lexicon, index: CandidateIndex, teacher: Teacher, out: Path,
-            limit: int = 0, k: int = DEFAULT_K, max_bytes: int = 0, workers: int = 1) -> int:
+            limit: int = 0, k: int = DEFAULT_K, max_bytes: int = 0, workers: int = 1,
+            eager: bool = False) -> int:
     """Rewrite sources that have no rewrite yet. Returns how many were rewritten.
 
     ``workers`` teacher calls run at once (the grokbot gateway has 3 Grok workers).
@@ -261,11 +273,11 @@ def rewrite(lex: Lexicon, index: CandidateIndex, teacher: Teacher, out: Path,
     if limit:
         todo = todo[:limit]
     items = [(s, candidates_for(index, lex, s, k)) for s in todo]
-    batches = iter(_batches(lex, items, BATCH, max_bytes))
+    batches = iter(_batches(lex, items, BATCH, max_bytes, eager))
     written = failures = 0
 
     def call(batch):
-        return _parse_json(teacher(rewrite_prompt(lex, batch), REWRITE_SYSTEM))
+        return _parse_json(teacher(rewrite_prompt(lex, batch, eager), REWRITE_SYSTEM))
 
     with ThreadPoolExecutor(max_workers=max(1, workers)) as pool:
         running = {}
@@ -474,6 +486,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--model", default="gpt-6.1-sol")
     ap.add_argument("--effort", default="low")
     ap.add_argument("--timeout", type=float, default=600.0)
+    ap.add_argument("--eager", action="store_true",
+                    help="add the eagerness nudge to the teacher's rewrite instructions")
     ap.add_argument("--max-prompt-bytes", type=int, default=MAX_PROMPT_BYTES,
                     help="split rewrite batches above this size (0 = no limit)")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -507,15 +521,17 @@ def main(argv: list[str] | None = None) -> int:
         print(f"kept {seed(lex, teacher, args.out, args.batches, guard)} answers")
     elif args.cmd == "rewrite":
         count = rewrite(lex, index, teacher, args.out, args.limit, args.k,
-                        args.max_prompt_bytes, args.workers)
+                        args.max_prompt_bytes, args.workers, args.eager)
         print(f"rewrote {count}")
     else:
         idle = 0
         while stats(args.out)["sources"] < args.target and idle < 3:
             kept = seed(lex, teacher, args.out, 5, guard)
-            rewrite(lex, index, teacher, args.out, 0, args.k, args.max_prompt_bytes)
+            rewrite(lex, index, teacher, args.out, 0, args.k, args.max_prompt_bytes,
+                    eager=args.eager)
             idle = 0 if kept else idle + 1  # a teacher that returns nothing usable: stop
-        rewrite(lex, index, teacher, args.out, 0, args.k, args.max_prompt_bytes)
+        rewrite(lex, index, teacher, args.out, 0, args.k, args.max_prompt_bytes,
+                eager=args.eager)
         print(json.dumps(export(lex, args.out), indent=2))
     return 0
 

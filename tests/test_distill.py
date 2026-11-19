@@ -232,3 +232,50 @@ def test_injected_target_is_not_always_last(lex, index):
         assert cands == [e.id for e in distill.candidates_for(index, lex, source, 20)]
         positions.add(cands.index("fall-back-to"))
     assert len(positions) > 3
+
+
+@pytest.mark.parametrize("group", [
+    "write writes wrote written writing",
+    "bake bakes baked baking",
+    "stop stops stopped stopping",
+    "run runs ran running",
+    "fall falls fell fallen falling",
+    "agree agrees agreeing",
+    "study studies studied studying",
+    "process processes",
+    "status statuses",
+    "control controlled controlling",
+])
+def test_stem_gives_every_form_one_key(group):
+    from lesmots.lexrender.candidates import _stem
+    assert len({_stem(w) for w in group.split()}) == 1
+
+
+def test_stem_keeps_unrelated_words_apart():
+    from lesmots.lexrender.candidates import _stem
+    words = ["cat", "cut", "write", "white", "stop", "step", "fall", "fail", "process",
+             "progress", "status", "state"]
+    assert len({_stem(w) for w in words}) == len(words)
+
+
+def test_word_overlap_matches_irregular_forms():
+    from lesmots.lexrender.candidates import content_words
+    assert content_words("We wrote it down") & content_words("write it down")
+
+
+def test_render_prompt_puts_per_answer_parts_last(lex):
+    a = distill.student_prompt(lex, "we use the database instead", lex.entries[:5])
+    b = distill.student_prompt(lex, "a completely different answer", lex.entries[:5])
+    assert b.startswith(a[: a.index("ANSWER:")])  # the shared part is a cacheable prefix
+    entry = next(e for e in lex.entries if e.synonyms and len(e.synonyms[0].split()) == 1
+                 and any(h.kind == "synonym" for h in lex.matcher.find(f"x {e.synonyms[0]} y")))
+    p = distill.student_prompt(lex, f"x {entry.synonyms[0]} y", [entry, *lex.entries[:5]])
+    assert p.index("synonyms of lexicon entries") > p.index("LEXICON (id | phrase):")
+
+
+def test_eager_nudge_reaches_only_the_teacher(lex, index):
+    source = {"id": "s1", "text": "We use the database instead.", "target": None}
+    cands = index.select(source["text"], 10)
+    assert distill.EAGER_NUDGE in distill.rewrite_prompt(lex, [(source, cands)], eager=True)
+    assert distill.EAGER_NUDGE not in distill.rewrite_prompt(lex, [(source, cands)])
+    assert distill.EAGER_NUDGE not in distill.student_prompt(lex, source["text"], cands)
