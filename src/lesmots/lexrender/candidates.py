@@ -31,7 +31,7 @@ from collections.abc import Callable, Sequence
 from pathlib import Path
 from typing import Protocol
 
-from .forms import Matcher, is_common
+from .forms import IRREGULAR, Matcher, is_common
 
 DEFAULT_K = 40
 FILLERS = 5  # distractors per list
@@ -48,10 +48,34 @@ class EntryLike(Protocol):
     synonyms: list[str]
 
 
+# irregular form -> base ("wrote" -> "write", "fell" -> "fall"), from the matcher's table
+_IRREGULAR_BASE = {form: base for base, forms in IRREGULAR.items() for form in forms}
+
+
 def _stem(word: str) -> str:
-    for suffix in ("ing", "ed", "es", "s"):
-        if word.endswith(suffix) and len(word) - len(suffix) >= 3:
-            return word[: -len(suffix)]
+    """A rough key shared by every form of a word: "write", "writes", "wrote", "written"
+    and "writing" all give "writ"; "stop" and "stopped" give "stop". The key need not be a
+    real word, only the same for each form, since answers and entries both pass through it.
+    """
+    base = _IRREGULAR_BASE.get(word)
+    if base is not None:
+        word = base
+    else:
+        for suffix, repl in (("ies", "y"), ("ied", "y"), ("ing", ""), ("ed", ""),
+                             ("es", ""), ("s", "")):
+            if suffix == "s" and word.endswith(("ss", "us", "is")):
+                continue  # "process", "status", "analysis" are not plurals
+            if suffix == "ed" and word.endswith("eed"):
+                break  # "speed", "need": spelling can't tell them from "agreed"
+            if suffix == "es" and word.endswith("ees"):
+                continue  # "agrees" -> "agree" (the "s" rule below)
+            if word.endswith(suffix) and len(word) - len(suffix) >= 3:
+                word = word[: -len(suffix)] + repl
+                break
+    if len(word) > 3 and word[-1] == word[-2] and word[-1] not in "aeiou":
+        word = word[:-1]  # stopp -> stop, runn -> run, (fall -> fal, like falling)
+    if len(word) > 3 and word.endswith("e"):
+        word = word[:-1]  # write/writing -> writ, bake/baked -> bak
     return word
 
 

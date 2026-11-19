@@ -59,6 +59,7 @@ EVAL_DIR = ROOT / "eval" / "render"
 HANDWRITTEN = EVAL_DIR / "handwritten.jsonl"
 CASES = EVAL_DIR / "cases.jsonl"
 FROZEN_TEST = EVAL_DIR / "test-frozen.jsonl"  # the held-out test set, never rebuilt
+EMBED_CACHE = Path.home() / ".cache" / "lexrender-embed"  # entry vectors, one file per lexicon
 
 SYNONYM_CASES = 120  # how many synonym-swap cases ``build`` samples from the lexicon
 MAX_PHRASE_WORDS = 8  # longer headings aren't in the prompt's index (render.MAX_INDEX_WORDS)
@@ -345,6 +346,10 @@ def main(argv: list[str] | None = None) -> int:
                         "prompt, as in training); 0 = the whole lexicon")
     p.add_argument("--embed-model", default="",
                    help="Ollama embedding model for --candidates, e.g. nomic-embed-text")
+    p.add_argument("--ollama", default="http://127.0.0.1:11434",
+                   help="Ollama server for --embed-model")
+    p.add_argument("--embed-cache", type=Path, default=EMBED_CACHE,
+                   help="folder for cached entry vectors")
 
     p = sub.add_parser("score", help="score replies collected elsewhere")
     p.add_argument("--outputs", type=Path, required=True,
@@ -357,6 +362,8 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--embed-model", default="",
                    help="Ollama embedding model, e.g. nomic-embed-text (default: none)")
     p.add_argument("--ollama", default="http://127.0.0.1:11434")
+    p.add_argument("--embed-cache", type=Path, default=EMBED_CACHE,
+                   help="folder for cached entry vectors")
 
     p = sub.add_parser("prompt", help="print the prompt a model gets for one case")
     p.add_argument("case_id")
@@ -382,7 +389,8 @@ def main(argv: list[str] | None = None) -> int:
     if args.cmd == "recall":
         from .candidates import CandidateIndex, OllamaEmbedder
 
-        embed = OllamaEmbedder(args.ollama, args.embed_model) if args.embed_model else None
+        embed = (OllamaEmbedder(args.ollama, args.embed_model, args.embed_cache)
+                 if args.embed_model else None)
         index = CandidateIndex(lex.entries, lex.matcher, embed)
         chosen = [c for c in cases if args.split == "all" or c["split"] == args.split]
         print(json.dumps(shortlist_recall(index, chosen,
@@ -400,7 +408,8 @@ def main(argv: list[str] | None = None) -> int:
             from .candidates import CandidateIndex, OllamaEmbedder
             from .distill import student_prompt
 
-            embed = (OllamaEmbedder(args.base_url, args.embed_model)
+            # the embedder is Ollama's, not the model server's (mlx_lm.server has none)
+            embed = (OllamaEmbedder(args.ollama, args.embed_model, args.embed_cache)
                      if args.embed_model else None)
             index = CandidateIndex(lex.entries, lex.matcher, embed)
             def prompt(text: str) -> str:

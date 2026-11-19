@@ -81,14 +81,6 @@ def _prompt(text: str, entries: list[Entry], synonym_hits: list[Match]) -> str:
         "grammatically and keep the meaning, use it. Inflect them to fit the sentence "
         "(\"fall back to\" may become \"fell back to\"). Never use a phrase that changes "
         "the meaning or the facts, or that breaks the grammar."),
-    ]
-    if synonym_hits:
-        lines.append(
-            "These words in the answer are synonyms of lexicon entries. For each, decide "
-            "from the context whether the entry's phrase is appropriate. If it is, replace "
-            "the word with it; if not, leave the word as it is:")
-        lines += [f'- "{h.text}" -> {h.entry_id}' for h in synonym_hits]
-    lines += [
         ("Mark every lexicon phrase you used, including replaced synonyms, as "
         "{{entry-id|the words as they appear}}, for example {{fall-back-to|fell back to}}. "
         "The marked words must be the lexicon phrase itself, inflected to fit: to use a "
@@ -101,9 +93,17 @@ def _prompt(text: str, entries: list[Entry], synonym_hits: list[Match]) -> str:
         "LEXICON (id | phrase):",
         index,
         "",
-        "ANSWER:",
-        text,
     ]
+    # everything above is the same for every answer of one lexicon, so a prompt cache can
+    # reuse it; the parts that change per answer come last
+    if synonym_hits:
+        lines.append(
+            "These words in the answer are synonyms of lexicon entries. For each, decide "
+            "from the context whether the entry's phrase is appropriate. If it is, replace "
+            "the word with it; if not, leave the word as it is:")
+        lines += [f'- "{h.text}" -> {h.entry_id}' for h in synonym_hits]
+        lines.append("")
+    lines += ["ANSWER:", text]
     return "\n".join(lines)
 
 
