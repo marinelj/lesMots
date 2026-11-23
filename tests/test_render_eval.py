@@ -128,3 +128,32 @@ def test_challenge_cases_are_well_formed(lex):
         # returning the answer untouched never breaks code, URLs or the text checks
         checks = evaluate.score(lex, c, c["text"])["checks"]
         assert checks["protected"] and checks["unchanged"] and checks["markers"], c["id"]
+
+
+def test_repair_keeps_good_markers_and_fixes_half_right_ones(lex):
+    good = "the service will {{fall-back-to|fall back to}} the database"
+    assert evaluate.repair_markers(lex, good) == good
+    # a real entry id around the original word gets the entry's own phrase
+    assert evaluate.repair_markers(lex, "in the {{cradle|crib}}") == "in the {{cradle|cradle}}"
+    # an id that isn't an entry is unwrapped, never linked
+    assert evaluate.repair_markers(lex, "he {{threw|threw}} it") == "he threw it"
+
+
+def test_judge_prefers_valid_replies_without_an_answer_key(lex):
+    text = "If the cache is unavailable, the service uses the database instead."
+    good = ("If the cache is unavailable, the service will {{fall-back-to|fall back to}} "
+            "the database.")
+    bad = "If the cache is {{fall-back-to|unavailable}}, the service uses the database instead."
+    assert evaluate.judge(lex, text, good) > evaluate.judge(lex, text, bad)
+    assert evaluate.judge(lex, text, good) > evaluate.judge(lex, text, text)
+
+
+def test_run_keeps_the_best_sample(lex, cases):
+    case = cases["para-01"]
+    good = ("If the cache is unavailable, the service will {{fall-back-to|fall back to}} "
+            "the database.")
+    [result] = evaluate.run(lex, [case], lambda p, s: case["text"], lambda p: p,
+                            sample=lambda p, s: good, samples=3)
+    assert result["passed"] and result["samples"] == 3
+    [greedy] = evaluate.run(lex, [case], lambda p, s: case["text"], lambda p: p)
+    assert not greedy["passed"]
