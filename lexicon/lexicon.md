@@ -1010,7 +1010,7 @@ eq s$).
 ### 1.133 `that's if...`
 * **Category**: Structural Discourse & Conditional Caveats
 * **Phonetics**: /ðæts ɪf/
-* **Definition**: That's only if... / provided that.... A sharp conversational and analytical caveat used to qualify an optimistic projection, emphasizing that a major prerequisite must be satisfied first.
+* **Definition**: That's only if... / provided that... A sharp conversational and analytical caveat used to qualify an optimistic projection, emphasizing that a major prerequisite must be satisfied first.
 * **Synonyms**: `provided that, on the condition that, assuming that`
 * **Collocations**: `that's if everything goes to plan, that's if the upstream API responds, that's if we secure budget`
 * **Production Tech Example**: "We could wrap up the distributed cache overhaul by Friday, but that's if the upstream dependency doesn't break our staging contracts."
