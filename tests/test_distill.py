@@ -279,3 +279,15 @@ def test_eager_nudge_reaches_only_the_teacher(lex, index):
     assert distill.EAGER_NUDGE in distill.rewrite_prompt(lex, [(source, cands)], eager=True)
     assert distill.EAGER_NUDGE not in distill.rewrite_prompt(lex, [(source, cands)])
     assert distill.EAGER_NUDGE not in distill.student_prompt(lex, source["text"], cands)
+
+
+def test_a_common_word_target_never_enters_the_shortlist():
+    from lesmots.lexrender.candidates import CandidateIndex, is_common
+    from lesmots.lexrender.evaluate import Lexicon
+
+    lex = Lexicon.load()
+    common = next(e for e in lex.entries if is_common(e.phrase))
+    index = CandidateIndex(lex.entries, lex.matcher, None)
+    source = {"id": "x", "target": common.id, "text": "That idea was not very bright."}
+    chosen = distill.candidates_for(index, lex, source, 40)
+    assert common.id not in [e.id for e in chosen]

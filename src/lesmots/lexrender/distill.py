@@ -191,7 +191,9 @@ def seed(lex: Lexicon, teacher: Teacher, out: Path, batches: int, guard: TestGua
 def candidates_for(index: CandidateIndex, lex: Lexicon, source: dict, k: int) -> list:
     chosen = index.select(source["text"], k)
     target = source.get("target")
-    if target and target in lex.by_id and all(e.id != target for e in chosen):
+    # a common single word is never linked, so it never goes on the list, even as a target
+    if (target and target in lex.by_id and not is_common(lex.by_id[target].phrase)
+            and all(e.id != target for e in chosen)):
         # put the target at a random (but repeatable) position: always appending it would
         # teach the student "the answer is often last", which never holds in production
         chosen = list(chosen[: k - 1])
