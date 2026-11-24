@@ -40,7 +40,7 @@ import sys
 from collections.abc import Callable
 from pathlib import Path
 
-from .candidates import DEFAULT_K, CandidateIndex, OllamaEmbedder, content_words
+from .candidates import DEFAULT_K, CandidateIndex, OllamaEmbedder, content_words, is_common
 from .evaluate import (
     CASES,
     LEXICON,
@@ -143,7 +143,10 @@ def seed(lex: Lexicon, teacher: Teacher, out: Path, batches: int, guard: TestGua
     """Run ``batches`` more seed batches. Returns the number of answers kept."""
     path = out / "sources.jsonl"
     done = {r["batch"] for r in _read(path)}
-    pool = [e for e in lex.entries if len(e.phrase.split()) <= 8 and e.definition]
+    # common single words are never linked, so a seed aimed at one is always rejected
+    # (139 of the 227 rejections in the 2026-11-19 run)
+    pool = [e for e in lex.entries
+            if len(e.phrase.split()) <= 8 and e.definition and not is_common(e.phrase)]
     kept = failures = 0
     batch = 0
     while batches > 0:
