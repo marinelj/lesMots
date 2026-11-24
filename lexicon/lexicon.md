@@ -1,7 +1,7 @@
-# Universal Lexicon & Knowledge Base for AI Agents (v22 Compilation)
+# Universal Lexicon & Knowledge Base for AI Agents (v23 Compilation)
 > **Agent Ingestion Directive**: This specification serves as the universal lexicon, terminology reference, and communication standard across all agent interactions. It encapsulates domain vocabulary, technical collocations, rhetorical sentence patterns, and system design idioms. Spaced-repetition metadata and multilingual artifacts have been completely purged to ensure zero ambiguity and maximum token efficiency. Ingest this document to align your tone, explanations, and code review feedback with these standards.
 
-## 1. High-Impact Idioms & Architecture Lexicon (153 Items)
+## 1. High-Impact Idioms & Architecture Lexicon (159 Items)
 
 ### 1.1 `in the trenches`
 * **Category**: Idiom / Engineering Culture
@@ -107,7 +107,6 @@
 * **Definition**: Standard high-trust review pattern approving a PR while offering small stylistic or non-critical observations that do not require a follow-up review cycle.
 * **Example**: *"LGTM with a minor nit: consider adding a type hint to the helper function, but feel free to merge once CI passes."*
 
-
 ### 1.21 `Just because I can quote your lexicon doesn’t mean I’m consistently applying it`
 * **Category**: Golden Exemplar Sentence / Epistemological Self-Awareness
 * **Definition**: A high-register, self-aware rhetorical pattern that dismantles the false equivalence between cognitive recall (knowing a term) and continuous operational execution (instinctive muscle memory).
@@ -209,8 +208,6 @@ eq s$).
   * **`happen to [do]`**: Highly natural, humble conversational pivot (*"I happen to have profiled that exact query yesterday."*).
   * **Contrasting Guardrail**: Do not conflate with `incidentally`, which means "by the way" and serves as a conversational topic transition.
 
-
-
 ### 1.33 `It's worth a try / worth trying` vs. `worth a shot` vs. `worth exploring`
 * **Category**: Pragmatic Idiom / Low-Risk Decision-Making
 * **Definition & Formality Tiers**:
@@ -272,7 +269,6 @@ eq s$).
 * **Definition**: Investigating the upstream source, ingestion point, or schema origin of anomalous data, unexplained metrics, or unexpected error logs.
 * **High-Register Alternatives**: `What is the upstream source of this metric?` | `Where does this figure originate?`
 * **Example**: *"Where is this latency spike originating from? Is it the API gateway or downstream database connection contention?"*
-
 
 ### 1.41 `fall flat`
 * **Category**: Idiomatic Phrasal Verb / Rhetorical & Presentation Critique
@@ -357,7 +353,6 @@ eq s$).
   * `align on [priorities / schema / deliverables]`: Multiple parties achieving mutual consensus on a shared goal or decision.
   * `align with [standards / policies / architecture]`: Ensuring a component or implementation conforms to external rules or constraints.
 * **Example**: *"Before we cut the sprint branch, let's align on the REST payload schema and ensure it aligns with enterprise security standards."*
-
 
 ### 1.50 `hit the nail on the head`
 * **Category**: Idiom / Alignment & Root Cause Analysis
@@ -446,7 +441,6 @@ eq s$).
 * **Definition**: Is built on... / depends on, comes down to... (Synonyms: *hinges on*, *is grounded in*). Denotes that an entire theoretical conclusion, proof, or distributed architecture depends critically on an underlying assumption or foundational premise. If that pillar collapses, the superstructure fails.
 * **Collocations**: `rests on the core assumption that...`, `rests on empirical evidence`, `the entire system rests on...`
 * **Example**: *"Our event-driven microservices architecture rests on the foundational assumption that message delivery across partitions is strictly idempotent."*
-
 
 ### 1.62 `put [tool/model] through its paces`
 * **Category**: Benchmark & Rigorous Evaluation
@@ -642,7 +636,6 @@ eq s$).
 * **Collocations**: `holds an edge over the baseline`, `holds a clear edge in code generation`, `maintain an edge`
 * **Example**: *"While both models demonstrate high reasoning capabilities, the 32B variant consistently **holds an edge** on complex algorithmic benchmarks."*
 
-
 ### 1.88 `take a turn for the worse`
 * **Category**: Idiom / Trend Analysis & Systems State Dynamics
 * **Phonetics**: /teɪk ə tɜːrn fɔːr ðə wɜːrs/
@@ -706,7 +699,6 @@ eq s$).
 * **Synonyms**: `miss the mark`, `fail to meet`, `lag behind`
 * **Collocations**: `fall short of expectations`, `fall short of the SLA benchmark`, `highlight where the model falls short`
 * **Production Tech Example**: *"While the distilled 8B model showed impressive throughput gains, it still **falls short of** the teacher model on complex multi-hop reasoning tasks."*
-
 
 ### 1.96 `dumb`
 * **Category**: Architecture Paradigm & Technical Communication / Decoupled Pipelines
@@ -975,207 +967,255 @@ eq s$).
 * **Collocations**: `don't take it out on me, take out one's frustration on junior engineers, displaced aggression`
 * **Production Tech Example**: "I understand that the production outage during the product launch was deeply frustrating, but don't take it out on the on-call engineer who was simply following standard runbooks."
 
-### 1.129 `soak up (a spill / knowledge)` vs. `wring out`
-* **Category**: Idiomatic Physical Action & Cognitive Assimilation
-* **Phonetics**: /səʊk ʌp/ | /rɪŋ aʊt/
-* **Definition**: Soak up a liquid / absorb knowledge vs. wring out a cloth / squeeze out value or data. To absorb liquid or comprehensively take in new information/knowledge; conversely, 'wring out' means to forcefully extract liquid or exhaustively squeeze out every drop of value/utility.
-* **Synonyms**: `absorb, assimilate, sponge up` (for soak up) / `extract, squeeze dry, exhaust` (for wring out)
-* **Collocations**: `soak up knowledge, soak up a spill, wring out the sponge, wring every drop of latency out of the pipeline`
-* **Production Tech Example**: "During his first month on the platform team, he was soaking up distributed systems architecture like a sponge; by Q3, the team managed to wring out another 15% latency reduction from the query engine."
+### 1.129 `soak up` vs. `wring out`
+* **Category**: Systems Ingestion, Learning Curve & Resource Extraction
+* **Phonetics**: /səʊk ʌp/ vs. /rɪŋ aʊt/
+* **Definition**: Absorbing thoroughly, like a sponge taking in water (vast knowledge or a spill) vs. wringing out a cloth / squeezing out every bit of value and performance. 'Soak up' refers to absorbing large volumes of information, ideas, or physical spills effortlessly. 'Wring out' refers to forcefully squeezing out moisture, or metaphorically extracting the maximum value, performance, or concessions from a constrained system or individual.
+* **Synonyms**: `absorb thoroughly vs. squeeze dry, assimilate deeply vs. extract every drop of`
+* **Collocations**: `soak up new architectural patterns, soak up a messy spill, wring out every ounce of GPU performance, wring out concessions during contract renewal`
+* **Production Tech Example**: "Junior engineers should soak up the codebase design patterns during their first quarter, whereas SREs must wring out every last bit of throughput from existing node clusters before requesting more compute budget."
 
 ### 1.130 `premise` / `rest on a flawed premise`
-* **Category**: Logic, System Architecture & Analytical Reasoning
+* **Category**: Analytical Reasoning, Architecture Reviews & Logic Validation
 * **Phonetics**: /ˈprem.ɪs/ | /rest ɒn ə flɔːd ˈprem.ɪs/
-* **Definition**: A premise or founding assumption / built on a false or flawed premise. An underlying assumption that forms the basis of a theory or design. If an architecture or argument rests on a flawed premise, all downstream conclusions and modules are fundamentally invalid.
-* **Synonyms**: `underlying assumption, foundational hypothesis, postulate`
-* **Collocations**: `rest on a flawed premise, challenge the initial premise, build on a false premise, foundational premise`
-* **Production Tech Example**: "The entire migration strategy rested on the flawed premise that network partitions would never occur across multi-region availability zones."
+* **Definition**: A premise or foundation of an argument vs. resting on a false proposition or flawed assumption. A premise is an underlying assumption or foundational proposition upon which an argument, design, or hypothesis is constructed. If a proposed technical RFC rests on a flawed premise, the resulting implementation will inevitably fail regardless of how clean the code is.
+* **Synonyms**: `underlying assumption, foundational hypothesis, built on a false assumption`
+* **Collocations**: `rest on a flawed premise, challenge the initial premise, base an architecture on a valid premise, false premise`
+* **Production Tech Example**: "The entire capacity scaling plan rests on a flawed premise: it assumes user session duration will remain constant even after removing client-side caching."
 
 ### 1.131 `burn through credits` / `deplete at an alarming rate`
-* **Category**: Cloud Billing, LLM Quota & Resource Governance
+* **Category**: Cloud Billing, Compute Economics & API Cost Governance
 * **Phonetics**: /bɜːn θruː ˈkred.ɪts/ | /dɪˈpliːt æt ən əˈlɑː.mɪŋ reɪt/
-* **Definition**: Burn through credits or quota fast / consume at an alarming rate. To rapidly consume financial tokens, GPU compute hours, or API quotas in a short timeframe, frequently caused by un-optimized recursive loops or excessive token payloads.
-* **Synonyms**: `exhaust API quota, hemorrhage compute credits, consume rapidly`
-* **Collocations**: `burn through API credits, deplete quotas at an alarming rate, token burn rate, compute exhaustion`
-* **Production Tech Example**: "A rogue recursive evaluation loop burned through $5,000 worth of model credits within two hours, depleting our enterprise quota at an alarming rate."
+* **Definition**: Burning through quota or credits at speed vs. shrinking at a worrying rate. To exhaust allocated cloud resources, LLM token quotas, or compute credits rapidly and often unexpectedly due to inefficient loops, recursive agents, or missing rate limiters.
+* **Synonyms**: `drain quotas rapidly, consume credits at breakneck speed, exhaust allocations`
+* **Collocations**: `burn through OpenAI API credits, burn through monthly cloud budget, compute credits deplete at an alarming rate, token consumption spike`
+* **Production Tech Example**: "An unthrottled recursive agent began looping across external APIs, burning through our enterprise compute credits at an alarming rate within two hours."
 
-### 1.132 `seed the database / initial state` / `hinge on...`
-* **Category**: Database Architecture & Causal Dependencies
-* **Phonetics**: /siːd ðə ˈdeɪtəbeɪs/ | /hɪndʒ ɒn/
-* **Definition**: Seed a database with initial data / depend on, hinge on. To populate a database with initial baseline records or synthetic test fixtures; 'hinge on' means to depend entirely on a single pivotal condition or component.
-* **Synonyms**: `populate baseline fixtures, bootstrap data` (for seed) / `depend critically upon, pivot on` (for hinge on)
-* **Collocations**: `seed the database with mock records, seed the initial state, the rollout hinges on schema validation`
-* **Production Tech Example**: "The integration test runner seeds the database with synthetic tenant data before each suite, but the success of the benchmark hinges on the reliability of the local Redis mock."
+### 1.132 `seed the database / initial state` / `that hinges on...`
+* **Category**: Database Lifecycle, Test Fixtures & Architectural Dependency
+* **Phonetics**: /siːd ðə ˈdeɪ.tə.beɪs/ | /ðæt ˈhɪn.dʒɪz ɒn/
+* **Definition**: Populating a database with initial seed data / establishing the initial state vs. depending on a key precondition. Seeding populates a data store with essential initial fixtures, lookup tables, or baseline records required for integration tests. 'That hinges on' indicates that an entire outcome critically depends on a single pivotal condition or component.
+* **Synonyms**: `populate baseline fixtures, bootstrap the datastore, critically depends on, turns upon`
+* **Collocations**: `seed the staging database, seed synthetic test data, that hinges on token cache hit rates, execution hinges on upstream schema stability`
+* **Production Tech Example**: "Our automated end-to-end suite seeds the in-memory database with synthetic customer entities before every run, but achieving sub-minute execution hinges entirely on parallel runner orchestration."
 
 ### 1.133 `that's if...`
-* **Category**: Structural Discourse & Conditional Caveats
+* **Category**: Conversational Conditionals, Prerequisite Framing & Risk Hedging
 * **Phonetics**: /ðæts ɪf/
-* **Definition**: That's only if... / provided that... A sharp conversational and analytical caveat used to qualify an optimistic projection, emphasizing that a major prerequisite must be satisfied first.
-* **Synonyms**: `provided that, on the condition that, assuming that`
-* **Collocations**: `that's if everything goes to plan, that's if the upstream API responds, that's if we secure budget`
-* **Production Tech Example**: "We could wrap up the distributed cache overhaul by Friday, but that's if the upstream dependency doesn't break our staging contracts."
+* **Definition**: Provided that... / though that depends on.... A sharp, conversational modifier used immediately after making an optimistic projection or timeline estimate to introduce a crucial, non-guaranteed prerequisite or caveat that could invalidate the whole forecast.
+* **Synonyms**: `provided that, on the condition that, assuming that all goes well`
+* **Collocations**: `we can ship by Friday—that's if QA signs off, the cluster will hold—that's if traffic stays below peak, that's if network latency doesn't spike`
+* **Production Tech Example**: "We can finish zero-downtime migration of the payments database before midnight; that's if the replication lag doesn't exceed 500 milliseconds during load cutover."
 
-### 1.134 `territorial` / `turf wars`
-* **Category**: Engineering Culture & Organizational Dynamics
-* **Phonetics**: /ˌter.ɪˈtɔː.ri.əl/ | /ˈtɜːf wɔːz/
-* **Definition**: Territorial / turf wars and friction over ownership boundaries. Guarding one's domain, codebases, or team responsibilities with defensive hostility; bitter internal political battles between siloed departments over organizational ownership.
-* **Synonyms**: `defensive, protective of boundaries` (for territorial) / `jurisdictional disputes, internal infighting` (for turf wars)
-* **Collocations**: `become overly territorial about legacy repos, stall projects due to turf wars, departmental turf wars`
-* **Production Tech Example**: "The cross-functional data mesh initiative stalled for months because legacy engineering leads were overly territorial about schema ownership, resulting in counterproductive turf wars."
+### 1.134 `territorial` / `defend one's turf` / `turf war`
+* **Category**: Organizational Dynamics, Team Boundaries & Conway's Law
+* **Phonetics**: /ˌter.ɪˈtɔː.ri.əl/ | /dɪˈfend wʌnz tɜːf/ | /ˈtɜːf wɔːr/
+* **Definition**: Overly protective of one's territory / jealously guarding one's own patch / turf fights between departments. Describes teams or managers protective of their codebase, microservices, or headcount to an irrational degree, viewing cross-team proposals as hostile incursions into their private 'turf' (territory/domain).
+* **Synonyms**: `protective of boundaries, guard one's domain, inter-departmental feud`
+* **Collocations**: `defend one's turf aggressively, internal turf war over service ownership, territorial engineering managers, siloed boundaries`
+* **Production Tech Example**: "Platform modernization stalled for an entire quarter because adjacent squads became overtly territorial, engaging in an internal turf war over who owns the customer authentication service."
 
 ### 1.135 `get by`
-* **Category**: Idiom / Resourceful Survival & Minimal Sufficiency
+* **Category**: Resource Management, Practical Coping & MVP Strategy
 * **Phonetics**: /ɡet baɪ/
-* **Definition**: Barely get by / scrape by. To manage or survive using only the minimal resources, skills, or budget available, without any surplus or luxury.
-* **Synonyms**: `scrape by, make do, manage barely`
-* **Collocations**: `get by on a shoestring budget, get by with rudimentary tooling, barely get by`
-* **Production Tech Example**: "Before adopting a full-fledged observability stack, our operations team had to get by on makeshift Bash scripts and ad-hoc grep commands."
+* **Definition**: Barely coping / just about getting by / making do. To manage to survive, cope, or keep operations functioning despite having minimal resources, rudimentary tooling, or tight constraints, meeting only the bare baseline requirement.
+* **Synonyms**: `scrape by, manage with limited means, cope satisfactorily`
+* **Collocations**: `get by on a tight budget, get by with a simple hash map, enough memory to get by for now, get by in code reviews`
+* **Production Tech Example**: "We don't need to deploy a full Redis cluster during the hackathon prototype; a simple concurrent in-memory cache will get by for now."
 
 ### 1.136 `make ends meet`
-* **Category**: Financial Idiom & Pragmatic Budgeting
+* **Category**: Financial Idiom, Operational Budgeting & Runway Management
 * **Phonetics**: /meɪk endz miːt/
-* **Definition**: Make ends meet / cover the bills / live within one's means. To earn just enough revenue to cover unavoidable operating expenses and bills, bringing both ends (income and expenditure) together without running into the red.
-* **Synonyms**: `balance the books, break even, keep one's head above water`
-* **Collocations**: `struggle to make ends meet, barely make ends meet, earn enough to make ends meet`
-* **Production Tech Example**: "In the bootstrapped startup's first year, monthly subscription renewals barely enabled the founders to make ends meet and pay cloud hosting fees."
+* **Definition**: Breaking even / earning a living / living within one's means. To balance financial inflow (income) and outflow (bills/expenses) so that accounts do not slip into the red. Metaphorically applied to bootstrapped startups managing monthly burn against gross receipts.
+* **Synonyms**: `balance the books, break even financially, keep one's head above water`
+* **Collocations**: `struggle to make ends meet, barely make ends meet, earn just enough to make ends meet, bootstrapped runway to make ends meet`
+* **Production Tech Example**: "Before securing their seed round, the founders took freelance contracts just to keep server hosting paid and make ends meet."
 
 ### 1.137 `Tahiti` / `French Polynesia` / `overwater bungalow`
-* **Category**: Geographic Nomenclature & Travel Lexicon
-* **Phonetics**: /təˈhiːti/ | /frentʃ ˌpɒl.ɪˈniː.ʒə/ | /ˈəʊ.vəˌwɔː.tər ˈbʌŋ.ɡə.ləʊ/
-* **Definition**: Tahiti / French Polynesia / overwater bungalows. The largest island in French Polynesia (South Pacific), globally renowned for black sand beaches, turquoise lagoons, and iconic luxury thatched villas built directly over tidal waters.
-* **Synonyms**: `tropical archipelago, South Pacific resort, overwater villa`
-* **Collocations**: `French Polynesia archipelago, stay in an overwater bungalow, Tahitian black pearls, crystal-clear lagoon`
-* **Production Tech Example**: "After successfully completing the zero-downtime database cutover, the principal architect took a sabbatical to an overwater bungalow in Tahiti."
+* **Category**: Geography, Travel Culture & Hospitality Architecture
+* **Phonetics**: /təˈhiːti/ (UK: /tɑːˈhiːti/) | /frentʃ ˌpɒl.ɪˈniː.ʒə/ | /ˈəʊ.vəˌwɔː.tər ˈbʌŋ.ɡə.ləʊ/
+* **Definition**: Tahiti (the largest island of French Polynesia) / overwater bungalows. A major South Pacific archipelago renowned for black-sand beaches, lagoons, and iconic luxury bungalows built directly on stilts over transparent coral waters. Culturally associated with Paul Gauguin's late paintings and Tahitian black pearls.
+* **Synonyms**: `tropical paradise, stilt cottage, lagoon villa`
+* **Collocations**: `stay in an overwater bungalow, turquoise Tahitian lagoon, indigenous Tahitian culture, French Polynesian archipelago`
+* **Production Tech Example**: "During his sabbatical, the architect documented his offline writing workflow while secluded in an overwater bungalow in Tahiti."
 
-### 1.138 `grass` vs. `lawn`
-* **Category**: Lexical Precision & Botany vs. Landscape Architecture
-* **Phonetics**: /ɡrɑːs/ | /lɔːn/
-* **Definition**: Grass as the plant itself (the material, a single blade) vs. a mowed, planned lawn (a man-made area). 'Grass' refers to the botanical plant or individual blades; 'lawn' denotes an intentionally planted, manicured, and regularly mowed plot of grass surrounding buildings or parks.
-* **Synonyms**: `herbage, blades of green` (for grass) / `turf area, manicured sod, greensward` (for lawn)
-* **Collocations**: `blade of grass, keep off the grass, mow the lawn, water the front lawn, lawn mower`
-* **Production Tech Example**: "A lawn is constructed of grass, just as a microservice mesh is composed of individual runtime containers—one is the cultivated holistic layout, the other is the foundational building block."
+### 1.138 `grass vs. lawn`
+* **Category**: Botanical Lexicon, Landscape Urbanism & Precision Vocabulary
+* **Phonetics**: /ɡrɑːs/ vs. /lɔːn/
+* **Definition**: Grass as a plant or material (botany) vs. a trimmed, cultivated lawn (an area or space). 'Grass' is the natural, green blade vegetation (countable as species, uncountable as mass). 'Lawn' is the manicured, cultivated, and regularly mowed plot of ground surrounding residential buildings or parks. 'A lawn is made of grass, but not all grass is a lawn.'
+* **Synonyms**: `vegetation vs. manicured turf, green turf vs. residential grounds`
+* **Collocations**: `blade of grass, mow the lawn, manicured front lawn, keep off the grass, lush lawn`
+* **Production Tech Example**: "Campus facilities deployed robotic autonomous mowers to maintain the expansive corporate lawn, keeping the underlying perennial ryegrass neatly trimmed."
 
-### 1.139 `turf` / `defend one's turf` / `on one's home turf`
-* **Category**: Idiomatic Workplace Dynamics, Sports & Landscape
-* **Phonetics**: /tɜːf/ | /dɪˈfend wʌnz tɜːf/ | /ɒn wʌnz həʊm tɜːf/
-* **Definition**: Turf / defend one's turf (guard one's patch) / play on home turf. Literally, a layer of grass and surface soil; metaphorically, an individual's or department's sphere of authority, influence, or territory.
-* **Synonyms**: `territory, domain, sphere of influence`
-* **Collocations**: `defend one's turf, engage in a turf war, on home turf, artificial turf pitch`
-* **Production Tech Example**: "Instead of collaborating on a unified microservice framework, both engineering managers spent their energy defending their own turf."
+### 1.139 `clover` / `four-leaf clover` / `in clover` / `cloverleaf interchange`
+* **Category**: Cultural Idioms, Botanical Symbols & Civil Engineering
+* **Phonetics**: /ˈkləʊ.vər/ | /ˈfɔː.liːf ˈkləʊ.vər/ | /ɪn ˈkləʊ.vər/ | /ˈkləʊ.və.liːf ˈɪn.tə.tʃeɪndʒ/
+* **Definition**: Clover / the lucky four-leaf clover / living in prosperous comfort / a cloverleaf highway interchange. 'Clover' is a common groundcover plant. Finding a rare mutant with four leaves symbolizes extreme luck. 'Living in clover' idiomatically means living in prosperity and luxurious comfort (like cattle grazing in rich clover). In civil traffic design, a 'cloverleaf' is a two-level grade separation using circular loop ramps.
+* **Synonyms**: `living in luxury, thriving comfortably, grade-separated ramp junction`
+* **Collocations**: `find a four-leaf clover, live in clover post-exit, navigate the busy cloverleaf interchange, clover ground cover`
+* **Production Tech Example**: "Following the successful IPO and liquidity lockup expiration, early founding engineers have been living in clover while advising angel-backed startups."
 
-### 1.140 `clover` / `four-leaf clover` / `in clover` (`living in clover`)
-* **Category**: Idiomatic Expression & Cultural Metaphor
-* **Phonetics**: /ˈkləʊ.vər/ | /ˌfɔː.liːf ˈkləʊ.vər/ | /ɪn ˈkləʊ.vər/
-* **Definition**: Clover / the four-leaf clover as a symbol of great luck / a comfortable, well-off life. A low-growing trefoil plant; 'in clover' derives from cattle grazing abundantly in fertile pastures, denoting a life of financial ease and luxury.
-* **Synonyms**: `living in luxury, on easy street, feathering one's nest`
-* **Collocations**: `find a four-leaf clover, living in clover after the IPO, cloverleaf interchange`
-* **Production Tech Example**: "After his equity fully vested and the tech firm went public, the early engineer found himself living in clover, consulting only on projects he truly enjoyed."
+### 1.140 `The Monkey King` / `Sun Wukong`
+* **Category**: Classical Literature, Cultural Translation & Cross-Media Tropes
+* **Phonetics**: /ðə ˈmʌŋ.ki kɪŋ/ | /sʊn wuːˈkɒŋ/
+* **Definition**: The Monkey King / Sun Wukong. The mythological hero from the classical 16th-century Chinese novel 'Journey to the West' (Wu Cheng'en). In global media, translation defaults to 'The Monkey King' for general audiences, while 'Sun Wukong' is used in direct literary translations and gaming titles (e.g., Black Myth: Wukong). Distinct from 'Goku' (Japanese manga adaptation in Dragon Ball).
+* **Synonyms**: `Great Sage Equaling Heaven, mythic trickster hero, stone monkey`
+* **Collocations**: `wield the golden-banded staff, 72 earthly transformations, somersault cloud, Journey to the West protagonist`
+* **Production Tech Example**: "The game engine optimized physics simulations for procedural cloth rendering whenever the Monkey King performed acrobatic mid-air somersaults."
 
-### 1.141 `The Monkey King` / `Sun Wukong` / `golden-banded staff`
-* **Category**: Classical Mythology & Cultural Translation Standards
-* **Phonetics**: /ðə ˈmʌŋ.ki kɪŋ/ | /sʌn wuːˈkɒŋ/ | /ˌɡəʊl.dən ˈbænd.ɪd stɑːf/
-* **Definition**: The Monkey King / Sun Wukong / the golden-banded staff. The legendary mythological hero from classical Chinese literature (*Journey to the West*), renowned for supernatural strength, 72 earthly transformations, and his magical size-shifting weapon.
-* **Synonyms**: `Great Sage Equaling Heaven, mythical simian hero, As-you-will cudgel`
-* **Collocations**: `wield the golden-banded staff, iconic Monkey King myth, 72 earthly transformations, somersault cloud`
-* **Production Tech Example**: "Much like the Monkey King reshaping his golden-banded staff at will, an agile data processing pipeline must dynamically scale its executor memory based on incoming ingestion spikes."
-
-### 1.142 `route directly to...` / `quota is exhausted`
-* **Category**: Distributed Messaging & SRE Resilience
+### 1.141 `route directly to [host]` / `quota is exhausted`
+* **Category**: Distributed Messaging, SRE Runbooks & Rate Limit Failovers
 * **Phonetics**: /ruːt dɪˈrekt.li tuː/ | /ˈkwəʊ.tə ɪz ɪɡˈzɔː.stɪd/
-* **Definition**: Route a request or message straight to a specific node / a fully exhausted quota. Directing network traffic or payloads to a specific host machine; declaring that allocated resource limits or API call allotments have reached zero.
-* **Synonyms**: `forward directly to, dispatch payload` (for route) / `credits depleted, rate limit saturated` (for quota exhausted)
-* **Collocations**: `route traffic directly to the host, upstream quota is exhausted, failover when quota is exhausted`
-* **Production Tech Example**: "When the cloud provider's token quota is exhausted, the gateway router must automatically route fallback requests directly to the on-premise inference cluster."
+* **Definition**: Routing a message or payload straight to the target host vs. an alert that the call quota has run out. Routing directly bypasses intermediate broker queues or proxy hops. 'Quota is exhausted' is standard systems nomenclature stating that an account's provisioned compute, storage, or token credit allocation has reached zero.
+* **Synonyms**: `dispatch payloads directly to, forward straight to, quota depleted, allocation exhausted`
+* **Collocations**: `route the payload directly to the Mac Studio, upstream model quota is exhausted, automated failover on exhausted quota, direct socket dispatch`
+* **Production Tech Example**: "When the fallback LLM gateway detected that Grok's API quota was exhausted, it dynamically routed pending prompts directly to the local Mac Studio runner."
 
-### 1.143 `glass` / `off the glass` / `crash the glass`
-* **Category**: Basketball Slang & Sports Lexicon
-* **Phonetics**: /ɡlɑːs/ | /ɒf ðə ɡlɑːs/ | /kræʃ ðə ɡlɑːs/
-* **Definition**: The backboard in basketball / a bank shot off the glass / crashing the boards for rebounds. Colloquial term for the basketball backboard (traditionally tempered glass); describes shots banked in off the backboard or aggressive rebounding.
-* **Synonyms**: `backboard, regulation board, board dominance`
-* **Collocations**: `score off the glass, crash the glass for offensive rebounds, clean the glass, bank shot`
-* **Production Tech Example**: "In data pipeline resilience, fallback caches act like scoring off the glass—an indirect, dependable trajectory when a direct network shot is blocked."
+### 1.142 `use the glass` / `off the glass` / `crash the glass`
+* **Category**: Basketball Vernacular, Sports Physics & Idiomatic Execution
+* **Phonetics**: /juːz ðə ɡlɑːs/ | /ɒf ðə ɡlɑːs/ | /kræʃ ðə ɡlɑːs/
+* **Definition**: Banking a shot off the backboard (deliberate technique) / a shot that goes in off the board (outcome) / attacking the boards for rebounds. In basketball vernacular, 'glass' synecdochically refers to the backboard (traditionally tempered glass). 'Use the glass' means deliberately aiming at the backboard to angle a shot into the basket. 'Crash the glass' means aggressively pursuing offensive or defensive rebounds.
+* **Synonyms**: `bank shot off the backboard, score off the backboard, aggressively contest rebounds`
+* **Collocations**: `bank it off the glass, score off the glass, coach ordered guards to crash the glass, master of using the glass`
+* **Production Tech Example**: "Like Tim Duncan executing a textbook mid-range jumper using the glass, a great architect relies on proven structural patterns rather than flashy heroics."
 
-### 1.144 `use the glass`
-* **Category**: Athletic Technique & Strategic Action
-* **Phonetics**: /juːz ðə ɡlɑːs/
-* **Definition**: Use the backboard (bank the shot in). A deliberate offensive basketball mechanic where the shooter intentionally banks the ball off the backboard to soften the angle and evade rim protectors.
-* **Synonyms**: `bank it in, shoot a bank shot, leverage the backboard`
-* **Collocations**: `know how to use the glass, use the glass on a floater, Tim Duncan using the glass`
-* **Production Tech Example**: "Just as elite forwards use the glass to bypass defensive shot-blockers, backend engineers use intermediate message queues to absorb downstream write pressure."
+### 1.143 `fabricate storylines` / `don't make up plots` / `spin a tale`
+* **Category**: Prompt Engineering, Narrative Integrity & Factual Grounding
+* **Phonetics**: /ˈfæb.rɪ.keɪt ˈstɔː.ri.laɪnz/ | /spɪn ə teɪl/
+* **Definition**: Inventing plotlines out of thin air / strictly guarding against made-up stories. To invent untrue, hallucinatory events, narrative arcs, or conversational episodes. In system prompts and technical communication, negative constraints explicitly forbid fabricating storylines to enforce grounding in source text.
+* **Synonyms**: `hallucinate narrative arcs, invent plot details, concoct false accounts`
+* **Collocations**: `strictly grounded without fabricating storylines, stop spinning tales, do not make up plots or character backstories, factual grounding enforcement`
+* **Production Tech Example**: "The system prompt instructs the summarization model to stick strictly to the uploaded witness transcripts and under no circumstances fabricate storylines."
 
-### 1.145 `fabricate a storyline` / `spin a tale` / `hallucinate plot details`
-* **Category**: Narrative Verification, LLM Guardrails & Prompt Engineering
-* **Phonetics**: /ˈfæb.rɪ.keɪt ə ˈstɔː.ri.laɪn/ | /spɪn ə teɪl/ | /həˈluː.sɪ.neɪt plɒt ˈdiː.teɪlz/
-* **Definition**: Invent a storyline out of thin air / embellish a tale / LLM-hallucinated plot details. To invent fictional narratives or unsupported claims rather than adhering to factual records. Essential in zero-hallucination system prompts.
-* **Synonyms**: `concoct stories, invent fictional events, make up facts`
-* **Collocations**: `do not fabricate storylines, avoid spinning tales, hallucinate plot details, adhere strictly to source context`
-* **Production Tech Example**: "The system prompt explicitly commands the LLM to summarize only verified user interactions and never fabricate storylines or invent plot details."
+### 1.144 `NBA trading cards` / `Rookie Card (RC)` / `pull a card` / `graded card`
+* **Category**: Sports Collectibles, Alternative Asset Markets & Hobby Jargon
+* **Phonetics**: /ˈtreɪ.dɪŋ kɑːdz/ | /ˈrʊk.i kɑːd/ | /pʊl ə kɑːd/ | /ˈɡreɪ.dɪd kɑːd/
+* **Definition**: Collecting NBA player cards / rookie cards / pulling a good card from a pack / professionally graded, slabbed cards. The collector hobby ecosystem surrounding officially licensed basketball cards. 'Rookie Cards' carry the highest premium. 'Pull a card' refers to successfully unboxing a rare autograph or patch card. 'Graded cards' are sealed in tamper-proof slabs by authentication agencies (e.g., PSA, BGS) with verified condition scores.
+* **Synonyms**: `sports memorabilia cards, authenticated slabbed card, unbox a rare card`
+* **Collocations**: `PSA 10 Gem Mint graded card, pull an on-card autograph, break a hobby box of basketball cards, iconic rookie card`
+* **Production Tech Example**: "Our team designed a computer vision pipeline to inspect edge centering and surface scratching on physical NBA trading cards before submitting them for third-party grading."
 
-### 1.146 `NBA trading cards` / `Rookie Card (RC)` / `pull a card`
-* **Category**: Collectibles, The Hobby & Speculative Markets
-* **Phonetics**: /ˌen.biːˈeɪ ˈtreɪ.dɪŋ kɑːdz/ | /ˈrʊk.i kɑːd/ | /pʊl ə kɑːd/
-* **Definition**: NBA trading cards / rookie cards / pulling a hit from a pack. Collectible cards featuring professional basketball athletes; 'RC' represents an athlete's premier first-year card, while 'pull' describes the act of opening a foil pack and obtaining a rare parallel or autograph.
-* **Synonyms**: `basketball cards, sports memorabilia, hobby box hits`
-* **Collocations**: `collect NBA trading cards, mint condition Rookie Card, pull an on-card autograph, graded PSA 10`
-* **Production Tech Example**: "Training a multi-modal computer vision model to grade NBA trading cards requires isolating subtle surface scratches and centering ratios on high-value Rookie Cards."
+### 1.145 `jersey number` / `shirt number` / `retire a number`
+* **Category**: Sports Nomenclature, Player Identity & Institutional Honor
+* **Phonetics**: /ˈdʒɜː.zi ˈnʌm.bər/ | /ʃɜːt ˈnʌm.bər/ | /rɪˈtaɪər ə ˈnʌm.bər/
+* **Definition**: A jersey number / a football shirt number / permanently retiring a jersey number. The assigned identification numeral worn on an athlete's jersey. 'Retiring a number' is a franchise's highest tribute, ensuring no future athlete in that organization will wear that uniform number, often immortalized by hanging the jersey in the stadium rafters.
+* **Synonyms**: `uniform numeral, squad kit number, permanently withdraw a squad number`
+* **Collocations**: `iconic jersey number, retire his number 23, jersey hangs in the rafters, switch jersey numbers during the offseason`
+* **Production Tech Example**: "The live stats processor normalizes player tracking logs by joining real-time bounding boxes with assigned team jersey numbers."
 
-### 1.147 `jersey number` / `retire a number`
-* **Category**: Sports Conventions & Organizational Honors
-* **Phonetics**: /ˈdʒɜː.zi ˈnʌm.bər/ | /rɪˈtaɪər ə ˈnʌm.bər/
-* **Definition**: A player's jersey number / retiring a jersey number. The identifier worn on an athlete's uniform (North American usage; 'shirt/kit number' in British football); retiring a number permanently preserves it in tribute to an iconic player.
-* **Synonyms**: `shirt number, uniform digit, kit number`
-* **Collocations**: `iconic jersey number, retire his number across the franchise, hang the jersey in the rafters`
-* **Production Tech Example**: "When indexing sports rosters, normalizing athlete metadata requires handling players who changed their jersey number midway through a championship season."
+### 1.146 `pad with 5 seconds of frames before and after` / `preceding and succeeding frames`
+* **Category**: Video Processing Pipelines, Computer Vision & Temporal Windows
+* **Phonetics**: /pæd wɪð faɪv ˈsek.əndz əv freɪmz/ | /prɪˈsiː.dɪŋ ænd səkˈsiː.dɪŋ freɪmz/
+* **Definition**: Padding 5 seconds of frames before and after (a temporal context buffer) / the preceding and following frame sequences. In video segmentation, action recognition, and media clipping, 'padding' expands an event window symmetrically along the temporal dimension to provide surrounding contextual continuity and avoid abruptly truncating motion.
+* **Synonyms**: `add temporal buffer margins, temporal frame infilling, surrounding context window padding`
+* **Collocations**: `pad the highlight clip with 5 seconds of frames before and after, extract preceding and succeeding frames, pad temporal boundaries in FFmpeg, symmetric frame buffer`
+* **Production Tech Example**: "To ensure that action recognition classifiers capture the full windup and follow-up motion, always pad the detected event with 5 seconds of frames before and after in the processing pipeline."
 
-### 1.148 `pad with ... frames before and after` / `preceding and succeeding frames`
-* **Category**: Video Processing, Computer Vision & Temporal Buffering
-* **Phonetics**: /pæd wɪð freɪmz bɪˈfɔːr ænd ˈɑːf.tər/ | /prɪˈsiː.dɪŋ ænd səkˈsiː.dɪŋ freɪmz/
-* **Definition**: Pad the frame buffer before and after / preceding and succeeding frames. To expand a video clip or feature window by appending temporal padding on both sides of an event boundary to capture complete context and avoid abrupt truncation.
-* **Synonyms**: `temporal padding, pre- and post-roll buffering, context window expansion`
-* **Collocations**: `pad with 5 seconds of frames before and after, extract preceding and succeeding frames, temporal margin, frame interpolation`
-* **Production Tech Example**: "During automated highlight extraction, the OpenCV pipeline pads each detected action with 5 seconds of preceding and succeeding frames to preserve full narrative continuity."
+### 1.147 `prompt sb to log in` / `resolve credentials` / `interactive login prompt`
+* **Category**: Identity & Access Management (IAM), CLI Auth & Token Lifecycle
+* **Phonetics**: /prɒmpt ˈsʌm.wʌn tuː lɒɡ ɪn/ | /rɪˈzɒlv krəˈden.ʃəlz/ | /ˌɪn.təˈræk.tɪv ˈlɒɡ.ɪn prɒmpt/
+* **Definition**: Prompting the user to log in / resolving and picking up local credentials / an interactive terminal login prompt. Describes how headless developer tools or AI coding assistants authenticate. Instead of forcing an interactive login on every invocation, systems resolve credentials non-interactively by inspecting environment variables, credential helpers, or stored OAuth tokens in the operating system keychain.
+* **Synonyms**: `trigger an auth challenge, locate stored tokens, retrieve local auth credentials`
+* **Collocations**: `prompt the developer to log in, resolve credentials from standard environment variables, suppress interactive login prompts in CI/CD, credential resolution cascade`
+* **Production Tech Example**: "Because the developer CLI resolves cached credentials from the local keychain, it never prompts the user to log in during non-interactive terminal execution."
 
-### 1.149 `prompt sb to log in` / `resolve credentials`
-* **Category**: Authentication Architecture & CLI/Daemon Tooling
-* **Phonetics**: /prɒmpt ˈsʌm.wʌn tuː lɒɡ ɪn/ | /rɪˈzɒlv krəˈden.ʃəlz/
-* **Definition**: Prompt someone to log in / resolve credentials. To display an interactive authentication screen or challenge; to automatically locate, parse, and validate stored auth tokens or keychain entries without requiring manual re-entry.
-* **Synonyms**: `trigger login challenge, interactive auth prompt` (for prompt) / `parse auth tokens, authenticate identity` (for resolve credentials)
-* **Collocations**: `prompt the user to log in via browser, resolve local credentials, seamless token resolution`
-* **Production Tech Example**: "Instead of failing abruptly with a 401 error, the CLI agent should resolve existing local credentials from the secure keychain or prompt the developer to log in."
+### 1.148 `reach out` vs. `outreach`
+* **Category**: Professional Communication, External Partnerships & Business Development
+* **Phonetics**: /riːtʃ aʊt/ vs. /ˈaʊt.riːtʃ/
+* **Definition**: Getting in touch with someone (phrasal verb) vs. a structured external engagement or outreach program (noun). 'Reach out' is an approachable, everyday phrasal verb meaning to initiate contact with colleagues or external stakeholders. 'Outreach' is a structured program or initiative designed to engage an external community, prospective sponsors, or user demographics.
+* **Synonyms**: `initiate contact with vs. external engagement campaign, touch base with vs. sponsor solicitation`
+* **Collocations**: `reach out to the infrastructure lead, feel free to reach out, community outreach program, outbound enterprise sales outreach, sponsor outreach`
+* **Production Tech Example**: "I'll reach out to the security review board to clarify compliance constraints before we launch our broader public developer outreach initiative."
 
-### 1.150 `reach out` / `outreach` / `business development (BD)`
-* **Category**: Professional Networking & Strategic Partnerships
-* **Phonetics**: /riːtʃ aʊt/ | /ˈaʊt.riːtʃ/ | /ˈbɪz.nɪs dɪˈvel.əp.mənt/
-* **Definition**: Reach out / outreach / business development. Initiating contact with an individual, colleague, or prospective external partner; 'outreach' refers to systematic external engagement campaigns.
-* **Synonyms**: `get in touch, initiate contact, proactive engagement`
-* **Collocations**: `reach out to external partners, community outreach campaign, business development liaison`
-* **Production Tech Example**: "When integrating third-party payment rails, our technical leads reached out directly to their core infrastructure team to coordinate webhook reliability."
+### 1.149 `get rate-limited` / `hit a rate limit`
+* **Category**: API Resilience, Throttling Governance & SRE Operations
+* **Phonetics**: /ɡet reɪt ˈlɪm.ɪ.tɪd/ | /hɪt ə reɪt ˈlɪm.ɪt/
+* **Definition**: Being throttled by an API / hitting the request rate ceiling. Occurs when a client application exceeds the maximum allowed request velocity (e.g., requests per second or tokens per minute) enforced by an upstream service, receiving HTTP 429 Too Many Requests responses.
+* **Synonyms**: `encounter API throttling, exceed request throughput caps, get throttled`
+* **Collocations**: `get rate-limited by the LLM endpoint, hit a rate limit during peak load, exponential backoff after getting rate-limited, rate limit cooldown window`
+* **Production Tech Example**: "When the concurrent batch ingestion worker hit a rate limit on the third-party embedding API, the resilient scheduler triggered an exponential backoff with jitter."
 
-### 1.151 `get rate-limited` / `hit a rate limit`
-* **Category**: API Architecture & SRE Traffic Shaping
-* **Phonetics**: /ɡet ˈreɪt ˌlɪm.ɪ.tɪd/ | /hɪt ə ˈreɪt ˌlɪm.ɪt/
-* **Definition**: Get throttled by an API / hit the request-rate ceiling. To be throttled or rejected by an API gateway (typically receiving HTTP 429 Too Many Requests) due to exceeding permissible request thresholds over a specified time window.
-* **Synonyms**: `be throttled, trigger 429 errors, exhaust request quota`
-* **Collocations**: `get temporarily rate-limited, hit a strict rate limit, implement exponential backoff upon hitting limits`
-* **Production Tech Example**: "Our data ingestion crawler began to get rate-limited after scaling to fifty parallel workers, prompting us to introduce adaptive token-bucket throttling."
+### 1.150 `rate` / `at this rate` / `at any rate`
+* **Category**: Core Metric Terminology, Rhetorical Transitions & Temporal Projections
+* **Phonetics**: /reɪt/ | /æt ðɪs reɪt/ | /æt ˈen.i reɪt/
+* **Definition**: 'Rate' as speed, ratio or fee; if this trend or burn continues; in any case / anyway / at least. 'Rate' functions as frequency, ratio, or price. 'At this rate' projects a future outcome assuming current consumption or velocity continues unchanged. 'At any rate' functions as an authoritative conversational transition summarizing an essential conclusion regardless of peripheral difficulties.
+* **Synonyms**: `velocity/ratio/pricing, projected at current pace, in any case/regardless`
+* **Collocations**: `at this rate we will exhaust GPU memory, error rate spike, hourly billing rate, at any rate the deployment succeeded`
+* **Production Tech Example**: "The database rebuild suffered several transient timeouts; at any rate, the master node recovered without data corruption, though at this rate we will need to scale disk IOPS next week."
 
-### 1.152 `rate` / `at this rate` / `burn rate` / `rate sb highly`
-* **Category**: Quantitative Metrics, Idiomatic Velocity & Evaluation
-* **Phonetics**: /reɪt/ | /æt ðɪs reɪt/ | /ˈbɜːn reɪt/ | /reɪt ˈsʌm.wʌn ˈhaɪ.li/
-* **Definition**: Rate, ratio or fee / at this rate / burn rate / rate someone highly. Denotes speed, frequency, or proportion; idiomatic phrase 'at this rate' projects downstream consequences based on current speed; also functions as an evaluative verb.
-* **Synonyms**: `velocity, proportion, hourly tariff` (for noun) / `appraise favorably, hold in high esteem` (for verb)
-* **Collocations**: `error rate, hourly billing rate, API burn rate, at this rate we will run out of memory, rate his architecture skills highly`
-* **Production Tech Example**: "At this rate of data ingestion, our primary PostgreSQL partition will hit its storage ceiling before midnight."
+### 1.151 `have [worker] do [task]` vs. `get [worker] to do [task]` / `hand off a task` / `distillation task`
+* **Category**: Causative Grammar Precision, Agent Orchestration & Task Delegation
+* **Phonetics**: /hæv ... duː/ vs. /ɡet ... tuː duː/ | /hænd ɒf ə tɑːsk/ | /ˌdɪs.tɪˈleɪ.ʃən tɑːsk/
+* **Definition**: A causative-verb grammar constraint (have + bare infinitive without 'to'; get/ask + to-infinitive) / handing off a work task / a model distillation task. A crucial syntactic distinction in English task delegation: 'have an agent do something' uses a bare infinitive, whereas 'get/ask an agent to do something' requires 'to'. 'Hand off' means transferring state and responsibility to a downstream worker. 'Distillation task' refers to training a compact student model to replicate a teacher LLM's representations.
+* **Synonyms**: `delegate execution to, transfer responsibility for a job, offload a student training run`
+* **Collocations**: `have the background agent process the queue, get the worker to hand off in-progress jobs, hand off unfinished tasks cleanly, initiate an LLM distillation task`
+* **Production Tech Example**: "Instead of letting the overloaded worker hang, the supervisor will have the secondary agent take over and get the primary runner to hand off its unfinished distillation task."
 
-### 1.153 `have [agent] do [task]` vs. `get/ask [agent] to do [task]` / `hand off a task`
-* **Category**: Causative Verb Syntax & Orchestration Workflows
-* **Phonetics**: /hæv ... duː/ | /ɡet ... tuː duː/ | /hænd ɒf ə tɑːsk/
-* **Definition**: Causative verb grammar (have + bare infinitive vs. get/ask + to-infinitive) / handing off a task. In causative English, 'have' requires a bare infinitive (*have Agy hand off*), whereas 'get' or 'ask' requires an infinitive (*get Agy to hand off*); 'hand off' means transferring ownership or execution of a task to another worker.
-* **Synonyms**: `delegate a task, transfer ownership, assign execution`
-* **Collocations**: `have the worker thread process data, get the agent to hand off, hand off the incomplete distillation task, offload work`
-* **Production Tech Example**: "When the primary orchestrator detects node memory starvation, it must immediately have the worker hand off its in-progress distillation task to an idle cluster replica."
+### 1.152 `disjoint slices` / `mutually disjoint slices`
+* **Category**: Distributed Processing, Set Theory & Defensive Partitioning
+* **Phonetics**: /ˈdɪs.dʒɔɪnt slaɪsɪz/ | /ˈmjuː.tʃu.ə.li ˈdɪs.dʒɔɪnt slaɪsɪz/
+* **Definition**: Mutually disjoint shards / mutually exclusive slices (two or more data subsets share no element, so their intersection is the empty set: $A \cap B = \emptyset$). In distributed systems, ETL and model evaluation, this ensures each compute node or evaluation group processes strictly non-overlapping blocks of data, which naturally avoids race conditions, duplicate writes and double counting.
+* **Synonyms**: `non-overlapping partitions`, `mutually exclusive subsets`, `isolated cohorts`
+* **Collocations**: `partition into disjoint slices`, `mutually disjoint slices`, `disjoint temporal slices`, `eliminate double counting`
+* **Production Tech Example**: "We partitioned the clickstream dataset into mutually disjoint slices by user ID hash, allowing distributed workers to process batches independently without locks."
 
-## 2. Professional & Idiomatic Phrases (176 Items)
+### 1.153 `the model is memorizing` / `rote memorization`
+* **Category**: Machine Learning Evaluation, Generalization & Overfitting Diagnostics
+* **Phonetics**: /ðə ˈmɒd.əl ɪz ˈmem.ə.raɪ.zɪŋ/ | /rəʊt ˌmem.ər.aɪˈzeɪ.ʃən/
+* **Definition**: The model is learning by rote (mechanical memorization / no ability to generalize). In model evaluation and training-loss diagnosis, this means the model merely memorizes surface features or label noise in the training samples (verbatim memorization) instead of learning the underlying general patterns, so its ability to generalize collapses on unseen test data.
+* **Synonyms**: `overfitting to training noise`, `verbatim memorization`, `failing to generalize`
+* **Collocations**: `exhibit rote memorization`, `memorize training samples verbatim`, `memorize rather than generalize`, `generalize to unseen data`
+* **Production Tech Example**: "The training loss keeps plummeting while validation loss diverges—the model is merely memorizing training samples verbatim rather than generalizing."
+
+### 1.154 `I wouldn't put it past someone to leave [something] sitting there` / `sit there unimported`
+* **Category**: British Understatement, Pragmatic Sarcasm & Operational Accountability
+* **Phonetics**: /aɪ ˈwʊd.ənt pʊt ɪt pɑːst .../ | /sɪt ðeər ˌʌn.ɪmˈpɔː.tɪd/
+* **Definition**: Someone is entirely capable of leaving something just sitting there untouched / left sitting there unimported. Combines the classic British understated-judgment frame (`I wouldn't put it past [someone] to do...`: it would be no surprise if they let this slip) with a stalled ticket or data state (`sit there unimported/unprocessed`), for a natural, humorous jab at broken handoffs and passed-around responsibility.
+* **Synonyms**: `it wouldn't surprise me if they neglected`, `leave something unattended`, `abandon in backlog`
+* **Collocations**: `wouldn't put it past them to leave it sitting there`, `sit there unimported until month-end`, `leave records untouched`
+* **Production Tech Example**: "I wouldn't put it past the operations team to leave the Nov 20 statement sitting there unimported until our reconciliation pipeline fails next week."
+
+### 1.155 `pointless` vs. `too harsh` / `defeats the purpose` / `counter-productive`
+* **Category**: Code Review Pragmatics, Feedback Calibration & Architecture Negotiation
+* **Phonetics**: /ˈpɔɪnt.ləs/ vs. /tuː hɑːʃ/ | /dɪˈfiːts ðə ˈpɜː.pəs/ | /ˌkaʊn.tə.prəˈdʌk.tɪv/
+* **Definition**: Pointless (blunt, harsh and aggressive) vs. too harsh and unsparing / defeats the purpose (a tactful, objective assessment) / counter-productive. In architecture and code reviews, calling a peer's implementation 'pointless' often comes across as 'too harsh'; seasoned engineers prefer 'defeats the purpose' or 'counter-productive', which frame the correction objectively and constructively in terms of the logic itself.
+* **Synonyms**: `futile vs. overly abrasive`, `counter-productive`, `doesn't add much value`
+* **Collocations**: `a bit too harsh`, `defeat the purpose`, `counter-productive to throughput`, `soften the blow in reviews`
+* **Production Tech Example**: "Calling the cache layer 'pointless' is a bit too harsh considering it halved the build time; however, caching without eviction rather defeats the purpose when memory is constrained."
+
+### 1.156 `halve the build time` / `cut the build time in half` / `a short exchange`
+* **Category**: Performance Optimization & Agile Standup Communication
+* **Phonetics**: /hɑːv ðə bɪld taɪm/ | /kʌt ðə bɪld taɪm ɪn hɑːf/ | /ə ʃɔːt ɪksˈtʃeɪndʒ/
+* **Definition**: Halving the build time / cutting the time taken in half; a short exchange / a few words back and forth. Used to report a performance win precisely (a large cut in a quantified metric), or to describe efficient communication that reaches agreement quickly in a stand-up or a Slack thread.
+* **Synonyms**: `slash latency by 50%`, `reduce compilation time by half`, `quick back-and-forth`
+* **Collocations**: `halved the build time`, `cut CI pipeline duration in half`, `after a short exchange`, `have a quick exchange with the lead`
+* **Production Tech Example**: "After a short exchange during yesterday's standup, the infra squad enabled distributed compilation, which immediately halved the build time."
+
+### 1.157 `proxy for` / `serve as a proxy for`
+* **Category**: Feature Engineering, Metric Observability & Surrogate Evaluation
+* **Phonetics**: /ˈprɒk.si fɔːr/ | /sɜːv æz ə ˈprɒk.si fɔːr/
+* **Definition**: A proxy variable / surrogate metric / indirect stand-in for.... When the core target metric cannot be observed or measured directly, an auxiliary metric that is highly correlated with it, or easier to sample, is chosen to measure it indirectly. If the proxy drifts away from the real business goal, it leads to serious optimization bias.
+* **Synonyms**: `surrogate metric for`, `indirect indicator of`, `stand-in for`
+* **Collocations**: `serve as a proxy for`, `act as an unintended proxy for`, `a poor proxy for developer productivity`, `use daily active time as a proxy`
+* **Production Tech Example**: "Commits count is a notoriously poor proxy for engineering productivity, just as keyword frequency is a flawed proxy for semantic correctness."
+
+### 1.158 `excerpt` vs. `write-up` / `post-mortem write-up`
+* **Category**: Engineering Documentation, Incident Response & Technical Artifacts
+* **Phonetics**: /ˈek.sɜːpt/ vs. /ˈraɪt.ʌp/ | /ˌpəʊstˈmɔː.təm ˈraɪt.ʌp/
+* **Definition**: An excerpt / a verbatim extract (such as a slice of a log or text) vs. a standalone report or incident post-mortem write-up. The former is a sample cut unchanged from the original; the latter is a technical document that has been organized by hand, with a complete line of analysis and actionable recommendations.
+* **Synonyms**: `verbatim extract vs. synthesized summary`, `quote snippet vs. comprehensive incident report`
+* **Collocations**: `an excerpt from error logs`, `publish a post-mortem write-up`, `draft an architecture write-up`, `a brief write-up`
+* **Production Tech Example**: "We pasted an excerpt from the crash logs directly into the incident channel while the team prepared a comprehensive post-mortem write-up for leadership."
+
+### 1.159 `by now` / `should have completed by now`
+* **Category**: Temporal Expectation, Milestone Validation & Pipeline Observability
+* **Phonetics**: /baɪ naʊ/ | /ʃʊd hæv kəmˈpliː.tɪd baɪ naʊ/
+* **Definition**: By this point (it should already have...) / at this stage. Expresses an expected outcome based on a planned schedule, an SLA or common-sense logic. Often paired with a perfect modal (`should have done` / `must have finished`) to point out the anomalous gap when a pipeline or deliverable is still unfinished at this moment.
+* **Synonyms**: `by this point in time`, `already by now`, `at this juncture`
+* **Collocations**: `should have completed by now`, `ought to be finished by now`, `should know better by now`, `by now it is evident that`
+* **Production Tech Example**: "Given the historical throughput of the ingestion worker, the daily reconciliation job should have completed by now."
+
+## 2. Professional & Idiomatic Phrases (178 Items)
 
 ### 2.1 `accidental patterns`
 * **Definition**: Patterns that appear by chance, not by design or intention.
@@ -1736,7 +1776,6 @@ eq s$).
 * **Key Collocations**: `serve as the director`, `act as the coordinator`, `step into the orchestrator role`
 * **Example**: *"Why not let service AAA serve as the director to orchestrate downstream task execution across worker nodes?"*
 
-
 ### 2.128 `scale this capability for...`
 * **Category**: System Scaling & Platform Capability Enablement
 * **Definition**: To scale a core technical capability and make it available to a wider set of users or business lines.Phrasing that transitions a validated prototype into an enterprise platform feature.
@@ -1938,7 +1977,6 @@ eq s$).
 * **Synonyms**: `marginal difference`, `trivial gap`, `statistically insignificant delta`
 * **Example / Usage**: Although Model B scored higher on the token benchmark, it won by a negligible margin of less than 0.2%.
 
-
 ### 2.163 `gain a deep understanding of`
 * **Category**: Epistemological Rigor & Technical Mastery
 * **Phonetics**: /ɡeɪn ə diːp ˌʌn.dɚˈstæn.dɪŋ ʌv/
@@ -2043,7 +2081,19 @@ eq s$).
 * **Collocations**: `on a minor note of correction`, `just a quick correction on that`, `offer a minor correction`
 * **Example / Usage**: On a minor note of correction, the Redis cluster eviction policy is set to volatile-lru rather than allkeys-lru, though the performance outcome remains identical.
 
-## 3. Structural Framing & Sentence Patterns (62 Items)
+### 2.177 `be referring to` / `What are you referring to?` / `What do you mean by [term]?`
+* **Definition**: What exactly is meant here and now / what exactly did you mean by what you just said? As a stative verb phrase, `refer to` takes the simple tense for an objective definition (*What does this code refer to?*); when pressing in live conversation for the speaker's own intent, or clarifying earlier context, use the present progressive `be referring to`, which sounds immediate and polite.
+* **Synonyms**: `mean specifically`, `point toward`, `indicate in this context`
+* **Collocations**: `What are you referring to?`, `Who were you referring to?`, `I was primarily referring to`, `what do you mean by [term]?`
+* **Example / Usage**: "When I mentioned a 'subtle data bug', I was primarily referring to the look-ahead bias in the feature pipeline, not the join cardinality."
+
+### 2.178 `overlap with` / `the degree of overlap`
+* **Definition**: To coincide with / intersect with; the overlap ratio / degree of overlap. Widely used for time-series intervals, feature engineering, set theory and semantic-similarity evaluation. Stresses the amount of shared elements between two subsets, feature distributions or time windows.
+* **Synonyms**: `intersect with / intersection ratio`, `coincide with / proportion of shared elements`
+* **Collocations**: `overlap with each other`, `heavily overlap with`, `calculate the degree of overlap`, `measure semantic overlap`
+* **Example / Usage**: "Ensure that the tumbling aggregation windows do not overlap with each other, minimizing the degree of overlap between adjacent partitions to eliminate double counting."
+
+## 3. Structural Framing & Sentence Patterns (63 Items)
 
 ### 3.1 `I’m not much of a ...`
 * **Function & Meaning**: A self-effacing idiom used to state that one is not particularly skilled at or suited for something.
@@ -2137,8 +2187,6 @@ eq s$).
 * **Rule**: Use an active predicate (`contains`, `persists`) or a participial modifier (`appearing in`, `remaining in`). Always name symbols explicitly (`asterisks`, `backticks`) rather than embedding raw punctuation marks.
 * **Example**: *"The returned response still contains unescaped asterisks (`*`) in the output payload."*
 
-
-
 ### 3.25 `Causative Verb Syntax: The Bare-Infinitive Trio vs. To-Infinitive Causatives`
 * **Function & Syntax**: Governing causation, delegation, and empowerment across technical workflows.
 * **Rules & Formulas**:
@@ -2186,7 +2234,6 @@ eq s$).
     * ✅ *"The frontend now relies on a dedicated API gateway."*
   * **`relay`**: To receive a packet, event, or payload and retransmit / forward it downstream.
     * ✅ *"The gateway relays incoming client requests to upstream worker nodes."*
-
 
 ### 3.30 `Simply because ... doesn't guarantee / mean ...`
 * **Function & Syntax**: Refuting false security and invalid causal inferences in architecture discussions.
@@ -2266,7 +2313,6 @@ eq s$).
   * **As a Transitive Verb**: `guarantee` natively governs direct nouns without prepositions (*"Our SLA guarantees 99.99% uptime"*, *"Writing tests does not guarantee zero regressions"*).
   * **As a Double-Object Verb**: `guarantee + [person] + [noun]` (*"This architecture will guarantee your team peace of mind"*).
   * **As a Noun**: Governs prepositional phrases via `of` (*"High test coverage is not a guarantee of defect-free software"*).
-
 
 ### 3.40 The `forbid` Transitive & Infinitive Invariant (`forbid sb to do sth`)
 * **Category**: Morphological Triple & Strict Compliance Invariant
@@ -2360,7 +2406,6 @@ eq s$).
 * **Syntactic Rule**: Express cognitive boundaries and decompression needs via: **`I need a solid [block / chunk] of [duration] with [nothing scheduled / zero commitments / zero agenda] just to [truly unwind / properly decompress / enter deep flow].`**
 * **Production Example**: *"I need a solid chunk of two to three hours with nothing scheduled just to truly unwind after delivering the quarterly platform release."*
 
-
 ### 3.57 Nominalization & Formal Register Framing: `[Noun Phrase] following [Event / Passing]` vs. `after [Subject] died`
 * **Category**: Linguistic Stylistics, Historical Narrative & Formal Register Calibration
 * **Syntactic Rule**: In formal history, academic prose, and technical reporting, packing verbal actions into abstract noun phrases (**Nominalization**) conveys solemnity, emotional detachment, and high information density. While active clauses (`after Mao died`) describe immediate physical actions, nominal structures (`following Mao's death / in the wake of Mao's passing`) treat occurrences as historical entities and contextual anchors.
@@ -2406,7 +2451,14 @@ eq s$).
   > *"Imposing tighter negative constraints against [arbitrary behavior, e.g. paraphrasing / hallucinations] significantly improves [Model's] [metric, e.g. compliance yield / benchmark consistency]."*
 * **Production Tech Example**: *"Constraining DeepSeek from rewording sentences without preserving target collocations allowed us to significantly raise its compliance yield during benchmark generation."*
 
-## 4. Technical & Core Lexicon (448 Items)
+### 3.63 Dual-Criterion Evaluation Framing: `not simply/merely based on A, but rather on B`
+* **Category**: Model Evaluation Benchmarks, Semantic Precision & Comparative Rebuttal
+* **Syntactic Rule**: Use the correlative structure `not simply/merely based on [Superficial Criterion A], but rather on [Substantive Criterion B]` to systematically reject naive heuristics (like keyword matching or raw line counts) and establish rigorous, high-dimension evaluation standards.
+* **Template**:
+  > *"We cannot evaluate [System / Artifact / Answer] simply based on [Surface Metric A], but rather on [Nuanced Core Dimension B]."*
+* **Production Tech Example**: *"The point is, we shouldn't evaluate an answer merely by surface-level keyword hits, but rather on its semantic overlap with the target's comprehensive definition."*
+
+## 4. Technical & Core Lexicon (452 Items)
 
 ### 4.1 `prestige`
 * **Definition**: It means people respect and admire someone or something because it is important or successful.
@@ -4432,7 +4484,6 @@ eq s$).
 * **Synonyms**: `strike`, `success`, `collision`
 * **Example**: *"The ingestion consumer automatically backed off once the external webhook hit its concurrency threshold."*
 
-
 ### 4.383 `curfew`
 * **Category**: Legal Governance, Public Order & Operational Restrictions
 * **Phonetics**: /ˈkɜː.fjuː/
@@ -4863,7 +4914,6 @@ eq s$).
 * **Synonyms**: `unwind`, `relax`, `relieve tension`, `depressurize`
 * **Example**: *"After surviving the high-stress zero-downtime migration, the engineering team took a quiet afternoon off to **decompress**."*
 
-
 ### 4.440 `reinstate`
 * **Category**: Corporate Governance, Systems Access Control & Status Restoration
 * **Phonetics**: /ˌriː.ɪnˈsteɪt/
@@ -4941,6 +4991,38 @@ eq s$).
 * **Collocations**: `a timid redesign`, `timid approach`, `too timid to refactor`
 * **Example**: *"A timid redesign won't fix our technical debt; we need a bold, ground-up rewrite of the distributed coordination layer."*
 
+### 4.449 `beneficiary`
+* **Category**: Fintech, International Wire Transfer & Legal Architecture
+* **Phonetics**: /ˌben.ɪˈfɪʃ.ər.i/
+* **Definition**: Beneficiary / benefiting party. The party entitled, under a will, trust, insurance contract or international bank wire (SWIFT) rules, to assets, compensation or the final ownership of funds. In payment-system design it specifically means the final receiving and settling party.
+* **Synonyms**: `payee (in banking context)`, `recipient of funds`, `designated heir`
+* **Collocations**: `Beneficiary Bank`, `Beneficiary Account Number`, `primary beneficiary`, `designate a beneficiary`
+* **Example**: *"In cross-border wire transfers, the Beneficiary Bank must validate the IBAN against the beneficiary's registered corporate entity."*
+
+### 4.450 `recipient`
+* **Category**: Distributed Messaging, Email Systems & Logistics
+* **Phonetics**: /rɪˈsɪp.i.ənt/
+* **Definition**: Recipient / receiver. The most general receiving party: whoever physically, contractually or in a data flow receives a message, parcel, funds or an organ transplant. Distinct from a *beneficiary*, who has legal entitlement, and a *payee*, who is simply the party paid in an accounting sense.
+* **Synonyms**: `receiver`, `addressee`, `destination endpoint`
+* **Collocations**: `intended recipient`, `recipient list`, `recipient address`, `organ recipient`
+* **Example**: *"If you are not the intended recipient of this transmission, please notify the sender and purge the attachment immediately."*
+
+### 4.451 `subtler`
+* **Category**: Comparative Nuance, Defect Analysis & Engineering Understatement
+* **Phonetics**: /ˈsʌt.lər/ (or `more subtle`, b is silent)
+* **Definition**: More hidden / finer / harder to notice. The comparative of the adjective *subtle* (note that the middle letter b is strictly silent). In code review and defect diagnosis, it refers specifically to edge-case problems that do not cause an immediate crash but lead to long-tail logic drift or hidden data corruption.
+* **Synonyms**: `more elusive`, `less perceptible`, `more nuanced`
+* **Collocations**: `a subtler bug`, `a subtler issue`, `capture subtler patterns`, `a subtler way to phrase feedback`
+* **Example**: *"Syntax exceptions are caught instantly by the linter; look-ahead bias is a much subtler bug that slips quietly into model weights."*
+
+### 4.452 `soaked`
+* **Category**: Idiomatic & Descriptive English, Resource Absorption Metaphors
+* **Phonetics**: /səʊkt/
+* **Definition**: Drenched / soaked through; by extension, having absorbed or borne a large amount of cost and loss. Far stronger than ordinary *wet*; used to vividly describe being physically drenched to the skin, or a state of being steeped in a harsh environment or massive amounts of data.
+* **Synonyms**: `drenched`, `saturated`, `waterlogged`
+* **Collocations**: `soaked to the skin`, `soaked to the bone`, `soaking wet`, `soak up the losses`
+* **Example**: *"Caught in an unexpected downpour on the way to the datacenter, he arrived soaked to the skin."*
+
 ## 5. Architectural Case Excerpts & Data Engineering Standards (23 Items)
 
 ### 5.1 POINT-IN-TIME CORRECTNESS. Joining a fact to the version of a dimension that was true at fact time, rather than to whatever is true today.
@@ -4972,7 +5054,6 @@ reach for reindex - Readily choose reindex as the tool for the task.
 
 has been burned by this before - Has experienced the negative consequences of this problem; an informal idiom.
 
-
 ---
 
 ### 5.4 When Duplicate Rows Inflate a Metric
@@ -4989,7 +5070,6 @@ deduplicating first is the habit that keeps you safe when the metric later chang
 inflate a metric - Artificially increase a reported measure, often through duplicated or multiplied rows.
 
 byte-identical - Exactly the same at the binary level; stronger than merely representing the same business event.
-
 
 ---
 
@@ -5025,7 +5105,6 @@ In cleaning code, WHEN you compute a statistic is part of the logic.
 
 Inspect before you trust. Step order is part of correctness.
 
-
 ---
 
 ### 5.6 Why Statistic Order Matters
@@ -5052,7 +5131,6 @@ Within one column - Yes - The output of one stage is the input to the next: raw 
 Precise wording: this is computational independence, not necessarily statistical or linear independence. Columns may be correlated and still be processed independently when the rule for each column uses only that column's values.
 
 Key phrases: transformations do not commute | raw observed values | intermediate dataset | column-local | looks plausible | final values used downstream
-
 
 ---
 
@@ -5081,14 +5159,12 @@ Referential integrity - Does every foreign key resolve to a parent key? - Refere
 
 Key phrases: high-cardinality field | partition key | many-to-one join | expected relationship | validate the join contract | fan out | unmatched-key rate | referential integrity
 
-
 ---
 
 ### 5.8 Dashboards that silently skip empty periods are how a total outage gets read as a flat week. Densifying against a spine is the fix, and it is a five-line habit.
 I encountered this in an explanation of dashboard reliability for time-series metrics. It means an absent reporting period must be made explicit by reindexing or joining to a complete date spine; otherwise a collection outage can look like an ordinary quiet period.
 
 ---
-
 
 ---
 
@@ -5097,15 +5173,12 @@ In production time-series predictive modeling (e.g., demand forecasting, infrast
 
 Key phrases: white noise residuals | zero serial autocorrelation | Ljung-Box test | model underfitting | residual diagnostics | unmodeled temporal variance
 
-
-
 ---
 
 ### 5.10 Out-of-Band Service Refactoring and Dedicated Gateway Delegation
 When backend microservices are refactored out-of-band (e.g., through autonomous agent workflows) to offload data persistence to dedicated hardware (such as a local Mac Studio hosting a PostgreSQL daemon), the architectural invariant is decoupling client routing from backend state topology. By placing a dedicated API gateway between the frontend UI and the evolving microservice layer, developers can switch database persistence contracts, migrate connection pools, and update schemas without causing client disruptions or breaking interface contracts.
 
 Key phrases: out-of-band refactoring | dedicated API gateway | decoupled persistence layer | connection pool routing | client-backend contract decoupling
-
 
 ---
 
@@ -5121,12 +5194,10 @@ When scaling high-throughput public APIs, edge gateways must maintain availabili
 
 Key phrases: dynamic difficulty tuning | flag bots | degrade gracefully | edge telemetry | graceful degradation | adversarial rate limiting | progressive verification
 
-
 ### 5.13 Compute Offloading, Hardware Orchestration, and Delegating the Heavy Lifting
 In modern edge-hybrid and local AI engineering architectures, developers frequently decouple interactive development environments (IDEs, web shells, and orchestration planes) from resource-intensive inference and compilation engines. When managing hardware tiers—such as routing heavy local model workloads to a dedicated Apple Silicon Mac Studio or remote GPU server—system engineers do not describe machines as "endeavouring" on tasks. Instead, the architectural contract relies on **workload offloading** and **delegating the heavy lifting**. By offloading memory-bandwidth-intensive quantization, embeddings, or continuous integration builds to a dedicated node, the local orchestrator maintains zero UI latency and prevents runaway thread starvation.
 
 Key phrases: handle the heavy lifting | offload workloads | dedicated compute node | orchestrate pipelines | delegate processing | prevent thread starvation
-
 
 ### 5.14 Telemetry Instrumentation: Item-Level Exposure Telemetry, Impressions, and Placement Attribution
 In product analytics, recommendation engines, and UI telemetry, measuring feature adoption and cognitive fatigue requires precise, event-driven tracking. System designers do not simply record that an asset was "viewed." Instead, the telemetry contract defines an **item-level exposure analysis** that logs three non-negotiable vectors:
@@ -5137,7 +5208,6 @@ In product analytics, recommendation engines, and UI telemetry, measuring featur
 By structuring client hooks to emit structured impression telemetry, data pipelines can detect over-saturation and feature fatigue before user backlash materializes.
 
 Key phrases: item-level exposure analysis | impression count | placement context | timestamped exposure | telemetry instrumentation | feature fatigue
-
 
 ### 5.15 Client Resilience and Offline Fallbacks: Implementing Graceful Degradation When Payloads Are Dropped or Reluctant
 In distributed client-server systems and edge AI applications, network partitions or user privacy choices often mean clients are unwilling or unable to dispatch their telemetry payloads. Rather than throwing blocking exceptions, tearing down user sessions, or displaying broken UI components, resilient architectures enforce **graceful degradation** and **graceful fallback mechanisms**.
@@ -5186,7 +5256,6 @@ When designing production data architectures and ML pipelines, system engineers 
 Conflating metric lopsidedness with distributed partition skew leads to flawed engineering escalations—treating a hardware resource bottleneck as a modeling defect, or vice versa.
 
 Key phrases: lopsided dataset | data skew | partition stragglers | class imbalance | executor OOM | key salting | adaptive query execution | broadcast hash join
-
 
 ### 5.20 Temporal Windowing & Feature Aggregation: Trading High-Frequency Noise for Coarser-Grained Stability
 In production streaming analytics and machine learning feature stores, system engineers frequently encounter trade-offs between raw signal latency and aggregate statistical variance. When ingesting clickstream events or sensor telemetry, second-by-second granularity often introduces extreme variance, transient network jitters, and massive downstream compute pressure.
