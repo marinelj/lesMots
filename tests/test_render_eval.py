@@ -32,6 +32,30 @@ def test_test_set_is_frozen(lex, tmp_path):
     assert len(ids) == len(set(ids))
 
 
+V2_REWRITTEN = {"syn-ablation", "syn-capable", "syn-cartesian", "syn-euclidean", "syn-lasso",
+                "syn-oversight", "syn-spring", "syn-stick", "syn-streaky", "syn-tangle"}
+
+
+def test_test_v2_changes_only_the_logged_rows(lex):
+    """Test v2 = v1 minus syn-havel, with only the 10 logged inputs rewritten."""
+    v1 = {c["id"]: c for c in evaluate.load_cases(evaluate.FROZEN_TEST)}
+    v2 = {c["id"]: c for c in evaluate.load_cases(evaluate.TEST_V2)}
+    assert set(v1) - set(v2) == {"syn-havel"} and set(v2) <= set(v1)
+    assert len(v2) == 94
+    changed = {i for i in v2 if v2[i] != v1[i]}
+    assert changed == V2_REWRITTEN
+    for i in changed:  # only the input sentence moved; the answer key is v1's
+        assert {k: v for k, v in v2[i].items() if k != "text"} == {
+            k: v for k, v in v1[i].items() if k != "text"}
+    assert {e for c in v2.values() for e in c.get("expect_any", [])} <= set(lex.by_id)
+
+
+def test_guard_also_holds_test_v2_sentences():
+    from lesmots.lexrender import distill
+    guard = distill.TestGuard()
+    assert guard.too_close("The cowboy threw the rope loop and caught the runaway calf.")
+
+
 def test_a_good_rewrite_passes(lex, cases):
     reply = ("If the cache is unavailable, the service will {{fall-back-to|fall back to}} "
              "the database.")

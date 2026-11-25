@@ -59,6 +59,10 @@ EVAL_DIR = ROOT / "eval" / "render"
 HANDWRITTEN = EVAL_DIR / "handwritten.jsonl"
 CASES = EVAL_DIR / "cases.jsonl"
 FROZEN_TEST = EVAL_DIR / "test-frozen.jsonl"  # the held-out test set, never rebuilt
+# test v2 (2026-11-25): the frozen set with 10 garbled synonym inputs rewritten and
+# syn-havel dropped. A separate file, so v1 scores stay on record (see README)
+TEST_V2 = EVAL_DIR / "test-v2.jsonl"
+HELD_OUT = (FROZEN_TEST, TEST_V2)  # every held-out file; their sentences never train
 EMBED_CACHE = Path.home() / ".cache" / "lexrender-embed"  # entry vectors, one file per lexicon
 
 SYNONYM_CASES = 120  # how many synonym-swap cases ``build`` samples from the lexicon

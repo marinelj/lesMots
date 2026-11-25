@@ -28,6 +28,20 @@ A fixed test set for the model behind remote render, so Codex, a stock local mod
   - 2026-11-17: single everyday words are never linked (`forms.COMMON_WORDS`, Marine's
     rule). Six synonym cases targeted such an entry, so they now expect no link:
     `syn-latest`, `syn-reject`, `syn-spring`, `syn-square`, `syn-stick`, `syn-swap`.
+- `test-v2.jsonl`: test v2, 94 cases, made on 2026-11-25 because 11 machine-made synonym
+  inputs were garbled (the swap took a synonym from the wrong sense, e.g. "threw the L1
+  penalty" for lasso). `test-frozen.jsonl` stays as v1, so earlier scores stay on record;
+  score new runs on both and report them apart. Marine reviewed and approved each change:
+  - dropped `syn-havel` ("Václav proper noun was…": a name has no synonym);
+  - rewrote the input only, answer key unchanged: `syn-lasso` (the rope loop),
+    `syn-spring` (the warm season after winter), `syn-stick` (a pointer), `syn-tangle`
+    (an entanglement), `syn-euclidean` (flat-plane geometry), `syn-streaky` (bacon striped
+    with fat), `syn-ablation` (laser tissue removal), `syn-cartesian` (x-y coordinate
+    system), `syn-oversight` (a major omission), `syn-capable` (is able to process).
+
+  The same rules as v1 apply: never train on these sentences (distill's `TestGuard`
+  reads every held-out file), and never edit a case except to fix its answer key. Score
+  it with `--cases eval/render/test-v2.jsonl --split test`.
 - `cases.jsonl`: the frozen test cases plus every other hand-written case and up to 120
   `synonym` cases built from lexicon examples, all as `dev`. Rebuild it after editing
   the hand-written cases or the lexicon:

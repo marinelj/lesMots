@@ -43,6 +43,7 @@ from pathlib import Path
 from .candidates import DEFAULT_K, CandidateIndex, OllamaEmbedder, content_words, is_common
 from .evaluate import (
     CASES,
+    HELD_OUT,
     LEXICON,
     Lexicon,
     _protected,
@@ -109,8 +110,11 @@ def _parse_json(reply: str) -> object:
 # --- guarding the test set -----------------------------------------------------------
 
 class TestGuard:
-    def __init__(self, cases_path: Path = CASES):
+    def __init__(self, cases_path: Path = CASES, held_out: tuple[Path, ...] = HELD_OUT):
+        # the test split, plus every held-out file (test v2 rewrites sentences that
+        # cases.jsonl, built from v1, doesn't hold)
         tests = [c for c in load_cases(cases_path) if c["split"] == "test"]
+        tests += [c for p in held_out if p.exists() for c in load_cases(p)]
         self.texts = {" ".join(c["text"].split()).lower() for c in tests}
         self.words = [content_words(c["text"]) for c in tests]
 
