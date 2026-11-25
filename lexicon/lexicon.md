@@ -1,7 +1,7 @@
-# Universal Lexicon & Knowledge Base for AI Agents (v23 Compilation)
+# Universal Lexicon & Knowledge Base for AI Agents (v24 Compilation)
 > **Agent Ingestion Directive**: This specification serves as the universal lexicon, terminology reference, and communication standard across all agent interactions. It encapsulates domain vocabulary, technical collocations, rhetorical sentence patterns, and system design idioms. Spaced-repetition metadata and multilingual artifacts have been completely purged to ensure zero ambiguity and maximum token efficiency. Ingest this document to align your tone, explanations, and code review feedback with these standards.
 
-## 1. High-Impact Idioms & Architecture Lexicon (159 Items)
+## 1. High-Impact Idioms & Architecture Lexicon (168 Items)
 
 ### 1.1 `in the trenches`
 * **Category**: Idiom / Engineering Culture
@@ -1214,6 +1214,78 @@ eq s$).
 * **Synonyms**: `by this point in time`, `already by now`, `at this juncture`
 * **Collocations**: `should have completed by now`, `ought to be finished by now`, `should know better by now`, `by now it is evident that`
 * **Production Tech Example**: "Given the historical throughput of the ingestion worker, the daily reconciliation job should have completed by now."
+
+### 1.160 `fall under Step [N]` / `fall within the scope of`
+* **Category**: Agile Project Governance & System Remediation
+* **Phonetics**: /ˈfɔːl ˈʌn.dər step [N]/ | /ˈfɔːl wɪðˈɪn ðə skəʊp əv/
+* **Definition**: Falls under step [N] / belongs within the agreed plan or schedule. In agile scheduling, a multi-step remediation plan or an architecture design phase, it says that a specific task, requirement or patch belongs to a particular step of the agreed process; or confirms that a change lies fully within the delivery boundary of the current project and its RFC.
+* **Synonyms**: `belong to Step [N]`, `be covered by Step [N]`, `fall within the remit of`
+* **Collocations**: `fall under Step 4 of the fix`, `fall within the scope of the RFC`, `fall outside the scope`
+* **Production Tech Example**: *"Generating three additional teacher seed prompts falls directly under Step 4 of our benchmark remediation plan."*
+
+### 1.161 `house style`
+* **Category**: Engineering Documentation, UI & Code Consistency
+* **Phonetics**: /ˈhaʊs staɪl/
+* **Definition**: House style / internal standard / unified writing and design conventions. The established standard and style guide (house style guide) that an organization, engineering team or company follows consistently for layout and color, API contract naming, code conventions or chart rendering.
+* **Synonyms**: `corporate style guide`, `internal branding guidelines`, `organizational design standard`
+* **Collocations**: `adhere strictly to house style`, `corporate house style guide`, `maintain consistent house style`
+* **Production Tech Example**: *"The data visualization team maintained a dedicated charting library to ensure every publication-grade plot conformed to the corporate house style."*
+
+### 1.162 `land with [someone]` vs. `resonate with [someone]`
+* **Category**: Product Growth, Technical Pitching & Audience Alignment
+* **Phonetics**: /lænd wɪð/ vs. /ˈrez.ə.neɪt wɪð/
+* **Definition**: (Of words, copy or a proposal) to have the intended effect / win over an audience vs. to strike a deep chord. `land with` stresses that a message "lands smoothly": it gets across precisely, the joke works, it is effective (the opposite is *fail to land*, no reaction at all); `resonate with` leans toward deep emotional resonance, a match in values and hitting a real pain point (from resonance in physics).
+* **Synonyms**: `strike a chord with`, `click with`, `align with user intent`
+* **Collocations**: `fail to land with the audience`, `resonate strongly with leadership`, `land really well`
+* **Production Tech Example**: *"The new onboarding email got almost no clicks; it simply didn't land with anyone. Conversely, our proposal for developer autonomy resonated deeply with the platform team."*
+
+### 1.163 `stick to` vs. `adhere to`
+* **Category**: Agile Execution vs. Architecture Governance
+* **Phonetics**: /stɪk tuː/ vs. /ədˈhɪər tuː/
+* **Definition**: Keep to the agreed course (colloquial, everyday agile work) vs. strictly comply with technical specifications and contracts (formal, written, compliance). `stick to` stresses not drifting or wavering and following the plan (*stick to the sprint schedule*); `adhere to` stresses that a system or implementation strictly conforms to an interface contract, a security standard or a legal standard (*adhere to the API schema*).
+* **Synonyms**: `follow the plan vs. comply with the standard`, `remain committed to vs. conform to`
+* **Collocations**: `stick to the plan`, `stick to our guns`, `adhere strictly to API contracts`, `adhere to governance policies`
+* **Production Tech Example**: *"We should stick to our sprint schedule, but make sure the new microservice strictly adheres to the schema invariants."*
+
+### 1.164 `concrete example` / `walk someone through a concrete scenario`
+* **Category**: Technical Review, RFC Inquiry & Collaborative Pragmatics
+* **Phonetics**: /ˈkɒŋ.kriːt ɪɡˈzɑːm.pəl/ | /wɔːk ... θruː ə ˈkɒŋ.kriːt sɪˈnɑː.ri.əʊ/
+* **Definition**: A specific, vivid example / walk someone through a specific scenario from start to finish. In technical reviews and architecture discussions, it replaces the stiff and ambiguous *exact example*, as a polite, professional way to ask for a tangible example with real business context.
+* **Synonyms**: `specific illustration`, `tangible use case`, `walk-through example`
+* **Collocations**: `give a concrete example`, `walk through a concrete scenario`, `provide an example to illustrate`
+* **Production Tech Example**: *"Could you walk me through a concrete scenario where foreign key cascades could trigger distributed deadlock?"*
+
+### 1.165 `multi-faceted corpus` / `deepen one's grasp of [the target concepts]`
+* **Category**: Machine Learning Datasets, NLP Corpus & Pedagogical Precision
+* **Phonetics**: /ˌmʌl.tiˈfæs.ɪ.tɪd ˈkɔː.pəs/ | /ˈdiː.pən wʌnz ɡrɑːsp əv .../
+* **Definition**: A rich, multi-dimensional corpus / deepen one's grasp of the target concepts or expressions. In NLP, LLM evaluation or teaching contexts, it replaces the flat *multi-angle corpus* to describe precisely a high-quality mix of data spanning several domains, modalities or styles, which substantially improves generalized understanding.
+* **Synonyms**: `richly contextualized dataset`, `diverse training distribution`, `solidify one's understanding`
+* **Collocations**: `curate a multi-faceted corpus`, `deepen one's grasp of target terminology`, `richly contextualized examples`
+* **Production Tech Example**: *"Exposing evaluation models to a multi-faceted corpus will substantially deepen their grasp of ambiguous domain expressions."*
+
+### 1.166 `marbling was inconsistent` / `uneven distribution`
+* **Category**: Quantitative Distribution & Food Science Metaphor
+* **Phonetics**: /ˈmɑː.bəl.ɪŋ wɒz ˌɪn.kənˈsɪs.tənt/
+* **Definition**: (Of steak) the marbling, the distribution of fat, is uneven; figuratively, data features that are distributed patchily. It corrects the literal mistranslation *steak was inconsistent with fat* (which would mean the steak contradicts the fat); in feature engineering and everyday English, *marbling* precisely names the fine streaks of fat and *inconsistent* names the patchy unevenness.
+* **Synonyms**: `unevenly distributed fat`, `patchy distribution`, `irregular dispersion`
+* **Collocations**: `inconsistent marbling`, `uneven fat distribution`, `beautifully marbled steak`
+* **Production Tech Example**: *"The marbling across the beef cut was inconsistent, leading to uneven texture when seared."*
+
+### 1.167 `striped with fat` / `be striped with...`
+* **Category**: Visual Descriptive Framing & Material Appearance
+* **Phonetics**: /straɪpt wɪð fæt/
+* **Definition**: Streaked with bands of fat / alternating lean and fat. Used to depict vividly the clearly alternating streaks of fat on the surface of streaky bacon (pork belly), or to describe anything with a striped look.
+* **Synonyms**: `streaked with fat`, `striated with bands`, `interleaved layers`
+* **Collocations**: `striped with fat`, `striped with vibrant colors`, `thinly sliced streaky cut`
+* **Production Tech Example**: *"The artisan bacon was neatly striped with fat, crisping up evenly under high heat."*
+
+### 1.168 `threw the rope loop` / `eye of a rope`
+* **Category**: Physical Manipulation & Maritime/Ranching Idiom
+* **Phonetics**: /θruː ðə rəʊp luːp/
+* **Definition**: Throw the rope loop / cast a loop of rope. Placing a rope tied into a loop accurately over a bollard or other target. Mind the homophones: the past tense *threw* sounds the same as the preposition *through*.
+* **Synonyms**: `cast the lasso`, `flung the noose`, `looped the mooring line`
+* **Collocations**: `throw the rope loop over the bollard`, `slip through the loop`, `knot a secure loop`
+* **Production Tech Example**: *"The deckhand threw the rope loop over the dock bollard to moor the vessel against the surge."*
 
 ## 2. Professional & Idiomatic Phrases (178 Items)
 
@@ -2458,7 +2530,7 @@ eq s$).
   > *"We cannot evaluate [System / Artifact / Answer] simply based on [Surface Metric A], but rather on [Nuanced Core Dimension B]."*
 * **Production Tech Example**: *"The point is, we shouldn't evaluate an answer merely by surface-level keyword hits, but rather on its semantic overlap with the target's comprehensive definition."*
 
-## 4. Technical & Core Lexicon (452 Items)
+## 4. Technical & Core Lexicon (458 Items)
 
 ### 4.1 `prestige`
 * **Definition**: It means people respect and admire someone or something because it is important or successful.
@@ -5023,7 +5095,43 @@ eq s$).
 * **Collocations**: `soaked to the skin`, `soaked to the bone`, `soaking wet`, `soak up the losses`
 * **Example**: *"Caught in an unexpected downpour on the way to the datacenter, he arrived soaked to the skin."*
 
-## 5. Architectural Case Excerpts & Data Engineering Standards (23 Items)
+### 4.453 `sell-off`
+* **Definition**: /ˈsel.ɒf/ — (noun, [C]) Asset sell-off / concentrated selling. A rapid, large-scale selling of securities, equities, or commodities in financial markets, driving prices down sharply.
+* **Synonyms**: `market dumping`, `liquidation wave`, `panicked unloading`
+* **Collocations**: `trigger a massive sell-off`, `tech sector sell-off`, `halt the sell-off`
+* **Example**: The unexpected interest rate announcement triggered a broad sell-off across tech equities.
+
+### 4.454 `tariffs`
+* **Definition**: /ˈtær.ɪfs/ — (noun, [plural/C]) Tariffs / customs duties. Customs duties or official taxes levied by a government on imported or exported goods.
+* **Synonyms**: `customs duties`, `import levies`, `trade taxes`
+* **Collocations**: `impose punitive tariffs`, `slap tariffs on imports`, `tariff escalations`
+* **Example**: The administration threatened to impose additional tariffs on imported semiconductor components.
+
+### 4.455 `intensify`
+* **Definition**: /ɪnˈten.sɪ.faɪ/ — (verb, [I/T]) To intensify / strengthen / escalate. To become or make something greater, more serious, or more extreme in strength or severity.
+* **Synonyms**: `escalate`, `heighten`, `amplify` (Antonym: `de-escalate`)
+* **Collocations**: `trade tensions intensify`, `intensify scrutiny`, `competition intensifies`
+* **Example**: Market volatility intensified as geopolitical trade friction escalated.
+
+### 4.456 `McNemar's test`
+* **Definition**: /məkˈne.mɑːz test/ — (noun, [U]) McNemar's test. A non-parametric statistical hypothesis test applied to paired nominal data ($2 \times 2$ contingency table of discordant pairs $b$ and $c$), used to determine whether the marginal frequencies of two binary outcomes across matched samples or paired model predictions are statistically significant.
+* **Synonyms**: `paired chi-square test`, `discordant pair test`, `paired nominal test`
+* **Collocations**: `run McNemar's test on discordant pairs`, `statistically significant difference`, `paired binary classification`
+* **Example**: We evaluated Model A against Model B using McNemar's test, confirming the accuracy delta was driven by significant discordant improvements rather than random chance.
+
+### 4.457 `marbling`
+* **Definition**: /ˈmɑː.blɪŋ/ — (noun, [U]) Marbling / the streaks of fat in meat (intermuscular fat). The intermuscular streaks of white fat distributed within lean meat (especially high-grade steak), providing tenderness, juiciness, and rich flavor.
+* **Synonyms**: `intramuscular fat`, `fat striation`, `meat graining`
+* **Collocations**: `dense marbling`, `inconsistent marbling`, `high marbling score`
+* **Example**: The Wagyu ribeye featured exquisite, uniform marbling throughout the cut.
+
+### 4.458 `targeted therapy`
+* **Definition**: /ˈtɑː.ɡɪ.tɪd ˈθer.ə.pi/ — (noun, [U]) Targeted therapy. A specialized medical cancer treatment that uses drugs or other substances to precisely identify and attack specific cancer cells or molecular pathways, distinct from physical `ablation` (surgical/thermal excision).
+* **Synonyms**: `molecularly targeted therapy`, `precision medicine`, `targeted pharmaceutical treatment`
+* **Collocations**: `prescribe targeted therapy`, `undergo targeted therapy`, `molecular targeted therapy`
+* **Example**: Unlike laser ablation which physically burns lesions, targeted therapy uses molecular inhibitors to block malignant cell receptors.
+
+## 5. Architectural Case Excerpts & Data Engineering Standards (24 Items)
 
 ### 5.1 POINT-IN-TIME CORRECTNESS. Joining a fact to the version of a dimension that was true at fact time, rather than to whatever is true today.
 I encountered this in historical dimension joins and backfilled reporting. It means matching each fact to the dimension version that was valid when the fact occurred, not to the latest version.
@@ -5283,6 +5391,21 @@ Deploying third-party LLM providers (e.g., Anthropic Claude, OpenAI) in producti
 
 1. **Acceptable Use Policy (AUP) Enforcement**: Platform vendors enforce strict contractual terms prohibiting automated content generation that promotes harm, deceptive automation, or unauthorized automated impersonation. Workloads that run afoul of platform terms of service risk immediate API key revocation and enterprise account suspension.
 2. **Architectural Mitigation & Content Filtering**: Production API client gateways should implement pre-flight safety screening and prompt sanitation before outbound vendor dispatches, ensuring edge prompts remain fully compliant with vendor safety guidelines without unexpected runtime rejections.
+
+### 5.24 Statistical Significance in Paired Model Evaluations: Applying McNemar's Test on Discordant Classification Pairs
+When benchmarking two language models or classifiers ($M_A$ vs. $M_B$) across the same test split, evaluating overall accuracy deltas alone (e.g. 84.5% vs. 86.0%) introduces severe interpretive risk. Standard independent two-sample tests (like the two-proportion z-test) assume independence between the two models' predictions. However, when evaluating the identical set of test prompts, the predictions are strictly paired and mutually correlated.
+
+1. **The 2x2 Contingency Matrix**: For each evaluation example, there are four possible joint outcomes:
+   * $a$: Both $M_A$ and $M_B$ correct.
+   * $b$: $M_A$ correct, $M_B$ incorrect (discordant pair favoring $M_A$).
+   * $c$: $M_A$ incorrect, $M_B$ correct (discordant pair favoring $M_B$).
+   * $d$: Both $M_A$ and $M_B$ incorrect.
+2. **Discordant Pair Inference**: The concordant counts ($a$ and $d$) provide zero signal regarding relative superiority. McNemar's test focuses exclusively on the discordant cells ($b$ vs. $c$). Under the null hypothesis that marginal error rates are identical, the test statistic with continuity correction is:
+   $$\chi^2 = \frac{(|b - c| - 1)^2}{b + c}$$
+   which asymptotically follows a $\chi^2$ distribution with 1 degree of freedom (or exact binomial test when $b + c < 25$).
+3. **Architectural Rule**: Never declare model victory based on nominal percentage deltas alone. Production ML benchmarks must compute McNemar's p-value on paired test splits to guarantee that performance deltas reflect genuine algorithmic capability rather than stochastic label noise.
+
+Key phrases: paired classification | McNemar's test | discordant pairs | contingency table | statistical significance | benchmark integrity
 
 ## 6. Unified Slash-Command & Knowledge Sync Protocol
 
