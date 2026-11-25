@@ -105,6 +105,69 @@ def test_check_repairs_a_wrong_id_when_the_words_are_an_offered_phrase(lex):
     assert "{{fall-back-to|fall back to}}" in distill._clean_reply(lex, row)
 
 
+def test_check_keeps_an_opener_added_before_a_colon(lex):
+    # the scorer splits at colons; the distill check must not, or "Plan B: if the
+    # cache…" leaves a lowercase "if the cache…" that looks like a changed sentence
+    source = {"text": "If the cache is down, we use the database instead.",
+              "target": "fall-back-to"}
+    row = {"rewrite": "We {{fall-back-to|fall back to}} a plan: if the cache is down, "
+                      "we use the database instead.",
+           "candidates": ["fall-back-to"]}
+    assert distill.check(lex, source, row) == (True, "")
+
+
+def test_angle_prompt_asks_for_three_levels_and_an_exchange(lex):
+    targets = [lex.by_id["fall-back-to"]]
+    prompt = distill.angle_seed_prompt(targets, 1, distill.random.Random(0))
+    assert "Write 4 short texts" in prompt
+    for level in distill.LEVELS:
+        assert f'"{level}"' in prompt
+    assert '"user"' in prompt and "situation" in prompt
+    assert "TARGET fall-back-to" in prompt
+
+
+def test_definition_overlap_flags_dictionary_copies():
+    definition = "The state of being completely filled or soaked with something"
+    copy = "The towel is completely soaked and filled with water."
+    natural = "That sponge is holding all the water it can."
+    assert distill.definition_overlap(copy, definition) > distill.DEFINITION_OVERLAP_MAX
+    assert distill.definition_overlap(natural, definition) == 0.0
+
+
+def test_angle_seeds_keep_level_and_user_and_drop_copies(lex, tmp_path):
+    entry = lex.by_id["fall-back-to"]
+    copy = " ".join(sorted(distill.content_words(entry.definition)))  # all key words
+    seed_reply = [
+        {"target": "fall-back-to", "level": "plain",
+         "text": "If the cache is down, we use the database instead."},
+        {"target": "fall-back-to", "level": "implied", "user": "What if the cache dies?",
+         "text": "The database is still there, so users won't notice."},
+        {"target": "fall-back-to", "level": "indirect", "text": copy},  # dictionary copy
+        {"target": None, "text": "Run the tests before you push."},
+    ]
+    pool = [entry] * 50
+    orig = distill.random.Random.sample
+    distill.random.Random.sample = lambda self, seq, n: (pool[:n] if seq and hasattr(
+        seq[0], "phrase") else orig(self, seq, n))
+    try:
+        kept = distill.seed(lex, fake_teacher(seed_reply, None), tmp_path, 1,
+                            distill.TestGuard(), angles=True)
+    finally:
+        distill.random.Random.sample = orig
+    rows = distill._read(tmp_path / "sources.jsonl")
+    assert kept == 3
+    assert [r.get("level") for r in rows] == ["plain", "implied", None]
+    assert rows[1]["user"] == "What if the cache dies?"
+
+
+def test_rewrite_prompt_shows_the_user_message_as_context_only(lex):
+    source = {"id": "s1", "user": "What if the cache dies?",
+              "text": "The database is still there."}
+    prompt = distill.rewrite_prompt(lex, [(source, [lex.by_id["fall-back-to"]])])
+    assert "CONTEXT (the user's message" in prompt
+    assert prompt.index("What if the cache dies?") < prompt.index("ANSWER:\nThe database")
+
+
 def test_teacher_failures_stop_with_retry_later(lex, tmp_path):
     def broken(prompt, system):
         raise RuntimeError("usage limit")
@@ -279,3 +342,15 @@ def test_eager_nudge_reaches_only_the_teacher(lex, index):
     assert distill.EAGER_NUDGE in distill.rewrite_prompt(lex, [(source, cands)], eager=True)
     assert distill.EAGER_NUDGE not in distill.rewrite_prompt(lex, [(source, cands)])
     assert distill.EAGER_NUDGE not in distill.student_prompt(lex, source["text"], cands)
+
+
+def test_a_common_word_target_never_enters_the_shortlist():
+    from lesmots.lexrender.candidates import CandidateIndex, is_common
+    from lesmots.lexrender.evaluate import Lexicon
+
+    lex = Lexicon.load()
+    common = next(e for e in lex.entries if is_common(e.phrase))
+    index = CandidateIndex(lex.entries, lex.matcher, None)
+    source = {"id": "x", "target": common.id, "text": "That idea was not very bright."}
+    chosen = distill.candidates_for(index, lex, source, 40)
+    assert common.id not in [e.id for e in chosen]

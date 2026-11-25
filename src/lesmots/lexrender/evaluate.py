@@ -59,6 +59,10 @@ EVAL_DIR = ROOT / "eval" / "render"
 HANDWRITTEN = EVAL_DIR / "handwritten.jsonl"
 CASES = EVAL_DIR / "cases.jsonl"
 FROZEN_TEST = EVAL_DIR / "test-frozen.jsonl"  # the held-out test set, never rebuilt
+# test v2 (2026-11-25): the frozen set with 10 garbled synonym inputs rewritten and
+# syn-havel dropped. A separate file, so v1 scores stay on record (see README)
+TEST_V2 = EVAL_DIR / "test-v2.jsonl"
+HELD_OUT = (FROZEN_TEST, TEST_V2)  # every held-out file; their sentences never train
 EMBED_CACHE = Path.home() / ".cache" / "lexrender-embed"  # entry vectors, one file per lexicon
 
 SYNONYM_CASES = 120  # how many synonym-swap cases ``build`` samples from the lexicon
@@ -66,6 +70,9 @@ MAX_PHRASE_WORDS = 8  # longer headings aren't in the prompt's index (render.MAX
 
 _EXAMPLE_RE = re.compile(r"\*\*Example\*\*\s*:\s*\*?\"?(.+?)\"?\*?\s*$", re.MULTILINE)
 _SENTENCE_SPLIT = re.compile(r"(?<=[.!?:])\s+|\n+")
+# distill's check splits only at sentence ends: a teacher that adds an opener before a
+# colon ("It may seem X: you might…") must not turn the rest into a "changed" sentence
+_SENTENCE_END_SPLIT = re.compile(r"(?<=[.!?])\s+|\n+")
 
 
 # --- lexicon -------------------------------------------------------------------------
@@ -193,8 +200,9 @@ def _norm(sentence: str) -> str:
     return " ".join(sentence.split()).strip()
 
 
-def _sentences(text: str) -> list[str]:
-    return [s for s in (_norm(p) for p in _SENTENCE_SPLIT.split(text)) if s]
+def _sentences(text: str, *, colons: bool = True) -> list[str]:
+    split = _SENTENCE_SPLIT if colons else _SENTENCE_END_SPLIT
+    return [s for s in (_norm(p) for p in split.split(text)) if s]
 
 
 def drop_common_markers(lex: Lexicon, reply: str) -> str:
@@ -269,20 +277,52 @@ def summarize(results: Iterable[dict]) -> dict:
     }
 
 
+# --- decoding fixes ----------------------------------------------------------------
+
+def repair_markers(lex: Lexicon, reply: str) -> str:
+    """Fix markers a model got half right, after the model and before anyone sees them.
+
+    A marker whose words are the entry's phrase (in any form) stays. A marker with a real
+    entry id around other words (``{{cradle|crib}}``) gets the entry's own phrase, when
+    the phrase is a plain word or two with no slot; every other bad marker is unwrapped,
+    leaving the words as they were. Nothing new is ever linked.
+    """
+    def fix(m: re.Match) -> str:
+        eid, words = m.group(1), m.group(2)
+        entry = lex.by_id.get(eid)
+        if entry is not None and lex.is_phrase(eid, words):
+            return m.group(0)
+        phrase = entry.phrase if entry is not None else ""
+        if (phrase and len(words.split()) <= 3 and len(phrase.split()) <= 3
+                and not re.search(r"[\[\].…/]", phrase)):
+            return "{{" + eid + "|" + phrase + "}}"
+        return words
+    return MARKER.sub(fix, reply or "")
+
+
+def judge(lex: Lexicon, text: str, reply: str) -> tuple[int, int]:
+    """Rank a reply without knowing the expected answer: first the checks that need no
+    answer key (valid markers, unchanged unmarked sentences, protected text, length),
+    then the number of valid phrases. Used to pick the best of several samples."""
+    result = score(lex, {"id": "", "kind": "", "split": "", "text": text}, reply)
+    ok = sum(result["checks"].values())
+    return ok, len(result["used"])
+
+
 # --- running a model -----------------------------------------------------------------
 
 Complete = Callable[[str, str], str]
 
 
 def openai_complete(base_url: str, model: str, api_key: str = "",
-                    timeout: float = 120.0) -> Complete:
+                    timeout: float = 120.0, temperature: float = 0.0) -> Complete:
     """A client for any OpenAI-compatible /chat/completions endpoint (Ollama, LM Studio,
-    vLLM, OpenAI itself). Temperature 0, so runs are repeatable."""
+    vLLM, OpenAI itself). Temperature 0 by default, so runs are repeatable."""
     url = base_url.rstrip("/") + "/chat/completions"
 
     def complete(prompt: str, system: str) -> str:
         body = json.dumps({
-            "model": model, "temperature": 0, "stream": False,
+            "model": model, "temperature": temperature, "stream": False,
             "messages": [{"role": "system", "content": system},
                          {"role": "user", "content": prompt}],
         }).encode()
@@ -298,22 +338,35 @@ def openai_complete(base_url: str, model: str, api_key: str = "",
 
 
 def run(lex: Lexicon, cases: list[dict], complete: Complete,
-        prompt: Callable[[str], str] | None = None) -> list[dict]:
+        prompt: Callable[[str], str] | None = None, *, repair: bool = False,
+        sample: Complete | None = None, samples: int = 1) -> list[dict]:
     """``prompt`` builds the model's prompt from an answer; the default is the production
-    prompt over the whole lexicon (``--candidates`` swaps in the dedicated model's)."""
+    prompt over the whole lexicon (``--candidates`` swaps in the dedicated model's).
+
+    ``repair`` runs :func:`repair_markers` on every reply. With ``samples`` > 1 the first
+    reply is ``complete``'s (greedy) and the rest come from ``sample`` (temperature > 0);
+    :func:`judge` keeps the best, without looking at the case's expected entries.
+    """
     prompt = prompt or lex.prompt
     results = []
     for case in cases:
         start = time.monotonic()
-        try:
-            reply = complete(prompt(case["text"]), SYSTEM)
-            error = None
-        except Exception as exc:  # a failed call counts as a failed case
-            reply, error = "", f"{type(exc).__name__}: {exc}"
+        replies, error = [], None
+        for i in range(max(1, samples)):
+            try:
+                call = complete if i == 0 or sample is None else sample
+                replies.append(call(prompt(case["text"]), SYSTEM))
+            except Exception as exc:  # a failed call counts as a failed case
+                error = error or f"{type(exc).__name__}: {exc}"
+        if repair:
+            replies = [repair_markers(lex, r) for r in replies]
+        reply = max(replies, key=lambda r: judge(lex, case["text"], r)) if replies else ""
         result = score(lex, case, reply)
         result["seconds"] = round(time.monotonic() - start, 2)
         result["reply"] = reply
-        if error:
+        if samples > 1:
+            result["samples"] = len(replies)
+        if error and not replies:
             result["error"] = error
             result["passed"] = False
         results.append(result)
@@ -350,11 +403,19 @@ def main(argv: list[str] | None = None) -> int:
                    help="Ollama server for --embed-model")
     p.add_argument("--embed-cache", type=Path, default=EMBED_CACHE,
                    help="folder for cached entry vectors")
+    p.add_argument("--repair", action="store_true",
+                   help="repair half-right markers after the model (repair_markers)")
+    p.add_argument("--samples", type=int, default=1,
+                   help="replies per case; the judge keeps the best (1 = greedy only)")
+    p.add_argument("--temperature", type=float, default=0.7,
+                   help="temperature for samples after the first (the first is greedy)")
 
     p = sub.add_parser("score", help="score replies collected elsewhere")
     p.add_argument("--outputs", type=Path, required=True,
                    help='JSONL of {"id": case id, "reply": model reply}')
     p.add_argument("--out", type=Path)
+    p.add_argument("--repair", action="store_true",
+                   help="repair half-right markers before scoring (repair_markers)")
 
     p = sub.add_parser("recall", help="how often the shortlist holds an expected entry")
     p.add_argument("--k", default="10,20,40,80", help="shortlist sizes, comma-separated")
@@ -414,13 +475,21 @@ def main(argv: list[str] | None = None) -> int:
             index = CandidateIndex(lex.entries, lex.matcher, embed)
             def prompt(text: str) -> str:
                 return student_prompt(lex, text, index.select(text, args.candidates))
+        sample = (openai_complete(args.base_url, args.model, args.api_key,
+                                  temperature=args.temperature) if args.samples > 1 else None)
         results = run(lex, chosen, openai_complete(args.base_url, args.model, args.api_key),
-                      prompt)
+                      prompt, repair=args.repair, sample=sample, samples=args.samples)
     else:
         by_id = {c["id"]: c for c in cases}
         replies = [json.loads(line) for line in args.outputs.read_text().splitlines()
                    if line.strip()]
-        results = [score(lex, by_id[r["id"]], r["reply"]) for r in replies if r["id"] in by_id]
+        fix = (lambda r: repair_markers(lex, r)) if args.repair else (lambda r: r)
+        results = []
+        for r in replies:
+            if r["id"] in by_id:
+                result = score(lex, by_id[r["id"]], fix(r["reply"]))
+                result["reply"] = fix(r["reply"])
+                results.append(result)
 
     if args.out:
         args.out.write_text("".join(json.dumps(r, ensure_ascii=False) + "\n" for r in results))
