@@ -116,6 +116,58 @@ def test_check_keeps_an_opener_added_before_a_colon(lex):
     assert distill.check(lex, source, row) == (True, "")
 
 
+def test_angle_prompt_asks_for_three_levels_and_an_exchange(lex):
+    targets = [lex.by_id["fall-back-to"]]
+    prompt = distill.angle_seed_prompt(targets, 1, distill.random.Random(0))
+    assert "Write 4 short texts" in prompt
+    for level in distill.LEVELS:
+        assert f'"{level}"' in prompt
+    assert '"user"' in prompt and "situation" in prompt
+    assert "TARGET fall-back-to" in prompt
+
+
+def test_definition_overlap_flags_dictionary_copies():
+    definition = "The state of being completely filled or soaked with something"
+    copy = "The towel is completely soaked and filled with water."
+    natural = "That sponge is holding all the water it can."
+    assert distill.definition_overlap(copy, definition) > distill.DEFINITION_OVERLAP_MAX
+    assert distill.definition_overlap(natural, definition) == 0.0
+
+
+def test_angle_seeds_keep_level_and_user_and_drop_copies(lex, tmp_path):
+    entry = lex.by_id["fall-back-to"]
+    copy = " ".join(sorted(distill.content_words(entry.definition)))  # all key words
+    seed_reply = [
+        {"target": "fall-back-to", "level": "plain",
+         "text": "If the cache is down, we use the database instead."},
+        {"target": "fall-back-to", "level": "implied", "user": "What if the cache dies?",
+         "text": "The database is still there, so users won't notice."},
+        {"target": "fall-back-to", "level": "indirect", "text": copy},  # dictionary copy
+        {"target": None, "text": "Run the tests before you push."},
+    ]
+    pool = [entry] * 50
+    orig = distill.random.Random.sample
+    distill.random.Random.sample = lambda self, seq, n: (pool[:n] if seq and hasattr(
+        seq[0], "phrase") else orig(self, seq, n))
+    try:
+        kept = distill.seed(lex, fake_teacher(seed_reply, None), tmp_path, 1,
+                            distill.TestGuard(), angles=True)
+    finally:
+        distill.random.Random.sample = orig
+    rows = distill._read(tmp_path / "sources.jsonl")
+    assert kept == 3
+    assert [r.get("level") for r in rows] == ["plain", "implied", None]
+    assert rows[1]["user"] == "What if the cache dies?"
+
+
+def test_rewrite_prompt_shows_the_user_message_as_context_only(lex):
+    source = {"id": "s1", "user": "What if the cache dies?",
+              "text": "The database is still there."}
+    prompt = distill.rewrite_prompt(lex, [(source, [lex.by_id["fall-back-to"]])])
+    assert "CONTEXT (the user's message" in prompt
+    assert prompt.index("What if the cache dies?") < prompt.index("ANSWER:\nThe database")
+
+
 def test_teacher_failures_stop_with_retry_later(lex, tmp_path):
     def broken(prompt, system):
         raise RuntimeError("usage limit")

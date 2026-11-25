@@ -71,6 +71,15 @@ STYLES = [
     "an everyday (non-technical) remark", "an apology or correction", "a short plan",
 ]
 
+# Multi-angle seeding (``--angles``): each target is seen from three angles instead of one
+# dictionary-style paraphrase. Paraphrase test cases barely moved with the one-angle data
+# (6 -> 7 of 15), so the seeds describe the situation, add short exchanges, and step down
+# from plain to implied wording.
+ANGLE_TARGETS = 3  # targets per batch, three texts each
+ANGLE_PLAIN = 1  # plus this many texts with no target
+LEVELS = ("plain", "indirect", "implied")
+DEFINITION_OVERLAP_MAX = 0.5  # share of the definition's key words a seed may reuse
+
 SEED_SYSTEM = "You write realistic, varied example texts for training data. Output JSON only."
 REWRITE_SYSTEM = SYSTEM
 
@@ -138,9 +147,56 @@ def seed_prompt(targets: list, plain: int, rng: random.Random) -> str:
     return "\n".join(lines)
 
 
+def angle_seed_prompt(targets: list, plain: int, rng: random.Random) -> str:
+    """Three texts per target, from three angles: plain, indirect and implied wording,
+    in a situation where the phrase is used rather than a restated definition. At least
+    one of the three is a reply to a short user message, kept as context."""
+    lines = [
+        f"Write {3 * len(targets) + plain} short texts of the kind an AI assistant writes to "
+        "a user (1 to 4 sentences each). Vary the topic, tone and form; use these forms: "
+        + ", ".join(rng.sample(STYLES, 4)) + ".",
+        "",
+        ("Each TARGET below is a phrase a learner is studying. First picture the situation "
+         "in which a fluent speaker would use it (who says it, to whom, and why). Then write "
+         "THREE texts for that target, set in such situations, which carry its meaning "
+         "without using the phrase itself or an obvious form of it:"),
+        '- "plain": the meaning is stated directly in ordinary words.',
+        ('- "indirect": the meaning is there, but expressed in other terms '
+         "(a nearby word, a softer or stronger version)."),
+        ('- "implied": the meaning is only implied by what is said; a reader who knows the '
+         "phrase should still see that it fits."),
+        ("Do not restate or reuse the wording of the meaning given below: write as people "
+         "talk, not as a dictionary does. For at least one of the three, write the text as "
+         "the assistant's reply to a short user message, and put that message in \"user\". "
+         "Phrases that push back, agree or react work best this way. The reply must still "
+         "make sense on its own."),
+    ]
+    for t in targets:
+        lines.append(f'- TARGET {t.id}: "{t.phrase}" means: {t.definition[:200]}')
+    if plain:
+        lines.append(f"Also write {plain} text(s) with no target at all (\"target\": null).")
+    lines += [
+        "",
+        ('Reply with only a JSON array: [{"target": "<target id or null>", '
+         '"level": "plain|indirect|implied", "user": "<user message or omit>", '
+         '"text": "..."}]'),
+    ]
+    return "\n".join(lines)
+
+
+def definition_overlap(text: str, definition: str) -> float:
+    """Share of the definition's key words (stemmed, stopwords dropped) found in ``text``.
+    A seed that reuses most of them is a dictionary copy, not a natural paraphrase."""
+    key = content_words(definition)
+    return len(key & content_words(text)) / len(key) if len(key) >= 2 else 0.0
+
+
 def seed(lex: Lexicon, teacher: Teacher, out: Path, batches: int, guard: TestGuard,
-         seed_value: int = 0) -> int:
-    """Run ``batches`` more seed batches. Returns the number of answers kept."""
+         seed_value: int = 0, angles: bool = False) -> int:
+    """Run ``batches`` more seed batches. Returns the number of answers kept.
+
+    With ``angles`` each batch has fewer targets, three texts each (see
+    ``angle_seed_prompt``), and seeds that copy the definition are dropped."""
     path = out / "sources.jsonl"
     done = {r["batch"] for r in _read(path)}
     # common single words are never linked, so a seed aimed at one is always rejected
@@ -154,10 +210,16 @@ def seed(lex: Lexicon, teacher: Teacher, out: Path, batches: int, guard: TestGua
             batch += 1
             continue
         rng = random.Random(f"{seed_value}-{batch}")
-        plain = round(BATCH * PLAIN_SHARE)
-        targets = rng.sample(pool, BATCH - plain)
+        if angles:
+            plain = ANGLE_PLAIN
+            targets = rng.sample(pool, ANGLE_TARGETS)
+            prompt = angle_seed_prompt(targets, plain, rng)
+        else:
+            plain = round(BATCH * PLAIN_SHARE)
+            targets = rng.sample(pool, BATCH - plain)
+            prompt = seed_prompt(targets, plain, rng)
         try:
-            items = _parse_json(teacher(seed_prompt(targets, plain, rng), SEED_SYSTEM))
+            items = _parse_json(teacher(prompt, SEED_SYSTEM))
             failures = 0
         except Exception as exc:  # a failed call or a reply that isn't JSON
             failures += 1
@@ -166,16 +228,29 @@ def seed(lex: Lexicon, teacher: Teacher, out: Path, batches: int, guard: TestGua
                 raise SystemExit(EXIT_RETRY_LATER) from exc
             continue
         rows = []
-        wanted = {t.id for t in targets}
+        wanted = {t.id: t for t in targets}
         for i, item in enumerate(items if isinstance(items, list) else []):
+            if not isinstance(item, dict):
+                continue
             text = str(item.get("text") or "").strip()
             target = item.get("target") or None
             if not text or (target and target not in wanted) or guard.too_close(text):
                 continue
             if target and lex.is_phrase(target, text):
                 continue  # the teacher used the phrase it was asked to avoid
-            rows.append({"id": f"s{batch:04d}-{i:02d}", "batch": batch, "target": target,
-                         "text": text})
+            row = {"id": f"s{batch:04d}-{i:02d}", "batch": batch, "target": target,
+                   "text": text}
+            if angles:
+                if target and (definition_overlap(text, wanted[target].definition)
+                               > DEFINITION_OVERLAP_MAX):
+                    continue  # a dictionary copy, not a natural paraphrase
+                user = str(item.get("user") or "").strip()
+                if user and guard.too_close(user):
+                    continue
+                row["level"] = item.get("level") if item.get("level") in LEVELS else None
+                if user:
+                    row["user"] = user
+            rows.append(row)
         if not rows:  # still mark the batch done so it isn't retried forever
             rows = [{"id": f"s{batch:04d}-empty", "batch": batch, "target": None,
                      "text": "", "empty": True}]
@@ -239,8 +314,12 @@ def rewrite_prompt(lex: Lexicon, items: list[tuple[dict, list]], eager: bool = F
     ]
     for source, cands in items:
         index = "\n".join(f"{e.id} | {e.phrase}" for e in cands)
-        parts += ["", f"=== ANSWER {source['id']} ===", "LEXICON (id | phrase):", index,
-                  "ANSWER:", source["text"]]
+        parts += ["", f"=== ANSWER {source['id']} ===", "LEXICON (id | phrase):", index]
+        if source.get("user"):
+            # context for the teacher only: the student is trained and served on the reply
+            parts += ["CONTEXT (the user's message; do not rewrite or return it):",
+                      source["user"]]
+        parts += ["ANSWER:", source["text"]]
     return "\n".join(parts)
 
 
@@ -494,6 +573,9 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--timeout", type=float, default=600.0)
     ap.add_argument("--eager", action="store_true",
                     help="add the eagerness nudge to the teacher's rewrite instructions")
+    ap.add_argument("--angles", action="store_true",
+                    help="multi-angle seeding: three texts per target (plain, indirect, "
+                         "implied), some as replies to a user message")
     ap.add_argument("--max-prompt-bytes", type=int, default=MAX_PROMPT_BYTES,
                     help="split rewrite batches above this size (0 = no limit)")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -524,7 +606,8 @@ def main(argv: list[str] | None = None) -> int:
     teacher = _teacher(args)
     guard = TestGuard()
     if args.cmd == "seed":
-        print(f"kept {seed(lex, teacher, args.out, args.batches, guard)} answers")
+        kept = seed(lex, teacher, args.out, args.batches, guard, angles=args.angles)
+        print(f"kept {kept} answers")
     elif args.cmd == "rewrite":
         count = rewrite(lex, index, teacher, args.out, args.limit, args.k,
                         args.max_prompt_bytes, args.workers, args.eager)
@@ -532,7 +615,7 @@ def main(argv: list[str] | None = None) -> int:
     else:
         idle = 0
         while stats(args.out)["sources"] < args.target and idle < 3:
-            kept = seed(lex, teacher, args.out, 5, guard)
+            kept = seed(lex, teacher, args.out, 5, guard, angles=args.angles)
             rewrite(lex, index, teacher, args.out, 0, args.k, args.max_prompt_bytes,
                     eager=args.eager)
             idle = 0 if kept else idle + 1  # a teacher that returns nothing usable: stop
