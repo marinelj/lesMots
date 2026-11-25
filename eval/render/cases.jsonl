@@ -117,7 +117,6 @@
 {"id": "syn-divisor", "kind": "synonym", "text": "Six is a denominator of twelve.", "expect_any": ["divisor", "denominator"], "source": "lexicon 4.68", "split": "test"}
 {"id": "syn-dormant", "kind": "synonym", "text": "The volcano has been inactive for centuries.", "expect_any": ["dormant"], "source": "lexicon 4.163", "split": "test"}
 {"id": "syn-dummy", "kind": "synonym", "text": "The striker sold the defender a brilliant decoy, letting the low pass run directly to the unmarked midfielder.", "expect_any": ["dummy"], "source": "lexicon 4.386", "split": "dev"}
-{"id": "syn-edge-cases-2", "kind": "synonym", "text": "Defensive software engineering demands that data pipelines explicitly test and validate **corner cases** before deploying to production.", "expect_any": ["edge-cases-2"], "source": "lexicon 4.428", "split": "dev"}
 {"id": "syn-effectiveness", "kind": "synonym", "text": "The new teaching method improved the efficacy of student learning.", "expect_any": ["effectiveness"], "source": "lexicon 4.65", "split": "test"}
 {"id": "syn-ellipse", "kind": "synonym", "text": "The orbit of a planet around the sun is an oval.", "expect_any": ["ellipse"], "source": "lexicon 4.127", "split": "dev"}
 {"id": "syn-encrypted-in-transit", "kind": "synonym", "text": "Client-to-MCP communication is strictly wire-encrypted using mutual TLS 1.3.", "expect_any": ["encrypted-in-transit"], "source": "lexicon 1.70", "split": "dev"}
@@ -151,6 +150,7 @@
 {"id": "syn-magnetizing", "kind": "synonym", "text": "The charm of his personality is truly attracting.", "expect_any": ["magnetizing"], "source": "lexicon 4.352", "split": "dev"}
 {"id": "syn-marginal", "kind": "synonym", "text": "The improvement was only incremental, so we decided to try a different approach.", "expect_any": ["marginal"], "source": "lexicon 4.83", "split": "test"}
 {"id": "syn-matchup", "kind": "synonym", "text": "The basketball game tonight is an exciting pairing between the top two teams.", "expect_any": ["matchup"], "source": "lexicon 4.253", "split": "test"}
+{"id": "syn-mcnemars-test", "kind": "synonym", "text": "We evaluated Model A against Model B using paired chi-square test, confirming the accuracy delta was driven by significant discordant improvements rather than random chance.", "expect_any": ["mcnemars-test"], "source": "lexicon 4.456", "split": "dev"}
 {"id": "syn-meantime", "kind": "synonym", "text": "In the interim, let's have some tea.", "expect_any": ["meantime", "meanwhile"], "source": "lexicon 4.313", "split": "test"}
 {"id": "syn-momentum-is-real", "kind": "synonym", "text": "After clearing out architectural blockers and landing five major PRs in a single afternoon, the engineering team hit their stride—our **compounding progress**, and time is of the essence.", "expect_any": ["momentum-is-real"], "source": "lexicon 1.91", "split": "dev"}
 {"id": "syn-monetization", "kind": "synonym", "text": "By rolling out token-metered billing tiers, the platform transitioned its open-source inference engine into a profitable API revenue generation model.", "expect_any": ["monetization"], "source": "lexicon 4.381", "split": "test"}
