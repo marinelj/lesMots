@@ -66,6 +66,9 @@ MAX_PHRASE_WORDS = 8  # longer headings aren't in the prompt's index (render.MAX
 
 _EXAMPLE_RE = re.compile(r"\*\*Example\*\*\s*:\s*\*?\"?(.+?)\"?\*?\s*$", re.MULTILINE)
 _SENTENCE_SPLIT = re.compile(r"(?<=[.!?:])\s+|\n+")
+# distill's check splits only at sentence ends: a teacher that adds an opener before a
+# colon ("It may seem X: you might…") must not turn the rest into a "changed" sentence
+_SENTENCE_END_SPLIT = re.compile(r"(?<=[.!?])\s+|\n+")
 
 
 # --- lexicon -------------------------------------------------------------------------
@@ -193,8 +196,9 @@ def _norm(sentence: str) -> str:
     return " ".join(sentence.split()).strip()
 
 
-def _sentences(text: str) -> list[str]:
-    return [s for s in (_norm(p) for p in _SENTENCE_SPLIT.split(text)) if s]
+def _sentences(text: str, *, colons: bool = True) -> list[str]:
+    split = _SENTENCE_SPLIT if colons else _SENTENCE_END_SPLIT
+    return [s for s in (_norm(p) for p in split.split(text)) if s]
 
 
 def drop_common_markers(lex: Lexicon, reply: str) -> str:

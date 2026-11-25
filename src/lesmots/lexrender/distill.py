@@ -354,8 +354,9 @@ def check(lex: Lexicon, source: dict, rewrite_row: dict) -> tuple[bool, str]:
     plain = MARKER.sub(lambda m: m.group(2), reply)
     if not all(span in plain for span in _protected(text)):
         return False, "protected text changed"
-    original = set(_sentences(text))
-    if any(not MARKER.search(s) and s not in original for s in _sentences(reply)):
+    original = set(_sentences(text, colons=False))
+    if any(not MARKER.search(s) and s not in original
+           for s in _sentences(reply, colons=False)):
         return False, "unmarked sentence changed"
     if not 0.6 <= len(plain) / max(1, len(text)) <= 1.8:
         return False, "length changed too much"

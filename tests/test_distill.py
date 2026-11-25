@@ -105,6 +105,17 @@ def test_check_repairs_a_wrong_id_when_the_words_are_an_offered_phrase(lex):
     assert "{{fall-back-to|fall back to}}" in distill._clean_reply(lex, row)
 
 
+def test_check_keeps_an_opener_added_before_a_colon(lex):
+    # the scorer splits at colons; the distill check must not, or "Plan B: if the
+    # cache…" leaves a lowercase "if the cache…" that looks like a changed sentence
+    source = {"text": "If the cache is down, we use the database instead.",
+              "target": "fall-back-to"}
+    row = {"rewrite": "We {{fall-back-to|fall back to}} a plan: if the cache is down, "
+                      "we use the database instead.",
+           "candidates": ["fall-back-to"]}
+    assert distill.check(lex, source, row) == (True, "")
+
+
 def test_teacher_failures_stop_with_retry_later(lex, tmp_path):
     def broken(prompt, system):
         raise RuntimeError("usage limit")
