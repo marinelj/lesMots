@@ -1,7 +1,7 @@
-# Universal Lexicon & Knowledge Base for AI Agents (v24 Compilation)
+# Universal Lexicon & Knowledge Base for AI Agents (v25 Compilation)
 > **Agent Ingestion Directive**: This specification serves as the universal lexicon, terminology reference, and communication standard across all agent interactions. It encapsulates domain vocabulary, technical collocations, rhetorical sentence patterns, and system design idioms. Spaced-repetition metadata and multilingual artifacts have been completely purged to ensure zero ambiguity and maximum token efficiency. Ingest this document to align your tone, explanations, and code review feedback with these standards.
 
-## 1. High-Impact Idioms & Architecture Lexicon (168 Items)
+## 1. High-Impact Idioms & Architecture Lexicon (173 Items)
 
 ### 1.1 `in the trenches`
 * **Category**: Idiom / Engineering Culture
@@ -192,7 +192,7 @@
 
 ### 1.31 `white noise process`
 * **Category**: Mathematical Statistics / Time-Series Validation
-* **Technical Definition**: A discrete-time stochastic process $\{e_t\}$ exhibiting zero mean ($\mathbb{E}[e_t] = 0$), finite constant variance ($	ext{Var}(e_t) = \sigma^2$), and strictly zero serial autocovariance ($	ext{Cov}(e_t, e_s) = 0$ for all $t 
+* **Technical Definition**: A discrete-time stochastic process $\{e_t\}$ exhibiting zero mean ($\mathbb{E}[e_t] = 0$), finite constant variance ($\text{Var}(e_t) = \sigma^2$), and strictly zero serial autocovariance ($\text{Cov}(e_t, e_s) = 0$ for all $t 
 eq s$).
 * **Engineering SRE / ML Diagnostic**: In time-series forecasting (ARIMA, Prophet, LSTM), residual errors must resemble white noise. Lingering serial autocorrelation confirms the model has failed to capture systematic predictive patterns.
 * **Acoustic Relaxation Register**:
@@ -1287,7 +1287,47 @@ eq s$).
 * **Collocations**: `throw the rope loop over the bollard`, `slip through the loop`, `knot a secure loop`
 * **Production Tech Example**: *"The deckhand threw the rope loop over the dock bollard to moor the vessel against the surge."*
 
-## 2. Professional & Idiomatic Phrases (178 Items)
+### 1.169 `tail the logs` / `tail the logs in real time`
+* **Category**: Engineering Operations & Verbification Idiom
+* **Phonetics**: /ˈteɪl ðə lɒɡz/ | /ˈteɪl ðə lɒɡz ɪn ˈrɪəl taɪm/
+* **Definition**: To follow a scrolling log in real time / keep watching it as it grows. From the classic Unix command `tail -f`; in platform engineering, ML operations and backend work it has become a verb (verbification) for watching, in a foreground terminal, the latest output stream of a background job such as model training or a batch run.
+* **Synonyms**: `stream the logs live`, `follow the container logs`, `monitor log output in real time`
+* **Collocations**: `tail the logs in real time`, `tail the training logs`, `follow pod logs with kubectl`
+* **Production Tech Example**: *"Once the detached training job kicks off in the background, we can tail the logs in real time to catch any early divergence or OOM errors."*
+
+### 1.170 `bury the lead` (or `bury the lede`) / `bury an exception`
+* **Category**: Communication Anti-pattern & Architecture Rigor
+* **Phonetics**: /ˈber.i ðə liːd/
+* **Definition**: To fail to lead with the main point / bury the key point in redundant detail; in code, to swallow or silently mask the real underlying exception. `bury` is pronounced like `berry`. In journalism and workplace communication it means failing to put the most important conclusion (a production incident, a business loss) first; in software engineering it means a bare `except: pass` that hides a problem.
+* **Synonyms**: `obscure the main point`, `swallow an exception silently`, `hide the crucial takeaway`
+* **Collocations**: `don't bury the lead`, `bury the underlying exception`, `buried under incident tickets`
+* **Production Tech Example**: *"Don't bury the lead in the post-mortem report—state upfront that the database suffered a 20-minute outage; and refactor that bare except block so it doesn't bury critical runtime exceptions."*
+
+### 1.171 `tuning knobs` / `tweak the knobs`
+* **Category**: Systems Architecture & Hyperparameter Metaphor
+* **Phonetics**: /ˈtjuː.nɪŋ nɒbz/
+* **Definition**: Adjustable parameters / hyperparameter settings / tuning dials. Originally the physical knobs on an instrument or audio equipment; in machine learning and distributed database architecture it is a common metaphor for the core configurable parameters (hyperparameters / configuration flags) used to tune performance, throughput or model convergence.
+* **Synonyms**: `hyperparameter controls`, `configuration dials`, `adjustable parameters`
+* **Collocations**: `adjust / tweak the tuning knobs`, `expose configuration knobs`, `sensible default settings`
+* **Production Tech Example**: *"Learning rate, batch size, and weight decay are the primary tuning knobs we tweak during fine-tuning, while keeping sensible defaults for end users."*
+
+### 1.172 `all dough and no filling`
+* **Category**: Food Metaphor / Rhetorical & Technical Critique
+* **Phonetics**: /ɔːl dəʊ ənd nəʊ ˈfɪl.ɪŋ/
+* **Definition**: All pastry and no filling / looks good on the outside but lacks substance. A food metaphor from the filling of a bun or pie, used to criticize, sharply and with humour, an architecture design, product update or report that is flashy on the surface but hollow at its core.
+* **Synonyms**: `all style and no substance`, `superficial veneer`, `lacking core substance`
+* **Collocations**: `all dough and no filling`, `barely any filling`, `miss the filling completely`
+* **Production Tech Example**: *"The marketing demo looked flashy, but under the hood, the new microservice framework was all dough and no filling."*
+
+### 1.173 `conflate correlation with causation` / `conflate A with B`
+* **Category**: Analytical Rigor & Metric Semantics
+* **Phonetics**: /kənˈfleɪt ˌkɒr.əˈleɪ.ʃən wɪð kɔːˈzeɪ.ʃən/
+* **Definition**: To treat correlation as causation / to confuse and merge two clearly different concepts. In data science, causal inference and architecture reviews it pinpoints the conceptual confusion and logical fallacy that come from careless analysis or loosely defined metrics.
+* **Synonyms**: `blur the boundary between`, `erroneously equate`, `muddle distinct concepts`
+* **Collocations**: `conflate correlation and causation`, `conflate distinct metrics`, `easily conflated concepts`
+* **Production Tech Example**: *"The quarterly dashboard conflated active session duration with user engagement, falling into the classic trap of conflating correlation with causation."*
+
+## 2. Professional & Idiomatic Phrases (183 Items)
 
 ### 2.1 `accidental patterns`
 * **Definition**: Patterns that appear by chance, not by design or intention.
@@ -2165,7 +2205,37 @@ eq s$).
 * **Collocations**: `overlap with each other`, `heavily overlap with`, `calculate the degree of overlap`, `measure semantic overlap`
 * **Example / Usage**: "Ensure that the tumbling aggregation windows do not overlap with each other, minimizing the degree of overlap between adjacent partitions to eliminate double counting."
 
-## 3. Structural Framing & Sentence Patterns (63 Items)
+### 2.179 `where do things stand right now?` / `where do things stand at the moment?`
+* **Definition**: How is it going right now? / What stage has it reached? The most natural, idiomatic progress question in team standups, sprint check-ins or peer alignment. Distinguish `for now` (temporary, implying a change is coming) from `right now / at the moment` (simply asking for the latest snapshot).
+* **Synonyms**: `Where are we at with this right now?`, `What is the current status?`, `How are things progressing?`
+* **Collocations**: `where do things stand right now?`, `where do things stand as of today?`, `bring someone up to speed on where things stand`
+* **Example / Usage**: "Quick sync before the client demo: where do things stand right now with the staging deployment?"
+
+### 2.180 `results should be in` / `be due in [time]` / `within the next hour or so`
+* **Definition**: The results are expected by [time] / expected to wrap up. Used to align on how long engineering tasks, model evaluations or batch runs will take. Avoid stacking `about` on a range, which is redundant (say `due in 45 to 70 minutes` or `due within the next hour or so`).
+* **Synonyms**: `outputs should land in...`, `the run should complete shortly`, `expected within the hour`
+* **Collocations**: `results should be in shortly`, `results are due in 45 minutes`, `expect final outputs within the next hour or so`
+* **Example / Usage**: "The evaluation script kicked off cleanly; results should be in within the next hour or so."
+
+### 2.181 `should be done by now` / `was supposed to wrap up around this time`
+* **Definition**: By rights it should be finished by now / it was originally expected to wrap up around this time. Used to follow up and check, naturally, on long computations, training jobs or deliverables. `by now` (up to this point) and `around this time` give a relaxed, natural workplace tone.
+* **Synonyms**: `expected to be finished by this point`, `ought to have concluded`, `scheduled to finish by now`
+* **Collocations**: `since it should be done by now`, `was supposed to wrap up around now`, `check if it finished by now`
+* **Example / Usage**: "Since the batch validation job should be done by now, let me pull the error logs and review the metrics."
+
+### 2.182 `instill a habit` / `turn into second nature`
+* **Definition**: To instill or build a habit; to make it second nature (muscle memory). It corrects the unidiomatic verb-object pairing *teach a habit*; in engineering culture and model training it says precisely that steady repetition turns a rigorous defensive practice into a natural instinct that needs no deliberate thought.
+* **Synonyms**: `build / form a habit`, `reinforce defensive behaviors`, `internalize as muscle memory`
+* **Collocations**: `instill a habit in engineers`, `turn defensive checks into second nature`, `reinforce good engineering hygiene`
+* **Example / Usage**: "Code reviews are not just about catching bugs—they help instill the habit of verifying data grain until it becomes second nature."
+
+### 2.183 `bring someone up to speed` / `bring someone up to date`
+* **Definition**: To tell someone the latest developments / help someone catch up with the latest progress. In cross-time-zone teamwork, when a new member joins or at a project handover, it means quickly sharing the full current context and key decisions with them.
+* **Synonyms**: `catch someone up`, `fill someone in on the latest context`, `synchronize state`
+* **Collocations**: `bring the team up to speed`, `bring me up to date on the incident`, `get up to speed quickly`
+* **Example / Usage**: "Before we jump into the architecture review, let me bring you up to speed on the recent changes to our data schema."
+
+## 3. Structural Framing & Sentence Patterns (66 Items)
 
 ### 3.1 `I’m not much of a ...`
 * **Function & Meaning**: A self-effacing idiom used to state that one is not particularly skilled at or suited for something.
@@ -2530,7 +2600,28 @@ eq s$).
   > *"We cannot evaluate [System / Artifact / Answer] simply based on [Surface Metric A], but rather on [Nuanced Core Dimension B]."*
 * **Production Tech Example**: *"The point is, we shouldn't evaluate an answer merely by surface-level keyword hits, but rather on its semantic overlap with the target's comprehensive definition."*
 
-## 4. Technical & Core Lexicon (458 Items)
+### 3.64 Habit Formation & Internalization Framing: `How effectively can [N] examples instill this habit? / Are [N] examples enough to truly turn this into second nature?`
+* **Category**: Model Evaluation, Fine-Tuning Sample Efficiency & Pedagogical Inquiry
+* **Syntactic Rule**: When evaluating whether a small prompt dataset or few-shot exemplars can permanently condition a desired behavior or defensive pattern, pair `instill a habit` or `turn into second nature` with quantitative evaluation framing.
+* **Template**:
+  > *"How effectively can [Sample Count, e.g. 232 examples] instill [Target Habit / Defensive Practice], and is it sufficient to turn it into second nature?"*
+* **Production Tech Example**: *"How effectively can 232 examples instill this habit of schema validation, and does the model truly internalize it across out-of-distribution prompts?"*
+
+### 3.65 Processing Scope & Sequence Routing Framing: `Does [framework] use this keyword to identify which content to process / route target sequences?`
+* **Category**: ML Framework Parsing, Tokenization & Data Pipeline Inspection
+* **Syntactic Rule**: Replace cumbersome relative clauses (e.g. *the content should be handled*) with crisp infinitival structures (`which content to process`) and precise engineering routing verbs (`route target sequences`, `determine what gets trained versus masked out`).
+* **Template**:
+  > *"Does [Framework / Model Harness] use [Keyword / Tag] to identify which content to process and determine what gets trained versus masked out?"*
+* **Production Tech Example**: *"Does mlx-lm use this keyword to identify which content to process, or does it rely on explicit chat template markers to mask user prompts?"*
+
+### 3.66 Status Inquiries with Temporal Anchors: `Where do things stand as of [time]? / Given that [results] were expected by now, let's see where things stand.`
+* **Category**: Agile Standups, Milestone Triage & Professional Progress Checks
+* **Syntactic Rule**: Structure progress inquiries by grounding the temporal anchor with `as of now` or a causal dependency clause (`Given that ... were expected by now`), followed by an idiomatic status inquiry (`where do things stand / let me check the outputs`).
+* **Template**:
+  > *"Given that [Job / Batch / Results] were expected by now, let's bring the team up to speed on where things stand."*
+* **Production Tech Example**: *"Given that the fine-tuning checkpoint was expected by now, let's check the cluster logs to see where things stand."*
+
+## 4. Technical & Core Lexicon (466 Items)
 
 ### 4.1 `prestige`
 * **Definition**: It means people respect and admire someone or something because it is important or successful.
@@ -5131,7 +5222,55 @@ eq s$).
 * **Collocations**: `prescribe targeted therapy`, `undergo targeted therapy`, `molecular targeted therapy`
 * **Example**: Unlike laser ablation which physically burns lesions, targeted therapy uses molecular inhibitors to block malignant cell receptors.
 
-## 5. Architectural Case Excerpts & Data Engineering Standards (24 Items)
+### 4.459 `filling`
+* **Definition**: /ˈfɪl.ɪŋ/ — (noun, [C/U]) filling / stuffing. The mixture or substance used to fill pastry, sandwiches, cakes, buns, or dumplings. Culturally universally understood for buns, dumplings, and pies. Metaphorically represents the substantive core content of a feature, report, or structure.
+* **Synonyms**: `stuffing` (specifically for poultry cavity), `core substance`, `interior mixture`
+* **Collocations**: `pie filling`, `dumpling filling`, `barely any filling`, `miss / overshoot the filling`
+* **Example**: There was barely any filling in the steamed bun, making it taste like plain dough.
+
+### 4.460 `negligible`
+* **Definition**: /ˈneɡ.lɪ.dʒə.bəl/ — (adjective) negligible / safe to ignore. So small, trifling, or unimportant that it may safely be disregarded in system latency, statistical analysis, or data cleaning.
+* **Synonyms**: `insignificant`, `imperceptible`, `inconsequential` (Distinguish from `marginal` and `trivial`)
+* **Collocations**: `negligible latency overhead`, `statistically negligible`, `negligible impact on accuracy`
+* **Example**: Adding runtime schema assertions introduced a negligible latency overhead of under two milliseconds.
+
+### 4.461 `trivial` vs. `non-trivial`
+* **Definition**: /ˈtrɪv.i.əl/ — (adjective) trivial and simple / ordinary (in mathematics, an obvious solution); `non-trivial` means quite tricky, challenging, not to be underestimated.
+* **Synonyms**: `straightforward`, `inconsequential`, `elementary` (Antonym: `non-trivial`, `formidable`)
+* **Collocations**: `trivial task`, `trivial solution`, `non-trivial engineering challenge`
+* **Example**: Migrating a monolithic stateful database to a distributed cluster is definitely a non-trivial endeavor.
+
+### 4.462 `retrieve`
+* **Definition**: /rɪˈtriːv/ — (verb, [T]) to retrieve / fetch / bring back. To find, fetch, and bring back data or information from a database, storage system, or vector index. Core operation in RAG (Retrieval-Augmented Generation) architectures.
+* **Synonyms**: `fetch`, `query`, `extract`, `recall`
+* **Collocations**: `retrieve relevant passages`, `retrieve top-k embeddings`, `retrieve records by primary key`
+* **Example**: The vector pipeline retrieves the top-5 most semantically relevant chunks from the embedding index.
+
+### 4.463 `knob`
+* **Definition**: /nɒb/ (UK) / /nɑːb/ (US) — (noun, [C]) a rotary knob / a round handle; in engineering, by extension, a configurable switch or fine-tuning parameter; in cooking, a small lump (as in a knob of butter). Note that in British slang it is occasionally used as an insult.
+* **Synonyms**: `dial`, `rotary control`, `configuration parameter`
+* **Collocations**: `doorknob`, `volume knob`, `control knob`, `a knob of butter`
+* **Example**: Turn the control knob counter-clockwise to calibrate the sensor threshold.
+
+### 4.464 `boilerplate`
+* **Definition**: /ˈbɔɪ.lə.pleɪt/ — (noun, [U], adjective) boilerplate code / standard legal clauses / official stock phrases. Standardized, reusable text, code templates, or contract clauses that can be copied with minimal alteration.
+* **Synonyms**: `scaffolding code`, `standard template`, `canned language`, `boilerplate clauses`
+* **Collocations**: `boilerplate code`, `cut down on boilerplate`, `legal boilerplate`, `boilerplate response`
+* **Example**: Adopting Pydantic models eliminated hundreds of lines of repetitive serialization boilerplate.
+
+### 4.465 `bury`
+* **Definition**: /ˈber.i/ — (verb, [T]) to bury / swallow (an error) / hide (complexity). Pronounced like *berry* (/ˈber.i/). In code it means swallowing an exception (bury an error); in communication, failing to lead with the main point (bury the lead); or being swamped by a mass of work (buried under...).
+* **Synonyms**: `conceal`, `submerge`, `swallow an error silently`
+* **Collocations**: `bury the lead`, `bury an exception`, `bury the complexity`, `buried under pull requests`
+* **Example**: Wrapping the network call in a generic try-except block buried the root cause of the socket timeout.
+
+### 4.466 `conflate`
+* **Definition**: /kənˈfleɪt/ — (verb, [T]) to lump together / confuse and merge. To combine two or more distinct concepts, metrics, or variables into one, leading to flawed conclusions or blurred semantic boundaries.
+* **Synonyms**: `confuse`, `muddle`, `merge erroneously`, `blur distinctions`
+* **Collocations**: `conflate A with B`, `conflate correlation with causation`, `conflate metric grains`
+* **Example**: Be careful not to conflate raw user signups with active daily users when reporting retention rates.
+
+## 5. Architectural Case Excerpts & Data Engineering Standards (25 Items)
 
 ### 5.1 POINT-IN-TIME CORRECTNESS. Joining a fact to the version of a dimension that was true at fact time, rather than to whatever is true today.
 I encountered this in historical dimension joins and backfilled reporting. It means matching each fact to the dimension version that was valid when the fact occurred, not to the latest version.
@@ -5406,6 +5545,15 @@ When benchmarking two language models or classifiers ($M_A$ vs. $M_B$) across th
 3. **Architectural Rule**: Never declare model victory based on nominal percentage deltas alone. Production ML benchmarks must compute McNemar's p-value on paired test splits to guarantee that performance deltas reflect genuine algorithmic capability rather than stochastic label noise.
 
 Key phrases: paired classification | McNemar's test | discordant pairs | contingency table | statistical significance | benchmark integrity
+
+### 5.25 Defensive Logging and Real-Time Process Observability: Streaming Logs Live and Preventing Silent Exception Suppression (`burying errors`)
+In distributed systems, batch ETL pipelines, and long-running machine learning training jobs (such as LoRA fine-tuning or distillation runs), runtime observability is critical to operational success. Engineers frequently encounter scenarios where jobs appear to be running smoothly in the background, yet subtle silent failures corrupt intermediate states or waste expensive GPU hours.
+
+1. **The Trap of Burying Exceptions**: A dangerous anti-pattern in pipeline scripts is the generic try-except catch-all (`try: ... except Exception: pass` or `logging.error("Failed")` without re-raising or stack preservation). This literally **buries the exception**, presenting a false appearance of pipeline health while silently dropping batches or producing empty tensor outputs.
+2. **Tailing Logs in Real Time for Immediate Feedback**: When launching detached or unattended background runs (via `nohup`, background jobs, or container workloads), relying solely on post-run status reports risks wasting compute. Tailing logs live (`tail -f` or `docker/kubectl logs -f`) allows engineers to immediately verify process initiation, observe gradient convergence, detect unhandled CUDA errors, and validate that loss masking functions properly on target tokens.
+3. **Architectural Rule**: Never silently suppress exceptions without explicit fallback semantics; always preserve full stack traces in centralized telemetry. Standardize monitoring routines so on-call engineers can tail real-time output streams with zero cognitive overhead, ensuring operational transparency across all running jobs.
+
+Key phrases: tail the logs live | stream logs in real time | bury an exception | silent failure | runtime observability | detached training run | stack trace preservation
 
 ## 6. Unified Slash-Command & Knowledge Sync Protocol
 
