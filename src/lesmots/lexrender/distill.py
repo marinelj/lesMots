@@ -8,6 +8,9 @@ Three stages, all resumable, with every intermediate file kept in one ``--out`` 
 2. ``rewrite``: the teacher rewrites each answer the way the render model should, given
    the same short candidate list the student will see (``candidates.CandidateIndex``).
    The policy is aggressive: as many phrases as fit grammatically and keep the meaning.
+   ``natural`` (optional, between 2 and 3): a critic undoes the phrases a fluent writer
+   would not have chosen ("forced" phrases), restoring the answer's own wording. The
+   structural checks below can't see those; see :mod:`.naturalness`.
 3. ``export``: every rewrite is checked with the render scorer's rules (valid markers on
    offered entries only, code and URLs untouched, unmarked sentences unchanged, and at
    least one phrase when the answer had a target). Passing pairs become MLX-LM chat
@@ -21,12 +24,25 @@ teacher fails several times in a row, for example because the quota ran out, the
 stops with exit code 75; running it again continues where it stopped.
 
 Usage on the Mac Studio (teacher = Grok through the gateway; ``--codex-url`` and
-``--base-url`` pick Codex or an OpenAI-compatible model instead)::
+``--base-url`` pick Codex or an OpenAI-compatible model instead). The shared options,
+``--out`` included, go before the stage name::
 
-    python -m lesmots.lexrender.distill run --out ~/lexrender-distill \\
-        --grok-url http://127.0.0.1:<port>/grokbot --target 3000
-    python -m lesmots.lexrender.distill export --out ~/lexrender-distill
-    python -m lesmots.lexrender.distill stats --out ~/lexrender-distill
+    python -m lesmots.lexrender.distill --out ~/lexrender-distill \\
+        --grok-url http://127.0.0.1:<port>/grokbot run --target 3000
+    python -m lesmots.lexrender.distill --out ~/lexrender-distill \\
+        --critic-codex-url http://127.0.0.1:<port>/codex natural
+    python -m lesmots.lexrender.distill --out ~/lexrender-distill export
+    python -m lesmots.lexrender.distill --out ~/lexrender-distill stats
+    python -m lesmots.lexrender.distill --out ~/lexrender-distill alarm
+
+``export`` also prints the alarm's flags on stderr: entries in more than 2% of the
+examples, or used when offered more than 5x as often as the median entry. A flag is a
+reason to look at that entry, and maybe give it a "Not for" note.
+
+Entries with a "Not for" note in the lexicon get it shown to the teacher in the rewrite
+prompt (the student's prompt is unchanged), and with ``--angles`` they also get a
+"contrast" seed: a text where the phrase looks usable but falls under the note, which
+must come back without that phrase.
 """
 
 from __future__ import annotations
@@ -36,7 +52,9 @@ import hashlib
 import json
 import random
 import re
+import statistics
 import sys
+from collections import Counter
 from collections.abc import Callable
 from pathlib import Path
 
@@ -51,6 +69,14 @@ from .evaluate import (
     drop_common_markers,
     load_cases,
     openai_complete,
+)
+from .naturalness import (
+    CRITIC_SYSTEM,
+    add_critic_args,
+    critic_prompt,
+    make_critic,
+    markers,
+    parse_verdicts,
 )
 from .render import MARKER, SYSTEM, _prompt
 
@@ -79,6 +105,15 @@ STYLES = [
 ANGLE_TARGETS = 3  # targets per batch, three texts each
 ANGLE_PLAIN = 1  # plus this many texts with no target
 LEVELS = ("plain", "indirect", "implied")
+CONTRAST = "contrast"  # a seed where an entry's "Not for" case applies: it must stay unused
+
+# The frequency alarm (``alarm``): an entry in more than this share of exported examples,
+# or used this many times more often than the median entry when offered, is listed for
+# review. "get started with" was in 3.9% of the fix-4 examples and used 32.5% of the times
+# it was offered (median 3%), about half of those uses forced.
+ALARM_SHARE = 0.02
+ALARM_RATE_X = 5.0
+ALARM_MIN_OFFERED = 40  # too few offers make the rate noise
 DEFINITION_OVERLAP_MAX = 0.5  # share of the definition's key words a seed may reuse
 
 SEED_SYSTEM = "You write realistic, varied example texts for training data. Output JSON only."
@@ -175,14 +210,20 @@ def angle_seed_prompt(targets: list, plain: int, rng: random.Random) -> str:
          "Phrases that push back, agree or react work best this way. The reply must still "
          "make sense on its own."),
     ]
+    if any(t.not_for for t in targets):
+        lines.append(
+            '- "contrast" (only for a TARGET with a "not for" note): ONE more text, in a '
+            "nearby situation where the phrase looks usable but falls under its \"not for\" "
+            "case, so a fluent writer would NOT use it there. Do not use the phrase.")
     for t in targets:
-        lines.append(f'- TARGET {t.id}: "{t.phrase}" means: {t.definition[:200]}')
+        note = f' Not for: {t.not_for}' if t.not_for else ""
+        lines.append(f'- TARGET {t.id}: "{t.phrase}" means: {t.definition[:200]}{note}')
     if plain:
         lines.append(f"Also write {plain} text(s) with no target at all (\"target\": null).")
     lines += [
         "",
         ('Reply with only a JSON array: [{"target": "<target id or null>", '
-         '"level": "plain|indirect|implied", "user": "<user message or omit>", '
+         '"level": "plain|indirect|implied|contrast", "user": "<user message or omit>", '
          '"text": "..."}]'),
     ]
     return "\n".join(lines)
@@ -244,14 +285,22 @@ def seed(lex: Lexicon, teacher: Teacher, out: Path, batches: int, guard: TestGua
                 continue  # the teacher used the phrase it was asked to avoid
             row = {"id": f"s{batch:04d}-{i:02d}", "batch": batch, "target": target,
                    "text": text}
+            contrast = (angles and target and item.get("level") == CONTRAST
+                        and wanted[target].not_for)
+            if contrast:
+                # the phrase must NOT be used here: no target, and export rejects a rewrite
+                # that links this entry
+                row["target"], row["contrast"] = None, target
             if angles:
-                if target and (definition_overlap(text, wanted[target].definition)
-                               > DEFINITION_OVERLAP_MAX):
+                if not contrast and target and (
+                        definition_overlap(text, wanted[target].definition)
+                        > DEFINITION_OVERLAP_MAX):
                     continue  # a dictionary copy, not a natural paraphrase
                 user = str(item.get("user") or "").strip()
                 if user and guard.too_close(user):
                     continue
-                row["level"] = item.get("level") if item.get("level") in LEVELS else None
+                row["level"] = (CONTRAST if contrast else
+                                item.get("level") if item.get("level") in LEVELS else None)
                 if user:
                     row["user"] = user
             rows.append(row)
@@ -269,7 +318,8 @@ def seed(lex: Lexicon, teacher: Teacher, out: Path, batches: int, guard: TestGua
 
 def candidates_for(index: CandidateIndex, lex: Lexicon, source: dict, k: int) -> list:
     chosen = index.select(source["text"], k)
-    target = source.get("target")
+    # a contrast seed offers its entry too, so the student learns to leave it unused
+    target = source.get("target") or source.get("contrast")
     # a common single word is never linked, so it never goes on the list, even as a target
     if (target and target in lex.by_id and not is_common(lex.by_id[target].phrase)
             and all(e.id != target for e in chosen)):
@@ -311,13 +361,17 @@ def rewrite_prompt(lex: Lexicon, items: list[tuple[dict, list]], eager: bool = F
         "itself; rewrite the sentence around the phrase rather than marking the original "
         "words. Keep everything else exactly as it is: unchanged sentences stay word for "
         "word, and code blocks, inline code, URLs and Markdown never change. Use only "
-        "entries from that answer's own LEXICON."),
+        "entries from that answer's own LEXICON. A phrase must also be one a fluent writer "
+        "would choose there anyway; never squeeze one in only to use it, and never use an "
+        "entry in a case its \"(not for: ...)\" note excludes."),
         *([EAGER_NUDGE] if eager else []),
         "",
         'Reply with only a JSON object: {"<answer id>": "<rewritten answer>", ...}',
     ]
     for source, cands in items:
-        index = "\n".join(f"{e.id} | {e.phrase}" for e in cands)
+        # teacher only: the student's prompt has no notes, as in serving
+        index = "\n".join(f"{e.id} | {e.phrase}"
+                          + (f" (not for: {e.not_for})" if e.not_for else "") for e in cands)
         parts += ["", f"=== ANSWER {source['id']} ===", "LEXICON (id | phrase):", index]
         if source.get("user"):
             # context for the teacher only: the student is trained and served on the reply
@@ -403,6 +457,54 @@ def rewrite(lex: Lexicon, index: CandidateIndex, teacher: Teacher, out: Path,
     return written
 
 
+# --- stage 2b: the naturalness pass --------------------------------------------------
+
+def natural(lex: Lexicon, critic: Teacher, out: Path, limit: int = 0, size: int = BATCH,
+            max_bytes: int = MAX_PROMPT_BYTES) -> int:
+    """Ask ``critic`` which phrases in each rewrite are forced, and get the rewrite back
+    with those undone. Results go to ``natural.jsonl`` (``id``, ``forced`` entry ids,
+    ``rewrite`` or None when nothing was forced); ``export`` uses them. Resumable."""
+    path = out / "natural.jsonl"
+    done = {r["id"] for r in _read(path)}
+    sources = {s["id"]: s for s in _read(out / "sources.jsonl") if s["text"]}
+    todo = []
+    for row in _read(out / "rewrites.jsonl"):
+        reply = _clean_reply(lex, row)
+        if row["id"] in done or row["id"] not in sources or not markers(reply):
+            continue
+        todo.append((row["id"], sources[row["id"]]["text"], reply))
+    if limit:
+        todo = todo[:limit]
+    batches: list[list] = []
+    for item in todo:  # up to ``size`` items per call, fewer above ``max_bytes``
+        trial = (batches[-1] + [item]) if batches else [item]
+        too_big = max_bytes and len(critic_prompt(lex, trial, True).encode()) > max_bytes
+        if batches and len(trial) <= size and not too_big:
+            batches[-1] = trial
+        else:
+            batches.append([item])
+    written = failures = 0
+    for batch in batches:
+        try:
+            verdicts = parse_verdicts(
+                critic(critic_prompt(lex, batch, restore=True), CRITIC_SYSTEM), batch)
+            failures = 0
+        except Exception as exc:
+            failures += 1
+            print(f"natural batch at {batch[0][0]}: {type(exc).__name__}: {exc}",
+                  file=sys.stderr)
+            if failures >= MAX_FAILURES:
+                raise SystemExit(EXIT_RETRY_LATER) from exc
+            continue
+        rows = [{"id": item_id, "forced": verdicts[item_id]["forced"],
+                 "rewrite": verdicts[item_id]["rewrite"] if verdicts[item_id]["forced"]
+                 else None}
+                for item_id, _, _ in batch]
+        _append(path, rows)
+        written += len(rows)
+    return written
+
+
 # --- stage 3: check and export -------------------------------------------------------
 
 def repair_markers(lex: Lexicon, reply: str, offered: set[str]) -> str:
@@ -425,13 +527,16 @@ def _clean_reply(lex: Lexicon, rewrite_row: dict) -> str:
 
 
 def check(lex: Lexicon, source: dict, rewrite_row: dict) -> tuple[bool, str]:
+    """Structural checks only: they can't tell a natural phrase from a forced one (the
+    ``natural`` stage does that). A row the naturalness pass rewrote carries ``forced``:
+    its forced phrases must be gone, and it may end with no phrase at all."""
     text = source["text"]
     reply = _clean_reply(lex, rewrite_row)
     if not reply:
         return False, "empty"
     offered = set(rewrite_row["candidates"])
-    markers = MARKER.findall(reply)
-    for eid, words in markers:
+    found = MARKER.findall(reply)
+    for eid, words in found:
         if eid not in offered or not lex.is_phrase(eid, words):
             return False, f"bad marker {eid}|{words}"
     plain = MARKER.sub(lambda m: m.group(2), reply)
@@ -443,16 +548,30 @@ def check(lex: Lexicon, source: dict, rewrite_row: dict) -> tuple[bool, str]:
         return False, "unmarked sentence changed"
     if not 0.6 <= len(plain) / max(1, len(text)) <= 1.8:
         return False, "length changed too much"
-    if source.get("target") and not markers:
+    used = {eid for eid, _ in found}
+    if source.get("contrast") in used:
+        return False, f"used the contrast entry {source['contrast']}"
+    forced = set(rewrite_row.get("forced") or [])
+    if forced & used and rewrite_row.get("natural"):
+        return False, "forced phrase still there"
+    if source.get("target") and not found and not forced:
         return False, "no phrase used"
     return True, ""
 
 
 def export(lex: Lexicon, out: Path) -> dict:
     sources = {s["id"]: s for s in _read(out / "sources.jsonl") if s["text"]}
+    naturals = {r["id"]: r for r in _read(out / "natural.jsonl")}
     train, valid, rejected = [], [], []
     seen: set[str] = set()
     for row in _read(out / "rewrites.jsonl"):
+        nat = naturals.get(row["id"])
+        if nat and nat.get("forced"):
+            if not nat.get("rewrite"):
+                rejected.append({"id": row["id"], "why": "forced phrase, not restored",
+                                 "rewrite": row.get("rewrite")})
+                continue
+            row = {**row, "rewrite": nat["rewrite"], "forced": nat["forced"], "natural": True}
         source = sources.get(row["id"])
         if source is None or source["text"] in seen:
             continue
@@ -485,6 +604,43 @@ def stats(out: Path) -> dict:
             "train": len(_read(out / "train.jsonl")),
             "valid": len(_read(out / "valid.jsonl")),
             "rejected": len(_read(out / "rejected.jsonl"))}
+
+
+def alarm(lex: Lexicon, out: Path) -> dict:
+    """Flag entries the data overuses, the usual sign of a forced phrase: one in more than
+    ``ALARM_SHARE`` of exported examples, or one used when offered ``ALARM_RATE_X`` times
+    more often than the median entry (among entries offered ``ALARM_MIN_OFFERED`` times
+    or more). A flag is a reason to look, not a verdict: the reader decides each entry's
+    "Not for" note."""
+    examples = _read(out / "train.jsonl") + _read(out / "valid.jsonl")
+    in_examples: Counter = Counter()
+    for ex in examples:
+        reply = next((m["content"] for m in ex["messages"] if m["role"] == "assistant"), "")
+        in_examples.update({eid for eid, _ in markers(reply)})
+    offered: Counter = Counter()
+    used: Counter = Counter()
+    for row in _read(out / "rewrites.jsonl"):
+        offered.update(set(row.get("candidates") or []))
+        used.update({eid for eid, _ in markers(_clean_reply(lex, row))})
+    rates = {eid: used[eid] / n for eid, n in offered.items() if n >= ALARM_MIN_OFFERED}
+    median = statistics.median(rates.values()) if rates else 0.0
+    flagged = []
+    for eid in sorted(set(in_examples) | set(rates)):
+        share = in_examples[eid] / len(examples) if examples else 0.0
+        rate = rates.get(eid)
+        why = []
+        if share > ALARM_SHARE:
+            why.append(f"in {share:.1%} of examples")
+        if rate is not None and median and rate > ALARM_RATE_X * median:
+            why.append(f"used {rate:.0%} of the times offered (median {median:.0%})")
+        if why:
+            entry = lex.by_id.get(eid)
+            flagged.append({"id": eid, "phrase": entry.phrase if entry else eid,
+                            "share": round(share, 4), "used": used[eid],
+                            "offered": offered[eid], "why": "; ".join(why),
+                            "has_not_for": bool(entry and entry.not_for)})
+    flagged.sort(key=lambda f: (-f["share"], -f["used"] / max(1, f["offered"])))
+    return {"examples": len(examples), "median_rate": round(median, 4), "flagged": flagged}
 
 
 # --- command line --------------------------------------------------------------------
@@ -592,6 +748,11 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--target", type=int, default=3000)
     sub.add_parser("export", help="stage 3: check rewrites, write train/valid JSONL")
     sub.add_parser("stats", help="counts so far")
+    p = sub.add_parser("natural", help="stage 2b: undo forced phrases (the critic is "
+                                       "--critic-*, or the teacher if none is given)")
+    p.add_argument("--limit", type=int, default=0)
+    sub.add_parser("alarm", help="entries the data overuses (likely forced phrases)")
+    add_critic_args(ap)
     args = ap.parse_args(argv)
 
     args.out = args.out.expanduser()
@@ -602,6 +763,16 @@ def main(argv: list[str] | None = None) -> int:
     lex = Lexicon.load(args.lexicon)
     if args.cmd == "export":
         print(json.dumps(export(lex, args.out), indent=2))
+        report = alarm(lex, args.out)
+        for flag in report["flagged"]:
+            print(f"alarm: {flag['phrase']} ({flag['id']}): {flag['why']}", file=sys.stderr)
+        return 0
+    if args.cmd == "alarm":
+        print(json.dumps(alarm(lex, args.out), indent=2))
+        return 0
+    if args.cmd == "natural":
+        critic = make_critic(args) or _teacher(args)
+        print(f"checked {natural(lex, critic, args.out, args.limit)} rewrites")
         return 0
 
     embed = (OllamaEmbedder(args.ollama, args.embed_model, args.out / "cache")

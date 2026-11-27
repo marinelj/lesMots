@@ -23,6 +23,10 @@ _DEFINITION_RE = re.compile(r"\*\*Definition\*\*\s*:\s*(.+)")
 # "* **Synonyms**: a, b" or a labelled form such as "* **Common synonyms (Synonyms)**: `a`, `b`"
 SYNONYMS_LABEL = r"\*\*(?:[^*\n]*\()?Synonyms\)?\*\*"
 SYNONYMS_RE = re.compile(r"^\s*[*-]\s+" + SYNONYMS_LABEL + r"\s*:\s*(.+)$", re.MULTILINE)
+# "* **Not for**: the first step in a sequence (use "start with")": where the phrase
+# looks usable but a fluent writer would not pick it. Optional; shown to distillation
+# teachers so they stop forcing the phrase, and used to write contrast seeds.
+NOT_FOR_RE = re.compile(r"^\s*[*-]\s+\*\*Not for\*\*\s*:\s*(.+)$", re.MULTILINE | re.IGNORECASE)
 
 
 @dataclass
@@ -36,6 +40,7 @@ class ParsedEntry:
     anchor: str
     definition: str = ""
     synonyms: list[str] = field(default_factory=list)
+    not_for: str = ""
     extra: dict[str, str] = field(default_factory=dict)
 
 
@@ -105,6 +110,9 @@ def parse_lexicon(markdown: str) -> list[ParsedEntry]:
             syn = SYNONYMS_RE.search(body)
             if syn:
                 current.synonyms = parse_synonyms(syn.group(1))
+            not_for = NOT_FOR_RE.search(body)
+            if not_for:
+                current.not_for = not_for.group(1).strip()
             m = _DEFINITION_RE.search(body)
             if m:
                 current.definition = m.group(1).strip()
