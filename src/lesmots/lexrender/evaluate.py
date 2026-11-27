@@ -50,6 +50,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from .forms import Matcher, is_common
+from .naturalness import Critic, add_critic_args, forced_count, make_critic
 from .parse import ParsedEntry, parse_lexicon
 from .render import MARKER, SYSTEM, _prompt, protected_spans
 
@@ -300,13 +301,22 @@ def repair_markers(lex: Lexicon, reply: str) -> str:
     return MARKER.sub(fix, reply or "")
 
 
-def judge(lex: Lexicon, text: str, reply: str) -> tuple[int, int]:
+def judge(lex: Lexicon, text: str, reply: str,
+          critic: Critic | None = None) -> tuple[int, ...]:
     """Rank a reply without knowing the expected answer: first the checks that need no
     answer key (valid markers, unchanged unmarked sentences, protected text, length),
-    then the number of valid phrases. Used to pick the best of several samples."""
+    then the number of valid phrases. Used to pick the best of several samples.
+
+    With a ``critic`` (the guardrail), fewest forced phrases comes before phrase count:
+    a reply can't win best-of-N by squeezing in a phrase a fluent writer wouldn't pick.
+    The critic is only asked about replies that pass every structural check."""
     result = score(lex, {"id": "", "kind": "", "split": "", "text": text}, reply)
     ok = sum(result["checks"].values())
-    return ok, len(result["used"])
+    if critic is None:
+        return ok, len(result["used"])
+    forced = (forced_count(critic, lex, text, reply)
+              if ok == len(result["checks"]) and result["used"] else 0)
+    return ok, -forced, len(result["used"])
 
 
 # --- running a model -----------------------------------------------------------------
@@ -339,13 +349,15 @@ def openai_complete(base_url: str, model: str, api_key: str = "",
 
 def run(lex: Lexicon, cases: list[dict], complete: Complete,
         prompt: Callable[[str], str] | None = None, *, repair: bool = False,
-        sample: Complete | None = None, samples: int = 1) -> list[dict]:
+        sample: Complete | None = None, samples: int = 1,
+        critic: Critic | None = None) -> list[dict]:
     """``prompt`` builds the model's prompt from an answer; the default is the production
     prompt over the whole lexicon (``--candidates`` swaps in the dedicated model's).
 
     ``repair`` runs :func:`repair_markers` on every reply. With ``samples`` > 1 the first
     reply is ``complete``'s (greedy) and the rest come from ``sample`` (temperature > 0);
-    :func:`judge` keeps the best, without looking at the case's expected entries.
+    :func:`judge` keeps the best, without looking at the case's expected entries. A
+    ``critic`` turns on the judge's naturalness guardrail (see :mod:`.naturalness`).
     """
     prompt = prompt or lex.prompt
     results = []
@@ -360,7 +372,10 @@ def run(lex: Lexicon, cases: list[dict], complete: Complete,
                 error = error or f"{type(exc).__name__}: {exc}"
         if repair:
             replies = [repair_markers(lex, r) for r in replies]
-        reply = max(replies, key=lambda r: judge(lex, case["text"], r)) if replies else ""
+        if len(replies) > 1:
+            reply = max(replies, key=lambda r: judge(lex, case["text"], r, critic))
+        else:
+            reply = replies[0] if replies else ""
         result = score(lex, case, reply)
         result["seconds"] = round(time.monotonic() - start, 2)
         result["reply"] = reply
@@ -409,6 +424,7 @@ def main(argv: list[str] | None = None) -> int:
                    help="replies per case; the judge keeps the best (1 = greedy only)")
     p.add_argument("--temperature", type=float, default=0.7,
                    help="temperature for samples after the first (the first is greedy)")
+    add_critic_args(p)
 
     p = sub.add_parser("score", help="score replies collected elsewhere")
     p.add_argument("--outputs", type=Path, required=True,
@@ -478,7 +494,8 @@ def main(argv: list[str] | None = None) -> int:
         sample = (openai_complete(args.base_url, args.model, args.api_key,
                                   temperature=args.temperature) if args.samples > 1 else None)
         results = run(lex, chosen, openai_complete(args.base_url, args.model, args.api_key),
-                      prompt, repair=args.repair, sample=sample, samples=args.samples)
+                      prompt, repair=args.repair, sample=sample, samples=args.samples,
+                      critic=make_critic(args))
     else:
         by_id = {c["id"]: c for c in cases}
         replies = [json.loads(line) for line in args.outputs.read_text().splitlines()
