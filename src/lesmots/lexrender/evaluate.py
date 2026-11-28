@@ -307,16 +307,17 @@ def judge(lex: Lexicon, text: str, reply: str,
     answer key (valid markers, unchanged unmarked sentences, protected text, length),
     then the number of valid phrases. Used to pick the best of several samples.
 
-    With a ``critic`` (the guardrail), fewest forced phrases comes before phrase count:
-    a reply can't win best-of-N by squeezing in a phrase a fluent writer wouldn't pick.
-    The critic is only asked about replies that pass every structural check."""
+    With a ``critic`` (the guardrail), fewest forced phrases breaks ties *after* phrase
+    count (Marine's order, 2026-11-28: exposure first). Among replies with the same number
+    of phrases, the one with fewer phrases a fluent writer wouldn't pick wins. The critic
+    is only asked about replies that pass every structural check."""
     result = score(lex, {"id": "", "kind": "", "split": "", "text": text}, reply)
     ok = sum(result["checks"].values())
     if critic is None:
         return ok, len(result["used"])
     forced = (forced_count(critic, lex, text, reply)
               if ok == len(result["checks"]) and result["used"] else 0)
-    return ok, -forced, len(result["used"])
+    return ok, len(result["used"]), -forced
 
 
 # --- running a model -----------------------------------------------------------------

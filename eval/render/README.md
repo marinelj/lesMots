@@ -74,6 +74,6 @@ The checks (all must pass) are listed at the top of `src/lesmots/lexrender/evalu
 Best-of-N (`--samples N`) keeps the reply the judge ranks first: structural checks, then
 the most phrases. That rewards a phrase squeezed in to earn a link, so give it a critic
 model with `--critic-codex-url` (or `--critic-base-url`): the judge then ranks by checks,
-then by *fewest forced phrases* (ones a fluent writer would not choose with no lexicon in
-sight), and only then by phrase count. The critic costs one call per passing sample, and
+then by phrase count, and then by *fewest forced phrases* (ones a fluent writer would not
+choose with no lexicon in sight), so exposure comes first and the critic breaks ties. The critic costs one call per passing sample, and
 a failed call counts as no forced phrase. See `src/lesmots/lexrender/naturalness.py`.
