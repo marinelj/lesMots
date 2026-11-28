@@ -9,8 +9,8 @@ writing"). Rules cannot judge that, so a model does: the *critic*, any ``(prompt
 Two uses:
 
 * the **judge guardrail** (``evaluate.judge``): best-of-N ranks replies by structural
-  checks, then by *fewest forced phrases*, and only then by phrase count, so eagerness
-  wins only among replies that read naturally;
+  checks, then by phrase count, and then by *fewest forced phrases*, so among replies
+  with equally many phrases the most natural one wins;
 * the **naturalness pass** in distillation (``distill natural``): the critic undoes forced
   phrases in the teacher's rewrites, restoring the answer's own wording, before export.
 

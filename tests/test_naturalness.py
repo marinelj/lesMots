@@ -60,12 +60,13 @@ def test_judge_without_a_critic_still_prefers_more_phrases(lex):
     assert judge(lex, TEXT, TWO) > judge(lex, TEXT, ONE)
 
 
-def test_judge_guardrail_puts_fewer_forced_phrases_before_more_phrases(lex):
+def test_judge_guardrail_breaks_ties_after_phrase_count(lex):
     critic = critic_forcing("rely-on")
-    assert judge(lex, TEXT, ONE, critic) > judge(lex, TEXT, TWO, critic)
-    # among replies with no forced phrase, more phrases still win
     fine = critic_forcing()
-    assert judge(lex, TEXT, TWO, fine) > judge(lex, TEXT, ONE, fine)
+    # more phrases still win, even when one of them is forced (exposure first)
+    assert judge(lex, TEXT, TWO, critic) > judge(lex, TEXT, ONE, critic)
+    # with equally many phrases, the reply with fewer forced phrases wins
+    assert judge(lex, TEXT, TWO, fine) > judge(lex, TEXT, TWO, critic)
     # the critic is only asked about replies that pass the structural checks
     calls = len(critic.calls)
     judge(lex, TEXT, TEXT, critic)
